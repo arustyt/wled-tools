@@ -6,7 +6,7 @@
   "vid": 2104150,
   "id": {
     "mdns": "wled-f6dafd",
-    "name": "WLED",
+    "name": "wled-roof",
     "inv": "Light"
   },
   "nw": {
@@ -70,6 +70,18 @@
           "rev": false,
           "skip": 1,
           "type": 22
+        },
+        {
+          "en": true,
+          "start": 222,
+          "len": 207,
+          "pin": [
+            3
+          ],
+          "order": 1,
+          "rev": false,
+          "skip": 0,
+          "type": 22
         }
       ]
     },
@@ -119,15 +131,7 @@
   "def": {
     "ps": 0,
     "on": true,
-    "bri": 128,
-    "cy": {
-      "on": true,
-      "range": [
-        3,
-        6
-      ],
-      "dur": 300
-    }
+    "bri": 128
   },
   "if": {
     "sync": {

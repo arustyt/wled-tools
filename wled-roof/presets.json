@@ -1,1 +1,1034 @@
-{"0":{},"1":{"n":"Multi","on":true,"bri":128,"transition":7,"mainseg":0,"seg":[{"id":0,"start":0,"stop":300,"grp":1,"spc":0,"on":true,"bri":255,"col":[[255,13,0],[0,255,0],[255,255,255]],"fx":16,"sx":128,"ix":128,"pal":0,"sel":false,"rev":false,"mi":false},{"id":1,"start":150,"stop":300,"grp":1,"spc":0,"on":true,"bri":255,"col":[[102,153,0],[0,0,0],[0,0,0]],"fx":114,"sx":128,"ix":128,"pal":0,"sel":true,"rev":true,"mi":false},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0}]},"2":{"on":true,"bri":128,"transition":7,"mainseg":0,"seg":[{"id":0,"start":0,"stop":114,"grp":1,"spc":0,"on":true,"bri":255,"col":[[255,13,0],[0,255,0],[255,255,255]],"fx":81,"sx":128,"ix":128,"pal":11,"sel":true,"rev":false,"mi":false},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0}],"n":"Twinklecat"},"3":{"on":true,"bri":128,"transition":7,"mainseg":0,"seg":[{"id":0,"start":0,"stop":222,"grp":1,"spc":0,"on":true,"bri":255,"col":[[255,13,0],[0,255,0],[255,255,255]],"fx":114,"sx":128,"ix":128,"pal":0,"sel":true,"rev":false,"mi":false},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0}],"n":"Candy Cane"},"4":{"n":"Christmas ","on":true,"bri":133,"transition":7,"mainseg":0,"seg":[{"id":0,"start":0,"stop":222,"grp":1,"spc":0,"on":true,"bri":255,"col":[[255,13,0],[0,255,0],[255,255,255]],"fx":37,"sx":122,"ix":128,"pal":0,"sel":true,"rev":true,"mi":false},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0}]} ,"5":{"n":"Twinkle ","on":true,"bri":133,"transition":7,"mainseg":0,"seg":[{"id":0,"start":0,"stop":222,"grp":1,"spc":0,"on":true,"bri":255,"col":[[255,255,255],[0,0,191],[255,255,255]],"fx":106,"sx":122,"ix":128,"pal":0,"sel":true,"rev":false,"mi":false},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0}]},"6":{"n":"Candy Cane 2","on":true,"bri":133,"transition":7,"mainseg":0,"seg":[{"id":0,"start":0,"stop":115,"grp":1,"spc":0,"on":true,"bri":255,"col":[[255,255,255],[0,0,191],[255,255,255]],"fx":114,"sx":122,"ix":128,"pal":0,"sel":true,"rev":false,"mi":false},{"id":1,"start":115,"stop":222,"grp":1,"spc":0,"on":true,"bri":255,"col":[[102,153,0],[0,0,0],[0,0,0]],"fx":114,"sx":128,"ix":128,"pal":0,"sel":false,"rev":true,"mi":false},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0}]}}
+{
+  "0": {},
+  "1": {
+    "n": "Multi",
+    "on": true,
+    "bri": 128,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 300,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            255,
+            13,
+            0
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 16,
+        "sx": 128,
+        "ix": 128,
+        "pal": 0,
+        "sel": false,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "id": 1,
+        "start": 150,
+        "stop": 300,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            102,
+            153,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "fx": 114,
+        "sx": 128,
+        "ix": 128,
+        "pal": 0,
+        "sel": true,
+        "rev": true,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ]
+  },
+  "2": {
+    "on": true,
+    "bri": 128,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 114,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            255,
+            13,
+            0
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 81,
+        "sx": 128,
+        "ix": 128,
+        "pal": 11,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ],
+    "n": "Twinklecat"
+  },
+  "3": {
+    "on": true,
+    "bri": 128,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 222,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            255,
+            13,
+            0
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 114,
+        "sx": 128,
+        "ix": 128,
+        "pal": 0,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ],
+    "n": "Candy Cane"
+  },
+  "4": {
+    "n": "Christmas ",
+    "on": true,
+    "bri": 133,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 222,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            255,
+            13,
+            0
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 37,
+        "sx": 122,
+        "ix": 128,
+        "pal": 0,
+        "sel": true,
+        "rev": true,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ]
+  },
+  "5": {
+    "n": "Twinkle ",
+    "on": true,
+    "bri": 133,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 222,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            0,
+            0,
+            191
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 106,
+        "sx": 122,
+        "ix": 128,
+        "pal": 0,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ]
+  },
+  "6": {
+    "n": "Candy Cane 2",
+    "on": true,
+    "bri": 133,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 115,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            0,
+            0,
+            191
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 114,
+        "sx": 122,
+        "ix": 128,
+        "pal": 0,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "id": 1,
+        "start": 115,
+        "stop": 222,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            102,
+            153,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "fx": 114,
+        "sx": 128,
+        "ix": 128,
+        "pal": 0,
+        "sel": false,
+        "rev": true,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ]
+  },
+  "7": {
+    "n": "XmasColorTwinkles",
+    "on": true,
+    "bri": 52,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 222,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            8,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 74,
+        "sx": 123,
+        "ix": 121,
+        "pal": 5,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ]
+  },
+  "8": {
+    "n": "CandleMulti",
+    "on": true,
+    "bri": 52,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 222,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            255,
+            153,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "fx": 102,
+        "sx": 125,
+        "ix": 255,
+        "pal": 0,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ]
+  },
+  "9": {
+    "n": "TwinkleFoxRainbow",
+    "on": true,
+    "bri": 52,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 222,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            255,
+            153,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "fx": 80,
+        "sx": 125,
+        "ix": 255,
+        "pal": 11,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ]
+  },
+  "10": {
+    "n": "TriChaseXmas",
+    "on": true,
+    "bri": 52,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 222,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            8,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 54,
+        "sx": 255,
+        "ix": 130,
+        "pal": 0,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ]
+  },
+  "11": {
+    "n": "ChunChunXmas",
+    "on": true,
+    "bri": 52,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 222,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            8,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 111,
+        "sx": 131,
+        "ix": 20,
+        "pal": 0,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ]
+  },
+  "12": {
+    "n": "Tetrix",
+    "on": true,
+    "bri": 128,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 222,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            255,
+            13,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 44,
+        "sx": 255,
+        "ix": 128,
+        "pal": 6,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ]
+  }
+}
