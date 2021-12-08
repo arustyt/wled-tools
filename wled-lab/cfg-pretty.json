@@ -5,8 +5,8 @@
   ],
   "vid": 2104020,
   "id": {
-    "mdns": "wled-roof",
-    "name": "WLED",
+    "mdns": "wled-lab",
+    "name": "wled-lab",
     "inv": "Light"
   },
   "nw": {
@@ -62,21 +62,9 @@
         {
           "en": true,
           "start": 0,
-          "len": 150,
+          "len": 300,
           "pin": [
             2
-          ],
-          "order": 0,
-          "rev": false,
-          "skip": 0,
-          "type": 22
-        },
-        {
-          "en": true,
-          "start": 150,
-          "len": 150,
-          "pin": [
-            1
           ],
           "order": 0,
           "rev": false,
