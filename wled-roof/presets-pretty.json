@@ -14,7 +14,7 @@
         "grp": 1,
         "spc": 0,
         "on": true,
-        "bri": 255,
+        "bri": 128,
         "col": [
           [
             255,
@@ -47,7 +47,7 @@
         "grp": 1,
         "spc": 0,
         "on": true,
-        "bri": 255,
+        "bri": 128,
         "col": [
           [
             102,
@@ -130,7 +130,7 @@
         "grp": 1,
         "spc": 0,
         "on": true,
-        "bri": 255,
+        "bri": 128,
         "col": [
           [
             255,
@@ -217,7 +217,7 @@
         "grp": 1,
         "spc": 0,
         "on": true,
-        "bri": 255,
+        "bri": 128,
         "col": [
           [
             255,
@@ -294,7 +294,7 @@
   "4": {
     "n": "Christmas ",
     "on": true,
-    "bri": 133,
+    "bri": 128,
     "transition": 7,
     "mainseg": 0,
     "seg": [
@@ -305,7 +305,7 @@
         "grp": 1,
         "spc": 0,
         "on": true,
-        "bri": 255,
+        "bri": 128,
         "col": [
           [
             255,
@@ -381,7 +381,7 @@
   "5": {
     "n": "Twinkle ",
     "on": true,
-    "bri": 133,
+    "bri": 128,
     "transition": 7,
     "mainseg": 0,
     "seg": [
@@ -392,7 +392,7 @@
         "grp": 1,
         "spc": 0,
         "on": true,
-        "bri": 255,
+        "bri": 128,
         "col": [
           [
             255,
@@ -468,7 +468,7 @@
   "6": {
     "n": "Candy Cane 2",
     "on": true,
-    "bri": 133,
+    "bri": 128,
     "transition": 7,
     "mainseg": 0,
     "seg": [
@@ -479,7 +479,7 @@
         "grp": 1,
         "spc": 0,
         "on": true,
-        "bri": 255,
+        "bri": 128,
         "col": [
           [
             255,
@@ -512,7 +512,7 @@
         "grp": 1,
         "spc": 0,
         "on": true,
-        "bri": 255,
+        "bri": 128,
         "col": [
           [
             102,
@@ -585,7 +585,7 @@
   "7": {
     "n": "XmasColorTwinkles",
     "on": true,
-    "bri": 52,
+    "bri": 128,
     "mainseg": 0,
     "seg": [
       {
@@ -595,7 +595,7 @@
         "grp": 1,
         "spc": 0,
         "on": true,
-        "bri": 255,
+        "bri": 128,
         "col": [
           [
             255,
@@ -659,7 +659,7 @@
   "8": {
     "n": "CandleMulti",
     "on": true,
-    "bri": 52,
+    "bri": 128,
     "transition": 7,
     "mainseg": 0,
     "seg": [
@@ -670,7 +670,7 @@
         "grp": 1,
         "spc": 0,
         "on": true,
-        "bri": 255,
+        "bri": 128,
         "col": [
           [
             255,
@@ -734,7 +734,7 @@
   "9": {
     "n": "TwinkleFoxRainbow",
     "on": true,
-    "bri": 52,
+    "bri": 128,
     "transition": 7,
     "mainseg": 0,
     "seg": [
@@ -745,7 +745,7 @@
         "grp": 1,
         "spc": 0,
         "on": true,
-        "bri": 255,
+        "bri": 128,
         "col": [
           [
             255,
@@ -809,7 +809,7 @@
   "10": {
     "n": "TriChaseXmas",
     "on": true,
-    "bri": 52,
+    "bri": 128,
     "transition": 7,
     "mainseg": 0,
     "seg": [
@@ -820,7 +820,7 @@
         "grp": 1,
         "spc": 0,
         "on": true,
-        "bri": 255,
+        "bri": 128,
         "col": [
           [
             255,
@@ -884,7 +884,7 @@
   "11": {
     "n": "ChunChunXmas",
     "on": true,
-    "bri": 52,
+    "bri": 128,
     "transition": 7,
     "mainseg": 0,
     "seg": [
@@ -895,7 +895,7 @@
         "grp": 1,
         "spc": 0,
         "on": true,
-        "bri": 255,
+        "bri": 128,
         "col": [
           [
             255,
@@ -914,8 +914,8 @@
           ]
         ],
         "fx": 111,
-        "sx": 131,
-        "ix": 20,
+        "sx": 128,
+        "ix": 16,
         "pal": 0,
         "sel": true,
         "rev": false,
@@ -966,11 +966,44 @@
       {
         "id": 0,
         "start": 0,
+        "stop": 115,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 128,
+        "col": [
+          [
+            255,
+            13,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 44,
+        "sx": 255,
+        "ix": 128,
+        "pal": 6,
+        "sel": true,
+        "rev": true,
+        "mi": false
+      },
+      {
+        "id": 1,
+        "start": 115,
         "stop": 222,
         "grp": 1,
         "spc": 0,
         "on": true,
-        "bri": 255,
+        "bri": 128,
         "col": [
           [
             255,
@@ -995,9 +1028,6 @@
         "sel": true,
         "rev": false,
         "mi": false
-      },
-      {
-        "stop": 0
       },
       {
         "stop": 0
