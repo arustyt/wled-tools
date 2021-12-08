@@ -1,0 +1,408 @@
+{
+  "0": {},
+  "1": {
+    "on": true,
+    "bri": 208,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 300,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            255,
+            160,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "fx": 102,
+        "sx": 128,
+        "ix": 205,
+        "pal": 0,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ],
+    "n": "Candles"
+  },
+  "2": {
+    "on": true,
+    "bri": 208,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 300,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            255,
+            160,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "fx": 74,
+        "sx": 128,
+        "ix": 125,
+        "pal": 0,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ],
+    "n": "Twinkles"
+  },
+  "4": {
+    "n": "Candy Cane",
+    "on": true,
+    "bri": 128,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 100,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            255,
+            0,
+            8
+          ],
+          [
+            0,
+            255,
+            42
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "fx": 114,
+        "sx": 128,
+        "ix": 125,
+        "pal": 0,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ]
+  },
+  "3": {
+    "on": true,
+    "bri": 128,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 100,
+        "stop": 200,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            255,
+            0,
+            8
+          ],
+          [
+            0,
+            255,
+            42
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "fx": 37,
+        "sx": 128,
+        "ix": 125,
+        "pal": 0,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ],
+    "n": "Christmas"
+  },
+  "5": {
+    "n": "Multiple ",
+    "on": true,
+    "bri": 128,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 150,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            255,
+            0,
+            8
+          ],
+          [
+            0,
+            255,
+            42
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "fx": 37,
+        "sx": 128,
+        "ix": 125,
+        "pal": 0,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "id": 1,
+        "start": 150,
+        "stop": 300,
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 255,
+        "col": [
+          [
+            102,
+            153,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "fx": 114,
+        "sx": 128,
+        "ix": 128,
+        "pal": 0,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ]
+  }
+}
