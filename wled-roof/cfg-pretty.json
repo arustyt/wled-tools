@@ -54,8 +54,8 @@
   },
   "hw": {
     "led": {
-      "total": 222,
-      "maxpwr": 7500,
+      "total": 342,
+      "maxpwr": 15000,
       "ledma": 55,
       "rgbwm": 0,
       "ins": [
@@ -74,13 +74,13 @@
         {
           "en": true,
           "start": 222,
-          "len": 207,
+          "len": 120,
           "pin": [
             3
           ],
           "order": 1,
           "rev": false,
-          "skip": 0,
+          "skip": 1,
           "type": 22
         }
       ]
