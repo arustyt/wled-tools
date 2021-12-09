@@ -80,7 +80,7 @@
           ],
           "order": 1,
           "rev": false,
-          "skip": 1,
+          "skip": 0,
           "type": 22
         }
       ]
@@ -129,9 +129,17 @@
     }
   },
   "def": {
-    "ps": 0,
+    "ps": 12,
     "on": true,
-    "bri": 128
+    "bri": 128,
+    "cy": {
+      "on": true,
+      "range": [
+        3,
+        12
+      ],
+      "dur": 300
+    }
   },
   "if": {
     "sync": {
