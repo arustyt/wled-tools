@@ -3,7 +3,7 @@
     1,
     0
   ],
-  "vid": 2104020,
+  "vid": 2112080,
   "id": {
     "mdns": "wled-lab",
     "name": "wled-lab",
@@ -49,18 +49,19 @@
     ]
   },
   "wifi": {
-    "sleep": true,
-    "phy": 1
+    "sleep": true
   },
   "hw": {
     "led": {
       "total": 300,
       "maxpwr": 10000,
       "ledma": 55,
+      "cct": false,
+      "cr": false,
+      "cb": 0,
       "rgbwm": 3,
       "ins": [
         {
-          "en": true,
           "start": 0,
           "len": 300,
           "pin": [
@@ -69,11 +70,14 @@
           "order": 0,
           "rev": false,
           "skip": 0,
-          "type": 22
+          "type": 22,
+          "ref": false,
+          "rgbw": false
         }
       ]
     },
     "btn": {
+      "max": 2,
       "ins": [
         {
           "type": 2,
@@ -85,8 +89,21 @@
             0,
             0
           ]
+        },
+        {
+          "type": 0,
+          "pin": [
+            -1
+          ],
+          "macros": [
+            0,
+            0,
+            0
+          ]
         }
-      ]
+      ],
+      "tt": 32,
+      "mqtt": false
     },
     "ir": {
       "pin": -1,
@@ -100,6 +117,7 @@
   "light": {
     "scale-bri": 100,
     "pal-mode": 0,
+    "aseg": false,
     "gc": {
       "bri": 1,
       "col": 2.8
@@ -128,7 +146,8 @@
       "recv": {
         "bri": true,
         "col": true,
-        "fx": true
+        "fx": true,
+        "grp": 1
       },
       "send": {
         "dir": true,
@@ -136,7 +155,8 @@
         "va": false,
         "hue": true,
         "macro": false,
-        "twice": false
+        "twice": false,
+        "grp": 1
       }
     },
     "nodes": {
@@ -203,7 +223,9 @@
       "host": "0.wled.pool.ntp.org",
       "tz": 0,
       "offset": 0,
-      "ampm": false
+      "ampm": false,
+      "ln": 0,
+      "lt": 0
     }
   },
   "ol": {
@@ -230,9 +252,9 @@
     "ins": []
   },
   "ota": {
-    "lock": false,
+    "lock": true,
     "lock-wifi": false,
-    "pskl": 7,
+    "pskl": 10,
     "aota": true
   },
   "um": {}
