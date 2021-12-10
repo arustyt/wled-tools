@@ -3,7 +3,7 @@
     1,
     0
   ],
-  "vid": 2104150,
+  "vid": 2112080,
   "id": {
     "mdns": "wled-f6dafd",
     "name": "wled-roof",
@@ -49,30 +49,32 @@
     ]
   },
   "wifi": {
-    "sleep": true,
-    "phy": 1
+    "sleep": true
   },
   "hw": {
     "led": {
       "total": 342,
       "maxpwr": 15000,
       "ledma": 55,
+      "cct": false,
+      "cr": false,
+      "cb": 0,
       "rgbwm": 0,
       "ins": [
         {
-          "en": true,
           "start": 0,
-          "len": 222,
+          "len": 225,
           "pin": [
             16
           ],
           "order": 1,
           "rev": false,
           "skip": 1,
-          "type": 22
+          "type": 22,
+          "ref": false,
+          "rgbw": false
         },
         {
-          "en": true,
           "start": 222,
           "len": 120,
           "pin": [
@@ -81,11 +83,14 @@
           "order": 1,
           "rev": false,
           "skip": 0,
-          "type": 22
+          "type": 22,
+          "ref": false,
+          "rgbw": false
         }
       ]
     },
     "btn": {
+      "max": 4,
       "ins": [
         {
           "type": 2,
@@ -97,8 +102,43 @@
             0,
             0
           ]
+        },
+        {
+          "type": 0,
+          "pin": [
+            -1
+          ],
+          "macros": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "type": 0,
+          "pin": [
+            -1
+          ],
+          "macros": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "type": 0,
+          "pin": [
+            -1
+          ],
+          "macros": [
+            0,
+            0,
+            0
+          ]
         }
-      ]
+      ],
+      "tt": 32,
+      "mqtt": false
     },
     "ir": {
       "pin": -1,
@@ -112,6 +152,7 @@
   "light": {
     "scale-bri": 100,
     "pal-mode": 0,
+    "aseg": false,
     "gc": {
       "bri": 1,
       "col": 2.8
@@ -131,15 +172,7 @@
   "def": {
     "ps": 12,
     "on": true,
-    "bri": 128,
-    "cy": {
-      "on": true,
-      "range": [
-        3,
-        12
-      ],
-      "dur": 300
-    }
+    "bri": 128
   },
   "if": {
     "sync": {
@@ -148,7 +181,8 @@
       "recv": {
         "bri": true,
         "col": true,
-        "fx": true
+        "fx": true,
+        "grp": 1
       },
       "send": {
         "dir": false,
@@ -156,7 +190,8 @@
         "va": false,
         "hue": true,
         "macro": false,
-        "twice": false
+        "twice": false,
+        "grp": 1
       }
     },
     "nodes": {
@@ -252,9 +287,9 @@
     "ins": []
   },
   "ota": {
-    "lock": false,
+    "lock": true,
     "lock-wifi": false,
-    "pskl": 7,
+    "pskl": 11,
     "aota": true
   },
   "um": {}
