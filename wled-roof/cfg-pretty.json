@@ -53,7 +53,7 @@
   },
   "hw": {
     "led": {
-      "total": 342,
+      "total": 345,
       "maxpwr": 15000,
       "ledma": 55,
       "cct": false,
@@ -76,13 +76,13 @@
         },
         {
           "start": 222,
-          "len": 120,
+          "len": 123,
           "pin": [
             3
           ],
           "order": 1,
           "rev": false,
-          "skip": 0,
+          "skip": 1,
           "type": 22,
           "ref": false,
           "rgbw": false
@@ -170,7 +170,7 @@
     }
   },
   "def": {
-    "ps": 12,
+    "ps": 13,
     "on": true,
     "bri": 128
   },
