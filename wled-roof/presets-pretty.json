@@ -1,6 +1,241 @@
 {
   "0": {},
-  "1": {},
+  "1": {
+    "n": "Segment Test",
+    "on": true,
+    "bri": 128,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 114,
+        "grp": 1,
+        "spc": 0,
+        "of": 0,
+        "on": true,
+        "bri": 128,
+        "cct": 127,
+        "n": "Garage",
+        "col": [
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 0,
+        "sx": 122,
+        "ix": 128,
+        "pal": 0,
+        "sel": true,
+        "rev": true,
+        "mi": false
+      },
+      {
+        "id": 1,
+        "start": 114,
+        "stop": 222,
+        "grp": 1,
+        "spc": 0,
+        "of": 0,
+        "on": true,
+        "bri": 128,
+        "cct": 127,
+        "n": "Porch",
+        "col": [
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 0,
+        "sx": 122,
+        "ix": 128,
+        "pal": 0,
+        "sel": true,
+        "rev": true,
+        "mi": false
+      },
+      {
+        "id": 2,
+        "start": 222,
+        "stop": 337,
+        "grp": 1,
+        "spc": 0,
+        "of": 0,
+        "on": true,
+        "bri": 128,
+        "cct": 127,
+        "n": "Second Floor",
+        "col": [
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 0,
+        "sx": 122,
+        "ix": 128,
+        "pal": 0,
+        "sel": true,
+        "rev": true,
+        "mi": false
+      },
+      {
+        "id": 3,
+        "start": 337,
+        "stop": 449,
+        "grp": 1,
+        "spc": 0,
+        "of": 0,
+        "on": true,
+        "bri": 255,
+        "cct": 127,
+        "col": [
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 0,
+        "sx": 122,
+        "ix": 128,
+        "pal": 0,
+        "sel": true,
+        "rev": true,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ]
+  },
   "2": {},
   "3": {
     "on": true,
@@ -620,7 +855,6 @@
     ]
   },
   "8": {
-    "n": "CandleMulti",
     "on": true,
     "bri": 128,
     "transition": 7,
@@ -662,7 +896,7 @@
       {
         "id": 1,
         "start": 222,
-        "stop": 342,
+        "stop": 442,
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -725,7 +959,8 @@
       {
         "stop": 0
       }
-    ]
+    ],
+    "n": "CandleMulti"
   },
   "9": {
     "n": "TwinkleFoxRainbow",
