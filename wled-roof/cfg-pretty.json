@@ -53,8 +53,8 @@
   },
   "hw": {
     "led": {
-      "total": 449,
-      "maxpwr": 15000,
+      "total": 448,
+      "maxpwr": 20000,
       "ledma": 55,
       "cct": false,
       "cr": false,
@@ -63,7 +63,7 @@
       "ins": [
         {
           "start": 0,
-          "len": 223,
+          "len": 228,
           "pin": [
             16
           ],
@@ -76,7 +76,7 @@
         },
         {
           "start": 222,
-          "len": 227,
+          "len": 226,
           "pin": [
             3
           ],
@@ -287,7 +287,7 @@
     "ins": []
   },
   "ota": {
-    "lock": true,
+    "lock": false,
     "lock-wifi": false,
     "pskl": 11,
     "aota": true

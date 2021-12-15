@@ -1,7 +1,6 @@
 {
   "0": {},
   "1": {
-    "n": "Segment Test",
     "on": true,
     "bri": 128,
     "transition": 7,
@@ -118,7 +117,7 @@
       {
         "id": 3,
         "start": 337,
-        "stop": 449,
+        "stop": 439,
         "grp": 1,
         "spc": 0,
         "of": 0,
@@ -234,7 +233,8 @@
       {
         "stop": 0
       }
-    ]
+    ],
+    "n": "Segment Test"
   },
   "2": {},
   "3": {
