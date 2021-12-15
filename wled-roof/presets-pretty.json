@@ -124,6 +124,7 @@
         "on": true,
         "bri": 255,
         "cct": 127,
+        "n": "Peak",
         "col": [
           [
             0,
@@ -148,90 +149,6 @@
         "sel": true,
         "rev": true,
         "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
       }
     ],
     "n": "Segment Test"
