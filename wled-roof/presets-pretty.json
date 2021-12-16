@@ -10,13 +10,13 @@
         "id": 0,
         "start": 0,
         "stop": 114,
+        "n": "Garage",
         "grp": 1,
         "spc": 0,
         "of": 0,
         "on": true,
         "bri": 128,
         "cct": 127,
-        "n": "Garage",
         "col": [
           [
             255,
@@ -46,13 +46,13 @@
         "id": 1,
         "start": 114,
         "stop": 222,
+        "n": "Porch",
         "grp": 1,
         "spc": 0,
         "of": 0,
         "on": true,
         "bri": 128,
         "cct": 127,
-        "n": "Porch",
         "col": [
           [
             0,
@@ -82,13 +82,13 @@
         "id": 2,
         "start": 222,
         "stop": 337,
+        "n": "Over Porch",
         "grp": 1,
         "spc": 0,
         "of": 0,
         "on": true,
         "bri": 128,
         "cct": 127,
-        "n": "Second Floor",
         "col": [
           [
             255,
@@ -118,13 +118,13 @@
         "id": 3,
         "start": 337,
         "stop": 439,
+        "n": "Peak",
         "grp": 1,
         "spc": 0,
         "of": 0,
         "on": true,
         "bri": 255,
         "cct": 127,
-        "n": "Peak",
         "col": [
           [
             0,
@@ -164,6 +164,7 @@
         "id": 0,
         "start": 0,
         "stop": 222,
+        "n": "First Floor",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -196,7 +197,8 @@
       {
         "id": 1,
         "start": 222,
-        "stop": 342,
+        "stop": 439,
+        "n": "Second Floor",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -225,51 +227,6 @@
         "sel": true,
         "rev": true,
         "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
       }
     ],
     "n": "Candy Cane"
@@ -285,6 +242,7 @@
         "id": 0,
         "start": 0,
         "stop": 222,
+        "n": "First Floor",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -317,7 +275,8 @@
       {
         "id": 1,
         "start": 222,
-        "stop": 342,
+        "stop": 439,
+        "n": "Second Floor",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -346,51 +305,6 @@
         "sel": true,
         "rev": false,
         "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
       }
     ]
   },
@@ -405,6 +319,7 @@
         "id": 0,
         "start": 0,
         "stop": 222,
+        "n": "First Floor",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -437,7 +352,8 @@
       {
         "id": 1,
         "start": 222,
-        "stop": 342,
+        "stop": 439,
+        "n": "Second Floor",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -466,51 +382,6 @@
         "sel": true,
         "rev": true,
         "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
       }
     ]
   },
@@ -524,7 +395,8 @@
       {
         "id": 0,
         "start": 0,
-        "stop": 115,
+        "stop": 114,
+        "n": "Garage",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -556,8 +428,9 @@
       },
       {
         "id": 1,
-        "start": 115,
+        "start": 114,
         "stop": 222,
+        "n": "Porch",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -590,7 +463,8 @@
       {
         "id": 2,
         "start": 222,
-        "stop": 342,
+        "stop": 337,
+        "n": "Over Porch",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -621,46 +495,38 @@
         "mi": false
       },
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
+        "id": 3,
+        "start": 337,
+        "stop": 439,
+        "n": "Peak",
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 128,
+        "col": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            0,
+            0,
+            191
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 114,
+        "sx": 122,
+        "ix": 128,
+        "pal": 0,
+        "sel": true,
+        "rev": true,
+        "mi": false
       }
     ]
   },
@@ -673,11 +539,12 @@
       {
         "id": 0,
         "start": 0,
-        "stop": 222,
+        "stop": 439,
+        "n": "Whole Roof",
         "grp": 1,
         "spc": 0,
         "on": true,
-        "bri": 128,
+        "bri": 192,
         "col": [
           [
             255,
@@ -697,81 +564,16 @@
         ],
         "fx": 74,
         "sx": 123,
-        "ix": 121,
+        "ix": 192,
         "pal": 5,
         "sel": true,
         "rev": false,
         "mi": false
-      },
-      {
-        "id": 1,
-        "start": 222,
-        "stop": 342,
-        "grp": 1,
-        "spc": 0,
-        "on": true,
-        "bri": 128,
-        "col": [
-          [
-            255,
-            0,
-            0
-          ],
-          [
-            8,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ]
-        ],
-        "fx": 74,
-        "sx": 123,
-        "ix": 121,
-        "pal": 5,
-        "sel": true,
-        "rev": true,
-        "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
       }
     ]
   },
   "8": {
+    "n": "CandleMulti",
     "on": true,
     "bri": 128,
     "transition": 7,
@@ -780,7 +582,8 @@
       {
         "id": 0,
         "start": 0,
-        "stop": 222,
+        "stop": 439,
+        "n": "Whole Roof",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -809,75 +612,8 @@
         "sel": true,
         "rev": false,
         "mi": false
-      },
-      {
-        "id": 1,
-        "start": 222,
-        "stop": 442,
-        "grp": 1,
-        "spc": 0,
-        "on": true,
-        "bri": 128,
-        "col": [
-          [
-            255,
-            153,
-            0
-          ],
-          [
-            0,
-            0,
-            0
-          ],
-          [
-            0,
-            0,
-            0
-          ]
-        ],
-        "fx": 102,
-        "sx": 125,
-        "ix": 255,
-        "pal": 0,
-        "sel": true,
-        "rev": true,
-        "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
       }
-    ],
-    "n": "CandleMulti"
+    ]
   },
   "9": {
     "n": "TwinkleFoxRainbow",
@@ -889,7 +625,8 @@
       {
         "id": 0,
         "start": 0,
-        "stop": 222,
+        "stop": 439,
+        "n": "Whole Roof",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -918,72 +655,6 @@
         "sel": true,
         "rev": false,
         "mi": false
-      },
-      {
-        "id": 1,
-        "start": 222,
-        "stop": 342,
-        "grp": 1,
-        "spc": 0,
-        "on": true,
-        "bri": 128,
-        "col": [
-          [
-            255,
-            153,
-            0
-          ],
-          [
-            0,
-            0,
-            0
-          ],
-          [
-            0,
-            0,
-            0
-          ]
-        ],
-        "fx": 80,
-        "sx": 125,
-        "ix": 255,
-        "pal": 11,
-        "sel": true,
-        "rev": true,
-        "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
       }
     ]
   },
@@ -998,6 +669,7 @@
         "id": 0,
         "start": 0,
         "stop": 222,
+        "n": "First Floor",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -1030,7 +702,8 @@
       {
         "id": 1,
         "start": 222,
-        "stop": 342,
+        "stop": 439,
+        "n": "Second Floor",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -1059,39 +732,6 @@
         "sel": true,
         "rev": true,
         "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
       }
     ]
   },
@@ -1106,6 +746,7 @@
         "id": 0,
         "start": 0,
         "stop": 222,
+        "n": "First Floor",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -1129,7 +770,7 @@
         ],
         "fx": 111,
         "sx": 128,
-        "ix": 16,
+        "ix": 12,
         "pal": 0,
         "sel": true,
         "rev": false,
@@ -1138,7 +779,8 @@
       {
         "id": 1,
         "start": 222,
-        "stop": 342,
+        "stop": 439,
+        "n": "Second Floor",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -1162,44 +804,11 @@
         ],
         "fx": 111,
         "sx": 128,
-        "ix": 16,
+        "ix": 12,
         "pal": 0,
         "sel": true,
         "rev": true,
         "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
       }
     ]
   },
@@ -1213,7 +822,8 @@
       {
         "id": 0,
         "start": 0,
-        "stop": 115,
+        "stop": 114,
+        "n": "Garage",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -1245,8 +855,9 @@
       },
       {
         "id": 1,
-        "start": 115,
+        "start": 114,
         "stop": 222,
+        "n": "Porch",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -1279,7 +890,8 @@
       {
         "id": 2,
         "start": 222,
-        "stop": 342,
+        "stop": 337,
+        "n": "Over Porch",
         "grp": 1,
         "spc": 0,
         "on": true,
@@ -1310,31 +922,38 @@
         "mi": false
       },
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
+        "id": 3,
+        "start": 337,
+        "stop": 439,
+        "n": "Peak",
+        "grp": 1,
+        "spc": 0,
+        "on": true,
+        "bri": 128,
+        "col": [
+          [
+            255,
+            13,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 44,
+        "sx": 255,
+        "ix": 128,
+        "pal": 11,
+        "sel": true,
+        "rev": false,
+        "mi": false
       }
     ]
   },
@@ -1381,6 +1000,51 @@
       "end": 0
     },
     "on": true,
-    "n": "Christmas"
+    "n": "Christmas Playlist"
+  },
+  "14": {
+    "playlist": {
+      "ps": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "dur": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "transition": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "repeat": 0,
+      "r": false,
+      "end": 0
+    },
+    "on": true,
+    "n": "Christmas Test Playlist"
   }
 }
