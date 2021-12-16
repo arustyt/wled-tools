@@ -1,6 +1,7 @@
 {
   "0": {},
   "1": {
+    "n": "Segment Test",
     "on": true,
     "bri": 128,
     "transition": 7,
@@ -150,11 +151,11 @@
         "rev": true,
         "mi": false
       }
-    ],
-    "n": "Segment Test"
+    ]
   },
   "2": {},
   "3": {
+    "n": "Candy Cane",
     "on": true,
     "bri": 128,
     "transition": 7,
@@ -228,8 +229,7 @@
         "rev": true,
         "mi": false
       }
-    ],
-    "n": "Candy Cane"
+    ]
   },
   "4": {
     "n": "Christmas ",
@@ -958,6 +958,7 @@
     ]
   },
   "13": {
+    "n": "Christmas Playlist",
     "playlist": {
       "ps": [
         3,
@@ -999,10 +1000,10 @@
       "r": false,
       "end": 0
     },
-    "on": true,
-    "n": "Christmas Playlist"
+    "on": true
   },
   "14": {
+    "n": "Christmas Test Playlist",
     "playlist": {
       "ps": [
         3,
@@ -1044,7 +1045,6 @@
       "r": false,
       "end": 0
     },
-    "on": true,
-    "n": "Christmas Test Playlist"
+    "on": true
   }
 }
