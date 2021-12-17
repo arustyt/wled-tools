@@ -1,14 +1,17 @@
 {
   "0": {},
   "1": {
-    "n": "Segment Test",
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 0,
+    "mainseg": 1,
     "seg": [
       {
         "id": 0,
+        "stop": 0
+      },
+      {
+        "id": 1,
         "start": 0,
         "stop": 114,
         "n": "Garage",
@@ -44,7 +47,7 @@
         "mi": false
       },
       {
-        "id": 1,
+        "id": 2,
         "start": 114,
         "stop": 222,
         "n": "Porch",
@@ -80,7 +83,7 @@
         "mi": false
       },
       {
-        "id": 2,
+        "id": 3,
         "start": 222,
         "stop": 337,
         "n": "Over Porch",
@@ -116,7 +119,7 @@
         "mi": false
       },
       {
-        "id": 3,
+        "id": 4,
         "start": 337,
         "stop": 439,
         "n": "Peak",
@@ -150,19 +153,47 @@
         "sel": true,
         "rev": true,
         "mi": false
+      },
+      {
+        "id": 5,
+        "stop": 0
+      },
+      {
+        "id": 6,
+        "stop": 0
       }
-    ]
+    ],
+    "n": "Segment Test"
   },
   "2": {},
   "3": {
-    "n": "Candy Cane",
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 0,
+    "mainseg": 5,
     "seg": [
       {
         "id": 0,
+        "stop": 0
+      },
+      {
+        "id": 1,
+        "stop": 0
+      },
+      {
+        "id": 2,
+        "stop": 0
+      },
+      {
+        "id": 3,
+        "stop": 0
+      },
+      {
+        "id": 4,
+        "stop": 0
+      },
+      {
+        "id": 5,
         "start": 0,
         "stop": 222,
         "n": "First Floor",
@@ -188,7 +219,7 @@
           ]
         ],
         "fx": 114,
-        "sx": 192,
+        "sx": 128,
         "ix": 128,
         "pal": 0,
         "sel": true,
@@ -196,7 +227,7 @@
         "mi": false
       },
       {
-        "id": 1,
+        "id": 6,
         "start": 222,
         "stop": 439,
         "n": "Second Floor",
@@ -222,24 +253,45 @@
           ]
         ],
         "fx": 114,
-        "sx": 192,
+        "sx": 128,
         "ix": 128,
         "pal": 0,
         "sel": true,
         "rev": true,
         "mi": false
       }
-    ]
+    ],
+    "n": "Candy Cane"
   },
   "4": {
     "n": "Christmas ",
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 0,
+    "mainseg": 5,
     "seg": [
       {
         "id": 0,
+        "stop": 0
+      },
+      {
+        "id": 1,
+        "stop": 0
+      },
+      {
+        "id": 2,
+        "stop": 0
+      },
+      {
+        "id": 3,
+        "stop": 0
+      },
+      {
+        "id": 4,
+        "stop": 0
+      },
+      {
+        "id": 5,
         "start": 0,
         "stop": 222,
         "n": "First Floor",
@@ -265,7 +317,7 @@
           ]
         ],
         "fx": 37,
-        "sx": 192,
+        "sx": 122,
         "ix": 128,
         "pal": 0,
         "sel": true,
@@ -273,7 +325,7 @@
         "mi": false
       },
       {
-        "id": 1,
+        "id": 6,
         "start": 222,
         "stop": 439,
         "n": "Second Floor",
@@ -299,7 +351,7 @@
           ]
         ],
         "fx": 37,
-        "sx": 192,
+        "sx": 122,
         "ix": 128,
         "pal": 0,
         "sel": true,
@@ -313,10 +365,30 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 0,
+    "mainseg": 5,
     "seg": [
       {
         "id": 0,
+        "stop": 0
+      },
+      {
+        "id": 1,
+        "stop": 0
+      },
+      {
+        "id": 2,
+        "stop": 0
+      },
+      {
+        "id": 3,
+        "stop": 0
+      },
+      {
+        "id": 4,
+        "stop": 0
+      },
+      {
+        "id": 5,
         "start": 0,
         "stop": 222,
         "n": "First Floor",
@@ -350,7 +422,7 @@
         "mi": false
       },
       {
-        "id": 1,
+        "id": 6,
         "start": 222,
         "stop": 439,
         "n": "Second Floor",
@@ -390,10 +462,14 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 0,
+    "mainseg": 1,
     "seg": [
       {
         "id": 0,
+        "stop": 0
+      },
+      {
+        "id": 1,
         "start": 0,
         "stop": 114,
         "n": "Garage",
@@ -419,7 +495,7 @@
           ]
         ],
         "fx": 114,
-        "sx": 192,
+        "sx": 122,
         "ix": 128,
         "pal": 0,
         "sel": true,
@@ -427,7 +503,7 @@
         "mi": false
       },
       {
-        "id": 1,
+        "id": 2,
         "start": 114,
         "stop": 222,
         "n": "Porch",
@@ -453,7 +529,7 @@
           ]
         ],
         "fx": 114,
-        "sx": 192,
+        "sx": 128,
         "ix": 128,
         "pal": 0,
         "sel": false,
@@ -461,7 +537,7 @@
         "mi": false
       },
       {
-        "id": 2,
+        "id": 3,
         "start": 222,
         "stop": 337,
         "n": "Over Porch",
@@ -487,7 +563,7 @@
           ]
         ],
         "fx": 114,
-        "sx": 192,
+        "sx": 122,
         "ix": 128,
         "pal": 0,
         "sel": true,
@@ -495,7 +571,7 @@
         "mi": false
       },
       {
-        "id": 3,
+        "id": 4,
         "start": 337,
         "stop": 439,
         "n": "Peak",
@@ -521,12 +597,20 @@
           ]
         ],
         "fx": 114,
-        "sx": 192,
+        "sx": 122,
         "ix": 128,
         "pal": 0,
         "sel": true,
         "rev": true,
         "mi": false
+      },
+      {
+        "id": 5,
+        "stop": 0
+      },
+      {
+        "id": 6,
+        "stop": 0
       }
     ]
   },
@@ -569,6 +653,30 @@
         "sel": true,
         "rev": false,
         "mi": false
+      },
+      {
+        "id": 1,
+        "stop": 0
+      },
+      {
+        "id": 2,
+        "stop": 0
+      },
+      {
+        "id": 3,
+        "stop": 0
+      },
+      {
+        "id": 4,
+        "stop": 0
+      },
+      {
+        "id": 5,
+        "stop": 0
+      },
+      {
+        "id": 6,
+        "stop": 0
       }
     ]
   },
@@ -612,6 +720,30 @@
         "sel": true,
         "rev": false,
         "mi": false
+      },
+      {
+        "id": 1,
+        "stop": 0
+      },
+      {
+        "id": 2,
+        "stop": 0
+      },
+      {
+        "id": 3,
+        "stop": 0
+      },
+      {
+        "id": 4,
+        "stop": 0
+      },
+      {
+        "id": 5,
+        "stop": 0
+      },
+      {
+        "id": 6,
+        "stop": 0
       }
     ]
   },
@@ -655,6 +787,30 @@
         "sel": true,
         "rev": false,
         "mi": false
+      },
+      {
+        "id": 1,
+        "stop": 0
+      },
+      {
+        "id": 2,
+        "stop": 0
+      },
+      {
+        "id": 3,
+        "stop": 0
+      },
+      {
+        "id": 4,
+        "stop": 0
+      },
+      {
+        "id": 5,
+        "stop": 0
+      },
+      {
+        "id": 6,
+        "stop": 0
       }
     ]
   },
@@ -663,10 +819,30 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 0,
+    "mainseg": 5,
     "seg": [
       {
         "id": 0,
+        "stop": 0
+      },
+      {
+        "id": 1,
+        "stop": 0
+      },
+      {
+        "id": 2,
+        "stop": 0
+      },
+      {
+        "id": 3,
+        "stop": 0
+      },
+      {
+        "id": 4,
+        "stop": 0
+      },
+      {
+        "id": 5,
         "start": 0,
         "stop": 222,
         "n": "First Floor",
@@ -700,7 +876,7 @@
         "mi": false
       },
       {
-        "id": 1,
+        "id": 6,
         "start": 222,
         "stop": 439,
         "n": "Second Floor",
@@ -740,10 +916,30 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 0,
+    "mainseg": 5,
     "seg": [
       {
         "id": 0,
+        "stop": 0
+      },
+      {
+        "id": 1,
+        "stop": 0
+      },
+      {
+        "id": 2,
+        "stop": 0
+      },
+      {
+        "id": 3,
+        "stop": 0
+      },
+      {
+        "id": 4,
+        "stop": 0
+      },
+      {
+        "id": 5,
         "start": 0,
         "stop": 222,
         "n": "First Floor",
@@ -769,7 +965,7 @@
           ]
         ],
         "fx": 111,
-        "sx": 96,
+        "sx": 128,
         "ix": 12,
         "pal": 0,
         "sel": true,
@@ -777,7 +973,7 @@
         "mi": false
       },
       {
-        "id": 1,
+        "id": 6,
         "start": 222,
         "stop": 439,
         "n": "Second Floor",
@@ -803,7 +999,7 @@
           ]
         ],
         "fx": 111,
-        "sx": 96,
+        "sx": 128,
         "ix": 12,
         "pal": 0,
         "sel": true,
@@ -817,10 +1013,14 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 0,
+    "mainseg": 1,
     "seg": [
       {
         "id": 0,
+        "stop": 0
+      },
+      {
+        "id": 1,
         "start": 0,
         "stop": 114,
         "n": "Garage",
@@ -854,7 +1054,7 @@
         "mi": false
       },
       {
-        "id": 1,
+        "id": 2,
         "start": 114,
         "stop": 222,
         "n": "Porch",
@@ -888,7 +1088,7 @@
         "mi": false
       },
       {
-        "id": 2,
+        "id": 3,
         "start": 222,
         "stop": 337,
         "n": "Over Porch",
@@ -922,7 +1122,7 @@
         "mi": false
       },
       {
-        "id": 3,
+        "id": 4,
         "start": 337,
         "stop": 439,
         "n": "Peak",
@@ -954,11 +1154,18 @@
         "sel": true,
         "rev": false,
         "mi": false
+      },
+      {
+        "id": 5,
+        "stop": 0
+      },
+      {
+        "id": 6,
+        "stop": 0
       }
     ]
   },
   "13": {
-    "n": "Christmas Playlist",
     "playlist": {
       "ps": [
         3,
@@ -1000,10 +1207,10 @@
       "r": false,
       "end": 0
     },
-    "on": true
+    "on": true,
+    "n": "Christmas Playlist"
   },
   "14": {
-    "n": "Christmas Test Playlist",
     "playlist": {
       "ps": [
         3,
@@ -1045,6 +1252,7 @@
       "r": false,
       "end": 0
     },
-    "on": true
+    "on": true,
+    "n": "Christmas Test Playlist"
   }
 }
