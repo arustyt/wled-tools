@@ -1254,5 +1254,13 @@
     },
     "on": true,
     "n": "Christmas Test Playlist"
+  },
+  "15": {
+    "win": "T=0",
+    "n": "Off"
+  },
+  "16": {
+    "win": "T=1",
+    "n": "On"
   }
 }
