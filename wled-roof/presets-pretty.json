@@ -1262,5 +1262,655 @@
   "16": {
     "win": "T=1",
     "n": "On"
+  },
+  "17": {
+    "n": "Fireworks rainbow",
+    "on": true,
+    "bri": 255,
+    "transition": 7,
+    "mainseg": 5,
+    "seg": [
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "id": 5,
+        "start": 0,
+        "stop": 222,
+        "grp": 1,
+        "spc": 0,
+        "of": 0,
+        "on": true,
+        "bri": 128,
+        "cct": 127,
+        "n": "First Floor",
+        "col": [
+          [
+            255,
+            13,
+            0
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 90,
+        "sx": 131,
+        "ix": 132,
+        "pal": 11,
+        "sel": true,
+        "rev": true,
+        "mi": false
+      },
+      {
+        "id": 6,
+        "start": 222,
+        "stop": 439,
+        "grp": 1,
+        "spc": 0,
+        "of": 0,
+        "on": true,
+        "bri": 128,
+        "cct": 127,
+        "n": "Second Floor",
+        "col": [
+          [
+            255,
+            13,
+            0
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 90,
+        "sx": 0,
+        "ix": 128,
+        "pal": 11,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ]
+  },
+  "18": {
+    "n": "Valentines",
+    "on": true,
+    "bri": 128,
+    "transition": 7,
+    "mainseg": 0,
+    "seg": [
+      {
+        "id": 0,
+        "start": 0,
+        "stop": 456,
+        "grp": 1,
+        "spc": 0,
+        "of": 0,
+        "on": true,
+        "bri": 255,
+        "cct": 127,
+        "col": [
+          [
+            255,
+            0,
+            255
+          ],
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "fx": 100,
+        "sx": 128,
+        "ix": 128,
+        "pal": 0,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ]
+  },
+  "19": {
+    "n": "Marti Gras",
+    "on": true,
+    "bri": 128,
+    "transition": 7,
+    "mainseg": 5,
+    "seg": [
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "id": 5,
+        "start": 0,
+        "stop": 222,
+        "grp": 1,
+        "spc": 0,
+        "of": 0,
+        "on": true,
+        "bri": 128,
+        "cct": 127,
+        "n": "First Floor",
+        "col": [
+          [
+            157,
+            0,
+            255
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            200,
+            0
+          ]
+        ],
+        "fx": 54,
+        "sx": 128,
+        "ix": 128,
+        "pal": 0,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "id": 6,
+        "start": 222,
+        "stop": 439,
+        "grp": 1,
+        "spc": 0,
+        "of": 0,
+        "on": true,
+        "bri": 128,
+        "cct": 127,
+        "n": "Second Floor",
+        "col": [
+          [
+            157,
+            0,
+            255
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            200,
+            0
+          ]
+        ],
+        "fx": 54,
+        "sx": 128,
+        "ix": 128,
+        "pal": 0,
+        "sel": true,
+        "rev": true,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ]
+  },
+  "20": {
+    "n": "Marti Gras 2",
+    "on": true,
+    "bri": 204,
+    "transition": 7,
+    "mainseg": 5,
+    "seg": [
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "id": 5,
+        "start": 0,
+        "stop": 222,
+        "grp": 1,
+        "spc": 0,
+        "of": 0,
+        "on": true,
+        "bri": 128,
+        "cct": 127,
+        "n": "First Floor",
+        "col": [
+          [
+            157,
+            0,
+            255
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            200,
+            0
+          ]
+        ],
+        "fx": 54,
+        "sx": 255,
+        "ix": 128,
+        "pal": 0,
+        "sel": true,
+        "rev": false,
+        "mi": false
+      },
+      {
+        "id": 6,
+        "start": 222,
+        "stop": 439,
+        "grp": 1,
+        "spc": 0,
+        "of": 0,
+        "on": true,
+        "bri": 128,
+        "cct": 127,
+        "n": "Second Floor",
+        "col": [
+          [
+            157,
+            0,
+            255
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            200,
+            0
+          ]
+        ],
+        "fx": 54,
+        "sx": 255,
+        "ix": 128,
+        "pal": 0,
+        "sel": true,
+        "rev": true,
+        "mi": false
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      },
+      {
+        "stop": 0
+      }
+    ]
   }
 }
