@@ -1,0 +1,355 @@
+effects:
+  - id: 0 
+    name: Solid 
+    desc: Solid primary color on all LEDs
+  - id: 1 
+    name: Blink 
+    desc: Blinks between primary and secondary color
+  - id: 2 
+    name: Breathe 
+    desc: Fades between primary and secondary color
+  - id: 3 
+    name: Wipe 
+    desc: Switches between primary and secondary, switching LEDs one by one, start to end
+  - id: 4 
+    name: Wipe Random 
+    desc: Same as Wipe, but uses random colors
+  - id: 5 
+    name: Random Colors 
+    desc: Applies a new random color to all LEDs
+  - id: 6 
+    name: Sweep 
+    desc: Switches between primary and secondary, switching LEDs one by one, start to end to start
+  - id: 7 
+    name: Dynamic 
+    desc: Sets each LED to a random color
+  - id: 8 
+    name: Colorloop 
+    desc: Cycle all LEDs through the rainbow colors
+  - id: 9 
+    name: Rainbow 
+    desc: Displays rainbow colors along the whole strip
+  - id: 10 
+    name: Scan 
+    desc: A single primary colored light wanders between start and end
+  - id: 11 
+    name: Scan Dual 
+    desc: Same as Scan but uses two lights starting at both ends
+  - id: 12 
+    name: Fade 
+    desc: Fades smoothly between primary and secondary color
+  - id: 13 
+    name: Theater 
+    desc: Pattern of one lit and two unlit LEDs running
+  - id: 14 
+    name: Theater Rainbow 
+    desc: Same as Theater but uses colors of the rainbow
+  - id: 15 
+    name: Running 
+    desc: Sine Waves scrolling
+  - id: 16 
+    name: Saw 
+    desc: Sawtooth Waves scrolling
+  - id: 17 
+    name: Twinkle 
+    desc: Random LEDs light up in the primary color with secondary as background, turns all off
+  - id: 18 
+    name: Dissolve 
+    desc: Fills LEDs with primary in random order, then off again
+  - id: 19 
+    name: Dissolve Rnd 
+    desc: Fills LEDs with random colors in random order, then off again
+  - id: 20 
+    name: Sparkle 
+    desc: Single random LEDs light up in the primary color for a short time, secondary is background
+  - id: 21 
+    name: Sparkle Dark 
+    desc: All LEDs are lit in the primary color, single random LEDs turn off for a short time
+  - id: 22 
+    name: Sparkle+ 
+    desc: All LEDs are lit in the primary color, multiple random LEDs turn off for a short time
+  - id: 23 
+    name: Strobe 
+    desc: All LEDs are lit in the secondary color, all LEDs flash in a single short burst in primary color
+  - id: 24 
+    name: Strobe Rainbow 
+    desc: Same as strobe, cycles through the rainbow
+  - id: 25 
+    name: Strobe Mega 
+    desc: All LEDs are lit in the secondary color, all LEDs flash in several short bursts in primary color
+  - id: 26 
+    name: Blink Rainbow 
+    desc: Same as blink, cycles through the rainbow
+  - id: 27 
+    name: Android 
+    desc: Section of varying length running
+  - id: 28 
+    name: Chase 
+    desc: 2 LEDs in primary color running on secondary
+  - id: 29 
+    name: Chase Random 
+    desc: Like Chase but leaves trail of random color
+  - id: 30 
+    name: Chase Rainbow 
+    desc: Like 28 but leaves trail of rainbow
+  - id: 31 
+    name: Chase Flash 
+    desc: 2 LEDs flash in secondary color while the rest is lit in primary. The flashing LEDs wander from start to end
+  - id: 32 
+    name: Chase Flash Rnd 
+    desc: Like Chase Flash, but the 2 LEDs flash in random colors and leaves a random color behind
+  - id: 33 
+    name: Rainbow Runner 
+    desc: Like Chase, but the 2 LEDs light up in rainbow colors and leave a primary color trail
+  - id: 34 
+    name: Colorful 
+    desc: Shifting Red-Amber-Green-Blue pattern
+  - id: 35 
+    name: Traffic Light 
+    desc: Emulates a traffic light
+  - id: 36 
+    name: Sweep Random 
+    desc: Like Sweep, but uses random colors
+  - id: 37 
+    name: Running 2 
+    desc: Pattern of n LEDs primary and n LEDs secondary moves along the strip
+  - id: 38 
+    name: Aurora 
+    desc: Simulation of the Aurora Borealis
+  - id: 39 
+    name: Stream 
+    desc: Flush bands random hues along the string
+  - id: 40 
+    name: Scanner 
+    desc: Dot moves between ends, leaving behing a fading trail
+  - id: 41 
+    name: Lighthouse 
+    desc: Dot moves from start to end, leaving behing a fading trail
+  - id: 42 
+    name: Fireworks 
+    desc: Random color blobs light up, then fade again
+  - id: 43 
+    name: Rain 
+    desc: Like Fireworks, but the blobs move
+  - id: 44 
+    name: Tetrix 
+    desc: Falling blocks stack
+  - id: 45 
+    name: Fire Flicker 
+    desc: LEDs randomly flickering
+  - id: 46 
+    name: Gradient 
+    desc: Moves a saturation gradient of the primary color along the strip
+  - id: 47 
+    name: Loading 
+    desc: Moves a sawtooth pattern along the strip
+  - id: 48 
+    name: Police 
+    desc: A red and a blue dot running
+  - id: 49 
+    name: Police All 
+    desc: Two areas, one red and one blue, sweeping
+  - id: 50 
+    name: Two Dots 
+    desc: Like Police, but with custom colors
+  - id: 51 
+    name: Two Areas 
+    desc: Like Police All, but with custom colors
+  - id: 52 
+    name: Running Dual 
+    desc: Sine waves in both directions
+  - id: 53 
+    name: Halloween 
+    desc: Running 2, but always uses orange and purple
+  - id: 54 
+    name: Tri Chase 
+    desc: Like Chase, but with 3 colors
+  - id: 55 
+    name: Tri Wipe 
+    desc: Like Wipe but turns LEDs off as "third color"
+  - id: 56 
+    name: Tri Fade 
+    desc: Fades the whole strip from primary color to secondary color to off
+  - id: 57 
+    name: Lightning 
+    desc: Short random white strobe similar to a lightning bolt
+  - id: 58 
+    name: ICU 
+    desc: Two "eyes" running on opposite sides of the strip
+  - id: 59 
+    name: Multi Comet 
+    desc: Like Scanner, but creates multiple trails
+  - id: 60 
+    name: Scanner Dual 
+    desc: Like Scanner, but with two dots running on opposite sides
+  - id: 61 
+    name: Stream 2 
+    desc: Flush random hues along the string
+  - id: 62 
+    name: Oscillate 
+    desc: Areas of primary and secondary colors move between opposite ends, combining colors where they touch
+  - id: 63 
+    name: Pride 2015 
+    desc: Rainbow cycling with brightness variation
+  - id: 64 
+    name: Juggle 
+    desc: Eight colored dots running, leaving trails
+  - id: 65 
+    name: Palette 
+    desc: Running color palette
+  - id: 66 
+    name: Fire 2012 
+    desc: Simulates flickering fire in red and yellow
+  - id: 67 
+    name: Colorwaves 
+    desc: Like Pride 2015, but uses palettes
+  - id: 68 
+    name: BPM 
+    desc: Pulses moving back and forth on palette
+  - id: 69 
+    name: Fill Noise 
+    desc: Noise pattern
+  - id: 70 
+    name: Noise 1 
+    desc: Fast Noise shift pattern
+  - id: 71 
+    name: Noise 2 
+    desc: Fast Noise shift pattern
+  - id: 72 
+    name: Noise 3 
+    desc: Noise shift pattern
+  - id: 73 
+    name: Noise 4 
+    desc: Noise sparkle pattern
+  - id: 74 
+    name: Colortwinkles 
+    desc: LEDs light up randomly in random colors and fade off again
+  - id: 75 
+    name: Lake 
+    desc: Calm palette waving
+  - id: 76 
+    name: Meteor 
+    desc: The primary color creates a trail of randomly decaying color
+  - id: 77 
+    name: Meteor Smooth 
+    desc: Smoothly animated meteor
+  - id: 78 
+    name: Railway 
+    desc: Shows primary and secondary color on alternating LEDs. All LEDs fade to their opposite color and back again
+  - id: 79 
+    name: Ripple 
+    desc: Effect resembling random water ripples
+  - id: 80 
+    name: Twinklefox 
+    desc: FastLED gentle twinkling with slow fade in/out
+  - id: 81 
+    name: Twinklecat 
+    desc: Twinkling with fast in / slow out
+  - id: 82 
+    name: Halloween Eyes 
+    desc: One Pair of blinking eyes at random intervals along strip
+  - id: 83 
+    name: Solid Pattern 
+    desc: Speed sets number of LEDs on, intensity sets off
+  - id: 84 
+    name: Solid Pattern Tri 
+    desc: Solid Pattern with three colors
+  - id: 85 
+    name: Spots 
+    desc: Solid lights with even distance
+  - id: 86 
+    name: Spots Fade 
+    desc: Spots, getting bigger and smaller
+  - id: 87 
+    name: Glitter 
+    desc: Rainbow with white sparkles
+  - id: 88 
+    name: Candle 
+    desc: Flicker resembling a candle flame
+  - id: 89 
+    name: Fireworks Starburst 
+    desc: Exploding multicolor fireworks
+  - id: 90 
+    name: Fireworks 1D 
+    desc: one dimension fireworks with flare
+  - id: 91 
+    name: Bouncing Balls 
+    desc: Bouncing ball effect
+  - id: 92 
+    name: Sinelon 
+    desc: Fastled sinusoidal moving eye
+  - id: 93 
+    name: Sinelon Dual 
+    desc: Sinelon from both directions
+  - id: 94 
+    name: Sinelon Rainbow 
+    desc: Sinelon in rainbow colours
+  - id: 95 
+    name: Popcorn 
+    desc: popping kernels
+  - id: 96 
+    name: Drip 
+    desc: Water dripping effect
+  - id: 97 
+    name: Plasma 
+    desc: Plasma lamp
+  - id: 98 
+    name: Percent 
+    desc: Lights up a percentage of segment
+  - id: 99 
+    name: Ripple Rainbow 
+    desc: Like ripple, but with a dimly lit changing background
+  - id: 100 
+    name: Heartbeat 
+    desc: led strip pulsing rhythm similar to a heart beat
+  - id: 101 
+    name: Pacifica 
+    desc: Gentle, blue-green ocean waves (one color palette currently)
+  - id: 102 
+    name: Candle Multi 
+    desc: Like candle effect, but each LED has it's own flicker pattern
+  - id: 103 
+    name: Solid Glitter 
+    desc: Like Glitter, but with solid color background
+  - id: 104 
+    name: Sunrise 
+    desc: 'Simulates a gradual sunrise or sunset. Speed sets: 0 - static sun, 1 - 60: sunrise time in minutes, 60 - 120: sunset time in minutes - 60, above: "breathing" rise and set'
+  - id: 105 
+    name: Phased 
+    desc: Sine waves (in sourcecode)
+  - id: 106 
+    name: TwinkleUp 
+    desc: Twinkle effect with fade-in
+  - id: 107 
+    name: Noise Pal 
+    desc: Peaceful noise that's slow and with gradually changing palettes
+  - id: 108 
+    name: Sine 
+    desc: Controllable sine waves
+  - id: 109 
+    name: Phased Noise 
+    desc: Noisy sine waves
+  - id: 110 
+    name: Flow 
+    desc: Blend of palette and spot effects
+  - id: 111 
+    name: Chunchun 
+    desc: Birds flying in a circle formation
+  - id: 112 
+    name: Dancing Shadows 
+    desc: Moving spotlights
+  - id: 113 
+    name: Washing machine 
+    desc: Alternating direction (in source)
+  - id: 114 
+    name: Candy Cane 
+    desc: Running 2 in Red & White
+  - id: 115 
+    name: Blends 
+    desc: Blends random colors across palette
+  - id: 116 
+    name: TV Simulator 
+    desc: TV light spill simulation
+  - id: 117 
+    name: Dynamic Smooth 
+    desc: Link Dynamic but with smooth palette blends
