@@ -25,20 +25,26 @@ class Colors:
         return r, g, b
 
     def get_color_by_name(self, color_string):
+        new_color_string = color_string
         color_string_normalized = str(color_string).lower().replace(' ', '')
         if color_string_normalized in self.colors_by_name:
-            color_string = self.colors_by_name[color_string_normalized]
-        return color_string
+            new_color_string = self.colors_by_name[color_string_normalized]
+        return new_color_string
 
 
 if __name__ == '__main__':
     colors = Colors()
     color_string = '#ff00cc'
     rgb = colors.html_color_to_rgb(color_string)
-    print(color_string)
-    print(rgb)
+    print(color_string, flush=True)
+    print(rgb, flush=True)
+
     color_string = 'Purple Jam'
     rgb = colors.html_color_to_rgb(color_string)
-    print(color_string)
-    print(rgb)
+    print(color_string, flush=True)
+    print(rgb, flush=True)
+    color_string = 'Chicken Yellow'
+    rgb = colors.html_color_to_rgb(color_string)
+    print(color_string, flush=True)
+    print(rgb, flush=True)
 
