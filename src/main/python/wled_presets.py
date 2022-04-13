@@ -13,8 +13,6 @@ class WledPresets:
         self.segments = Segments()
 
     def process_yaml(self, yaml_file_name):
-        yaml_file_name
-
         with open(yaml_file_name) as in_file:
             preset_data = yaml.safe_load(in_file)
 
