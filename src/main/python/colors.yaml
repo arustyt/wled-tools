@@ -81,6 +81,8 @@ colors:
   name: Denim Dark Blue
 - code: '0000A0'
   name: Earth Blue
+- code: '0000FF'
+  name: Blue
 - code: '0020C2'
   name: Cobalt Blue
 - code: '0041C2'
