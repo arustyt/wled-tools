@@ -3,6 +3,8 @@ import json
 import yaml
 
 from colors import Colors
+from effects import Effects
+from pallets import Pallets
 from segments import Segments
 
 
@@ -11,6 +13,8 @@ class WledPresets:
     def __init__(self):
         self.colors = Colors()
         self.segments = Segments()
+        self.pallets = Pallets()
+        self.effects = Effects()
 
     def process_yaml_file(self, yaml_file_name):
         with open(yaml_file_name) as in_file:
@@ -69,12 +73,25 @@ class WledPresets:
         return new_data
 
     def process_dict_element(self, path: str, name, data):
-        if name == 'seg_name' and 'seg' in path:
-            return self.process_segment_name(path, name, data)
+        if 'seg' in path:
+            if name == 'seg_name':
+                return self.process_segment_name(path, name, data)
+            elif name == 'pal_name':
+                pallet = self.process_pallet_name(path, name, data)
+                return ('pal', pallet[1][1]),
+            elif name == 'fx_name':
+                effect = self.process_effect_name(path, name, data)
+                return ('fx', effect[1][1]),
         return (name, data),
 
     def process_segment_name(self, path, name, data):
         return self.segments.get_segment_by_name(data)
+
+    def process_pallet_name(self, path, name, data):
+        return self.pallets.get_pallet_by_name(data)
+
+    def process_effect_name(self, path, name, data):
+        return self.effects.get_effect_by_name(data)
 
     def process_list_element(self, path: str, name, data):
         return [data]

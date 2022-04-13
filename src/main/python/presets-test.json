@@ -30,20 +30,20 @@
             255
           ]
         ],
-        "fx": 0,
+        "fx": 82,
         "grp": 1,
         "id": 1,
         "ix": 128,
         "mi": false,
         "n": "Garage",
+        "start": 0,
+        "stop": 114,
         "of": 0,
         "on": true,
         "pal": 0,
         "rev": true,
         "sel": true,
         "spc": 0,
-        "start": 0,
-        "stop": 114,
         "sx": 122
       },
       {
@@ -66,20 +66,20 @@
             255
           ]
         ],
-        "fx": 0,
+        "fx": 89,
         "grp": 1,
         "id": 2,
         "ix": 128,
         "mi": false,
         "n": "Porch",
+        "start": 114,
+        "stop": 222,
         "of": 0,
         "on": true,
-        "pal": 0,
+        "pal": 6,
         "rev": true,
         "sel": true,
         "spc": 0,
-        "start": 114,
-        "stop": 222,
         "sx": 122
       },
       {
@@ -102,20 +102,20 @@
             255
           ]
         ],
-        "fx": 0,
+        "fx": 102,
         "grp": 1,
         "id": 3,
         "ix": 128,
         "mi": false,
         "n": "Over Porch",
+        "start": 222,
+        "stop": 337,
         "of": 0,
         "on": true,
-        "pal": 0,
+        "pal": 3,
         "rev": true,
         "sel": true,
         "spc": 0,
-        "start": 222,
-        "stop": 337,
         "sx": 122
       },
       {
@@ -138,20 +138,20 @@
             255
           ]
         ],
-        "fx": 0,
+        "fx": 95,
         "grp": 1,
         "id": 4,
         "ix": 128,
         "mi": false,
         "n": "Peak",
+        "start": 337,
+        "stop": 439,
         "of": 0,
         "on": true,
-        "pal": 0,
+        "pal": 16,
         "rev": true,
         "sel": true,
         "spc": 0,
-        "start": 337,
-        "stop": 439,
         "sx": 122
       },
       {
