@@ -12,7 +12,7 @@ class WledPresets:
         self.colors = Colors()
         self.segments = Segments()
 
-    def process_yaml(self, yaml_file_name):
+    def process_yaml_file(self, yaml_file_name):
         with open(yaml_file_name) as in_file:
             preset_data = yaml.safe_load(in_file)
 
@@ -21,51 +21,51 @@ class WledPresets:
         for key in preset_data.keys():
             preset = preset_data[key]
             if isinstance(preset, dict):
-                new_preset_data[key] = self.process_dict(key, preset)
+                new_preset_data[key] = self.process_dict(key, key, preset)
             elif isinstance(preset, list):
-                new_preset_data[key] = self.process_list(key, preset)
+                new_preset_data[key] = self.process_list(key, key, preset)
             else:
-                new_preset_data[key] = self.process_element(key, preset)
+                new_preset_data[key] = self.process_element(key, key, preset)
 
         return new_preset_data
 
-    def process_dict(self, name: str, data: dict):
+    def process_dict(self, path: str, name, data: dict):
         new_data = {}
         for key in data.keys():
             item = data[key]
-            new_name = '{name}.{key}'.format(name=name, key=key)
+            new_path = '{name}.{key}'.format(name=name, key=key)
             if isinstance(item, dict):
-                new_data[key] = self.process_dict(new_name, item)
+                new_data[key] = self.process_dict(new_path, key, item)
             elif isinstance(item, list):
-                new_data[key] = self.process_list(new_name, item)
+                new_data[key] = self.process_list(new_path, key, item)
             else:
-                new_data[key] = self.process_element(new_name, item)
+                new_data[key] = self.process_element(new_path, key, item)
 
         return new_data
 
-    def process_list(self, name: str, data: list):
+    def process_list(self, path: str, name, data: list):
         if name.endswith('.col'):
-            return self.process_colors(name, data)
+            return self.process_colors(name, 'col', data)
 
         new_data = []
 
         index = 0
         for item in data:
-            new_name = '{name}[{index}]'.format(name=name, index=index)
+            new_path = '{name}[{index}]'.format(name=name, index=index)
             index += 1
             if isinstance(item, dict):
-                new_data.append(self.process_dict(new_name, item))
+                new_data.append(self.process_dict(new_path, None, item))
             elif isinstance(item, list):
-                new_data.append(self.process_list(new_name, item))
+                new_data.append(self.process_list(new_path, None, item))
             else:
-                new_data.append(self.process_element(new_name, item))
+                new_data.append(self.process_element(new_path, None, item))
 
         return new_data
 
-    def process_element(self, name: str, data):
+    def process_element(self, path: str, name, data):
         return data
 
-    def process_colors(self, name: str, color_list: list):
+    def process_colors(self, path: str, name, color_list: list):
         new_color_list = []
         for index in range(len(color_list)):
             value = color_list[index]
@@ -83,7 +83,7 @@ class WledPresets:
 
 if __name__ == '__main__':
     wled_presets = WledPresets()
-    json_data = wled_presets.process_yaml(sys.argv[1])
+    json_data = wled_presets.process_yaml_file(sys.argv[1])
     json_string = json.dumps(json_data, indent=2)
 
     print(json_string)
