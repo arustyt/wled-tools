@@ -25,7 +25,10 @@ class WledPresets:
             elif isinstance(preset, list):
                 new_preset_data[key] = self.process_list(key, key, preset)
             else:
-                new_preset_data[key] = self.process_element(key, key, preset)
+                replacements = self.process_dict_element(key, key, preset)
+                if len(replacements) >= 1:
+                    for replacement in replacements:
+                        new_preset_data[replacement[0]] = replacement[1]
 
         return new_preset_data
 
@@ -33,37 +36,48 @@ class WledPresets:
         new_data = {}
         for key in data.keys():
             item = data[key]
-            new_path = '{name}.{key}'.format(name=name, key=key)
+            new_path = '{name}.{key}'.format(name=path, key=key)
             if isinstance(item, dict):
                 new_data[key] = self.process_dict(new_path, key, item)
             elif isinstance(item, list):
                 new_data[key] = self.process_list(new_path, key, item)
             else:
-                new_data[key] = self.process_element(new_path, key, item)
+                replacements = self.process_dict_element(new_path, key, item)
+                if len(replacements) >= 1:
+                    for replacement in replacements:
+                        new_data[replacement[0]] = replacement[1]
 
         return new_data
 
     def process_list(self, path: str, name, data: list):
-        if name.endswith('.col'):
-            return self.process_colors(name, 'col', data)
+        if name == 'col':
+            return self.process_colors(path, 'col', data)
 
         new_data = []
 
         index = 0
         for item in data:
-            new_path = '{name}[{index}]'.format(name=name, index=index)
+            new_path = '{name}[{index}]'.format(name=path, index=index)
             index += 1
             if isinstance(item, dict):
                 new_data.append(self.process_dict(new_path, None, item))
             elif isinstance(item, list):
                 new_data.append(self.process_list(new_path, None, item))
             else:
-                new_data.append(self.process_element(new_path, None, item))
+                new_data.extend(self.process_list_element(new_path, None, item))
 
         return new_data
 
-    def process_element(self, path: str, name, data):
-        return data
+    def process_dict_element(self, path: str, name, data):
+        if name == 'seg_name' and 'seg' in path:
+            return self.process_segment_name(path, name, data)
+        return (name, data),
+
+    def process_segment_name(self, path, name, data):
+        return self.segments.get_segment_by_name(data)
+
+    def process_list_element(self, path: str, name, data):
+        return [data]
 
     def process_colors(self, path: str, name, color_list: list):
         new_color_list = []

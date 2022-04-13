@@ -18,28 +18,26 @@
     id: 1
     ix: 128
     mi: false
-    n: Garage
+    seg_name: Garage
     of: 0
     'on': true
     pal: 0
     rev: true
     sel: true
     spc: 0
-    start: 0
-    stop: 114
     sx: 122
   - bri: 128
     cct: 127
     col:
-    - 'FF0000'
-    - '00FF00'
-    - 'FFFFFF'
+    - Red
+    - Green
+    - White
     fx: 0
     grp: 1
     id: 2
     ix: 128
     mi: false
-    n: Porch
+    seg_name: Porch
     of: 0
     'on': true
     pal: 0
@@ -52,15 +50,15 @@
   - bri: 128
     cct: 127
     col:
-    - 'FF0000'
-    - '00FF00'
-    - 'FFFFFF'
+    - Red
+    - Green
+    - White
     fx: 0
     grp: 1
     id: 3
     ix: 128
     mi: false
-    n: Over Porch
+    seg_name: Over Porch
     of: 0
     'on': true
     pal: 0
@@ -73,15 +71,15 @@
   - bri: 255
     cct: 127
     col:
-    - '00FF00'
-    - 'FF0000'
-    - 'FFFFFF'
+    - Green
+    - Red
+    - White
     fx: 0
     grp: 1
     id: 4
     ix: 128
     mi: false
-    n: Peak
+    seg_name: Peak
     of: 0
     'on': true
     pal: 0

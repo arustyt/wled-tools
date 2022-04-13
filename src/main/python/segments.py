@@ -12,7 +12,8 @@ class Segments:
         self.segments_by_name = {}
         for segment in segment_data['segments']:
             segment_name_normalized = self.normalize_segment_name(segment['n'])
-            self.segments_by_name[segment_name_normalized] = (segment['n'], segment['start'], segment['stop'])
+            self.segments_by_name[segment_name_normalized] = (('n', segment['n']), ('start', segment['start']),
+                                                              ('stop', segment['stop']))
 
     def normalize_segment_name(self, segment_name):
         segment_name_normalized = str(segment_name).lower()
