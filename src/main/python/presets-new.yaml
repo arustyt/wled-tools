@@ -200,7 +200,7 @@
     stop: 0
   - bri: 128
     col:
-    - 'FF0D00'
+    - Red
     - Black
     - White
     fx: 44
@@ -217,7 +217,7 @@
     sx: 255
   - bri: 128
     col:
-    - 'FF0D00'
+    - Red
     - Black
     - White
     fx: 44
@@ -234,7 +234,7 @@
     sx: 255
   - bri: 128
     col:
-    - 'FF0D00'
+    - Red
     - Black
     - White
     fx: 44
@@ -251,7 +251,7 @@
     sx: 255
   - bri: 128
     col:
-    - 'FF0D00'
+    - Red
     - Black
     - White
     fx: 44
@@ -371,7 +371,7 @@
   - bri: 128
     cct: 127
     col:
-    - 'FF0D00'
+    - Red
     - Green
     - White
     fx: 90
@@ -390,7 +390,7 @@
   - bri: 128
     cct: 127
     col:
-    - 'FF0D00'
+    - Red
     - Green
     - White
     fx: 90
@@ -424,6 +424,7 @@
     id: 0
     ix: 128
     mi: false
+    seg_name: Whole Roof
     of: 0
     'on': true
     pal: 0
@@ -448,7 +449,7 @@
     col:
     - '9D00FF'
     - Green
-    - 'FFCB00'
+    - 'FFC800'
     fx: 54
     grp: 1
     id: 5
@@ -467,7 +468,7 @@
     col:
     - '9D00FF'
     - Green
-    - 'FFCB00'
+    - 'FFC800'
     fx: 54
     grp: 1
     id: 6
@@ -499,7 +500,7 @@
     col:
     - '9D00FF'
     - Green
-    - 'FFCB00'
+    - 'FFC800'
     fx: 54
     grp: 1
     id: 5
@@ -518,7 +519,7 @@
     col:
     - '9D00FF'
     - Green
-    - 'FFCB00'
+    - 'FFC800'
     fx: 54
     grp: 1
     id: 6
@@ -547,9 +548,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 115
     grp: 1
     id: 5
@@ -566,9 +567,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 115
     grp: 1
     id: 6
@@ -597,9 +598,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 37
     grp: 1
     id: 5
@@ -616,9 +617,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 37
     grp: 1
     id: 6
@@ -647,9 +648,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 111
     grp: 1
     id: 5
@@ -666,9 +667,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 111
     grp: 1
     id: 6
@@ -697,9 +698,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 67
     grp: 1
     id: 5
@@ -716,9 +717,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 67
     grp: 1
     id: 6
@@ -747,14 +748,15 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 81
     grp: 1
     id: 5
     ix: 128
     mi: false
+    seg_name: First Floor
     of: 0
     'on': true
     pal: 11
@@ -765,9 +767,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 81
     grp: 1
     id: 6
@@ -796,9 +798,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 90
     grp: 1
     id: 5
@@ -815,9 +817,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 90
     grp: 1
     id: 6
@@ -846,9 +848,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 90
     grp: 1
     id: 5
@@ -865,9 +867,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 90
     grp: 1
     id: 6
@@ -896,9 +898,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 95
     grp: 1
     id: 5
@@ -915,9 +917,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 95
     grp: 1
     id: 6
@@ -946,9 +948,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 60
     grp: 1
     id: 5
@@ -965,9 +967,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08FF00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 60
     grp: 1
     id: 6
@@ -1000,7 +1002,7 @@
     stop: 0
   - bri: 128
     col:
-    - 'FF0D00'
+    - Red
     - Green
     - White
     fx: 114
@@ -1017,7 +1019,7 @@
     sx: 128
   - bri: 128
     col:
-    - 'FF0D00'
+    - Red
     - Green
     - White
     fx: 114
@@ -1047,9 +1049,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08DD00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 113
     grp: 1
     id: 5
@@ -1066,9 +1068,9 @@
   - bri: 128
     cct: 127
     col:
-    - '08DD00'
+    - Green
     - White
-    - 'FFCB00'
+    - 'FFC800'
     fx: 113
     grp: 1
     id: 6
@@ -1126,7 +1128,7 @@
 '4':
   bri: 128
   mainseg: 5
-  n: 'Christmas '
+  n: Christmas
   'on': true
   seg:
   - id: 0
@@ -1141,7 +1143,7 @@
     stop: 0
   - bri: 128
     col:
-    - 'FF0D00'
+    - Red
     - Green
     - White
     fx: 37
@@ -1158,7 +1160,7 @@
     sx: 122
   - bri: 128
     col:
-    - 'FF0D00'
+    - Red
     - Green
     - White
     fx: 37
@@ -1177,7 +1179,7 @@
 '5':
   bri: 128
   mainseg: 5
-  n: 'Twinkle '
+  n: Twinkle
   'on': true
   seg:
   - id: 0
@@ -1192,8 +1194,8 @@
     stop: 0
   - bri: 128
     col:
-    - Red
-    - Blue
+    - White
+    - '0000BF'
     - White
     fx: 106
     grp: 1
@@ -1209,8 +1211,8 @@
     sx: 122
   - bri: 128
     col:
-    - 'FF0D00'
-    - '0000B5'
+    - White
+    - '0000BF'
     - White
     fx: 106
     grp: 1
@@ -1235,8 +1237,8 @@
     stop: 0
   - bri: 128
     col:
-    - 'FF0D00'
-    - '0000B5'
+    - White
+    - '0000BF'
     - White
     fx: 114
     grp: 1
