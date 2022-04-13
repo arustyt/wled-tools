@@ -19,7 +19,7 @@ class Colors:
         rrggbb_string = rrggbb_string.strip()
         if rrggbb_string[0] == '#': rrggbb_string = rrggbb_string[1:]
         if len(rrggbb_string) != 6:
-            raise ValueError("input #%s is not in #RRGGBB format" % color_string)
+            raise ValueError("Input '{value}' is not in #RRGGBB format".format(value=color_string))
         r, g, b = rrggbb_string[:2], rrggbb_string[2:4], rrggbb_string[4:]
         r, g, b = [int(n, 16) for n in (r, g, b)]
         return r, g, b
@@ -34,17 +34,17 @@ class Colors:
 
 if __name__ == '__main__':
     colors = Colors()
-    color_string = '#ff00cc'
-    rgb = colors.html_color_to_rgb(color_string)
-    print(color_string, flush=True)
+    test_color_string = '#ff00cc'
+    rgb = colors.html_color_to_rgb(test_color_string)
+    print(test_color_string, flush=True)
     print(rgb, flush=True)
 
-    color_string = 'Purple Jam'
-    rgb = colors.html_color_to_rgb(color_string)
-    print(color_string, flush=True)
+    test_color_string = 'Purple Jam'
+    rgb = colors.html_color_to_rgb(test_color_string)
+    print(test_color_string, flush=True)
     print(rgb, flush=True)
-    color_string = 'Chicken Yellow'
-    rgb = colors.html_color_to_rgb(color_string)
-    print(color_string, flush=True)
+    test_color_string = 'Chicken Yellow'
+    rgb = colors.html_color_to_rgb(test_color_string)
+    print(test_color_string, flush=True)
     print(rgb, flush=True)
 
