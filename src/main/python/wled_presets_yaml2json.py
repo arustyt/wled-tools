@@ -6,60 +6,83 @@ from colors import Colors
 
 
 def main(name, args):
-    with open(args[0]) as f:
-        preset_data = yaml.safe_load(f)
+    yaml_file_name = args[0]
 
-    print('INPUT: ' + str(preset_data))
+    with open(yaml_file_name) as in_file:
+        preset_data = yaml.safe_load(in_file)
+
+    new_preset_data = {}
 
     for key in preset_data.keys():
         preset = preset_data[key]
         if isinstance(preset, dict):
-            process_dict(key, preset)
+            new_preset_data[key] = process_dict(key, preset)
         elif isinstance(preset, list):
-            process_list(key, preset)
+            new_preset_data[key] = process_list(key, preset)
         else:
-            process_element(key, preset, preset_data)
+            new_preset_data[key] = process_element(key, preset)
 
-    preset_data = json.dumps(preset_data)
+    json_file_name = get_json_file_name(yaml_file_name)
+    with open(json_file_name, "w") as out_file:
+        json.dump(new_preset_data, out_file, indent=2)
 
-    print('OUTPUT: ' + str(preset_data))
+
+def get_json_file_name(yaml_file_name: str):
+    json_file_name = yaml_file_name.replace('.yaml', '.json', 1)
+    return json_file_name
 
 
-
-def process_dict(name, data: dict):
+def process_dict(name: str, data: dict):
+    new_data = {}
     for key in data.keys():
         item = data[key]
+        new_name = '{name}.{key}'.format(name=name, key=key)
         if isinstance(item, dict):
-            process_dict(key, item)
+            new_data[key] = process_dict(new_name, item)
         elif isinstance(item, list):
-            process_list(key, item)
+            new_data[key] = process_list(new_name, item)
         else:
-            process_element(key, item, data)
+            new_data[key] = process_element(new_name, item)
+
+    return new_data
 
 
-def process_list(name, data: list):
-    if name == 'col':
-        process_colors(data)
+def process_list(name: str, data: list):
+    if name.endswith('.col'):
+        return process_colors(name, data)
+
+    new_data = []
+
+    index = 0
     for item in data:
+        new_name = '{name}[{index}]'.format(name=name, index=index)
+        index += 1
         if isinstance(item, dict):
-            process_dict(name, item)
+            new_data.append(process_dict(new_name, item))
         elif isinstance(item, list):
-            process_list(name, item)
+            new_data.append(process_list(new_name, item))
+        else:
+            new_data.append(process_element(new_name, item))
+
+    return new_data
 
 
-def process_element(name, data, container):
-    pass
+def process_element(name: str, data):
+    return data
 
 
-def process_colors(color_list):
+def process_colors(name: str, color_list: list):
+    new_color_list = []
     colors = Colors()
-    for i in range(len(color_list)):
-        value = color_list[i]
+    for index in range(len(color_list)):
+        value = color_list[index]
         if not isinstance(value, list):
             value_is_placeholder, placeholder = is_placeholder(str(value))
             if value_is_placeholder:
                 r, g, b = colors.html_color_to_rgb(placeholder)
-                color_list[i] = list((r, g, b))
+                new_color_list.append(list((r, g, b)))
+
+    return new_color_list
 
 
 def is_placeholder(value: str):

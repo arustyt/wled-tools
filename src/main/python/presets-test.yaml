@@ -1,0 +1,98 @@
+'0': {}
+'1':
+  bri: 128
+  mainseg: 1
+  n: Segment Test
+  'on': true
+  seg:
+  - id: 0
+    stop: 0
+  - bri: 128
+    cct: 127
+    col:
+    - Red
+    - green
+    - WHITE
+    fx: 0
+    grp: 1
+    id: 1
+    ix: 128
+    mi: false
+    n: Garage
+    of: 0
+    'on': true
+    pal: 0
+    rev: true
+    sel: true
+    spc: 0
+    start: 0
+    stop: 114
+    sx: 122
+  - bri: 128
+    cct: 127
+    col:
+    - 'FF0000'
+    - '00FF00'
+    - 'FFFFFF'
+    fx: 0
+    grp: 1
+    id: 2
+    ix: 128
+    mi: false
+    n: Porch
+    of: 0
+    'on': true
+    pal: 0
+    rev: true
+    sel: true
+    spc: 0
+    start: 114
+    stop: 222
+    sx: 122
+  - bri: 128
+    cct: 127
+    col:
+    - 'FF0000'
+    - '00FF00'
+    - 'FFFFFF'
+    fx: 0
+    grp: 1
+    id: 3
+    ix: 128
+    mi: false
+    n: Over Porch
+    of: 0
+    'on': true
+    pal: 0
+    rev: true
+    sel: true
+    spc: 0
+    start: 222
+    stop: 337
+    sx: 122
+  - bri: 255
+    cct: 127
+    col:
+    - '00FF00'
+    - 'FF0000'
+    - 'FFFFFF'
+    fx: 0
+    grp: 1
+    id: 4
+    ix: 128
+    mi: false
+    n: Peak
+    of: 0
+    'on': true
+    pal: 0
+    rev: true
+    sel: true
+    spc: 0
+    start: 337
+    stop: 439
+    sx: 122
+  - id: 5
+    stop: 0
+  - id: 6
+    stop: 0
+  transition: 7
