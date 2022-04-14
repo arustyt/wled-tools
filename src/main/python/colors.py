@@ -19,7 +19,7 @@ class Colors:
         rrggbb_string = rrggbb_string.strip()
         if rrggbb_string[0] == '#': rrggbb_string = rrggbb_string[1:]
         if len(rrggbb_string) != 6:
-            raise ValueError("Input '{value}' is not in #RRGGBB format".format(value=color_string))
+            raise ValueError("Input '{value}' is not a recognized color or in #RRGGBB format".format(value=color_string))
         r, g, b = rrggbb_string[:2], rrggbb_string[2:4], rrggbb_string[4:]
         r, g, b = [int(n, 16) for n in (r, g, b)]
         return r, g, b

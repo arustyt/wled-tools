@@ -13,83 +13,75 @@
     - Red
     - green
     - WHITE
-    fx: 0
+    fx_name: HALLOWEEN EYES
     grp: 1
     id: 1
     ix: 128
     mi: false
-    n: Garage
+    seg_name: Garage
     of: 0
     'on': true
-    pal: 0
+    pal_name: default
     rev: true
     sel: true
     spc: 0
-    start: 0
-    stop: 114
     sx: 122
   - bri: 128
     cct: 127
     col:
-    - 'FF0000'
-    - '00FF00'
-    - 'FFFFFF'
-    fx: 0
+    - Red
+    - Green
+    - White
+    fx_name: Fireworks Starburst
     grp: 1
     id: 2
     ix: 128
     mi: false
-    n: Porch
+    seg_name: Porch
     of: 0
     'on': true
-    pal: 0
+    pal_name: PARTY
     rev: true
     sel: true
     spc: 0
-    start: 114
-    stop: 222
     sx: 122
   - bri: 128
     cct: 127
     col:
-    - 'FF0000'
-    - '00FF00'
-    - 'FFFFFF'
-    fx: 0
+    - Red
+    - Green
+    - White
+    fx_name: candle_multi
     grp: 1
     id: 3
     ix: 128
     mi: false
-    n: Over Porch
+    seg_name: Over Porch
     of: 0
     'on': true
-    pal: 0
+    pal_name: Colors 1 & 2
     rev: true
     sel: true
     spc: 0
-    start: 222
-    stop: 337
     sx: 122
   - bri: 255
     cct: 127
     col:
-    - '00FF00'
-    - 'FF0000'
-    - 'FFFFFF'
-    fx: 0
+    - Green
+    - Red
+    - White
+    fx_name: popcorn
     grp: 1
     id: 4
     ix: 128
     mi: false
-    n: Peak
+    seg_name: Peak
     of: 0
     'on': true
-    pal: 0
+    pal_name: Red_&_Blue
     rev: true
     sel: true
     spc: 0
-    start: 337
-    stop: 439
     sx: 122
   - id: 5
     stop: 0

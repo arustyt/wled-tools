@@ -1,685 +1,687 @@
 colors:
-  - code: 000000
-    name: Black
-  - code: 0C090A
-    name: Night
-  - code: 2C3539
-    name: Gunmetal
-  - code: 2B1B17
-    name: Midnight
-  - code: 34282C
-    name: Charcoal
-  - code: 25383C
-    name: Dark Slate Grey
-  - code: 3B3131
-    name: Oil
-  - code: 413839
-    name: Black Cat
-  - code: 3D3C3A
-    name: Iridium
-  - code: 463E3F
-    name: Black Eel
-  - code: 4C4646
-    name: Black Cow
-  - code: 504A4B
-    name: Gray Wolf
-  - code: 565051
-    name: Vampire Gray
-  - code: 5C5858
-    name: Gray Dolphin
-  - code: 625D5D
-    name: Carbon Gray
-  - code: 666362
-    name: Ash Gray
-  - code: 6D6968
-    name: Cloudy Gray
-  - code: 726E6D
-    name: Smokey Gray
-  - code: 736F6E
-    name: Gray
-  - code: 837E7C
-    name: Granite
-  - code: 848482
-    name: Battleship Gray
-  - code: B6B6B4
-    name: Gray Cloud
-  - code: D1D0CE
-    name: Gray Goose
-  - code: E5E4E2
-    name: Platinum
-  - code: BCC6CC
-    name: Metallic Silver
-  - code: 98AFC7
-    name: Blue Gray
-  - code: 6D7B8D
-    name: Light Slate Gray
-  - code: 657383
-    name: Slate Gray
-  - code: 616D7E
-    name: Jet Gray
-  - code: 646D7E
-    name: Mist Blue
-  - code: 566D7E
-    name: Marble Blue
-  - code: 737CA1
-    name: Slate Blue
-  - code: 4863A0
-    name: Steel Blue
-  - code: 2B547E
-    name: Blue Jay
-  - code: 2B3856
-    name: Dark Slate Blue
-  - code: 151B54
-    name: Midnight Blue
-  - code: 000080
-    name: Navy Blue
-  - code: 342D7E
-    name: Blue Whale
-  - code: 15317E
-    name: Lapis Blue
-  - code: 151B8D
-    name: Denim Dark Blue
-  - code: 0000A0
-    name: Earth Blue
-  - code: 0020C2
-    name: Cobalt Blue
-  - code: 0041C2
-    name: Blueberry Blue
-  - code: 2554C7
-    name: Sapphire Blue
-  - code: 1569C7
-    name: Blue Eyes
-  - code: 2B60DE
-    name: Royal Blue
-  - code: 1F45FC
-    name: Blue Orchid
-  - code: 6960EC
-    name: Blue Lotus
-  - code: 736AFF
-    name: Light Slate Blue
-  - code: 357EC7
-    name: Windows Blue
-  - code: 368BC1
-    name: Glacial Blue Ice
-  - code: 488AC7
-    name: Silk Blue
-  - code: 3090C7
-    name: Blue Ivy
-  - code: 659EC7
-    name: Blue Koi
-  - code: 87AFC7
-    name: Columbia Blue
-  - code: 95B9C7
-    name: Baby Blue
-  - code: 728FCE
-    name: Light Steel Blue
-  - code: 2B65EC
-    name: Ocean Blue
-  - code: 306EFF
-    name: Blue Ribbon
-  - code: 157DEC
-    name: Blue Dress
-  - code: 1589FF
-    name: Dodger Blue
-  - code: 6495ED
-    name: Cornflower Blue
-  - code: 6698FF
-    name: Sky Blue
-  - code: 38ACEC
-    name: Butterfly Blue
-  - code: 56A5EC
-    name: Iceberg
-  - code: 5CB3FF
-    name: Crystal Blue
-  - code: 3BB9FF
-    name: Deep Sky Blue
-  - code: 79BAEC
-    name: Denim Blue
-  - code: 82CAFA
-    name: Light Sky Blue
-  - code: 82CAFF
-    name: Day Sky Blue
-  - code: A0CFEC
-    name: Jeans Blue
-  - code: B7CEEC
-    name: Blue Angel
-  - code: B4CFEC
-    name: Pastel Blue
-  - code: C2DFFF
-    name: Sea Blue
-  - code: C6DEFF
-    name: Powder Blue
-  - code: AFDCEC
-    name: Coral Blue
-  - code: ADDFFF
-    name: Light Blue
-  - code: BDEDFF
-    name: Robin Egg Blue
-  - code: CFECEC
-    name: Pale Blue Lily
-  - code: E0FFFF
-    name: Light Cyan
-  - code: EBF4FA
-    name: Water
-  - code: F0F8FF
-    name: AliceBlue
-  - code: F0FFFF
-    name: Azure
-  - code: CCFFFF
-    name: Light Slate
-  - code: 93FFE8
-    name: Light Aquamarine
-  - code: 9AFEFF
-    name: Electric Blue
-  - code: 7FFFD4
-    name: Aquamarine
-  - code: 00FFFF
-    name: Cyan or Aqua
-  - code: 7DFDFE
-    name: Tron Blue
-  - code: 57FEFF
-    name: Blue Zircon
-  - code: 8EEBEC
-    name: Blue Lagoon
-  - code: 50EBEC
-    name: Celeste
-  - code: 4EE2EC
-    name: Blue Diamond
-  - code: 81D8D0
-    name: Tiffany Blue
-  - code: 92C7C7
-    name: Cyan Opaque
-  - code: 77BFC7
-    name: Blue Hosta
-  - code: 78C7C7
-    name: Northern Lights Blue
-  - code: 48CCCD
-    name: Medium Turquoise
-  - code: 43C6DB
-    name: Turquoise
-  - code: 46C7C7
-    name: Jellyfish
-  - code: 7BCCB5
-    name: Blue green
-  - code: 43BFC7
-    name: Macaw Blue Green
-  - code: 3EA99F
-    name: Light Sea Green
-  - code: 3B9C9C
-    name: Dark Turquoise
-  - code: 438D80
-    name: Sea Turtle Green
-  - code: 348781
-    name: Medium Aquamarine
-  - code: 307D7E
-    name: Greenish Blue
-  - code: 5E7D7E
-    name: Grayish Turquoise
-  - code: 4C787E
-    name: Beetle Green
-  - code: 008080
-    name: Teal
-  - code: 4E8975
-    name: Sea Green
-  - code: 78866B
-    name: Camouflage Green
-  - code: 848b79
-    name: Sage Green
-  - code: 617C58
-    name: Hazel Green
-  - code: 728C00
-    name: Venom Green
-  - code: 667C26
-    name: Fern Green
-  - code: 254117
-    name: Dark Forest Green
-  - code: 306754
-    name: Medium Sea Green
-  - code: 347235
-    name: Medium Forest Green
-  - code: 437C17
-    name: Seaweed Green
-  - code: 387C44
-    name: Pine Green
-  - code: 347C2C
-    name: Jungle Green
-  - code: 347C17
-    name: Shamrock Green
-  - code: 348017
-    name: Medium Spring Green
-  - code: 4E9258
-    name: Forest Green
-  - code: 6AA121
-    name: Green Onion
-  - code: 4AA02C
-    name: Spring Green
-  - code: 41A317
-    name: Lime Green
-  - code: 3EA055
-    name: Clover Green
-  - code: 6CBB3C
-    name: Green Snake
-  - code: 6CC417
-    name: Alien Green
-  - code: 4CC417
-    name: Green Apple
-  - code: 52D017
-    name: Yellow Green
-  - code: 4CC552
-    name: Kelly Green
-  - code: 54C571
-    name: Zombie Green
-  - code: 99C68E
-    name: Frog Green
-  - code: 89C35C
-    name: Green Peas
-  - code: 85BB65
-    name: Dollar Bill Green
-  - code: 8BB381
-    name: Dark Sea Green
-  - code: 9CB071
-    name: Iguana Green
-  - code: B2C248
-    name: Avocado Green
-  - code: 9DC209
-    name: Pistachio Green
-  - code: A1C935
-    name: Salad Green
-  - code: 7FE817
-    name: Hummingbird Green
-  - code: 59E817
-    name: Nebula Green
-  - code: 57E964
-    name: Stoplight Go Green
-  - code: 64E986
-    name: Algae Green
-  - code: 5EFB6E
-    name: Jade Green
-  - code: 00FF00
-    name: Green
-  - code: 5FFB17
-    name: Emerald Green
-  - code: 87F717
-    name: Lawn Green
-  - code: 8AFB17
-    name: Chartreuse
-  - code: 6AFB92
-    name: Dragon Green
-  - code: 98FF98
-    name: Mint green
-  - code: B5EAAA
-    name: Green Thumb
-  - code: C3FDB8
-    name: Light Jade
-  - code: CCFB5D
-    name: Tea Green
-  - code: B1FB17
-    name: Green Yellow
-  - code: BCE954
-    name: Slime Green
-  - code: EDDA74
-    name: Goldenrod
-  - code: EDE275
-    name: Harvest Gold
-  - code: FFE87C
-    name: Sun Yellow
-  - code: FFFF00
-    name: Yellow
-  - code: FFF380
-    name: Corn Yellow
-  - code: FFFFC2
-    name: Parchment
-  - code: FFFFCC
-    name: Cream
-  - code: FFF8C6
-    name: Lemon Chiffon
-  - code: FFF8DC
-    name: Cornsilk
-  - code: F5F5DC
-    name: Beige
-  - code: FBF6D9
-    name: Blonde
-  - code: FAEBD7
-    name: AntiqueWhite
-  - code: F7E7CE
-    name: Champagne
-  - code: FFEBCD
-    name: BlanchedAlmond
-  - code: F3E5AB
-    name: Vanilla
-  - code: ECE5B6
-    name: Tan Brown
-  - code: FFE5B4
-    name: Peach
-  - code: FFDB58
-    name: Mustard
-  - code: FFD801
-    name: Rubber Ducky Yellow
-  - code: FDD017
-    name: Bright Gold
-  - code: EAC117
-    name: Golden brown
-  - code: F2BB66
-    name: Macaroni and Cheese
-  - code: FBB917
-    name: Saffron
-  - code: FBB117
-    name: Beer
-  - code: FFA62F
-    name: Cantaloupe
-  - code: E9AB17
-    name: Bee Yellow
-  - code: E2A76F
-    name: Brown Sugar
-  - code: DEB887
-    name: BurlyWood
-  - code: FFCBA4
-    name: Deep Peach
-  - code: C9BE62
-    name: Ginger Brown
-  - code: E8A317
-    name: School Bus Yellow
-  - code: EE9A4D
-    name: Sandy Brown
-  - code: C8B560
-    name: Fall Leaf Brown
-  - code: D4A017
-    name: Orange Gold
-  - code: C2B280
-    name: Sand
-  - code: C7A317
-    name: Cookie Brown
-  - code: C68E17
-    name: Caramel
-  - code: B5A642
-    name: Brass
-  - code: ADA96E
-    name: Khaki
-  - code: C19A6B
-    name: Camel brown
-  - code: CD7F32
-    name: Bronze
-  - code: C88141
-    name: Tiger Orange
-  - code: C58917
-    name: Cinnamon
-  - code: AF9B60
-    name: Bullet Shell
-  - code: AF7817
-    name: Dark Goldenrod
-  - code: B87333
-    name: Copper
-  - code: 966F33
-    name: Wood
-  - code: 806517
-    name: Oak Brown
-  - code: 827839
-    name: Moccasin
-  - code: 827B60
-    name: Army Brown
-  - code: 786D5F
-    name: Sandstone
-  - code: 493D26
-    name: Mocha
-  - code: 483C32
-    name: Taupe
-  - code: 6F4E37
-    name: Coffee
-  - code: 835C3B
-    name: Brown Bear
-  - code: 7F5217
-    name: Red Dirt
-  - code: 7F462C
-    name: Sepia
-  - code: C47451
-    name: Orange Salmon
-  - code: C36241
-    name: Rust
-  - code: C35817
-    name: Red Fox
-  - code: C85A17
-    name: Chocolate
-  - code: CC6600
-    name: Sedona
-  - code: E56717
-    name: Papaya Orange
-  - code: E66C2C
-    name: Halloween Orange
-  - code: F87217
-    name: Pumpkin Orange
-  - code: F87431
-    name: Construction Cone Orange
-  - code: E67451
-    name: Sunrise Orange
-  - code: FF8040
-    name: Mango Orange
-  - code: F88017
-    name: Dark Orange
-  - code: FF7F50
-    name: Coral
-  - code: F88158
-    name: Basket Ball Orange
-  - code: F9966B
-    name: Light Salmon
-  - code: E78A61
-    name: Tangerine
-  - code: E18B6B
-    name: Dark Salmon
-  - code: E77471
-    name: Light Coral
-  - code: F75D59
-    name: Bean Red
-  - code: E55451
-    name: Valentine Red
-  - code: E55B3C
-    name: Shocking Orange
-  - code: FF0000
-    name: Red
-  - code: FF2400
-    name: Scarlet
-  - code: F62217
-    name: Ruby Red
-  - code: F70D1A
-    name: Ferrari Red
-  - code: F62817
-    name: Fire Engine Red
-  - code: E42217
-    name: Lava Red
-  - code: E41B17
-    name: Love Red
-  - code: DC381F
-    name: Grapefruit
-  - code: C34A2C
-    name: Chestnut Red
-  - code: C24641
-    name: Cherry Red
-  - code: C04000
-    name: Mahogany
-  - code: C11B17
-    name: Chilli Pepper
-  - code: 9F000F
-    name: Cranberry
-  - code: 990012
-    name: Red Wine
-  - code: 8C001A
-    name: Burgundy
-  - code: 954535
-    name: Chestnut
-  - code: 7E3517
-    name: Blood Red
-  - code: 8A4117
-    name: Sienna
-  - code: 7E3817
-    name: Sangria
-  - code: 800517
-    name: Firebrick
-  - code: 810541
-    name: Maroon
-  - code: 7D0541
-    name: Plum Pie
-  - code: 7E354D
-    name: Velvet Maroon
-  - code: 7D0552
-    name: Plum Velvet
-  - code: 7F4E52
-    name: Rosy Finch
-  - code: 7F5A58
-    name: Puce
-  - code: 7F525D
-    name: Dull Purple
-  - code: B38481
-    name: Rosy Brown
-  - code: C5908E
-    name: Khaki Rose
-  - code: C48189
-    name: Pink Bow
-  - code: C48793
-    name: Lipstick Pink
-  - code: E8ADAA
-    name: Rose
-  - code: ECC5C0
-    name: Rose Gold
-  - code: EDC9AF
-    name: Desert Sand
-  - code: FDD7E4
-    name: Pig Pink
-  - code: FCDFFF
-    name: Cotton Candy
-  - code: FFDFDD
-    name: Pink Bubblegum
-  - code: FBBBB9
-    name: Misty Rose
-  - code: FAAFBE
-    name: Pink
-  - code: FAAFBA
-    name: Light Pink
-  - code: F9A7B0
-    name: Flamingo Pink
-  - code: E7A1B0
-    name: Pink Rose
-  - code: E799A3
-    name: Pink Daisy
-  - code: E38AAE
-    name: Cadillac Pink
-  - code: F778A1
-    name: Carnation Pink
-  - code: E56E94
-    name: Blush Red
-  - code: F660AB
-    name: Hot Pink
-  - code: FC6C85
-    name: Watermelon Pink
-  - code: F6358A
-    name: Violet Red
-  - code: F52887
-    name: Deep Pink
-  - code: E45E9D
-    name: Pink Cupcake
-  - code: E4287C
-    name: Pink Lemonade
-  - code: F535AA
-    name: Neon Pink
-  - code: FF00FF
-    name: Magenta
-  - code: E3319D
-    name: Dimorphotheca Magenta
-  - code: F433FF
-    name: Bright Neon Pink
-  - code: D16587
-    name: Pale Violet Red
-  - code: C25A7C
-    name: Tulip Pink
-  - code: CA226B
-    name: Medium Violet Red
-  - code: C12869
-    name: Rogue Pink
-  - code: C12267
-    name: Burnt Pink
-  - code: C25283
-    name: Bashful Pink
-  - code: C12283
-    name: Dark Carnation Pink
-  - code: B93B8F
-    name: Plum
-  - code: 7E587E
-    name: Viola Purple
-  - code: 571B7E
-    name: Purple Iris
-  - code: 583759
-    name: Plum Purple
-  - code: 4B0082
-    name: Indigo
-  - code: 461B7E
-    name: Purple Monster
-  - code: 4E387E
-    name: Purple Haze
-  - code: 614051
-    name: Eggplant
-  - code: 5E5A80
-    name: Grape
-  - code: 6A287E
-    name: Purple Jam
-  - code: 7D1B7E
-    name: Dark Orchid
-  - code: A74AC7
-    name: Purple Flower
-  - code: B048B5
-    name: Medium Orchid
-  - code: 6C2DC7
-    name: Purple Amethyst
-  - code: 842DCE
-    name: Dark Violet
-  - code: 8D38C9
-    name: Violet
-  - code: 7A5DC7
-    name: Purple Sage Bush
-  - code: 7F38EC
-    name: Lovely Purple
-  - code: 8E35EF
-    name: Purple
-  - code: 893BFF
-    name: Aztech Purple
-  - code: 8467D7
-    name: Medium Purple
-  - code: A23BEC
-    name: Jasmine Purple
-  - code: B041FF
-    name: Purple Daffodil
-  - code: C45AEC
-    name: Tyrian Purple
-  - code: 9172EC
-    name: Crocus Purple
-  - code: 9E7BFF
-    name: Purple Mimosa
-  - code: D462FF
-    name: Heliotrope Purple
-  - code: E238EC
-    name: Crimson
-  - code: C38EC7
-    name: Purple Dragon
-  - code: C8A2C8
-    name: Lilac
-  - code: E6A9EC
-    name: Blush Pink
-  - code: E0B0FF
-    name: Mauve
-  - code: C6AEC7
-    name: Wisteria Purple
-  - code: F9B7FF
-    name: Blossom Pink
-  - code: D2B9D3
-    name: Thistle
-  - code: E9CFEC
-    name: Periwinkle
-  - code: EBDDE2
-    name: Lavender Pinocchio
-  - code: E3E4FA
-    name: Lavender blue
-  - code: FDEEF4
-    name: Pearl
-  - code: FFF5EE
-    name: SeaShell
-  - code: FEFCFF
-    name: Milk White
-  - code: FFFFFF
-    name: White
+- code: '000000'
+  name: Black
+- code: '0C090A'
+  name: Night
+- code: '2C3539'
+  name: Gunmetal
+- code: '2B1B17'
+  name: Midnight
+- code: '34282C'
+  name: Charcoal
+- code: '25383C'
+  name: Dark Slate Grey
+- code: '3B3131'
+  name: Oil
+- code: '413839'
+  name: Black Cat
+- code: '3D3C3A'
+  name: Iridium
+- code: '463E3F'
+  name: Black Eel
+- code: '4C4646'
+  name: Black Cow
+- code: '504A4B'
+  name: Gray Wolf
+- code: '565051'
+  name: Vampire Gray
+- code: '5C5858'
+  name: Gray Dolphin
+- code: '625D5D'
+  name: Carbon Gray
+- code: '666362'
+  name: Ash Gray
+- code: '6D6968'
+  name: Cloudy Gray
+- code: '726E6D'
+  name: Smokey Gray
+- code: '736F6E'
+  name: Gray
+- code: '837E7C'
+  name: Granite
+- code: '848482'
+  name: Battleship Gray
+- code: 'B6B6B4'
+  name: Gray Cloud
+- code: 'D1D0CE'
+  name: Gray Goose
+- code: 'E5E4E2'
+  name: Platinum
+- code: 'BCC6CC'
+  name: Metallic Silver
+- code: '98AFC7'
+  name: Blue Gray
+- code: '6D7B8D'
+  name: Light Slate Gray
+- code: '657383'
+  name: Slate Gray
+- code: '616D7E'
+  name: Jet Gray
+- code: '646D7E'
+  name: Mist Blue
+- code: '566D7E'
+  name: Marble Blue
+- code: '737CA1'
+  name: Slate Blue
+- code: '4863A0'
+  name: Steel Blue
+- code: '2B547E'
+  name: Blue Jay
+- code: '2B3856'
+  name: Dark Slate Blue
+- code: '151B54'
+  name: Midnight Blue
+- code: '000080'
+  name: Navy Blue
+- code: '342D7E'
+  name: Blue Whale
+- code: '15317E'
+  name: Lapis Blue
+- code: '151B8D'
+  name: Denim Dark Blue
+- code: '0000A0'
+  name: Earth Blue
+- code: '0000FF'
+  name: Blue
+- code: '0020C2'
+  name: Cobalt Blue
+- code: '0041C2'
+  name: Blueberry Blue
+- code: '2554C7'
+  name: Sapphire Blue
+- code: '1569C7'
+  name: Blue Eyes
+- code: '2B60DE'
+  name: Royal Blue
+- code: '1F45FC'
+  name: Blue Orchid
+- code: '6960EC'
+  name: Blue Lotus
+- code: '736AFF'
+  name: Light Slate Blue
+- code: '357EC7'
+  name: Windows Blue
+- code: '368BC1'
+  name: Glacial Blue Ice
+- code: '488AC7'
+  name: Silk Blue
+- code: '3090C7'
+  name: Blue Ivy
+- code: '659EC7'
+  name: Blue Koi
+- code: '87AFC7'
+  name: Columbia Blue
+- code: '95B9C7'
+  name: Baby Blue
+- code: '728FCE'
+  name: Light Steel Blue
+- code: '2B65EC'
+  name: Ocean Blue
+- code: '306EFF'
+  name: Blue Ribbon
+- code: '157DEC'
+  name: Blue Dress
+- code: '1589FF'
+  name: Dodger Blue
+- code: '6495ED'
+  name: Cornflower Blue
+- code: '6698FF'
+  name: Sky Blue
+- code: '38ACEC'
+  name: Butterfly Blue
+- code: '56A5EC'
+  name: Iceberg
+- code: '5CB3FF'
+  name: Crystal Blue
+- code: '3BB9FF'
+  name: Deep Sky Blue
+- code: '79BAEC'
+  name: Denim Blue
+- code: '82CAFA'
+  name: Light Sky Blue
+- code: '82CAFF'
+  name: Day Sky Blue
+- code: 'A0CFEC'
+  name: Jeans Blue
+- code: 'B7CEEC'
+  name: Blue Angel
+- code: 'B4CFEC'
+  name: Pastel Blue
+- code: 'C2DFFF'
+  name: Sea Blue
+- code: 'C6DEFF'
+  name: Powder Blue
+- code: 'AFDCEC'
+  name: Coral Blue
+- code: 'ADDFFF'
+  name: Light Blue
+- code: 'BDEDFF'
+  name: Robin Egg Blue
+- code: 'CFECEC'
+  name: Pale Blue Lily
+- code: 'E0FFFF'
+  name: Light Cyan
+- code: 'EBF4FA'
+  name: Water
+- code: 'F0F8FF'
+  name: AliceBlue
+- code: 'F0FFFF'
+  name: Azure
+- code: 'CCFFFF'
+  name: Light Slate
+- code: '93FFE8'
+  name: Light Aquamarine
+- code: '9AFEFF'
+  name: Electric Blue
+- code: '7FFFD4'
+  name: Aquamarine
+- code: '00FFFF'
+  name: Cyan or Aqua
+- code: '7DFDFE'
+  name: Tron Blue
+- code: '57FEFF'
+  name: Blue Zircon
+- code: '8EEBEC'
+  name: Blue Lagoon
+- code: '50EBEC'
+  name: Celeste
+- code: '4EE2EC'
+  name: Blue Diamond
+- code: '81D8D0'
+  name: Tiffany Blue
+- code: '92C7C7'
+  name: Cyan Opaque
+- code: '77BFC7'
+  name: Blue Hosta
+- code: '78C7C7'
+  name: Northern Lights Blue
+- code: '48CCCD'
+  name: Medium Turquoise
+- code: '43C6DB'
+  name: Turquoise
+- code: '46C7C7'
+  name: Jellyfish
+- code: '7BCCB5'
+  name: Blue green
+- code: '43BFC7'
+  name: Macaw Blue Green
+- code: '3EA99F'
+  name: Light Sea Green
+- code: '3B9C9C'
+  name: Dark Turquoise
+- code: '438D80'
+  name: Sea Turtle Green
+- code: '348781'
+  name: Medium Aquamarine
+- code: '307D7E'
+  name: Greenish Blue
+- code: '5E7D7E'
+  name: Grayish Turquoise
+- code: '4C787E'
+  name: Beetle Green
+- code: '008080'
+  name: Teal
+- code: '4E8975'
+  name: Sea Green
+- code: '78866B'
+  name: Camouflage Green
+- code: '848B79'
+  name: Sage Green
+- code: '617C58'
+  name: Hazel Green
+- code: '728C00'
+  name: Venom Green
+- code: '667C26'
+  name: Fern Green
+- code: '254117'
+  name: Dark Forest Green
+- code: '306754'
+  name: Medium Sea Green
+- code: '347235'
+  name: Medium Forest Green
+- code: '437C17'
+  name: Seaweed Green
+- code: '387C44'
+  name: Pine Green
+- code: '347C2C'
+  name: Jungle Green
+- code: '347C17'
+  name: Shamrock Green
+- code: '348017'
+  name: Medium Spring Green
+- code: '4E9258'
+  name: Forest Green
+- code: '6AA121'
+  name: Green Onion
+- code: '4AA02C'
+  name: Spring Green
+- code: '41A317'
+  name: Lime Green
+- code: '3EA055'
+  name: Clover Green
+- code: '6CBB3C'
+  name: Green Snake
+- code: '6CC417'
+  name: Alien Green
+- code: '4CC417'
+  name: Green Apple
+- code: '52D017'
+  name: Yellow Green
+- code: '4CC552'
+  name: Kelly Green
+- code: '54C571'
+  name: Zombie Green
+- code: '99C68E'
+  name: Frog Green
+- code: '89C35C'
+  name: Green Peas
+- code: '85BB65'
+  name: Dollar Bill Green
+- code: '8BB381'
+  name: Dark Sea Green
+- code: '9CB071'
+  name: Iguana Green
+- code: 'B2C248'
+  name: Avocado Green
+- code: '9DC209'
+  name: Pistachio Green
+- code: 'A1C935'
+  name: Salad Green
+- code: '7FE817'
+  name: Hummingbird Green
+- code: '59E817'
+  name: Nebula Green
+- code: '57E964'
+  name: Stoplight Go Green
+- code: '64E986'
+  name: Algae Green
+- code: '5EFB6E'
+  name: Jade Green
+- code: '00FF00'
+  name: Green
+- code: '5FFB17'
+  name: Emerald Green
+- code: '87F717'
+  name: Lawn Green
+- code: '8AFB17'
+  name: Chartreuse
+- code: '6AFB92'
+  name: Dragon Green
+- code: '98FF98'
+  name: Mint green
+- code: 'B5EAAA'
+  name: Green Thumb
+- code: 'C3FDB8'
+  name: Light Jade
+- code: 'CCFB5D'
+  name: Tea Green
+- code: 'B1FB17'
+  name: Green Yellow
+- code: 'BCE954'
+  name: Slime Green
+- code: 'EDDA74'
+  name: Goldenrod
+- code: 'EDE275'
+  name: Harvest Gold
+- code: 'FFE87C'
+  name: Sun Yellow
+- code: 'FFFF00'
+  name: Yellow
+- code: 'FFF380'
+  name: Corn Yellow
+- code: 'FFFFC2'
+  name: Parchment
+- code: 'FFFFCC'
+  name: Cream
+- code: 'FFF8C6'
+  name: Lemon Chiffon
+- code: 'FFF8DC'
+  name: Cornsilk
+- code: 'F5F5DC'
+  name: Beige
+- code: 'FBF6D9'
+  name: Blonde
+- code: 'FAEBD7'
+  name: AntiqueWhite
+- code: 'F7E7CE'
+  name: Champagne
+- code: 'FFEBCD'
+  name: BlanchedAlmond
+- code: 'F3E5AB'
+  name: Vanilla
+- code: 'ECE5B6'
+  name: Tan Brown
+- code: 'FFE5B4'
+  name: Peach
+- code: 'FFDB58'
+  name: Mustard
+- code: 'FFD801'
+  name: Rubber Ducky Yellow
+- code: 'FDD017'
+  name: Bright Gold
+- code: 'EAC117'
+  name: Golden brown
+- code: 'F2BB66'
+  name: Macaroni and Cheese
+- code: 'FBB917'
+  name: Saffron
+- code: 'FBB117'
+  name: Beer
+- code: 'FFA62F'
+  name: Cantaloupe
+- code: 'E9AB17'
+  name: Bee Yellow
+- code: 'E2A76F'
+  name: Brown Sugar
+- code: 'DEB887'
+  name: BurlyWood
+- code: 'FFCBA4'
+  name: Deep Peach
+- code: 'C9BE62'
+  name: Ginger Brown
+- code: 'E8A317'
+  name: School Bus Yellow
+- code: 'EE9A4D'
+  name: Sandy Brown
+- code: 'C8B560'
+  name: Fall Leaf Brown
+- code: 'D4A017'
+  name: Orange Gold
+- code: 'C2B280'
+  name: Sand
+- code: 'C7A317'
+  name: Cookie Brown
+- code: 'C68E17'
+  name: Caramel
+- code: 'B5A642'
+  name: Brass
+- code: 'ADA96E'
+  name: Khaki
+- code: 'C19A6B'
+  name: Camel brown
+- code: 'CD7F32'
+  name: Bronze
+- code: 'C88141'
+  name: Tiger Orange
+- code: 'C58917'
+  name: Cinnamon
+- code: 'AF9B60'
+  name: Bullet Shell
+- code: 'AF7817'
+  name: Dark Goldenrod
+- code: 'B87333'
+  name: Copper
+- code: '966F33'
+  name: Wood
+- code: '806517'
+  name: Oak Brown
+- code: '827839'
+  name: Moccasin
+- code: '827B60'
+  name: Army Brown
+- code: '786D5F'
+  name: Sandstone
+- code: '493D26'
+  name: Mocha
+- code: '483C32'
+  name: Taupe
+- code: '6F4E37'
+  name: Coffee
+- code: '835C3B'
+  name: Brown Bear
+- code: '7F5217'
+  name: Red Dirt
+- code: '7F462C'
+  name: Sepia
+- code: 'C47451'
+  name: Orange Salmon
+- code: 'C36241'
+  name: Rust
+- code: 'C35817'
+  name: Red Fox
+- code: 'C85A17'
+  name: Chocolate
+- code: 'CC6600'
+  name: Sedona
+- code: 'E56717'
+  name: Papaya Orange
+- code: 'E66C2C'
+  name: Halloween Orange
+- code: 'F87217'
+  name: Pumpkin Orange
+- code: 'F87431'
+  name: Construction Cone Orange
+- code: 'E67451'
+  name: Sunrise Orange
+- code: 'FF8040'
+  name: Mango Orange
+- code: 'F88017'
+  name: Dark Orange
+- code: 'FF7F50'
+  name: Coral
+- code: 'F88158'
+  name: Basket Ball Orange
+- code: 'F9966B'
+  name: Light Salmon
+- code: 'E78A61'
+  name: Tangerine
+- code: 'E18B6B'
+  name: Dark Salmon
+- code: 'E77471'
+  name: Light Coral
+- code: 'F75D59'
+  name: Bean Red
+- code: 'E55451'
+  name: Valentine Red
+- code: 'E55B3C'
+  name: Shocking Orange
+- code: 'FF0000'
+  name: Red
+- code: 'FF2400'
+  name: Scarlet
+- code: 'F62217'
+  name: Ruby Red
+- code: 'F70D1A'
+  name: Ferrari Red
+- code: 'F62817'
+  name: Fire Engine Red
+- code: 'E42217'
+  name: Lava Red
+- code: 'E41B17'
+  name: Love Red
+- code: 'DC381F'
+  name: Grapefruit
+- code: 'C34A2C'
+  name: Chestnut Red
+- code: 'C24641'
+  name: Cherry Red
+- code: 'C04000'
+  name: Mahogany
+- code: 'C11B17'
+  name: Chilli Pepper
+- code: '9F000F'
+  name: Cranberry
+- code: '990012'
+  name: Red Wine
+- code: '8C001A'
+  name: Burgundy
+- code: '954535'
+  name: Chestnut
+- code: '7E3517'
+  name: Blood Red
+- code: '8A4117'
+  name: Sienna
+- code: '7E3817'
+  name: Sangria
+- code: '800517'
+  name: Firebrick
+- code: '810541'
+  name: Maroon
+- code: '7D0541'
+  name: Plum Pie
+- code: '7E354D'
+  name: Velvet Maroon
+- code: '7D0552'
+  name: Plum Velvet
+- code: '7F4E52'
+  name: Rosy Finch
+- code: '7F5A58'
+  name: Puce
+- code: '7F525D'
+  name: Dull Purple
+- code: 'B38481'
+  name: Rosy Brown
+- code: 'C5908E'
+  name: Khaki Rose
+- code: 'C48189'
+  name: Pink Bow
+- code: 'C48793'
+  name: Lipstick Pink
+- code: 'E8ADAA'
+  name: Rose
+- code: 'ECC5C0'
+  name: Rose Gold
+- code: 'EDC9AF'
+  name: Desert Sand
+- code: 'FDD7E4'
+  name: Pig Pink
+- code: 'FCDFFF'
+  name: Cotton Candy
+- code: 'FFDFDD'
+  name: Pink Bubblegum
+- code: 'FBBBB9'
+  name: Misty Rose
+- code: 'FAAFBE'
+  name: Pink
+- code: 'FAAFBA'
+  name: Light Pink
+- code: 'F9A7B0'
+  name: Flamingo Pink
+- code: 'E7A1B0'
+  name: Pink Rose
+- code: 'E799A3'
+  name: Pink Daisy
+- code: 'E38AAE'
+  name: Cadillac Pink
+- code: 'F778A1'
+  name: Carnation Pink
+- code: 'E56E94'
+  name: Blush Red
+- code: 'F660AB'
+  name: Hot Pink
+- code: 'FC6C85'
+  name: Watermelon Pink
+- code: 'F6358A'
+  name: Violet Red
+- code: 'F52887'
+  name: Deep Pink
+- code: 'E45E9D'
+  name: Pink Cupcake
+- code: 'E4287C'
+  name: Pink Lemonade
+- code: 'F535AA'
+  name: Neon Pink
+- code: 'FF00FF'
+  name: Magenta
+- code: 'E3319D'
+  name: Dimorphotheca Magenta
+- code: 'F433FF'
+  name: Bright Neon Pink
+- code: 'D16587'
+  name: Pale Violet Red
+- code: 'C25A7C'
+  name: Tulip Pink
+- code: 'CA226B'
+  name: Medium Violet Red
+- code: 'C12869'
+  name: Rogue Pink
+- code: 'C12267'
+  name: Burnt Pink
+- code: 'C25283'
+  name: Bashful Pink
+- code: 'C12283'
+  name: Dark Carnation Pink
+- code: 'B93B8F'
+  name: Plum
+- code: '7E587E'
+  name: Viola Purple
+- code: '571B7E'
+  name: Purple Iris
+- code: '583759'
+  name: Plum Purple
+- code: '4B0082'
+  name: Indigo
+- code: '461B7E'
+  name: Purple Monster
+- code: '4E387E'
+  name: Purple Haze
+- code: '614051'
+  name: Eggplant
+- code: '5E5A80'
+  name: Grape
+- code: '6A287E'
+  name: Purple Jam
+- code: '7D1B7E'
+  name: Dark Orchid
+- code: 'A74AC7'
+  name: Purple Flower
+- code: 'B048B5'
+  name: Medium Orchid
+- code: '6C2DC7'
+  name: Purple Amethyst
+- code: '842DCE'
+  name: Dark Violet
+- code: '8D38C9'
+  name: Violet
+- code: '7A5DC7'
+  name: Purple Sage Bush
+- code: '7F38EC'
+  name: Lovely Purple
+- code: '8E35EF'
+  name: Purple
+- code: '893BFF'
+  name: Aztech Purple
+- code: '8467D7'
+  name: Medium Purple
+- code: 'A23BEC'
+  name: Jasmine Purple
+- code: 'B041FF'
+  name: Purple Daffodil
+- code: 'C45AEC'
+  name: Tyrian Purple
+- code: '9172EC'
+  name: Crocus Purple
+- code: '9E7BFF'
+  name: Purple Mimosa
+- code: 'D462FF'
+  name: Heliotrope Purple
+- code: 'E238EC'
+  name: Crimson
+- code: 'C38EC7'
+  name: Purple Dragon
+- code: 'C8A2C8'
+  name: Lilac
+- code: 'E6A9EC'
+  name: Blush Pink
+- code: 'E0B0FF'
+  name: Mauve
+- code: 'C6AEC7'
+  name: Wisteria Purple
+- code: 'F9B7FF'
+  name: Blossom Pink
+- code: 'D2B9D3'
+  name: Thistle
+- code: 'E9CFEC'
+  name: Periwinkle
+- code: 'EBDDE2'
+  name: Lavender Pinocchio
+- code: 'E3E4FA'
+  name: Lavender blue
+- code: 'FDEEF4'
+  name: Pearl
+- code: 'FFF5EE'
+  name: SeaShell
+- code: 'FEFCFF'
+  name: Milk White
+- code: 'FFFFFF'
+  name: White
