@@ -1,5 +1,55 @@
+defaults:
+  preset:
+    bri: 128
+    mainseg: 1
+    'on': true
+  segment:
+    bri: 128
+    cct: 127
+    col:
+      - Red
+      - green
+      - WHITE
+    fx_name: HALLOWEEN EYES
+    grp: 1
+    ix: 128
+    mi: false
+    seg_name: Garage
+    of: 0
+    'on': true
+    pal_name: default
+    rev: true
+    sel: true
+    spc: 0
+    sx: 122
+
 '0': {}
 '1':
+  defaults:
+    segments:
+      bri: 128
+      cct: 127
+      col:
+        - Red
+        - green
+        - WHITE
+      fx_name: HALLOWEEN EYES
+#     fx: HALLOWEEN EYES
+      grp: 1
+      ix: 128
+      mi: false
+      seg_name: Garage
+#     n: Garage
+#     start: 0
+#     stop: 199
+      of: 0
+      'on': true
+      pal_name: default
+#     pal: default
+      rev: true
+      sel: true
+      spc: 0
+      sx: 122
   bri: 128
   mainseg: 1
   n: Segment Test

@@ -7,6 +7,10 @@ from effects import Effects
 from pallets import Pallets
 from segments import Segments
 
+DEFAULTS = 'defaults'
+PRESET_DEFAULTS = 'preset'
+SEGMENT_DEFAULTS = 'segment'
+
 
 class WledPresets:
 
@@ -15,6 +19,11 @@ class WledPresets:
         self.segments = Segments()
         self.pallets = Pallets()
         self.effects = Effects()
+        self.global_preset_defaults = {}
+        self.global_segment_defaults = {}
+        self.preset_segment_defaults = {}
+        self.current_preset_defaults = {}
+        self.current_segment_defaults = {}
 
     def process_yaml_file(self, yaml_file_name):
         with open(yaml_file_name) as in_file:
@@ -22,8 +31,13 @@ class WledPresets:
 
         new_preset_data = {}
 
+        self.load_global_defaults(preset_data)
+
         for key in preset_data.keys():
+            if key == DEFAULTS:
+                continue
             preset = preset_data[key]
+            self.load_preset_defaults(preset)
             if isinstance(preset, dict):
                 new_preset_data[key] = self.process_dict(key, key, preset)
             elif isinstance(preset, list):
@@ -39,6 +53,8 @@ class WledPresets:
     def process_dict(self, path: str, name, data: dict):
         new_data = {}
         for key in data.keys():
+            if key == DEFAULTS:
+                continue
             item = data[key]
             new_path = '{name}.{key}'.format(name=path, key=key)
             if isinstance(item, dict):
@@ -110,6 +126,25 @@ class WledPresets:
 
     def is_placeholder(self, value: str):
         return isinstance(value, str), value
+
+    def load_global_defaults(self, preset_data):
+        if DEFAULTS in preset_data:
+            defaults = preset_data[DEFAULTS]
+            if PRESET_DEFAULTS in defaults:
+                self.global_preset_defaults = defaults[PRESET_DEFAULTS]
+            if SEGMENT_DEFAULTS in defaults:
+                self.global_segment_defaults = defaults[SEGMENT_DEFAULTS]
+
+    def load_preset_defaults(self, preset):
+        if DEFAULTS in preset:
+            defaults = preset[DEFAULTS]
+            if SEGMENT_DEFAULTS in defaults:
+                self.preset_segment_defaults = defaults[SEGMENT_DEFAULTS]
+                self.load_current_defaults()
+
+    def load_current_defaults(self):
+        self.current_preset_defaults = self.global_preset_defaults
+        self.current_segment_defaults = {**self.global_segment_defaults, **self.preset_segment_defaults}
 
 
 if __name__ == '__main__':
