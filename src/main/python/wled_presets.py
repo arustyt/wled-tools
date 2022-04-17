@@ -59,10 +59,14 @@ class WledPresets:
         return new_preset_data
 
     def process_dict(self, path: str, name, data: dict):
-        if SEGMENT_TAG in path:
-            new_data = self.current_segment_defaults.copy()
+        if len(data) > 0:
+            if SEGMENT_TAG in path:
+                new_data = self.current_segment_defaults.copy()
+            else:
+                new_data = self.current_preset_defaults.copy()
         else:
-            new_data = self.current_preset_defaults.copy()
+            new_data = {}
+
         for key in data.keys():
             if key == DEFAULTS:
                 continue
