@@ -7,6 +7,14 @@ from effects import Effects
 from pallets import Pallets
 from segments import Segments
 
+# PRESET_DEFAULTABLES =  "bri,mainseg,on"
+# SEGEMENT_DEFAULTABLES =
+EFFECT_TAG = 'fx'
+EFFECT_NAME_TAG = 'fx_name'
+PALLET_TAG = 'pal'
+PALLET_NAME_TAG = 'pal_name'
+SEGMENT_NAME_TAG = 'seg_name'
+SEGMENT_TAG = 'seg'
 DEFAULTS = 'defaults'
 PRESET_DEFAULTS = 'preset'
 SEGMENT_DEFAULTS = 'segment'
@@ -37,7 +45,7 @@ class WledPresets:
             if key == DEFAULTS:
                 continue
             preset = preset_data[key]
-            self.load_preset_defaults(preset)
+            self.load_preset_defaults(key, preset)
             if isinstance(preset, dict):
                 new_preset_data[key] = self.process_dict(key, key, preset)
             elif isinstance(preset, list):
@@ -51,7 +59,10 @@ class WledPresets:
         return new_preset_data
 
     def process_dict(self, path: str, name, data: dict):
-        new_data = {}
+        if SEGMENT_TAG in path:
+            new_data = self.current_segment_defaults.copy()
+        else:
+            new_data = self.current_preset_defaults.copy()
         for key in data.keys():
             if key == DEFAULTS:
                 continue
@@ -89,15 +100,15 @@ class WledPresets:
         return new_data
 
     def process_dict_element(self, path: str, name, data):
-        if 'seg' in path:
-            if name == 'seg_name':
+        if SEGMENT_TAG in path:
+            if name == SEGMENT_NAME_TAG:
                 return self.process_segment_name(path, name, data)
-            elif name == 'pal_name':
+            elif name == PALLET_NAME_TAG:
                 pallet = self.process_pallet_name(path, name, data)
-                return ('pal', pallet[1][1]),
-            elif name == 'fx_name':
+                return (PALLET_TAG, pallet[1][1]),
+            elif name == EFFECT_NAME_TAG:
                 effect = self.process_effect_name(path, name, data)
-                return ('fx', effect[1][1]),
+                return (EFFECT_TAG, effect[1][1]),
         return (name, data),
 
     def process_segment_name(self, path, name, data):
@@ -131,20 +142,33 @@ class WledPresets:
         if DEFAULTS in preset_data:
             defaults = preset_data[DEFAULTS]
             if PRESET_DEFAULTS in defaults:
-                self.global_preset_defaults = defaults[PRESET_DEFAULTS]
+                self.load_global_preset_defaults(defaults[PRESET_DEFAULTS])
             if SEGMENT_DEFAULTS in defaults:
-                self.global_segment_defaults = defaults[SEGMENT_DEFAULTS]
+                self.load_global_segment_defaults(defaults[SEGMENT_DEFAULTS])
 
-    def load_preset_defaults(self, preset):
+    def load_preset_defaults(self, preset_id, preset):
         if DEFAULTS in preset:
             defaults = preset[DEFAULTS]
             if SEGMENT_DEFAULTS in defaults:
-                self.preset_segment_defaults = defaults[SEGMENT_DEFAULTS]
-                self.load_current_defaults()
+                self.load_preset_segment_defaults(preset_id, defaults[SEGMENT_DEFAULTS])
+        self.load_current_defaults()
 
     def load_current_defaults(self):
         self.current_preset_defaults = self.global_preset_defaults
         self.current_segment_defaults = {**self.global_segment_defaults, **self.preset_segment_defaults}
+
+    def load_global_preset_defaults(self, global_preset_defaults):
+        self.global_preset_defaults = self.process_dict(self.get_new_path(DEFAULTS, PRESET_DEFAULTS), PRESET_DEFAULTS, global_preset_defaults)
+
+    def get_new_path(self, path, name):
+        return '{path}.{name}'.format(path=path, name=name)
+
+    def load_global_segment_defaults(self, global_segment_defaults):
+        self.global_segment_defaults = self.process_dict(self.get_new_path(DEFAULTS, SEGMENT_DEFAULTS), SEGMENT_DEFAULTS, global_segment_defaults)
+
+    def load_preset_segment_defaults(self, preset_id, preset_segment_defaults):
+        new_path = '{preset_id}.{path}.{name}'.format(preset_id=preset_id, path=DEFAULTS, name=SEGMENT_DEFAULTS)
+        self.preset_segment_defaults = self.process_dict(new_path, SEGMENT_DEFAULTS, preset_segment_defaults)
 
 
 if __name__ == '__main__':
