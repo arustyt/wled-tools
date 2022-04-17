@@ -26,7 +26,7 @@ defaults:
 '0': {}
 '1':
   defaults:
-    segments:
+    segment:
       bri: 128
       cct: 127
       col:
