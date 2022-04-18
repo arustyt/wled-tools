@@ -1,12 +1,10 @@
 '0': {}
 '1':
   bri: 128
-  mainseg: 1
+  mainseg: 0
   n: Segment Test
   'on': true
   seg:
-  - id: 0
-    stop: 0
   - bri: 128
     cct: 127
     col:
@@ -15,7 +13,7 @@
     - White
     fx_name: Solid
     grp: 1
-    id: 1
+    id: 0
     ix: 128
     mi: false
     seg_name: Garage
@@ -34,7 +32,7 @@
     - White
     fx_name: Solid
     grp: 1
-    id: 2
+    id: 1
     ix: 128
     mi: false
     seg_name: Porch
@@ -53,7 +51,7 @@
     - White
     fx_name: Solid
     grp: 1
-    id: 3
+    id: 2
     ix: 128
     mi: false
     seg_name: Over Porch
@@ -72,7 +70,7 @@
     - White
     fx_name: Solid
     grp: 1
-    id: 4
+    id: 3
     ix: 128
     mi: false
     seg_name: Peak
@@ -83,27 +81,13 @@
     sel: true
     spc: 0
     sx: 122
-  - id: 5
-    stop: 0
-  - id: 6
-    stop: 0
   transition: 7
 '10':
   bri: 128
-  mainseg: 5
+  mainseg: 0
   n: TriChaseXmas
   'on': true
   seg:
-  - id: 0
-    stop: 0
-  - id: 1
-    stop: 0
-  - id: 2
-    stop: 0
-  - id: 3
-    stop: 0
-  - id: 4
-    stop: 0
   - bri: 128
     col:
     - Red
@@ -111,7 +95,7 @@
     - White
     fx_name: Tri Chase
     grp: 1
-    id: 5
+    id: 0
     ix: 130
     mi: false
     seg_name: First Floor
@@ -128,7 +112,7 @@
     - White
     fx_name: Tri Chase
     grp: 1
-    id: 6
+    id: 1
     ix: 130
     mi: false
     seg_name: Second Floor
@@ -141,20 +125,10 @@
   transition: 7
 '11':
   bri: 128
-  mainseg: 5
+  mainseg: 0
   n: ChunChunXmas
   'on': true
   seg:
-  - id: 0
-    stop: 0
-  - id: 1
-    stop: 0
-  - id: 2
-    stop: 0
-  - id: 3
-    stop: 0
-  - id: 4
-    stop: 0
   - bri: 128
     col:
     - Red
@@ -162,7 +136,7 @@
     - White
     fx_name: Chunchun
     grp: 1
-    id: 5
+    id: 0
     ix: 12
     mi: false
     seg_name: First Floor
@@ -179,7 +153,7 @@
     - White
     fx_name: Chunchun
     grp: 1
-    id: 6
+    id: 1
     ix: 12
     mi: false
     seg_name: Second Floor
@@ -192,12 +166,10 @@
   transition: 7
 '12':
   bri: 128
-  mainseg: 1
+  mainseg: 0
   n: Tetrix
   'on': true
   seg:
-  - id: 0
-    stop: 0
   - bri: 128
     col:
     - Red
@@ -205,7 +177,7 @@
     - White
     fx_name: Tetrix
     grp: 1
-    id: 1
+    id: 0
     ix: 128
     mi: false
     seg_name: Garage
@@ -222,7 +194,7 @@
     - White
     fx_name: Tetrix
     grp: 1
-    id: 2
+    id: 1
     ix: 128
     mi: false
     seg_name: Porch
@@ -239,7 +211,7 @@
     - White
     fx_name: Tetrix
     grp: 1
-    id: 3
+    id: 2
     ix: 128
     mi: false
     seg_name: Over Porch
@@ -256,7 +228,7 @@
     - White
     fx_name: Tetrix
     grp: 1
-    id: 4
+    id: 3
     ix: 128
     mi: false
     seg_name: Peak
@@ -266,10 +238,6 @@
     sel: true
     spc: 0
     sx: 255
-  - id: 5
-    stop: 0
-  - id: 6
-    stop: 0
   transition: 7
 '13':
   n: Christmas Playlist
@@ -359,15 +327,10 @@
   win: T=1
 '17':
   bri: 255
-  mainseg: 5
+  mainseg: 0
   n: Fireworks rainbow
   'on': true
   seg:
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
   - bri: 128
     cct: 127
     col:
@@ -376,7 +339,7 @@
     - White
     fx_name: Fireworks 1D
     grp: 1
-    id: 5
+    id: 0
     ix: 132
     mi: false
     seg_name: First Floor
@@ -395,7 +358,7 @@
     - White
     fx_name: Fireworks 1D
     grp: 1
-    id: 6
+    id: 1
     ix: 128
     mi: false
     seg_name: Second Floor
@@ -435,15 +398,10 @@
   transition: 7
 '19':
   bri: 128
-  mainseg: 5
+  mainseg: 0
   n: Marti Gras
   'on': true
   seg:
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
   - bri: 128
     cct: 127
     col:
@@ -452,7 +410,7 @@
     - 'FFC800'
     fx_name: Tri Chase
     grp: 1
-    id: 5
+    id: 0
     ix: 128
     mi: false
     seg_name: First Floor
@@ -471,7 +429,7 @@
     - 'FFC800'
     fx_name: Tri Chase
     grp: 1
-    id: 6
+    id: 1
     ix: 128
     mi: false
     seg_name: Second Floor
@@ -486,15 +444,10 @@
 '2': {}
 '20':
   bri: 204
-  mainseg: 5
+  mainseg: 0
   n: Marti Gras 2
   'on': true
   seg:
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
   - bri: 128
     cct: 127
     col:
@@ -503,7 +456,7 @@
     - 'FFC800'
     fx_name: Tri Chase
     grp: 1
-    id: 5
+    id: 0
     ix: 128
     mi: false
     seg_name: First Floor
@@ -522,7 +475,7 @@
     - 'FFC800'
     fx_name: Tri Chase
     grp: 1
-    id: 6
+    id: 1
     ix: 128
     mi: false
     seg_name: Second Floor
@@ -536,15 +489,10 @@
   transition: 7
 '21':
   bri: 128
-  mainseg: 5
+  mainseg: 0
   n: St. Pats - Blends
   'on': true
   seg:
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
   - bri: 128
     cct: 127
     col:
@@ -553,7 +501,7 @@
     - 'FFC800'
     fx_name: Blends
     grp: 1
-    id: 5
+    id: 0
     ix: 128
     mi: false
     seg_name: First Floor
@@ -572,7 +520,7 @@
     - 'FFC800'
     fx_name: Blends
     grp: 1
-    id: 6
+    id: 1
     ix: 128
     mi: false
     seg_name: Second Floor
@@ -586,15 +534,10 @@
   transition: 7
 '22':
   bri: 128
-  mainseg: 5
+  mainseg: 0
   n: St. Pats - Chase2
   'on': true
   seg:
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
   - bri: 128
     cct: 127
     col:
@@ -603,7 +546,7 @@
     - 'FFC800'
     fx_name: Running 2
     grp: 1
-    id: 5
+    id: 0
     ix: 128
     mi: false
     seg_name: First Floor
@@ -622,7 +565,7 @@
     - 'FFC800'
     fx_name: Running 2
     grp: 1
-    id: 6
+    id: 1
     ix: 128
     mi: false
     seg_name: Second Floor
@@ -636,15 +579,10 @@
   transition: 7
 '23':
   bri: 128
-  mainseg: 5
+  mainseg: 0
   n: St. Pats - Chunchun
   'on': true
   seg:
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
   - bri: 128
     cct: 127
     col:
@@ -653,7 +591,7 @@
     - 'FFC800'
     fx_name: Chunchun
     grp: 1
-    id: 5
+    id: 0
     ix: 128
     mi: false
     seg_name: First Floor
@@ -672,7 +610,7 @@
     - 'FFC800'
     fx_name: Chunchun
     grp: 1
-    id: 6
+    id: 1
     ix: 128
     mi: false
     seg_name: Second Floor
@@ -686,15 +624,10 @@
   transition: 7
 '24':
   bri: 128
-  mainseg: 5
+  mainseg: 0
   n: St. Pats - Colorwaves
   'on': true
   seg:
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
   - bri: 128
     cct: 127
     col:
@@ -703,7 +636,7 @@
     - 'FFC800'
     fx_name: Colorwaves
     grp: 1
-    id: 5
+    id: 0
     ix: 128
     mi: false
     seg_name: First Floor
@@ -722,7 +655,7 @@
     - 'FFC800'
     fx_name: Colorwaves
     grp: 1
-    id: 6
+    id: 1
     ix: 128
     mi: false
     seg_name: Second Floor
@@ -736,15 +669,10 @@
   transition: 7
 '25':
   bri: 128
-  mainseg: 5
+  mainseg: 0
   n: St. Pats - Twinkle Cat
   'on': true
   seg:
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
   - bri: 128
     cct: 127
     col:
@@ -753,7 +681,7 @@
     - 'FFC800'
     fx_name: Twinklecat
     grp: 1
-    id: 5
+    id: 0
     ix: 128
     mi: false
     seg_name: First Floor
@@ -772,7 +700,7 @@
     - 'FFC800'
     fx_name: Twinklecat
     grp: 1
-    id: 6
+    id: 1
     ix: 128
     mi: false
     seg_name: Second Floor
@@ -786,15 +714,10 @@
   transition: 7
 '26':
   bri: 128
-  mainseg: 5
+  mainseg: 0
   n: St. Pats - Fireworks 1D
   'on': true
   seg:
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
   - bri: 128
     cct: 127
     col:
@@ -803,7 +726,7 @@
     - 'FFC800'
     fx_name: Fireworks 1D
     grp: 1
-    id: 5
+    id: 0
     ix: 128
     mi: false
     seg_name: First Floor
@@ -822,7 +745,7 @@
     - 'FFC800'
     fx_name: Fireworks 1D
     grp: 1
-    id: 6
+    id: 1
     ix: 128
     mi: false
     seg_name: Second Floor
@@ -836,15 +759,10 @@
   transition: 7
 '27':
   bri: 128
-  mainseg: 5
+  mainseg: 0
   n: St. Pats - Flow
   'on': true
   seg:
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
   - bri: 128
     cct: 127
     col:
@@ -853,7 +771,7 @@
     - 'FFC800'
     fx_name: Fireworks 1D
     grp: 1
-    id: 5
+    id: 0
     ix: 128
     mi: false
     seg_name: First Floor
@@ -872,7 +790,7 @@
     - 'FFC800'
     fx_name: Fireworks 1D
     grp: 1
-    id: 6
+    id: 1
     ix: 128
     mi: false
     seg_name: Second Floor
@@ -886,15 +804,10 @@
   transition: 7
 '28':
   bri: 128
-  mainseg: 5
+  mainseg: 0
   n: St. Pats - Popcorn
   'on': true
   seg:
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
   - bri: 128
     cct: 127
     col:
@@ -903,7 +816,7 @@
     - 'FFC800'
     fx_name: Popcorn
     grp: 1
-    id: 5
+    id: 0
     ix: 128
     mi: false
     seg_name: First Floor
@@ -922,7 +835,7 @@
     - 'FFC800'
     fx_name: Popcorn
     grp: 1
-    id: 6
+    id: 1
     ix: 128
     mi: false
     seg_name: Second Floor
@@ -936,15 +849,10 @@
   transition: 7
 '29':
   bri: 128
-  mainseg: 5
+  mainseg: 0
   n: St. Pats - Scanner Dual
   'on': true
   seg:
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
   - bri: 128
     cct: 127
     col:
@@ -953,7 +861,7 @@
     - 'FFC800'
     fx_name: Scanner Dual
     grp: 1
-    id: 5
+    id: 0
     ix: 128
     mi: false
     seg_name: First Floor
@@ -972,7 +880,7 @@
     - 'FFC800'
     fx_name: Scanner Dual
     grp: 1
-    id: 6
+    id: 1
     ix: 128
     mi: false
     seg_name: Second Floor
@@ -986,20 +894,10 @@
   transition: 7
 '3':
   bri: 128
-  mainseg: 5
+  mainseg: 0
   n: Candy Cane
   'on': true
   seg:
-  - id: 0
-    stop: 0
-  - id: 1
-    stop: 0
-  - id: 2
-    stop: 0
-  - id: 3
-    stop: 0
-  - id: 4
-    stop: 0
   - bri: 128
     col:
     - Red
@@ -1007,7 +905,7 @@
     - White
     fx_name: Candy Cane
     grp: 1
-    id: 5
+    id: 0
     ix: 128
     mi: false
     seg_name: First Floor
@@ -1024,7 +922,7 @@
     - White
     fx_name: Candy Cane
     grp: 1
-    id: 6
+    id: 1
     ix: 128
     mi: false
     seg_name: Second Floor
@@ -1037,15 +935,10 @@
   transition: 7
 '30':
   bri: 128
-  mainseg: 5
+  mainseg: 0
   n: St. Pats - Washing Machine
   'on': true
   seg:
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
-  - stop: 0
   - bri: 128
     cct: 127
     col:
@@ -1054,7 +947,7 @@
     - 'FFC800'
     fx_name: Washing machine
     grp: 1
-    id: 5
+    id: 0
     ix: 128
     mi: false
     seg_name: First Floor
@@ -1073,7 +966,7 @@
     - 'FFC800'
     fx_name: Washing machine
     grp: 1
-    id: 6
+    id: 1
     ix: 128
     mi: false
     seg_name: Second Floor
@@ -1127,20 +1020,10 @@
     - 7
 '4':
   bri: 128
-  mainseg: 5
+  mainseg: 0
   n: Christmas
   'on': true
   seg:
-  - id: 0
-    stop: 0
-  - id: 1
-    stop: 0
-  - id: 2
-    stop: 0
-  - id: 3
-    stop: 0
-  - id: 4
-    stop: 0
   - bri: 128
     col:
     - Red
@@ -1148,7 +1031,7 @@
     - White
     fx_name: Running 2
     grp: 1
-    id: 5
+    id: 0
     ix: 128
     mi: false
     seg_name: First Floor
@@ -1165,7 +1048,7 @@
     - White
     fx_name: Running 2
     grp: 1
-    id: 6
+    id: 1
     ix: 128
     mi: false
     seg_name: Second Floor
@@ -1178,20 +1061,10 @@
   transition: 7
 '5':
   bri: 128
-  mainseg: 5
+  mainseg: 0
   n: Twinkle
   'on': true
   seg:
-  - id: 0
-    stop: 0
-  - id: 1
-    stop: 0
-  - id: 2
-    stop: 0
-  - id: 3
-    stop: 0
-  - id: 4
-    stop: 0
   - bri: 128
     col:
     - White
@@ -1199,7 +1072,7 @@
     - White
     fx_name: TwinkleUp
     grp: 1
-    id: 5
+    id: 0
     ix: 128
     mi: false
     seg_name: First Floor
@@ -1216,7 +1089,7 @@
     - White
     fx_name: TwinkleUp
     grp: 1
-    id: 6
+    id: 1
     ix: 128
     mi: false
     seg_name: Second Floor
@@ -1229,12 +1102,10 @@
   transition: 7
 '6':
   bri: 128
-  mainseg: 1
+  mainseg: 0
   n: Candy Cane 2
   'on': true
   seg:
-  - id: 0
-    stop: 0
   - bri: 128
     col:
     - White
@@ -1242,7 +1113,7 @@
     - White
     fx_name: Candy Cane
     grp: 1
-    id: 1
+    id: 0
     ix: 128
     mi: false
     seg_name: Garage
@@ -1259,7 +1130,7 @@
     - Black
     fx_name: Candy Cane
     grp: 1
-    id: 2
+    id: 1
     ix: 128
     mi: false
     seg_name: Porch
@@ -1276,7 +1147,7 @@
     - White
     fx_name: Candy Cane
     grp: 1
-    id: 3
+    id: 2
     ix: 128
     mi: false
     seg_name: Over Porch
@@ -1293,7 +1164,7 @@
     - White
     fx_name: Candy Cane
     grp: 1
-    id: 4
+    id: 3
     ix: 128
     mi: false
     seg_name: Peak
@@ -1303,10 +1174,6 @@
     sel: true
     spc: 0
     sx: 122
-  - id: 5
-    stop: 0
-  - id: 6
-    stop: 0
   transition: 7
 '7':
   bri: 128

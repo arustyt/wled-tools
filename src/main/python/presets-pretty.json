@@ -149,14 +149,6 @@
         "sel": true,
         "rev": true,
         "mi": false
-      },
-      {
-        "id": 5,
-        "stop": 0
-      },
-      {
-        "id": 6,
-        "stop": 0
       }
     ],
     "n": "Segment Test"
@@ -535,14 +527,6 @@
         "sel": true,
         "rev": true,
         "mi": false
-      },
-      {
-        "id": 5,
-        "stop": 0
-      },
-      {
-        "id": 6,
-        "stop": 0
       }
     ]
   },
