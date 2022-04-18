@@ -21,7 +21,7 @@
     seg_name: Garage
     of: 0
     'on': true
-    pal: 0
+    pal_name: Default
     rev: true
     sel: true
     spc: 0
@@ -40,7 +40,7 @@
     seg_name: Porch
     of: 0
     'on': true
-    pal: 0
+    pal_name: Default
     rev: true
     sel: true
     spc: 0
@@ -59,7 +59,7 @@
     seg_name: Over Porch
     of: 0
     'on': true
-    pal: 0
+    pal_name: Default
     rev: true
     sel: true
     spc: 0
@@ -78,7 +78,7 @@
     seg_name: Peak
     of: 0
     'on': true
-    pal: 0
+    pal_name: Default
     rev: true
     sel: true
     spc: 0
@@ -116,7 +116,7 @@
     mi: false
     seg_name: First Floor
     'on': true
-    pal: 0
+    pal_name: Default
     rev: false
     sel: true
     spc: 0
@@ -133,7 +133,7 @@
     mi: false
     seg_name: Second Floor
     'on': true
-    pal: 0
+    pal_name: Default
     rev: true
     sel: true
     spc: 0
@@ -167,7 +167,7 @@
     mi: false
     seg_name: First Floor
     'on': true
-    pal: 0
+    pal_name: Default
     rev: false
     sel: true
     spc: 0
@@ -184,7 +184,7 @@
     mi: false
     seg_name: Second Floor
     'on': true
-    pal: 0
+    pal_name: Default
     rev: true
     sel: true
     spc: 0
@@ -210,7 +210,7 @@
     mi: false
     seg_name: Garage
     'on': true
-    pal: 11
+    pal_name: Rainbow
     rev: true
     sel: true
     spc: 0
@@ -227,7 +227,7 @@
     mi: false
     seg_name: Porch
     'on': true
-    pal: 11
+    pal_name: Rainbow
     rev: false
     sel: true
     spc: 0
@@ -244,7 +244,7 @@
     mi: false
     seg_name: Over Porch
     'on': true
-    pal: 11
+    pal_name: Rainbow
     rev: true
     sel: true
     spc: 0
@@ -261,7 +261,7 @@
     mi: false
     seg_name: Peak
     'on': true
-    pal: 11
+    pal_name: Rainbow
     rev: false
     sel: true
     spc: 0
@@ -382,7 +382,7 @@
     seg_name: First Floor
     of: 0
     'on': true
-    pal: 11
+    pal_name: Rainbow
     rev: true
     sel: true
     spc: 0
@@ -401,7 +401,7 @@
     seg_name: Second Floor
     of: 0
     'on': true
-    pal: 11
+    pal_name: Rainbow
     rev: false
     sel: true
     spc: 0
@@ -427,7 +427,7 @@
     seg_name: Whole Roof
     of: 0
     'on': true
-    pal: 0
+    pal_name: Default
     rev: false
     sel: true
     spc: 0
@@ -458,7 +458,7 @@
     seg_name: First Floor
     of: 0
     'on': true
-    pal: 0
+    pal_name: Default
     rev: false
     sel: true
     spc: 0
@@ -477,7 +477,7 @@
     seg_name: Second Floor
     of: 0
     'on': true
-    pal: 0
+    pal_name: Default
     rev: true
     sel: true
     spc: 0
@@ -509,7 +509,7 @@
     seg_name: First Floor
     of: 0
     'on': true
-    pal: 0
+    pal_name: Default
     rev: false
     sel: true
     spc: 0
@@ -528,7 +528,7 @@
     seg_name: Second Floor
     of: 0
     'on': true
-    pal: 0
+    pal_name: Default
     rev: true
     sel: true
     spc: 0
@@ -559,7 +559,7 @@
     seg_name: First Floor
     of: 0
     'on': true
-    pal: 3
+    pal_name: Colors 1 & 2
     rev: false
     sel: true
     spc: 0
@@ -578,7 +578,7 @@
     seg_name: Second Floor
     of: 0
     'on': true
-    pal: 3
+    pal_name: Colors 1 & 2
     rev: true
     sel: true
     spc: 0
@@ -609,7 +609,7 @@
     seg_name: First Floor
     of: 0
     'on': true
-    pal: 3
+    pal_name: Colors 1 & 2
     rev: false
     sel: true
     spc: 0
@@ -628,7 +628,7 @@
     seg_name: Second Floor
     of: 0
     'on': true
-    pal: 3
+    pal_name: Colors 1 & 2
     rev: true
     sel: true
     spc: 0
@@ -659,7 +659,7 @@
     seg_name: First Floor
     of: 0
     'on': true
-    pal: 3
+    pal_name: Colors 1 & 2
     rev: false
     sel: true
     spc: 0
@@ -678,7 +678,7 @@
     seg_name: Second Floor
     of: 0
     'on': true
-    pal: 3
+    pal_name: Colors 1 & 2
     rev: true
     sel: true
     spc: 0
@@ -709,7 +709,7 @@
     seg_name: First Floor
     of: 0
     'on': true
-    pal: 3
+    pal_name: Colors 1 & 2
     rev: false
     sel: true
     spc: 0
@@ -728,7 +728,7 @@
     seg_name: Second Floor
     of: 0
     'on': true
-    pal: 3
+    pal_name: Colors 1 & 2
     rev: true
     sel: true
     spc: 0
@@ -759,7 +759,7 @@
     seg_name: First Floor
     of: 0
     'on': true
-    pal: 11
+    pal_name: Rainbow
     rev: false
     sel: true
     spc: 0
@@ -778,7 +778,7 @@
     seg_name: Second Floor
     of: 0
     'on': true
-    pal: 11
+    pal_name: Rainbow
     rev: true
     sel: true
     spc: 0
@@ -809,7 +809,7 @@
     seg_name: First Floor
     of: 0
     'on': true
-    pal: 3
+    pal_name: Colors 1 & 2
     rev: false
     sel: true
     spc: 0
@@ -828,7 +828,7 @@
     seg_name: Second Floor
     of: 0
     'on': true
-    pal: 3
+    pal_name: Colors 1 & 2
     rev: true
     sel: true
     spc: 0
@@ -859,7 +859,7 @@
     seg_name: First Floor
     of: 0
     'on': true
-    pal: 3
+    pal_name: Colors 1 & 2
     rev: false
     sel: true
     spc: 0
@@ -878,7 +878,7 @@
     seg_name: Second Floor
     of: 0
     'on': true
-    pal: 3
+    pal_name: Colors 1 & 2
     rev: true
     sel: true
     spc: 0
@@ -909,7 +909,7 @@
     seg_name: First Floor
     of: 0
     'on': true
-    pal: 5
+    pal_name: Colors Only
     rev: false
     sel: true
     spc: 0
@@ -928,7 +928,7 @@
     seg_name: Second Floor
     of: 0
     'on': true
-    pal: 5
+    pal_name: Colors Only
     rev: true
     sel: true
     spc: 0
@@ -959,7 +959,7 @@
     seg_name: First Floor
     of: 0
     'on': true
-    pal: 5
+    pal_name: Colors Only
     rev: false
     sel: true
     spc: 0
@@ -978,7 +978,7 @@
     seg_name: Second Floor
     of: 0
     'on': true
-    pal: 5
+    pal_name: Colors Only
     rev: true
     sel: true
     spc: 0
@@ -1012,7 +1012,7 @@
     mi: false
     seg_name: First Floor
     'on': true
-    pal: 0
+    pal_name: Default
     rev: false
     sel: true
     spc: 0
@@ -1029,7 +1029,7 @@
     mi: false
     seg_name: Second Floor
     'on': true
-    pal: 0
+    pal_name: Default
     rev: true
     sel: true
     spc: 0
@@ -1060,7 +1060,7 @@
     seg_name: First Floor
     of: 0
     'on': true
-    pal: 11
+    pal_name: Rainbow
     rev: false
     sel: true
     spc: 0
@@ -1079,7 +1079,7 @@
     seg_name: Second Floor
     of: 0
     'on': true
-    pal: 11
+    pal_name: Rainbow
     rev: true
     sel: true
     spc: 0
@@ -1153,7 +1153,7 @@
     mi: false
     seg_name: First Floor
     'on': true
-    pal: 0
+    pal_name: Default
     rev: true
     sel: true
     spc: 0
@@ -1170,7 +1170,7 @@
     mi: false
     seg_name: Second Floor
     'on': true
-    pal: 0
+    pal_name: Default
     rev: false
     sel: true
     spc: 0
@@ -1204,7 +1204,7 @@
     mi: false
     seg_name: First Floor
     'on': true
-    pal: 0
+    pal_name: Default
     rev: false
     sel: true
     spc: 0
@@ -1221,7 +1221,7 @@
     mi: false
     seg_name: Second Floor
     'on': true
-    pal: 0
+    pal_name: Default
     rev: true
     sel: true
     spc: 0
@@ -1247,7 +1247,7 @@
     mi: false
     seg_name: Garage
     'on': true
-    pal: 0
+    pal_name: Default
     rev: false
     sel: true
     spc: 0
@@ -1264,7 +1264,7 @@
     mi: false
     seg_name: Porch
     'on': true
-    pal: 0
+    pal_name: Default
     rev: true
     sel: false
     spc: 0
@@ -1281,7 +1281,7 @@
     mi: false
     seg_name: Over Porch
     'on': true
-    pal: 0
+    pal_name: Default
     rev: false
     sel: true
     spc: 0
@@ -1298,7 +1298,7 @@
     mi: false
     seg_name: Peak
     'on': true
-    pal: 0
+    pal_name: Default
     rev: true
     sel: true
     spc: 0
@@ -1326,7 +1326,7 @@
     mi: false
     seg_name: Whole Roof
     'on': true
-    pal: 5
+    pal_name: Colors Only
     rev: false
     sel: true
     spc: 0
@@ -1349,7 +1349,7 @@
     mi: false
     seg_name: Whole Roof
     'on': true
-    pal: 0
+    pal_name: Default
     rev: false
     sel: true
     spc: 0
@@ -1373,7 +1373,7 @@
     mi: false
     seg_name: Whole Roof
     'on': true
-    pal: 11
+    pal_name: Rainbow
     rev: false
     sel: true
     spc: 0
