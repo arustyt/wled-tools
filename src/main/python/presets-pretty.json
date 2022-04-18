@@ -4,14 +4,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 1,
+    "mainseg": 0,
     "seg": [
       {
         "id": 0,
-        "stop": 0
-      },
-      {
-        "id": 1,
         "start": 0,
         "stop": 114,
         "n": "Garage",
@@ -47,7 +43,7 @@
         "mi": false
       },
       {
-        "id": 2,
+        "id": 1,
         "start": 114,
         "stop": 222,
         "n": "Porch",
@@ -83,7 +79,7 @@
         "mi": false
       },
       {
-        "id": 3,
+        "id": 2,
         "start": 222,
         "stop": 337,
         "n": "Over Porch",
@@ -119,7 +115,7 @@
         "mi": false
       },
       {
-        "id": 4,
+        "id": 3,
         "start": 337,
         "stop": 439,
         "n": "Peak",
@@ -170,30 +166,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
         "id": 0,
-        "stop": 0
-      },
-      {
-        "id": 1,
-        "stop": 0
-      },
-      {
-        "id": 2,
-        "stop": 0
-      },
-      {
-        "id": 3,
-        "stop": 0
-      },
-      {
-        "id": 4,
-        "stop": 0
-      },
-      {
-        "id": 5,
         "start": 0,
         "stop": 222,
         "n": "First Floor",
@@ -227,7 +203,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "n": "Second Floor",
@@ -268,30 +244,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
         "id": 0,
-        "stop": 0
-      },
-      {
-        "id": 1,
-        "stop": 0
-      },
-      {
-        "id": 2,
-        "stop": 0
-      },
-      {
-        "id": 3,
-        "stop": 0
-      },
-      {
-        "id": 4,
-        "stop": 0
-      },
-      {
-        "id": 5,
         "start": 0,
         "stop": 222,
         "n": "First Floor",
@@ -325,7 +281,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "n": "Second Floor",
@@ -365,30 +321,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
         "id": 0,
-        "stop": 0
-      },
-      {
-        "id": 1,
-        "stop": 0
-      },
-      {
-        "id": 2,
-        "stop": 0
-      },
-      {
-        "id": 3,
-        "stop": 0
-      },
-      {
-        "id": 4,
-        "stop": 0
-      },
-      {
-        "id": 5,
         "start": 0,
         "stop": 222,
         "n": "First Floor",
@@ -422,7 +358,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "n": "Second Floor",
@@ -462,14 +398,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 1,
+    "mainseg": 0,
     "seg": [
       {
         "id": 0,
-        "stop": 0
-      },
-      {
-        "id": 1,
         "start": 0,
         "stop": 114,
         "n": "Garage",
@@ -503,7 +435,7 @@
         "mi": false
       },
       {
-        "id": 2,
+        "id": 1,
         "start": 114,
         "stop": 222,
         "n": "Porch",
@@ -537,7 +469,7 @@
         "mi": false
       },
       {
-        "id": 3,
+        "id": 2,
         "start": 222,
         "stop": 337,
         "n": "Over Porch",
@@ -571,7 +503,7 @@
         "mi": false
       },
       {
-        "id": 4,
+        "id": 3,
         "start": 337,
         "stop": 439,
         "n": "Peak",
@@ -747,30 +679,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
         "id": 0,
-        "stop": 0
-      },
-      {
-        "id": 1,
-        "stop": 0
-      },
-      {
-        "id": 2,
-        "stop": 0
-      },
-      {
-        "id": 3,
-        "stop": 0
-      },
-      {
-        "id": 4,
-        "stop": 0
-      },
-      {
-        "id": 5,
         "start": 0,
         "stop": 222,
         "n": "First Floor",
@@ -804,7 +716,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "n": "Second Floor",
@@ -844,30 +756,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
         "id": 0,
-        "stop": 0
-      },
-      {
-        "id": 1,
-        "stop": 0
-      },
-      {
-        "id": 2,
-        "stop": 0
-      },
-      {
-        "id": 3,
-        "stop": 0
-      },
-      {
-        "id": 4,
-        "stop": 0
-      },
-      {
-        "id": 5,
         "start": 0,
         "stop": 222,
         "n": "First Floor",
@@ -901,7 +793,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "n": "Second Floor",
@@ -941,14 +833,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 1,
+    "mainseg": 0,
     "seg": [
       {
         "id": 0,
-        "stop": 0
-      },
-      {
-        "id": 1,
         "start": 0,
         "stop": 114,
         "n": "Garage",
@@ -982,7 +870,7 @@
         "mi": false
       },
       {
-        "id": 2,
+        "id": 1,
         "start": 114,
         "stop": 222,
         "n": "Porch",
@@ -1016,7 +904,7 @@
         "mi": false
       },
       {
-        "id": 3,
+        "id": 2,
         "start": 222,
         "stop": 337,
         "n": "Over Porch",
@@ -1050,7 +938,7 @@
         "mi": false
       },
       {
-        "id": 4,
+        "id": 3,
         "start": 337,
         "stop": 439,
         "n": "Peak",
@@ -1082,14 +970,6 @@
         "sel": true,
         "rev": false,
         "mi": false
-      },
-      {
-        "id": 5,
-        "stop": 0
-      },
-      {
-        "id": 6,
-        "stop": 0
       }
     ]
   },
@@ -1196,25 +1076,10 @@
     "on": true,
     "bri": 255,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "id": 0,
         "start": 0,
         "stop": 222,
         "grp": 1,
@@ -1250,7 +1115,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "grp": 1,
@@ -1337,25 +1202,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "id": 0,
         "start": 0,
         "stop": 222,
         "grp": 1,
@@ -1391,7 +1241,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "grp": 1,
@@ -1433,25 +1283,10 @@
     "on": true,
     "bri": 204,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "id": 0,
         "start": 0,
         "stop": 222,
         "grp": 1,
@@ -1487,7 +1322,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "grp": 1,
@@ -1529,25 +1364,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "id": 0,
         "start": 0,
         "stop": 222,
         "grp": 1,
@@ -1583,7 +1403,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "grp": 1,
@@ -1625,25 +1445,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "id": 0,
         "start": 0,
         "stop": 222,
         "grp": 1,
@@ -1679,7 +1484,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "grp": 1,
@@ -1721,25 +1526,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "id": 0,
         "start": 0,
         "stop": 222,
         "grp": 1,
@@ -1775,7 +1565,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "grp": 1,
@@ -1817,25 +1607,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "id": 0,
         "start": 0,
         "stop": 222,
         "grp": 1,
@@ -1871,7 +1646,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "grp": 1,
@@ -1913,25 +1688,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "id": 0,
         "start": 0,
         "stop": 222,
         "n": "First Floor",
@@ -1967,7 +1727,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "grp": 1,
@@ -2009,25 +1769,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "id": 0,
         "start": 0,
         "stop": 222,
         "grp": 1,
@@ -2063,7 +1808,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "grp": 1,
@@ -2105,25 +1850,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "id": 0,
         "start": 0,
         "stop": 222,
         "grp": 1,
@@ -2159,7 +1889,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "grp": 1,
@@ -2201,25 +1931,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "id": 0,
         "start": 0,
         "stop": 222,
         "grp": 1,
@@ -2255,7 +1970,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "grp": 1,
@@ -2297,25 +2012,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "id": 0,
         "start": 0,
         "stop": 222,
         "grp": 1,
@@ -2351,7 +2051,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "grp": 1,
@@ -2393,25 +2093,10 @@
     "on": true,
     "bri": 128,
     "transition": 7,
-    "mainseg": 5,
+    "mainseg": 0,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "id": 0,
         "start": 0,
         "stop": 222,
         "grp": 1,
@@ -2447,7 +2132,7 @@
         "mi": false
       },
       {
-        "id": 6,
+        "id": 1,
         "start": 222,
         "stop": 439,
         "grp": 1,
