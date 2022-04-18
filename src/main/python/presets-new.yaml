@@ -13,7 +13,7 @@
     - Red
     - Green
     - White
-    fx: 0
+    fx_name: Solid
     grp: 1
     id: 1
     ix: 128
@@ -32,7 +32,7 @@
     - Green
     - Red
     - White
-    fx: 0
+    fx_name: Solid
     grp: 1
     id: 2
     ix: 128
@@ -51,7 +51,7 @@
     - Red
     - Green
     - White
-    fx: 0
+    fx_name: Solid
     grp: 1
     id: 3
     ix: 128
@@ -70,7 +70,7 @@
     - Green
     - Red
     - White
-    fx: 0
+    fx_name: Solid
     grp: 1
     id: 4
     ix: 128
@@ -109,7 +109,7 @@
     - Red
     - Green
     - White
-    fx: 54
+    fx_name: Tri Chase
     grp: 1
     id: 5
     ix: 130
@@ -126,7 +126,7 @@
     - Red
     - Green
     - White
-    fx: 54
+    fx_name: Tri Chase
     grp: 1
     id: 6
     ix: 130
@@ -160,7 +160,7 @@
     - Red
     - Green
     - White
-    fx: 111
+    fx_name: Chunchun
     grp: 1
     id: 5
     ix: 12
@@ -177,7 +177,7 @@
     - Red
     - Green
     - White
-    fx: 111
+    fx_name: Chunchun
     grp: 1
     id: 6
     ix: 12
@@ -203,7 +203,7 @@
     - Red
     - Black
     - White
-    fx: 44
+    fx_name: Tetrix
     grp: 1
     id: 1
     ix: 128
@@ -220,7 +220,7 @@
     - Red
     - Black
     - White
-    fx: 44
+    fx_name: Tetrix
     grp: 1
     id: 2
     ix: 128
@@ -237,7 +237,7 @@
     - Red
     - Black
     - White
-    fx: 44
+    fx_name: Tetrix
     grp: 1
     id: 3
     ix: 128
@@ -254,7 +254,7 @@
     - Red
     - Black
     - White
-    fx: 44
+    fx_name: Tetrix
     grp: 1
     id: 4
     ix: 128
@@ -374,7 +374,7 @@
     - Red
     - Green
     - White
-    fx: 90
+    fx_name: Fireworks 1D
     grp: 1
     id: 5
     ix: 132
@@ -393,7 +393,7 @@
     - Red
     - Green
     - White
-    fx: 90
+    fx_name: Fireworks 1D
     grp: 1
     id: 6
     ix: 128
@@ -419,7 +419,7 @@
     - 'FF00FF'
     - Red
     - Black
-    fx: 100
+    fx_name: Heartbeat
     grp: 1
     id: 0
     ix: 128
@@ -450,7 +450,7 @@
     - '9D00FF'
     - Green
     - 'FFC800'
-    fx: 54
+    fx_name: Tri Chase
     grp: 1
     id: 5
     ix: 128
@@ -469,7 +469,7 @@
     - '9D00FF'
     - Green
     - 'FFC800'
-    fx: 54
+    fx_name: Tri Chase
     grp: 1
     id: 6
     ix: 128
@@ -501,7 +501,7 @@
     - '9D00FF'
     - Green
     - 'FFC800'
-    fx: 54
+    fx_name: Tri Chase
     grp: 1
     id: 5
     ix: 128
@@ -520,7 +520,7 @@
     - '9D00FF'
     - Green
     - 'FFC800'
-    fx: 54
+    fx_name: Tri Chase
     grp: 1
     id: 6
     ix: 128
@@ -551,7 +551,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 115
+    fx_name: Blends
     grp: 1
     id: 5
     ix: 128
@@ -570,7 +570,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 115
+    fx_name: Blends
     grp: 1
     id: 6
     ix: 128
@@ -601,7 +601,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 37
+    fx_name: Running 2
     grp: 1
     id: 5
     ix: 128
@@ -620,7 +620,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 37
+    fx_name: Running 2
     grp: 1
     id: 6
     ix: 128
@@ -651,7 +651,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 111
+    fx_name: Chunchun
     grp: 1
     id: 5
     ix: 128
@@ -670,7 +670,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 111
+    fx_name: Chunchun
     grp: 1
     id: 6
     ix: 128
@@ -701,7 +701,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 67
+    fx_name: Colorwaves
     grp: 1
     id: 5
     ix: 128
@@ -720,7 +720,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 67
+    fx_name: Colorwaves
     grp: 1
     id: 6
     ix: 128
@@ -751,7 +751,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 81
+    fx_name: Twinklecat
     grp: 1
     id: 5
     ix: 128
@@ -770,7 +770,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 81
+    fx_name: Twinklecat
     grp: 1
     id: 6
     ix: 128
@@ -801,7 +801,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 90
+    fx_name: Fireworks 1D
     grp: 1
     id: 5
     ix: 128
@@ -820,7 +820,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 90
+    fx_name: Fireworks 1D
     grp: 1
     id: 6
     ix: 128
@@ -851,7 +851,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 90
+    fx_name: Fireworks 1D
     grp: 1
     id: 5
     ix: 128
@@ -870,7 +870,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 90
+    fx_name: Fireworks 1D
     grp: 1
     id: 6
     ix: 128
@@ -901,7 +901,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 95
+    fx_name: Popcorn
     grp: 1
     id: 5
     ix: 128
@@ -920,7 +920,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 95
+    fx_name: Popcorn
     grp: 1
     id: 6
     ix: 128
@@ -951,7 +951,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 60
+    fx_name: Scanner Dual
     grp: 1
     id: 5
     ix: 128
@@ -970,7 +970,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 60
+    fx_name: Scanner Dual
     grp: 1
     id: 6
     ix: 128
@@ -1005,7 +1005,7 @@
     - Red
     - Green
     - White
-    fx: 114
+    fx_name: Candy Cane
     grp: 1
     id: 5
     ix: 128
@@ -1022,7 +1022,7 @@
     - Red
     - Green
     - White
-    fx: 114
+    fx_name: Candy Cane
     grp: 1
     id: 6
     ix: 128
@@ -1052,7 +1052,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 113
+    fx_name: Washing machine
     grp: 1
     id: 5
     ix: 128
@@ -1071,7 +1071,7 @@
     - Green
     - White
     - 'FFC800'
-    fx: 113
+    fx_name: Washing machine
     grp: 1
     id: 6
     ix: 128
@@ -1146,7 +1146,7 @@
     - Red
     - Green
     - White
-    fx: 37
+    fx_name: Running 2
     grp: 1
     id: 5
     ix: 128
@@ -1163,7 +1163,7 @@
     - Red
     - Green
     - White
-    fx: 37
+    fx_name: Running 2
     grp: 1
     id: 6
     ix: 128
@@ -1197,7 +1197,7 @@
     - White
     - '0000BF'
     - White
-    fx: 106
+    fx_name: TwinkleUp
     grp: 1
     id: 5
     ix: 128
@@ -1214,7 +1214,7 @@
     - White
     - '0000BF'
     - White
-    fx: 106
+    fx_name: TwinkleUp
     grp: 1
     id: 6
     ix: 128
@@ -1240,7 +1240,7 @@
     - White
     - '0000BF'
     - White
-    fx: 114
+    fx_name: Candy Cane
     grp: 1
     id: 1
     ix: 128
@@ -1257,7 +1257,7 @@
     - '669900'
     - Black
     - Black
-    fx: 114
+    fx_name: Candy Cane
     grp: 1
     id: 2
     ix: 128
@@ -1274,7 +1274,7 @@
     - White
     - '0000BF'
     - White
-    fx: 114
+    fx_name: Candy Cane
     grp: 1
     id: 3
     ix: 128
@@ -1291,7 +1291,7 @@
     - White
     - '0000BF'
     - White
-    fx: 114
+    fx_name: Candy Cane
     grp: 1
     id: 4
     ix: 128
@@ -1319,7 +1319,7 @@
     - Red
     - Green
     - White
-    fx: 74
+    fx_name: Colortwinkles
     grp: 1
     id: 0
     ix: 192
@@ -1342,7 +1342,7 @@
     - 'FF9900'
     - Black
     - Black
-    fx: 102
+    fx_name: Candle Multi
     grp: 1
     id: 0
     ix: 255
@@ -1366,7 +1366,7 @@
     - 'FF9900'
     - Black
     - Black
-    fx: 80
+    fx_name: Twinklefox
     grp: 1
     id: 0
     ix: 255
