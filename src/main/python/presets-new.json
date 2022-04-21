@@ -1,8 +1,8 @@
 {
   "0": {},
   "1": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "Segment Test",
     "on": true,
     "seg": [
@@ -154,8 +154,8 @@
     "transition": 7
   },
   "10": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "TriChaseXmas",
     "on": true,
     "seg": [
@@ -231,8 +231,8 @@
     "transition": 7
   },
   "11": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "ChunChunXmas",
     "on": true,
     "seg": [
@@ -308,8 +308,8 @@
     "transition": 7
   },
   "12": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "Tetrix",
     "on": true,
     "seg": [
@@ -551,8 +551,8 @@
     "win": "T=1"
   },
   "17": {
-    "bri": 255,
     "mainseg": 0,
+    "bri": 255,
     "n": "Fireworks rainbow",
     "on": true,
     "seg": [
@@ -632,8 +632,8 @@
     "transition": 7
   },
   "18": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "Valentines",
     "on": true,
     "seg": [
@@ -677,8 +677,8 @@
     "transition": 7
   },
   "19": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "Marti Gras",
     "on": true,
     "seg": [
@@ -759,8 +759,8 @@
   },
   "2": {},
   "20": {
-    "bri": 204,
     "mainseg": 0,
+    "bri": 204,
     "n": "Marti Gras 2",
     "on": true,
     "seg": [
@@ -840,8 +840,8 @@
     "transition": 7
   },
   "21": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Blends",
     "on": true,
     "seg": [
@@ -921,8 +921,8 @@
     "transition": 7
   },
   "22": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Chase2",
     "on": true,
     "seg": [
@@ -1002,8 +1002,8 @@
     "transition": 7
   },
   "23": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Chunchun",
     "on": true,
     "seg": [
@@ -1083,8 +1083,8 @@
     "transition": 7
   },
   "24": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Colorwaves",
     "on": true,
     "seg": [
@@ -1164,8 +1164,8 @@
     "transition": 7
   },
   "25": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Twinkle Cat",
     "on": true,
     "seg": [
@@ -1245,8 +1245,8 @@
     "transition": 7
   },
   "26": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Fireworks 1D",
     "on": true,
     "seg": [
@@ -1326,8 +1326,8 @@
     "transition": 7
   },
   "27": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Flow",
     "on": true,
     "seg": [
@@ -1407,8 +1407,8 @@
     "transition": 7
   },
   "28": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Popcorn",
     "on": true,
     "seg": [
@@ -1488,8 +1488,8 @@
     "transition": 7
   },
   "29": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Scanner Dual",
     "on": true,
     "seg": [
@@ -1569,8 +1569,8 @@
     "transition": 7
   },
   "3": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "Candy Cane",
     "on": true,
     "seg": [
@@ -1646,8 +1646,8 @@
     "transition": 7
   },
   "30": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Washing Machine",
     "on": true,
     "seg": [
@@ -1772,8 +1772,8 @@
     }
   },
   "4": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "Christmas",
     "on": true,
     "seg": [
@@ -1849,8 +1849,8 @@
     "transition": 7
   },
   "5": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "Twinkle",
     "on": true,
     "seg": [
@@ -1926,8 +1926,8 @@
     "transition": 7
   },
   "6": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "Candy Cane 2",
     "on": true,
     "seg": [
@@ -2071,8 +2071,8 @@
     "transition": 7
   },
   "7": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "XmasColorTwinkles",
     "on": true,
     "seg": [
@@ -2113,8 +2113,8 @@
     ]
   },
   "8": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "CandleMulti",
     "on": true,
     "seg": [
@@ -2156,8 +2156,8 @@
     "transition": 7
   },
   "9": {
-    "bri": 128,
     "mainseg": 0,
+    "bri": 128,
     "n": "TwinkleFoxRainbow",
     "on": true,
     "seg": [

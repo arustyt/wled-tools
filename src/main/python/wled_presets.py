@@ -60,10 +60,12 @@ class WledPresets:
 
     def process_dict(self, path: str, name, data: dict):
         if len(data) > 0:
-            if SEGMENT_TAG in path:
+            if self.in_preset_segment(path):
                 new_data = self.current_segment_defaults.copy()
-            else:
+            elif self.in_normal_preset(data):
                 new_data = self.current_preset_defaults.copy()
+            else:
+                new_data = {}
         else:
             new_data = {}
 
@@ -83,6 +85,14 @@ class WledPresets:
                         new_data[replacement[0]] = replacement[1]
 
         return new_data
+
+    # preset segment is one that contains a 'seg' element in the path.
+    def in_preset_segment(self, path):
+        return SEGMENT_TAG in path
+
+    # normal preset is one that is not a playlist of macro.  Current test is if it contains a 'seg' element.
+    def in_normal_preset(self, data):
+        return SEGMENT_TAG in data
 
     def process_list(self, path: str, name, data: list):
         if name == 'col':
