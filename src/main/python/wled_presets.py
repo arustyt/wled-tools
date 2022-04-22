@@ -84,6 +84,9 @@ class WledPresets:
                     for replacement in replacements:
                         new_data[replacement[0]] = replacement[1]
 
+        if self.in_preset_segment(path):
+            self.current_segment_defaults = new_data.copy()
+
         return new_data
 
     # preset segment is one that contains a 'seg' element in the path.

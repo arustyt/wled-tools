@@ -7,42 +7,11 @@
     "n": "Segment Test",
     "seg": [
       {
-        "bri": 128,
-        "cct": 127,
-        "col": [
-          [
-            255,
-            0,
-            0
-          ],
-          [
-            0,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ]
-        ],
-        "fx": 82,
-        "grp": 1,
-        "ix": 128,
-        "mi": false,
-        "of": 0,
-        "on": true,
-        "pal": 11,
-        "rev": false,
-        "sel": true,
-        "spc": 0,
-        "sx": 122,
+        "id": 0,
         "n": "Garage",
         "start": 0,
         "stop": 114,
-        "id": 0
-      },
-      {
+        "rev": false,
         "bri": 128,
         "cct": 127,
         "col": [
@@ -69,16 +38,16 @@
         "of": 0,
         "on": true,
         "pal": 11,
-        "rev": true,
         "sel": true,
         "spc": 0,
-        "sx": 122,
+        "sx": 122
+      },
+      {
+        "id": 1,
         "n": "Porch",
         "start": 114,
         "stop": 222,
-        "id": 1
-      },
-      {
+        "rev": true,
         "bri": 128,
         "cct": 127,
         "col": [
@@ -105,16 +74,16 @@
         "of": 0,
         "on": true,
         "pal": 11,
-        "rev": false,
         "sel": true,
         "spc": 0,
-        "sx": 122,
+        "sx": 122
+      },
+      {
+        "id": 2,
         "n": "Over Porch",
         "start": 222,
         "stop": 337,
-        "id": 2
-      },
-      {
+        "rev": false,
         "bri": 128,
         "cct": 127,
         "col": [
@@ -141,14 +110,45 @@
         "of": 0,
         "on": true,
         "pal": 11,
-        "rev": true,
         "sel": true,
         "spc": 0,
-        "sx": 122,
+        "sx": 122
+      },
+      {
+        "id": 3,
         "n": "Peak",
         "start": 337,
         "stop": 439,
-        "id": 3
+        "rev": true,
+        "bri": 128,
+        "cct": 127,
+        "col": [
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 82,
+        "grp": 1,
+        "ix": 128,
+        "mi": false,
+        "of": 0,
+        "on": true,
+        "pal": 11,
+        "sel": true,
+        "spc": 0,
+        "sx": 122
       }
     ],
     "transition": 7
