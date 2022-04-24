@@ -1,0 +1,31 @@
+defaults:
+  preset:
+    mainseg: 0
+    bri: 255
+'0': {}
+'1':
+  n: Twinkle Cat
+  'on': true
+  seg:
+  - bri: 255
+    cct: 127
+    col:
+    - Green
+    - White
+    - 'FFC800'
+    fx_name: Twinklecat
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    n: All
+    start: 0
+    stop: 45
+    of: 0
+    'on': true
+    pal_name: Rainbow
+    rev: false
+    sel: true
+    spc: 0
+    sx: 128
+  transition: 7
