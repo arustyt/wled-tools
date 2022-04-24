@@ -26,63 +26,26 @@ defaults:
     sel: true
     spc: 0
     sx: 122
-  - bri: 128
-    cct: 127
-    col:
+  - col:
     - Green
     - Red
     - White
-    fx_name: Solid
-    grp: 1
     id: 1
-    ix: 128
-    mi: false
     seg_name: Porch
-    of: 0
-    'on': true
-    pal_name: Default
-    rev: true
-    sel: true
-    spc: 0
-    sx: 122
-  - bri: 128
-    cct: 127
-    col:
+  - col:
     - Red
     - Green
     - White
-    fx_name: Solid
-    grp: 1
     id: 2
-    ix: 128
-    mi: false
     seg_name: Over Porch
-    of: 0
-    'on': true
-    pal_name: Default
-    rev: true
-    sel: true
-    spc: 0
-    sx: 122
   - bri: 255
-    cct: 127
     col:
     - Green
     - Red
     - White
     fx_name: Solid
-    grp: 1
     id: 3
-    ix: 128
-    mi: false
     seg_name: Peak
-    of: 0
-    'on': true
-    pal_name: Default
-    rev: true
-    sel: true
-    spc: 0
-    sx: 122
   transition: 7
 '10':
   n: TriChaseXmas
