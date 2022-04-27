@@ -18,9 +18,7 @@ defaults:
     id: 0
     ix: 128
     mi: false
-    n: All
-    start: 0
-    stop: 45
+    seg_name: All
     of: 0
     'on': true
     pal_name: Rainbow
