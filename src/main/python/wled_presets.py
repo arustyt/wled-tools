@@ -1,14 +1,12 @@
 import sys
 import json
-import yaml
 
 from colors import Colors
 from effects import Effects
 from pallets import Pallets
 from segments import Segments
+from wled_yaml import WledYaml
 
-# PRESET_DEFAULTABLES =  "bri,mainseg,on"
-# SEGEMENT_DEFAULTABLES =
 COLOR_TAG = 'col'
 EFFECT_TAG = 'fx'
 EFFECT_NAME_TAG = 'fx_name'
@@ -21,13 +19,11 @@ PRESET_DEFAULTS = 'preset'
 SEGMENT_DEFAULTS = 'segment'
 
 
-class WledPresets:
+class WledPresets(WledYaml):
 
-    def __init__(self,
-                 color_names_file='colors.yaml',
-                 pallet_names_file='pallets.yaml',
-                 effect_names_file='effects.yaml',
-                 segment_names_file='segments.yaml'):
+    def __init__(self, color_names_file='colors.yaml', pallet_names_file='pallets.yaml',
+                 effect_names_file='effects.yaml', segment_names_file='segments.yaml'):
+        super().__init__()
         self.colors = Colors(color_names_file)
         self.pallets = Pallets(pallet_names_file)
         self.effects = Effects(effect_names_file)
@@ -38,32 +34,7 @@ class WledPresets:
         self.current_preset_defaults = {}
         self.current_segment_defaults = {}
 
-    def process_yaml_file(self, yaml_file_name):
-        with open(yaml_file_name) as in_file:
-            preset_data = yaml.safe_load(in_file)
-
-        new_preset_data = {}
-
-        self.load_global_defaults(preset_data)
-
-        for key in preset_data.keys():
-            if key == DEFAULTS:
-                continue
-            preset = preset_data[key]
-            self.load_preset_defaults(key, preset)
-            if isinstance(preset, dict):
-                new_preset_data[key] = self.process_dict(key, key, preset)
-            elif isinstance(preset, list):
-                new_preset_data[key] = self.process_list(key, key, preset)
-            else:
-                replacements = self.process_dict_element(key, key, preset)
-                if len(replacements) >= 1:
-                    for replacement in replacements:
-                        new_preset_data[replacement[0]] = replacement[1]
-
-        return new_preset_data
-
-    def process_dict(self, path: str, name, data: dict):
+    def init_dict(self, path: str, name, data: dict):
         if len(data) > 0:
             if self.in_preset_segment(path):
                 new_data = self.current_segment_defaults.copy()
@@ -73,53 +44,25 @@ class WledPresets:
                 new_data = {}
         else:
             new_data = {}
+        return new_data
 
-        for key in data.keys():
-            if key == DEFAULTS:
-                continue
-            item = data[key]
-            new_path = '{name}.{key}'.format(name=path, key=key)
-            if isinstance(item, dict):
-                new_data[key] = self.process_dict(new_path, key, item)
-            elif isinstance(item, list):
-                new_data[key] = self.process_list(new_path, key, item)
-            else:
-                replacements = self.process_dict_element(new_path, key, item)
-                if len(replacements) >= 1:
-                    for replacement in replacements:
-                        new_data[replacement[0]] = replacement[1]
-
+    def finalize_dict(self, path: str, name, data: dict, new_data: dict):
         if self.in_preset_segment(path):
             self.current_segment_defaults = new_data.copy()
-
-        return new_data
 
     # preset segment is one that contains a 'seg' element in the path.
     def in_preset_segment(self, path):
         return SEGMENT_TAG in path
 
-    # normal preset is one that is not a playlist of macro.  Current test is if it contains a 'seg' element.
+    # normal preset is one that is not a playlist or macro.  Current test is if it contains a 'seg' element.
     def in_normal_preset(self, data):
         return SEGMENT_TAG in data
 
-    def process_list(self, path: str, name, data: list):
+    def handle_list(self, path: str, name, data: list, new_data: list):
         if name == COLOR_TAG:
-            return self.process_colors(path, COLOR_TAG, data)
-
-        new_data = []
-
-        index = 0
-        for item in data:
-            new_path = '{name}[{index}]'.format(name=path, index=index)
-            index += 1
-            if isinstance(item, dict):
-                new_data.append(self.process_dict(new_path, None, item))
-            elif isinstance(item, list):
-                new_data.append(self.process_list(new_path, None, item))
-            else:
-                new_data.extend(self.process_list_element(new_path, None, item))
-
-        return new_data
+            return True, self.process_colors(path, COLOR_TAG, data)
+        else:
+            return False, new_data
 
     def process_dict_element(self, path: str, name, data):
         if SEGMENT_TAG in path:
@@ -177,7 +120,7 @@ class WledPresets:
             if SEGMENT_DEFAULTS in defaults:
                 self.load_global_segment_defaults(defaults[SEGMENT_DEFAULTS])
 
-    def load_preset_defaults(self, preset_id, preset):
+    def load_defaults(self, path, preset_id, preset):
         if DEFAULTS in preset:
             defaults = preset[DEFAULTS]
             if SEGMENT_DEFAULTS in defaults:
