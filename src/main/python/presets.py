@@ -20,7 +20,7 @@ class Presets:
                 continue
 
             preset_name_normalized = self.normalize_preset_name(preset['n'])
-            entry = (('name', preset['n']), ('id', key))
+            entry = (('name', preset['n']), ('id', int(key)))
             self.presets_by_name[preset_name_normalized] = entry
             self.presets_by_name[key] = entry
 
@@ -38,7 +38,7 @@ class Presets:
         else:
             raise ValueError("Input '{name}' is a recognized preset name or id".format(name=preset_string))
 
-        return preset_data
+        return dict(preset_data)
 
 
 if __name__ == '__main__':

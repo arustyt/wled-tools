@@ -12,7 +12,7 @@ ap:
 def:
   bri: 128
   'on': true
-  ps: 'Off'
+  ps: 15
 hw:
   btn:
     ins:
