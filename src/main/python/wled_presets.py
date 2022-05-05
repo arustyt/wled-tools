@@ -7,6 +7,8 @@ from pallets import Pallets
 from segments import Segments
 from wled_yaml import WledYaml
 
+SEGMENTS_FILE_TAG = 'segments_file'
+
 COLOR_TAG = 'col'
 EFFECT_TAG = 'fx'
 EFFECT_NAME_TAG = 'fx_name'
@@ -22,17 +24,23 @@ SEGMENT_DEFAULTS = 'segment'
 class WledPresets(WledYaml):
 
     def __init__(self, color_names_file='colors.yaml', pallet_names_file='pallets.yaml',
-                 effect_names_file='effects.yaml', segment_names_file='segments.yaml'):
+                 effect_names_file='effects.yaml'):
         super().__init__()
         self.colors = Colors(color_names_file)
         self.pallets = Pallets(pallet_names_file)
         self.effects = Effects(effect_names_file)
-        self.segments = Segments(segment_names_file)
+        self.segments = None
         self.global_preset_defaults = {}
         self.global_segment_defaults = {}
         self.preset_segment_defaults = {}
         self.current_preset_defaults = {}
         self.current_segment_defaults = {}
+
+    def process_other_args(self, other_args):
+        if SEGMENTS_FILE_TAG in other_args:
+            self.segments = Segments(other_args[SEGMENTS_FILE_TAG])
+        else:
+            raise AttributeError("Missing keyword argument, '{name}'".format(name=SEGMENTS_FILE_TAG))
 
     def init_dict(self, path: str, name, data: dict):
         if len(data) > 0:
