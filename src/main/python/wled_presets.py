@@ -4,9 +4,11 @@ import json
 from colors import Colors
 from effects import Effects
 from pallets import Pallets
+from presets import Presets
 from segments import Segments
 from wled_yaml import WledYaml
 
+ID_TAG = 'id'
 SEGMENTS_FILE_TAG = 'segments_file'
 
 COLOR_TAG = 'col'
@@ -30,13 +32,15 @@ class WledPresets(WledYaml):
         self.pallets = Pallets(pallet_names_file)
         self.effects = Effects(effect_names_file)
         self.segments = None
+        self.presets = None
         self.global_preset_defaults = {}
         self.global_segment_defaults = {}
         self.preset_segment_defaults = {}
         self.current_preset_defaults = {}
         self.current_segment_defaults = {}
 
-    def process_other_args(self, other_args):
+    def process_other_args(self, presets_file_path, other_args):
+        self.presets = Presets(presets_file_path)
         if SEGMENTS_FILE_TAG in other_args:
             self.segments = Segments(other_args[SEGMENTS_FILE_TAG])
         else:
@@ -100,6 +104,8 @@ class WledPresets(WledYaml):
             value = parts[0].strip()
             count = int(parts[1].strip())
             result = [int(value) if value.isnumeric() else value] * count
+        elif "playlist.ps" in path:
+            result = [self.presets.get_preset_by_name(str(data))[ID_TAG]]
         else:
             result = [data]
 

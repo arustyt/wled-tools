@@ -136,16 +136,16 @@ defaults:
     - 300 * 10
     end: 0
     ps:
-    - 3
-    - 4
-    - 5
-    - 6
-    - 7
-    - 8
-    - 9
-    - 10
-    - 11
-    - 12
+    - Candy Cane
+    - Christmas
+    - Twinkle
+    - Candy Cane 2
+    - XmasColorTwinkles
+    - CandleMulti
+    - TwinkleFoxRainbow
+    - TriChaseXmas
+    - ChunChunXmas
+    - Tetrix
     r: false
     repeat: 0
     transition:
@@ -158,16 +158,16 @@ defaults:
     - 100 * 10
     end: 0
     ps:
-    - 3
-    - 4
-    - 5
-    - 6
-    - 7
-    - 8
-    - 9
-    - 10
-    - 11
-    - 12
+    - Candy Cane
+    - Christmas
+    - Twinkle
+    - Candy Cane 2
+    - XmasColorTwinkles
+    - CandleMulti
+    - TwinkleFoxRainbow
+    - TriChaseXmas
+    - ChunChunXmas
+    - Tetrix
     r: false
     repeat: 0
     transition:
@@ -593,16 +593,16 @@ defaults:
     - 300 * 10
     end: 0
     ps:
-    - 21
-    - 22
-    - 23
-    - 24
-    - 25
-    - 26
-    - 27
-    - 28
-    - 29
-    - 30
+    - St. Pats - Blends
+    - St. Pats - Chase2
+    - St. Pats - Chunchun
+    - St. Pats - Colorwaves
+    - St. Pats - Twinkle Cat
+    - St. Pats - Fireworks 1D
+    - St. Pats - Flow
+    - St. Pats - Popcorn
+    - St. Pats - Scanner Dual
+    - St. Pats - Washing Machine
     r: false
     repeat: 0
     transition:
