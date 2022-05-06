@@ -6,6 +6,7 @@ from wled_yaml import WledYaml
 
 DEFAULT_PRESET_PATH = 'def.ps'
 
+
 class WledCfg(WledYaml):
 
     def __init__(self, presets_yaml_file='presets.yaml'):
