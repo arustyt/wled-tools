@@ -9,6 +9,7 @@ from segments import Segments
 
 # PRESET_DEFAULTABLES =  "bri,mainseg,on"
 # SEGEMENT_DEFAULTABLES =
+COLOR_TAG = 'col'
 EFFECT_TAG = 'fx'
 EFFECT_NAME_TAG = 'fx_name'
 PALLET_TAG = 'pal'
@@ -102,8 +103,8 @@ class WledPresets:
         return SEGMENT_TAG in data
 
     def process_list(self, path: str, name, data: list):
-        if name == 'col':
-            return self.process_colors(path, 'col', data)
+        if name == COLOR_TAG:
+            return self.process_colors(path, COLOR_TAG, data)
 
         new_data = []
 
@@ -142,7 +143,16 @@ class WledPresets:
         return self.effects.get_effect_by_name(data)
 
     def process_list_element(self, path: str, name, data):
-        return [data]
+        data_str = str(data)
+        if '*' in data_str:
+            parts = data_str.split('*', 1)
+            value = parts[0].strip()
+            count = int(parts[1].strip())
+            result = [int(value) if value.isnumeric() else value] * count
+        else:
+            result = [data]
+
+        return result
 
     def process_colors(self, path: str, name, color_list: list):
         new_color_list = []
