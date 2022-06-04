@@ -1,90 +1,66 @@
-'0': {}
-'1':
-  bri: 128
-  mainseg: 1
-  n: Segment Test
-  'on': true
-  seg:
-  - id: 0
-    stop: 0
-  - bri: 128
+defaults:
+  preset:
+    bri: 128
+    mainseg: 0
+    'on': true
+  segment:
+    bri: 128
     cct: 127
     col:
-    - Red
-    - green
-    - WHITE
+      - Red
+      - green
+      - WHITE
     fx_name: HALLOWEEN EYES
     grp: 1
-    id: 1
     ix: 128
     mi: false
+    of: 0
+    'on': true
+    pal_name: colors 1 & 2
+    rev: true
+    sel: true
+    spc: 0
+    sx: 122
+
+'0': {}
+'1':
+  defaults:
+    segment:
+      bri: 128
+      cct: 127
+      col:
+        - Red
+        - green
+        - WHITE
+      fx_name: HALLOWEEN EYES
+#     fx: HALLOWEEN EYES
+      grp: 1
+      ix: 128
+      mi: false
+      seg_name: Garage
+#     n: Garage
+#     start: 0
+#     stop: 199
+      of: 0
+      'on': true
+      pal_name: Rainbow
+#     pal: default
+      rev: true
+      sel: true
+      spc: 0
+      sx: 122
+  n: Segment Test
+  seg:
+  - id: 0
     seg_name: Garage
-    of: 0
-    'on': true
-    pal_name: default
-    rev: true
-    sel: true
-    spc: 0
-    sx: 122
-  - bri: 128
-    cct: 127
-    col:
-    - Red
-    - Green
-    - White
-    fx_name: Fireworks Starburst
-    grp: 1
-    id: 2
-    ix: 128
-    mi: false
+    rev: false
+  - id: 1
     seg_name: Porch
-    of: 0
-    'on': true
-    pal_name: PARTY
     rev: true
-    sel: true
-    spc: 0
-    sx: 122
-  - bri: 128
-    cct: 127
-    col:
-    - Red
-    - Green
-    - White
-    fx_name: candle_multi
-    grp: 1
-    id: 3
-    ix: 128
-    mi: false
+  - id: 2
     seg_name: Over Porch
-    of: 0
-    'on': true
-    pal_name: Colors 1 & 2
-    rev: true
-    sel: true
-    spc: 0
-    sx: 122
-  - bri: 255
-    cct: 127
-    col:
-    - Green
-    - Red
-    - White
-    fx_name: popcorn
-    grp: 1
-    id: 4
-    ix: 128
-    mi: false
+    rev: false
+  - id: 3
     seg_name: Peak
-    of: 0
-    'on': true
-    pal_name: Red_&_Blue
     rev: true
-    sel: true
-    spc: 0
-    sx: 122
-  - id: 5
-    stop: 0
-  - id: 6
-    stop: 0
   transition: 7
