@@ -14,7 +14,8 @@ class WledYaml:
         pass
 
     @abstractmethod
-    def process_yaml_file(self, yaml_file_name):
+    def process_yaml_file(self, yaml_file_name, **other_args):
+        self.process_other_args(yaml_file_name, other_args)
         yaml_data = self.load_yaml_file(yaml_file_name)
 
         new_preset_data = {}
@@ -131,4 +132,8 @@ class WledYaml:
         pass
 
     def load_defaults(self, path, name, defaults):
+        pass
+
+    @abstractmethod
+    def process_other_args(self, yaml_file_name, other_args):
         pass
