@@ -1,0 +1,252 @@
+ap:
+  behav: 0
+  chan: 1
+  hide: 0
+  ip:
+  - 4
+  - 3
+  - 2
+  - 1
+  pskl: 8
+  ssid: WLED-AP
+def:
+  bri: 128
+  'on': true
+  ps: 'Off'
+hw:
+  btn:
+    ins:
+    - macros:
+      - 0
+      - 0
+      - 0
+      pin:
+      - 0
+      type: 2
+    - macros:
+      - 0
+      - 0
+      - 0
+      pin:
+      - -1
+      type: 0
+    - macros:
+      - 0
+      - 0
+      - 0
+      pin:
+      - -1
+      type: 0
+    - macros:
+      - 0
+      - 0
+      - 0
+      pin:
+      - -1
+      type: 0
+    max: 4
+    mqtt: false
+    tt: 32
+  ir:
+    pin: -1
+    type: 0
+  led:
+    cb: 0
+    cct: false
+    cr: false
+    ins:
+    - len: 235
+      order: 1
+      pin:
+      - 16
+      ref: false
+      rev: false
+      rgbw: false
+      skip: 1
+      start: 0
+      type: 22
+    - len: 240
+      order: 1
+      pin:
+      - 3
+      ref: false
+      rev: false
+      rgbw: false
+      skip: 1
+      start: 222
+      type: 22
+    ledma: 55
+    maxpwr: 20000
+    rgbwm: 0
+    total: 462
+  relay:
+    pin: 15
+    rev: false
+id:
+  inv: Light
+  mdns: wled-f6dafd
+  name: wled-roof
+if:
+  blynk:
+    host: blynk-cloud.com
+    port: 80
+    token: ''
+  hue:
+    en: false
+    id: 1
+    ip:
+    - 192
+    - 168
+    - 196
+    - 0
+    iv: 25
+    recv:
+      bri: true
+      col: true
+      'on': true
+  live:
+    dmx:
+      addr: 1
+      mode: 4
+      seqskip: true
+      uni: 1
+    en: true
+    maxbri: false
+    mc: false
+    no-gc: true
+    offset: 0
+    port: 5568
+    timeout: 25
+  mqtt:
+    broker: ''
+    cid: WLED-f6dafd
+    en: false
+    port: 1883
+    pskl: 0
+    topics:
+      device: wled/f6dafd
+      group: wled/all
+    user: ''
+  nodes:
+    bcast: true
+    list: true
+  ntp:
+    ampm: false
+    en: true
+    host: 0.wled.pool.ntp.org
+    ln: -90.38
+    lt: 38.8
+    offset: 0
+    tz: 5
+  sync:
+    port0: 21324
+    port1: 65506
+    recv:
+      bri: true
+      col: true
+      fx: true
+      grp: 1
+    send:
+      btn: false
+      dir: false
+      grp: 1
+      hue: true
+      macro: false
+      twice: false
+      va: false
+  va:
+    alexa: true
+    macros:
+    - 0
+    - 0
+light:
+  aseg: false
+  gc:
+    bri: 1
+    col: 2.8
+  nl:
+    dur: 60
+    macro: 0
+    mode: 1
+    tbri: 0
+  pal-mode: 0
+  scale-bri: 100
+  tr:
+    dur: 7
+    mode: true
+    pal: 0
+nw:
+  ins:
+  - gw:
+    - 0
+    - 0
+    - 0
+    - 0
+    ip:
+    - 0
+    - 0
+    - 0
+    - 0
+    pskl: 13
+    sn:
+    - 255
+    - 255
+    - 255
+    - 0
+    ssid: RustedMouse
+ol:
+  clock: 0
+  cntdwn: false
+  max: 29
+  min: 0
+  o12pix: 0
+  o5m: false
+  osec: false
+ota:
+  aota: true
+  lock: false
+  lock-wifi: false
+  pskl: 11
+rev:
+- 1
+- 0
+timers:
+  cntdwn:
+    goal:
+    - 20
+    - 1
+    - 1
+    - 0
+    - 0
+    - 0
+    macro: 0
+  ins:
+  - dow: 127
+    en: 1
+    hour: 22
+    macro: 15
+    min: 30
+  - dow: 127
+    en: 0
+    hour: 0
+    macro: 15
+    min: 30
+  - dow: 127
+    en: 0
+    hour: 13
+    macro: 15
+    min: 48
+  - dow: 127
+    en: 0
+    hour: 255
+    macro: 0
+    min: 0
+  - dow: 30
+    en: 1
+    hour: 255
+    macro: 32
+    min: -15
+um: {}
+vid: 2112080
+wifi:
+  sleep: true

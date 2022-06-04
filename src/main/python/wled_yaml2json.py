@@ -1,6 +1,8 @@
 import argparse
 import sys
 import json
+
+from wled_cfg import WledCfg
 from wled_presets import WledPresets
 
 
@@ -57,6 +59,12 @@ def main(name, args):
     wled_presets = WledPresets(colors_path, pallets_path, effects_path, segments_path)
     json_data = wled_presets.process_yaml_file(presets_path)
     json_file_path = get_json_file_name(presets_path)
+    with open(json_file_path, "w") as out_file:
+        json.dump(json_data, out_file, indent=2)
+
+    wled_cfg = WledCfg(presets_path)
+    json_data = wled_cfg.process_yaml_file(cfg_path)
+    json_file_path = get_json_file_name(cfg_path)
     with open(json_file_path, "w") as out_file:
         json.dump(json_data, out_file, indent=2)
 
