@@ -22,11 +22,15 @@ SEGMENT_DEFAULTS = 'segment'
 
 class WledPresets:
 
-    def __init__(self):
-        self.colors = Colors()
-        self.segments = Segments()
-        self.pallets = Pallets()
-        self.effects = Effects()
+    def __init__(self,
+                 color_names_file='colors.yaml',
+                 pallet_names_file='pallets.yaml',
+                 effect_names_file='effects.yaml',
+                 segment_names_file='segments.yaml'):
+        self.colors = Colors(color_names_file)
+        self.pallets = Pallets(pallet_names_file)
+        self.effects = Effects(effect_names_file)
+        self.segments = Segments(segment_names_file)
         self.global_preset_defaults = {}
         self.global_segment_defaults = {}
         self.preset_segment_defaults = {}
