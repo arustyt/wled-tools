@@ -4,6 +4,12 @@ defaults:
     bri: 128
 '0': {}
 '1':
+  n: 'Off'
+  win: T=0
+'2':
+  n: 'On'
+  win: T=1
+'3':
   n: Segment Test
   'on': true
   seg:
@@ -47,8 +53,7 @@ defaults:
     id: 3
     seg_name: Peak
   transition: 7
-'2': {}
-'3':
+'4':
   n: Candy Cane
   'on': true
   seg:
@@ -73,7 +78,7 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'4':
+'5':
   n: Christmas
   'on': true
   seg:
@@ -98,7 +103,7 @@ defaults:
     seg_name: Second Floor
     rev: false
   transition: 7
-'5':
+'6':
   n: Twinkle
   'on': true
   seg:
@@ -123,7 +128,7 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'6':
+'7':
   n: Candy Cane 2
   'on': true
   seg:
@@ -196,7 +201,7 @@ defaults:
     spc: 0
     sx: 122
   transition: 7
-'7':
+'8':
   n: XmasColorTwinkles
   'on': true
   seg:
@@ -217,7 +222,7 @@ defaults:
     sel: true
     spc: 0
     sx: 123
-'8':
+'9':
   n: CandleMulti
   'on': true
   seg:
@@ -239,7 +244,7 @@ defaults:
     spc: 0
     sx: 125
   transition: 7
-'9':
+'10':
   n: TwinkleFoxRainbow
   'on': true
   seg:
@@ -261,7 +266,7 @@ defaults:
     spc: 0
     sx: 125
   transition: 7
-'10':
+'11':
   n: TriChaseXmas
   'on': true
   seg:
@@ -286,7 +291,7 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'11':
+'12':
   n: ChunChunXmas
   'on': true
   seg:
@@ -311,7 +316,7 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'12':
+'13':
   n: Tetrix
   'on': true
   seg:
@@ -342,7 +347,7 @@ defaults:
     seg_name: Peak
     rev: false
   transition: 7
-'13':
+'14':
   n: Christmas Playlist
   'on': true
   playlist:
@@ -364,7 +369,7 @@ defaults:
     repeat: 0
     transition:
     - 7 * 10
-'14':
+'15':
   n: Christmas Test Playlist
   'on': true
   playlist:
@@ -386,13 +391,7 @@ defaults:
     repeat: 0
     transition:
     - 7 * 10
-'15':
-  n: 'Off'
-  win: T=0
 '16':
-  n: 'On'
-  win: T=1
-'17':
   bri: 255
   mainseg: 0
   n: Fireworks rainbow
@@ -423,7 +422,7 @@ defaults:
     rev: false
     sx: 0
   transition: 7
-'18':
+'17':
   n: Valentines
   'on': true
   seg:
@@ -447,7 +446,7 @@ defaults:
     spc: 0
     sx: 128
   transition: 7
-'19':
+'18':
   n: Marti Gras
   'on': true
   seg:
@@ -474,7 +473,7 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'20':
+'19':
   bri: 204
   mainseg: 0
   n: Marti Gras 2
@@ -503,7 +502,7 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'21':
+'20':
   n: St. Pats - Blends
   'on': true
   seg:
@@ -530,7 +529,7 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'22':
+'21':
   n: St. Pats - Chase2
   'on': true
   seg:
@@ -557,7 +556,7 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'23':
+'22':
   n: St. Pats - Chunchun
   'on': true
   seg:
@@ -584,7 +583,7 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'24':
+'23':
   n: St. Pats - Colorwaves
   'on': true
   seg:
@@ -611,7 +610,7 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'25':
+'24':
   n: St. Pats - Twinkle Cat
   'on': true
   seg:
@@ -638,7 +637,7 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'26':
+'25':
   n: St. Pats - Fireworks 1D
   'on': true
   seg:
@@ -665,7 +664,7 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'27':
+'26':
   n: St. Pats - Flow
   'on': true
   seg:
@@ -692,7 +691,7 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'28':
+'27':
   n: St. Pats - Popcorn
   'on': true
   seg:
@@ -719,7 +718,7 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'29':
+'28':
   n: St. Pats - Scanner Dual
   'on': true
   seg:
@@ -746,7 +745,7 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'30':
+'29':
   n: St. Pats - Washing Machine
   'on': true
   seg:
@@ -773,7 +772,7 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'31':
+'30':
   n: St. Pats Playlist
   'on': true
   playlist:
@@ -795,4 +794,3 @@ defaults:
     repeat: 0
     transition:
     - 7 * 10
-
