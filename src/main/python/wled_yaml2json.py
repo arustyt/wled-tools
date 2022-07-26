@@ -5,6 +5,8 @@ import json
 from wled_cfg import WledCfg
 from wled_presets import WledPresets
 
+DEFAULT_DEFINITIONS_DIR = "../../../etc"
+DEFAULT_WLED_DIR = "."
 DEFAULT_COLORS_FILE = "colors.yaml"
 DEFAULT_PALLETS_FILE = "pallets.yaml"
 DEFAULT_EFFECTS_FILE = "effects.yaml"
@@ -17,7 +19,7 @@ def main(name, args):
     parser = argparse.ArgumentParser(description='Convert YAML files to WLED JSON.')
     parser.add_argument("--wled_dir", type=str,
                         help="WLED data file location. Applies to presets, cfg, and segments files",
-                        action="store", default=".")
+                        action="store", default=DEFAULT_WLED_DIR)
     parser.add_argument("--presets", type=str, help="WLED presets file name (YAML).", action="store",
                         default=DEFAULT_PRESETS_FILE)
     parser.add_argument("--segments", type=str, help="Segments definition file name (YAML).", action="store",
@@ -26,7 +28,7 @@ def main(name, args):
                         default=DEFAULT_CONFIG_FILE)
     parser.add_argument("--definitions_dir", type=str,
                         help="Definition file location. Applies to effects, pallets, and colors files",
-                        action="store", default=".")
+                        action="store", default=DEFAULT_DEFINITIONS_DIR)
     parser.add_argument("--effects", type=str, help="WLED effect definition file name (YAML).", action="store",
                         default=DEFAULT_EFFECTS_FILE)
     parser.add_argument("--pallets", type=str, help="WLED pallet definitions file-name (YAML).", action="store",
