@@ -47,6 +47,220 @@ defaults:
     id: 3
     seg_name: Peak
   transition: 7
+'2': {}
+'3':
+  n: Candy Cane
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - Red
+    - Green
+    - White
+    fx_name: Candy Cane
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    'on': true
+    pal_name: Default
+    rev: false
+    sel: true
+    spc: 0
+    sx: 128
+  - id: 1
+    seg_name: Second Floor
+    rev: true
+  transition: 7
+'4':
+  n: Christmas
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - Red
+    - Green
+    - White
+    fx_name: Running 2
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    'on': true
+    pal_name: Default
+    rev: true
+    sel: true
+    spc: 0
+    sx: 122
+  - id: 1
+    seg_name: Second Floor
+    rev: false
+  transition: 7
+'5':
+  n: Twinkle
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - White
+    - '0000BF'
+    - White
+    fx_name: TwinkleUp
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    'on': true
+    pal_name: Default
+    rev: false
+    sel: true
+    spc: 0
+    sx: 122
+  - id: 1
+    seg_name: Second Floor
+    rev: true
+  transition: 7
+'6':
+  n: Candy Cane 2
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - White
+    - '0000BF'
+    - White
+    fx_name: Candy Cane
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: Garage
+    'on': true
+    pal_name: Default
+    rev: false
+    sel: true
+    spc: 0
+    sx: 122
+  - bri: 128
+    col:
+    - '669900'
+    - Black
+    - Black
+    fx_name: Candy Cane
+    grp: 1
+    id: 1
+    ix: 128
+    mi: false
+    seg_name: Porch
+    'on': true
+    pal_name: Default
+    rev: true
+    sel: false
+    spc: 0
+    sx: 128
+  - bri: 128
+    col:
+    - White
+    - '0000BF'
+    - White
+    fx_name: Candy Cane
+    grp: 1
+    id: 2
+    ix: 128
+    mi: false
+    seg_name: Over Porch
+    'on': true
+    pal_name: Default
+    rev: false
+    sel: true
+    spc: 0
+    sx: 122
+  - bri: 128
+    col:
+    - White
+    - '0000BF'
+    - White
+    fx_name: Candy Cane
+    grp: 1
+    id: 3
+    ix: 128
+    mi: false
+    seg_name: Peak
+    'on': true
+    pal_name: Default
+    rev: true
+    sel: true
+    spc: 0
+    sx: 122
+  transition: 7
+'7':
+  n: XmasColorTwinkles
+  'on': true
+  seg:
+  - bri: 192
+    col:
+    - Red
+    - Green
+    - White
+    fx_name: Colortwinkles
+    grp: 1
+    id: 0
+    ix: 192
+    mi: false
+    seg_name: Whole Roof
+    'on': true
+    pal_name: Colors Only
+    rev: false
+    sel: true
+    spc: 0
+    sx: 123
+'8':
+  n: CandleMulti
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - 'FF9900'
+    - Black
+    - Black
+    fx_name: Candle Multi
+    grp: 1
+    id: 0
+    ix: 255
+    mi: false
+    seg_name: Whole Roof
+    'on': true
+    pal_name: Default
+    rev: false
+    sel: true
+    spc: 0
+    sx: 125
+  transition: 7
+'9':
+  n: TwinkleFoxRainbow
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - 'FF9900'
+    - Black
+    - Black
+    fx_name: Twinklefox
+    grp: 1
+    id: 0
+    ix: 255
+    mi: false
+    seg_name: Whole Roof
+    'on': true
+    pal_name: Rainbow
+    rev: false
+    sel: true
+    spc: 0
+    sx: 125
+  transition: 7
 '10':
   n: TriChaseXmas
   'on': true
@@ -260,7 +474,6 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'2': {}
 '20':
   bri: 204
   mainseg: 0
@@ -533,31 +746,6 @@ defaults:
     seg_name: Second Floor
     rev: true
   transition: 7
-'3':
-  n: Candy Cane
-  'on': true
-  seg:
-  - bri: 128
-    col:
-    - Red
-    - Green
-    - White
-    fx_name: Candy Cane
-    grp: 1
-    id: 0
-    ix: 128
-    mi: false
-    seg_name: First Floor
-    'on': true
-    pal_name: Default
-    rev: false
-    sel: true
-    spc: 0
-    sx: 128
-  - id: 1
-    seg_name: Second Floor
-    rev: true
-  transition: 7
 '30':
   n: St. Pats - Washing Machine
   'on': true
@@ -607,192 +795,4 @@ defaults:
     repeat: 0
     transition:
     - 7 * 10
-'4':
-  n: Christmas
-  'on': true
-  seg:
-  - bri: 128
-    col:
-    - Red
-    - Green
-    - White
-    fx_name: Running 2
-    grp: 1
-    id: 0
-    ix: 128
-    mi: false
-    seg_name: First Floor
-    'on': true
-    pal_name: Default
-    rev: true
-    sel: true
-    spc: 0
-    sx: 122
-  - id: 1
-    seg_name: Second Floor
-    rev: false
-  transition: 7
-'5':
-  n: Twinkle
-  'on': true
-  seg:
-  - bri: 128
-    col:
-    - White
-    - '0000BF'
-    - White
-    fx_name: TwinkleUp
-    grp: 1
-    id: 0
-    ix: 128
-    mi: false
-    seg_name: First Floor
-    'on': true
-    pal_name: Default
-    rev: false
-    sel: true
-    spc: 0
-    sx: 122
-  - id: 1
-    seg_name: Second Floor
-    rev: true
-  transition: 7
-'6':
-  n: Candy Cane 2
-  'on': true
-  seg:
-  - bri: 128
-    col:
-    - White
-    - '0000BF'
-    - White
-    fx_name: Candy Cane
-    grp: 1
-    id: 0
-    ix: 128
-    mi: false
-    seg_name: Garage
-    'on': true
-    pal_name: Default
-    rev: false
-    sel: true
-    spc: 0
-    sx: 122
-  - bri: 128
-    col:
-    - '669900'
-    - Black
-    - Black
-    fx_name: Candy Cane
-    grp: 1
-    id: 1
-    ix: 128
-    mi: false
-    seg_name: Porch
-    'on': true
-    pal_name: Default
-    rev: true
-    sel: false
-    spc: 0
-    sx: 128
-  - bri: 128
-    col:
-    - White
-    - '0000BF'
-    - White
-    fx_name: Candy Cane
-    grp: 1
-    id: 2
-    ix: 128
-    mi: false
-    seg_name: Over Porch
-    'on': true
-    pal_name: Default
-    rev: false
-    sel: true
-    spc: 0
-    sx: 122
-  - bri: 128
-    col:
-    - White
-    - '0000BF'
-    - White
-    fx_name: Candy Cane
-    grp: 1
-    id: 3
-    ix: 128
-    mi: false
-    seg_name: Peak
-    'on': true
-    pal_name: Default
-    rev: true
-    sel: true
-    spc: 0
-    sx: 122
-  transition: 7
-'7':
-  n: XmasColorTwinkles
-  'on': true
-  seg:
-  - bri: 192
-    col:
-    - Red
-    - Green
-    - White
-    fx_name: Colortwinkles
-    grp: 1
-    id: 0
-    ix: 192
-    mi: false
-    seg_name: Whole Roof
-    'on': true
-    pal_name: Colors Only
-    rev: false
-    sel: true
-    spc: 0
-    sx: 123
-'8':
-  n: CandleMulti
-  'on': true
-  seg:
-  - bri: 128
-    col:
-    - 'FF9900'
-    - Black
-    - Black
-    fx_name: Candle Multi
-    grp: 1
-    id: 0
-    ix: 255
-    mi: false
-    seg_name: Whole Roof
-    'on': true
-    pal_name: Default
-    rev: false
-    sel: true
-    spc: 0
-    sx: 125
-  transition: 7
-'9':
-  n: TwinkleFoxRainbow
-  'on': true
-  seg:
-  - bri: 128
-    col:
-    - 'FF9900'
-    - Black
-    - Black
-    fx_name: Twinklefox
-    grp: 1
-    id: 0
-    ix: 255
-    mi: false
-    seg_name: Whole Roof
-    'on': true
-    pal_name: Rainbow
-    rev: false
-    sel: true
-    spc: 0
-    sx: 125
-  transition: 7
 
