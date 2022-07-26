@@ -1,35 +1,59 @@
 {
   "0": {},
   "1": {
-    "on": true,
+    "mainseg": 0,
     "bri": 128,
-    "transition": 7,
-    "mainseg": 1,
+    "n": "Segment Test",
+    "on": true,
     "seg": [
       {
+        "bri": 128,
+        "cct": 127,
+        "col": [
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 0,
+        "grp": 1,
         "id": 0,
-        "stop": 0
-      },
-      {
-        "id": 1,
+        "ix": 128,
+        "mi": false,
+        "n": "Garage",
         "start": 0,
         "stop": 114,
-        "n": "Garage",
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
+        "pal": 0,
+        "rev": true,
+        "sel": true,
+        "spc": 0,
+        "sx": 122
+      },
+      {
         "bri": 128,
         "cct": 127,
         "col": [
           [
-            255,
             0,
+            255,
             0
           ],
           [
-            0,
             255,
+            0,
             0
           ],
           [
@@ -39,33 +63,33 @@
           ]
         ],
         "fx": 0,
-        "sx": 122,
+        "grp": 1,
+        "id": 1,
         "ix": 128,
-        "pal": 0,
-        "sel": true,
-        "rev": true,
-        "mi": false
-      },
-      {
-        "id": 2,
+        "mi": false,
+        "n": "Porch",
         "start": 114,
         "stop": 222,
-        "n": "Porch",
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
+        "pal": 0,
+        "rev": true,
+        "sel": true,
+        "spc": 0,
+        "sx": 122
+      },
+      {
         "bri": 128,
         "cct": 127,
         "col": [
           [
-            0,
             255,
+            0,
             0
           ],
           [
-            255,
             0,
+            255,
             0
           ],
           [
@@ -75,58 +99,22 @@
           ]
         ],
         "fx": 0,
-        "sx": 122,
+        "grp": 1,
+        "id": 2,
         "ix": 128,
-        "pal": 0,
-        "sel": true,
-        "rev": true,
-        "mi": false
-      },
-      {
-        "id": 3,
+        "mi": false,
+        "n": "Over Porch",
         "start": 222,
         "stop": 337,
-        "n": "Over Porch",
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
-        "bri": 128,
-        "cct": 127,
-        "col": [
-          [
-            255,
-            0,
-            0
-          ],
-          [
-            0,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ]
-        ],
-        "fx": 0,
-        "sx": 122,
-        "ix": 128,
         "pal": 0,
-        "sel": true,
         "rev": true,
-        "mi": false
+        "sel": true,
+        "spc": 0,
+        "sx": 122
       },
       {
-        "id": 4,
-        "start": 337,
-        "stop": 439,
-        "n": "Peak",
-        "grp": 1,
-        "spc": 0,
-        "of": 0,
-        "on": true,
         "bri": 255,
         "cct": 127,
         "col": [
@@ -147,742 +135,65 @@
           ]
         ],
         "fx": 0,
-        "sx": 122,
-        "ix": 128,
-        "pal": 0,
-        "sel": true,
-        "rev": true,
-        "mi": false
-      },
-      {
-        "id": 5,
-        "stop": 0
-      },
-      {
-        "id": 6,
-        "stop": 0
-      }
-    ],
-    "n": "Segment Test"
-  },
-  "2": {},
-  "3": {
-    "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 5,
-    "seg": [
-      {
-        "id": 0,
-        "stop": 0
-      },
-      {
-        "id": 1,
-        "stop": 0
-      },
-      {
-        "id": 2,
-        "stop": 0
-      },
-      {
+        "grp": 1,
         "id": 3,
-        "stop": 0
-      },
-      {
-        "id": 4,
-        "stop": 0
-      },
-      {
-        "id": 5,
-        "start": 0,
-        "stop": 222,
-        "n": "First Floor",
-        "grp": 1,
-        "spc": 0,
-        "on": true,
-        "bri": 128,
-        "col": [
-          [
-            255,
-            13,
-            0
-          ],
-          [
-            0,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ]
-        ],
-        "fx": 114,
-        "sx": 128,
         "ix": 128,
-        "pal": 0,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 6,
-        "start": 222,
-        "stop": 439,
-        "n": "Second Floor",
-        "grp": 1,
-        "spc": 0,
-        "on": true,
-        "bri": 128,
-        "col": [
-          [
-            255,
-            13,
-            0
-          ],
-          [
-            0,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ]
-        ],
-        "fx": 114,
-        "sx": 128,
-        "ix": 128,
-        "pal": 0,
-        "sel": true,
-        "rev": true,
-        "mi": false
-      }
-    ],
-    "n": "Candy Cane"
-  },
-  "4": {
-    "n": "Christmas ",
-    "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 5,
-    "seg": [
-      {
-        "id": 0,
-        "stop": 0
-      },
-      {
-        "id": 1,
-        "stop": 0
-      },
-      {
-        "id": 2,
-        "stop": 0
-      },
-      {
-        "id": 3,
-        "stop": 0
-      },
-      {
-        "id": 4,
-        "stop": 0
-      },
-      {
-        "id": 5,
-        "start": 0,
-        "stop": 222,
-        "n": "First Floor",
-        "grp": 1,
-        "spc": 0,
-        "on": true,
-        "bri": 128,
-        "col": [
-          [
-            255,
-            13,
-            0
-          ],
-          [
-            0,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ]
-        ],
-        "fx": 37,
-        "sx": 122,
-        "ix": 128,
-        "pal": 0,
-        "sel": true,
-        "rev": true,
-        "mi": false
-      },
-      {
-        "id": 6,
-        "start": 222,
-        "stop": 439,
-        "n": "Second Floor",
-        "grp": 1,
-        "spc": 0,
-        "on": true,
-        "bri": 128,
-        "col": [
-          [
-            255,
-            13,
-            0
-          ],
-          [
-            0,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ]
-        ],
-        "fx": 37,
-        "sx": 122,
-        "ix": 128,
-        "pal": 0,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      }
-    ]
-  },
-  "5": {
-    "n": "Twinkle ",
-    "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 5,
-    "seg": [
-      {
-        "id": 0,
-        "stop": 0
-      },
-      {
-        "id": 1,
-        "stop": 0
-      },
-      {
-        "id": 2,
-        "stop": 0
-      },
-      {
-        "id": 3,
-        "stop": 0
-      },
-      {
-        "id": 4,
-        "stop": 0
-      },
-      {
-        "id": 5,
-        "start": 0,
-        "stop": 222,
-        "n": "First Floor",
-        "grp": 1,
-        "spc": 0,
-        "on": true,
-        "bri": 128,
-        "col": [
-          [
-            255,
-            255,
-            255
-          ],
-          [
-            0,
-            0,
-            191
-          ],
-          [
-            255,
-            255,
-            255
-          ]
-        ],
-        "fx": 106,
-        "sx": 122,
-        "ix": 128,
-        "pal": 0,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 6,
-        "start": 222,
-        "stop": 439,
-        "n": "Second Floor",
-        "grp": 1,
-        "spc": 0,
-        "on": true,
-        "bri": 128,
-        "col": [
-          [
-            255,
-            255,
-            255
-          ],
-          [
-            0,
-            0,
-            191
-          ],
-          [
-            255,
-            255,
-            255
-          ]
-        ],
-        "fx": 106,
-        "sx": 122,
-        "ix": 128,
-        "pal": 0,
-        "sel": true,
-        "rev": true,
-        "mi": false
-      }
-    ]
-  },
-  "6": {
-    "n": "Candy Cane 2",
-    "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 1,
-    "seg": [
-      {
-        "id": 0,
-        "stop": 0
-      },
-      {
-        "id": 1,
-        "start": 0,
-        "stop": 114,
-        "n": "Garage",
-        "grp": 1,
-        "spc": 0,
-        "on": true,
-        "bri": 128,
-        "col": [
-          [
-            255,
-            255,
-            255
-          ],
-          [
-            0,
-            0,
-            191
-          ],
-          [
-            255,
-            255,
-            255
-          ]
-        ],
-        "fx": 114,
-        "sx": 122,
-        "ix": 128,
-        "pal": 0,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 2,
-        "start": 114,
-        "stop": 222,
-        "n": "Porch",
-        "grp": 1,
-        "spc": 0,
-        "on": true,
-        "bri": 128,
-        "col": [
-          [
-            102,
-            153,
-            0
-          ],
-          [
-            0,
-            0,
-            0
-          ],
-          [
-            0,
-            0,
-            0
-          ]
-        ],
-        "fx": 114,
-        "sx": 128,
-        "ix": 128,
-        "pal": 0,
-        "sel": false,
-        "rev": true,
-        "mi": false
-      },
-      {
-        "id": 3,
-        "start": 222,
-        "stop": 337,
-        "n": "Over Porch",
-        "grp": 1,
-        "spc": 0,
-        "on": true,
-        "bri": 128,
-        "col": [
-          [
-            255,
-            255,
-            255
-          ],
-          [
-            0,
-            0,
-            191
-          ],
-          [
-            255,
-            255,
-            255
-          ]
-        ],
-        "fx": 114,
-        "sx": 122,
-        "ix": 128,
-        "pal": 0,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 4,
+        "mi": false,
+        "n": "Peak",
         "start": 337,
         "stop": 439,
-        "n": "Peak",
-        "grp": 1,
-        "spc": 0,
+        "of": 0,
         "on": true,
-        "bri": 128,
-        "col": [
-          [
-            255,
-            255,
-            255
-          ],
-          [
-            0,
-            0,
-            191
-          ],
-          [
-            255,
-            255,
-            255
-          ]
-        ],
-        "fx": 114,
-        "sx": 122,
-        "ix": 128,
         "pal": 0,
-        "sel": true,
         "rev": true,
-        "mi": false
-      },
-      {
-        "id": 5,
-        "stop": 0
-      },
-      {
-        "id": 6,
-        "stop": 0
-      }
-    ]
-  },
-  "7": {
-    "n": "XmasColorTwinkles",
-    "on": true,
-    "bri": 128,
-    "mainseg": 0,
-    "seg": [
-      {
-        "id": 0,
-        "start": 0,
-        "stop": 439,
-        "n": "Whole Roof",
-        "grp": 1,
-        "spc": 0,
-        "on": true,
-        "bri": 192,
-        "col": [
-          [
-            255,
-            0,
-            0
-          ],
-          [
-            8,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ]
-        ],
-        "fx": 74,
-        "sx": 123,
-        "ix": 192,
-        "pal": 5,
         "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 1,
-        "stop": 0
-      },
-      {
-        "id": 2,
-        "stop": 0
-      },
-      {
-        "id": 3,
-        "stop": 0
-      },
-      {
-        "id": 4,
-        "stop": 0
-      },
-      {
-        "id": 5,
-        "stop": 0
-      },
-      {
-        "id": 6,
-        "stop": 0
-      }
-    ]
-  },
-  "8": {
-    "n": "CandleMulti",
-    "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 0,
-    "seg": [
-      {
-        "id": 0,
-        "start": 0,
-        "stop": 439,
-        "n": "Whole Roof",
-        "grp": 1,
         "spc": 0,
-        "on": true,
-        "bri": 128,
-        "col": [
-          [
-            255,
-            153,
-            0
-          ],
-          [
-            0,
-            0,
-            0
-          ],
-          [
-            0,
-            0,
-            0
-          ]
-        ],
-        "fx": 102,
-        "sx": 125,
-        "ix": 255,
-        "pal": 0,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 1,
-        "stop": 0
-      },
-      {
-        "id": 2,
-        "stop": 0
-      },
-      {
-        "id": 3,
-        "stop": 0
-      },
-      {
-        "id": 4,
-        "stop": 0
-      },
-      {
-        "id": 5,
-        "stop": 0
-      },
-      {
-        "id": 6,
-        "stop": 0
+        "sx": 122
       }
-    ]
-  },
-  "9": {
-    "n": "TwinkleFoxRainbow",
-    "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 0,
-    "seg": [
-      {
-        "id": 0,
-        "start": 0,
-        "stop": 439,
-        "n": "Whole Roof",
-        "grp": 1,
-        "spc": 0,
-        "on": true,
-        "bri": 128,
-        "col": [
-          [
-            255,
-            153,
-            0
-          ],
-          [
-            0,
-            0,
-            0
-          ],
-          [
-            0,
-            0,
-            0
-          ]
-        ],
-        "fx": 80,
-        "sx": 125,
-        "ix": 255,
-        "pal": 11,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 1,
-        "stop": 0
-      },
-      {
-        "id": 2,
-        "stop": 0
-      },
-      {
-        "id": 3,
-        "stop": 0
-      },
-      {
-        "id": 4,
-        "stop": 0
-      },
-      {
-        "id": 5,
-        "stop": 0
-      },
-      {
-        "id": 6,
-        "stop": 0
-      }
-    ]
+    ],
+    "transition": 7
   },
   "10": {
+    "mainseg": 0,
+    "bri": 128,
     "n": "TriChaseXmas",
     "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 5,
     "seg": [
       {
+        "bri": 128,
+        "col": [
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 54,
+        "grp": 1,
         "id": 0,
-        "stop": 0
-      },
-      {
-        "id": 1,
-        "stop": 0
-      },
-      {
-        "id": 2,
-        "stop": 0
-      },
-      {
-        "id": 3,
-        "stop": 0
-      },
-      {
-        "id": 4,
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "ix": 130,
+        "mi": false,
+        "n": "First Floor",
         "start": 0,
         "stop": 222,
-        "n": "First Floor",
-        "grp": 1,
-        "spc": 0,
         "on": true,
-        "bri": 128,
-        "col": [
-          [
-            255,
-            0,
-            0
-          ],
-          [
-            8,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ]
-        ],
-        "fx": 54,
-        "sx": 255,
-        "ix": 130,
         "pal": 0,
-        "sel": true,
         "rev": false,
-        "mi": false
+        "sel": true,
+        "spc": 0,
+        "sx": 255
       },
       {
-        "id": 6,
-        "start": 222,
-        "stop": 439,
-        "n": "Second Floor",
-        "grp": 1,
-        "spc": 0,
-        "on": true,
         "bri": 128,
         "col": [
           [
@@ -891,7 +202,7 @@
             0
           ],
           [
-            8,
+            0,
             255,
             0
           ],
@@ -902,84 +213,64 @@
           ]
         ],
         "fx": 54,
-        "sx": 255,
+        "grp": 1,
+        "id": 1,
         "ix": 130,
+        "mi": false,
+        "n": "Second Floor",
+        "start": 222,
+        "stop": 439,
+        "on": true,
         "pal": 0,
-        "sel": true,
         "rev": true,
-        "mi": false
+        "sel": true,
+        "spc": 0,
+        "sx": 255
       }
-    ]
+    ],
+    "transition": 7
   },
   "11": {
+    "mainseg": 0,
+    "bri": 128,
     "n": "ChunChunXmas",
     "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 5,
     "seg": [
       {
+        "bri": 128,
+        "col": [
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 111,
+        "grp": 1,
         "id": 0,
-        "stop": 0
-      },
-      {
-        "id": 1,
-        "stop": 0
-      },
-      {
-        "id": 2,
-        "stop": 0
-      },
-      {
-        "id": 3,
-        "stop": 0
-      },
-      {
-        "id": 4,
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "ix": 12,
+        "mi": false,
+        "n": "First Floor",
         "start": 0,
         "stop": 222,
-        "n": "First Floor",
-        "grp": 1,
-        "spc": 0,
         "on": true,
-        "bri": 128,
-        "col": [
-          [
-            255,
-            0,
-            0
-          ],
-          [
-            8,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ]
-        ],
-        "fx": 111,
-        "sx": 128,
-        "ix": 12,
         "pal": 0,
-        "sel": true,
         "rev": false,
-        "mi": false
+        "sel": true,
+        "spc": 0,
+        "sx": 128
       },
       {
-        "id": 6,
-        "start": 222,
-        "stop": 439,
-        "n": "Second Floor",
-        "grp": 1,
-        "spc": 0,
-        "on": true,
         "bri": 128,
         "col": [
           [
@@ -988,7 +279,7 @@
             0
           ],
           [
-            8,
+            0,
             255,
             0
           ],
@@ -999,39 +290,69 @@
           ]
         ],
         "fx": 111,
-        "sx": 128,
+        "grp": 1,
+        "id": 1,
         "ix": 12,
+        "mi": false,
+        "n": "Second Floor",
+        "start": 222,
+        "stop": 439,
+        "on": true,
         "pal": 0,
-        "sel": true,
         "rev": true,
-        "mi": false
+        "sel": true,
+        "spc": 0,
+        "sx": 128
       }
-    ]
+    ],
+    "transition": 7
   },
   "12": {
+    "mainseg": 0,
+    "bri": 128,
     "n": "Tetrix",
     "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 1,
     "seg": [
       {
+        "bri": 128,
+        "col": [
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 44,
+        "grp": 1,
         "id": 0,
-        "stop": 0
-      },
-      {
-        "id": 1,
+        "ix": 128,
+        "mi": false,
+        "n": "Garage",
         "start": 0,
         "stop": 114,
-        "n": "Garage",
-        "grp": 1,
-        "spc": 0,
         "on": true,
+        "pal": 11,
+        "rev": true,
+        "sel": true,
+        "spc": 0,
+        "sx": 255
+      },
+      {
         "bri": 128,
         "col": [
           [
             255,
-            13,
+            0,
             0
           ],
           [
@@ -1046,26 +367,26 @@
           ]
         ],
         "fx": 44,
-        "sx": 255,
+        "grp": 1,
+        "id": 1,
         "ix": 128,
-        "pal": 11,
-        "sel": true,
-        "rev": true,
-        "mi": false
-      },
-      {
-        "id": 2,
+        "mi": false,
+        "n": "Porch",
         "start": 114,
         "stop": 222,
-        "n": "Porch",
-        "grp": 1,
-        "spc": 0,
         "on": true,
+        "pal": 11,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 255
+      },
+      {
         "bri": 128,
         "col": [
           [
             255,
-            13,
+            0,
             0
           ],
           [
@@ -1080,26 +401,26 @@
           ]
         ],
         "fx": 44,
-        "sx": 255,
+        "grp": 1,
+        "id": 2,
         "ix": 128,
-        "pal": 11,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 3,
+        "mi": false,
+        "n": "Over Porch",
         "start": 222,
         "stop": 337,
-        "n": "Over Porch",
-        "grp": 1,
-        "spc": 0,
         "on": true,
+        "pal": 11,
+        "rev": true,
+        "sel": true,
+        "spc": 0,
+        "sx": 255
+      },
+      {
         "bri": 128,
         "col": [
           [
             255,
-            13,
+            0,
             0
           ],
           [
@@ -1114,71 +435,27 @@
           ]
         ],
         "fx": 44,
-        "sx": 255,
+        "grp": 1,
+        "id": 3,
         "ix": 128,
-        "pal": 11,
-        "sel": true,
-        "rev": true,
-        "mi": false
-      },
-      {
-        "id": 4,
+        "mi": false,
+        "n": "Peak",
         "start": 337,
         "stop": 439,
-        "n": "Peak",
-        "grp": 1,
-        "spc": 0,
         "on": true,
-        "bri": 128,
-        "col": [
-          [
-            255,
-            13,
-            0
-          ],
-          [
-            0,
-            0,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ]
-        ],
-        "fx": 44,
-        "sx": 255,
-        "ix": 128,
         "pal": 11,
-        "sel": true,
         "rev": false,
-        "mi": false
-      },
-      {
-        "id": 5,
-        "stop": 0
-      },
-      {
-        "id": 6,
-        "stop": 0
+        "sel": true,
+        "spc": 0,
+        "sx": 255
       }
-    ]
+    ],
+    "transition": 7
   },
   "13": {
+    "n": "Christmas Playlist",
+    "on": true,
     "playlist": {
-      "ps": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12
-      ],
       "dur": [
         300,
         300,
@@ -1191,27 +468,7 @@
         300,
         300
       ],
-      "transition": [
-        7,
-        7,
-        7,
-        7,
-        7,
-        7,
-        7,
-        7,
-        7,
-        7
-      ],
-      "repeat": 0,
-      "r": false,
-      "end": 0
-    },
-    "on": true,
-    "n": "Christmas Playlist"
-  },
-  "14": {
-    "playlist": {
+      "end": 0,
       "ps": [
         3,
         4,
@@ -1224,6 +481,26 @@
         11,
         12
       ],
+      "r": false,
+      "repeat": 0,
+      "transition": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    }
+  },
+  "14": {
+    "n": "Christmas Test Playlist",
+    "on": true,
+    "playlist": {
       "dur": [
         100,
         100,
@@ -1236,6 +513,21 @@
         100,
         100
       ],
+      "end": 0,
+      "ps": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "r": false,
+      "repeat": 0,
       "transition": [
         7,
         7,
@@ -1247,59 +539,66 @@
         7,
         7,
         7
-      ],
-      "repeat": 0,
-      "r": false,
-      "end": 0
-    },
-    "on": true,
-    "n": "Christmas Test Playlist"
+      ]
+    }
   },
   "15": {
-    "win": "T=0",
-    "n": "Off"
+    "n": "Off",
+    "win": "T=0"
   },
   "16": {
-    "win": "T=1",
-    "n": "On"
+    "n": "On",
+    "win": "T=1"
   },
   "17": {
+    "mainseg": 0,
+    "bri": 255,
     "n": "Fireworks rainbow",
     "on": true,
-    "bri": 255,
-    "transition": 7,
-    "mainseg": 5,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "bri": 128,
+        "cct": 127,
+        "col": [
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 90,
+        "grp": 1,
+        "id": 0,
+        "ix": 132,
+        "mi": false,
+        "n": "First Floor",
         "start": 0,
         "stop": 222,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
+        "pal": 11,
+        "rev": true,
+        "sel": true,
+        "spc": 0,
+        "sx": 131
+      },
+      {
         "bri": 128,
         "cct": 127,
-        "n": "First Floor",
         "col": [
           [
             255,
-            13,
+            0,
             0
           ],
           [
@@ -1314,141 +613,31 @@
           ]
         ],
         "fx": 90,
-        "sx": 131,
-        "ix": 132,
-        "pal": 11,
-        "sel": true,
-        "rev": true,
-        "mi": false
-      },
-      {
-        "id": 6,
+        "grp": 1,
+        "id": 1,
+        "ix": 128,
+        "mi": false,
+        "n": "Second Floor",
         "start": 222,
         "stop": 439,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
-        "bri": 128,
-        "cct": 127,
-        "n": "Second Floor",
-        "col": [
-          [
-            255,
-            13,
-            0
-          ],
-          [
-            0,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ]
-        ],
-        "fx": 90,
-        "sx": 0,
-        "ix": 128,
         "pal": 11,
-        "sel": true,
         "rev": false,
-        "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
+        "sel": true,
+        "spc": 0,
+        "sx": 0
       }
-    ]
+    ],
+    "transition": 7
   },
   "18": {
+    "mainseg": 0,
+    "bri": 128,
     "n": "Valentines",
     "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 0,
     "seg": [
       {
-        "id": 0,
-        "start": 0,
-        "stop": 456,
-        "grp": 1,
-        "spc": 0,
-        "of": 0,
-        "on": true,
         "bri": 255,
         "cct": 127,
         "col": [
@@ -1469,141 +658,69 @@
           ]
         ],
         "fx": 100,
-        "sx": 128,
+        "grp": 1,
+        "id": 0,
         "ix": 128,
+        "mi": false,
+        "n": "Whole Roof",
+        "start": 0,
+        "stop": 439,
+        "of": 0,
+        "on": true,
         "pal": 0,
-        "sel": true,
         "rev": false,
-        "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
+        "sel": true,
+        "spc": 0,
+        "sx": 128
       }
-    ]
+    ],
+    "transition": 7
   },
   "19": {
+    "mainseg": 0,
+    "bri": 128,
     "n": "Marti Gras",
     "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 5,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "bri": 128,
+        "cct": 127,
+        "col": [
+          [
+            157,
+            0,
+            255
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            200,
+            0
+          ]
+        ],
+        "fx": 54,
+        "grp": 1,
+        "id": 0,
+        "ix": 128,
+        "mi": false,
+        "n": "First Floor",
         "start": 0,
         "stop": 222,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
+        "pal": 0,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 128
+      },
+      {
         "bri": 128,
         "cct": 127,
-        "n": "First Floor",
         "col": [
           [
             157,
@@ -1622,159 +739,70 @@
           ]
         ],
         "fx": 54,
-        "sx": 128,
+        "grp": 1,
+        "id": 1,
         "ix": 128,
-        "pal": 0,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 6,
+        "mi": false,
+        "n": "Second Floor",
         "start": 222,
         "stop": 439,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
-        "bri": 128,
-        "cct": 127,
-        "n": "Second Floor",
-        "col": [
-          [
-            157,
-            0,
-            255
-          ],
-          [
-            0,
-            255,
-            0
-          ],
-          [
-            255,
-            200,
-            0
-          ]
-        ],
-        "fx": 54,
-        "sx": 128,
-        "ix": 128,
         "pal": 0,
-        "sel": true,
         "rev": true,
-        "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
+        "sel": true,
+        "spc": 0,
+        "sx": 128
       }
-    ]
+    ],
+    "transition": 7
   },
+  "2": {},
   "20": {
+    "mainseg": 0,
+    "bri": 204,
     "n": "Marti Gras 2",
     "on": true,
-    "bri": 204,
-    "transition": 7,
-    "mainseg": 5,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "bri": 128,
+        "cct": 127,
+        "col": [
+          [
+            157,
+            0,
+            255
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            200,
+            0
+          ]
+        ],
+        "fx": 54,
+        "grp": 1,
+        "id": 0,
+        "ix": 128,
+        "mi": false,
+        "n": "First Floor",
         "start": 0,
         "stop": 222,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
+        "pal": 0,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 255
+      },
+      {
         "bri": 128,
         "cct": 127,
-        "n": "First Floor",
         "col": [
           [
             157,
@@ -1793,162 +821,72 @@
           ]
         ],
         "fx": 54,
-        "sx": 255,
+        "grp": 1,
+        "id": 1,
         "ix": 128,
-        "pal": 0,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 6,
+        "mi": false,
+        "n": "Second Floor",
         "start": 222,
         "stop": 439,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
-        "bri": 128,
-        "cct": 127,
-        "n": "Second Floor",
-        "col": [
-          [
-            157,
-            0,
-            255
-          ],
-          [
-            0,
-            255,
-            0
-          ],
-          [
-            255,
-            200,
-            0
-          ]
-        ],
-        "fx": 54,
-        "sx": 255,
-        "ix": 128,
         "pal": 0,
-        "sel": true,
         "rev": true,
-        "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
+        "sel": true,
+        "spc": 0,
+        "sx": 255
       }
-    ]
+    ],
+    "transition": 7
   },
   "21": {
+    "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Blends",
     "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 5,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "bri": 128,
+        "cct": 127,
+        "col": [
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            255,
+            200,
+            0
+          ]
+        ],
+        "fx": 115,
+        "grp": 1,
+        "id": 0,
+        "ix": 128,
+        "mi": false,
+        "n": "First Floor",
         "start": 0,
         "stop": 222,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
+        "pal": 3,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 128
+      },
+      {
         "bri": 128,
         "cct": 127,
-        "n": "First Floor",
         "col": [
           [
-            8,
+            0,
             255,
             0
           ],
@@ -1964,162 +902,72 @@
           ]
         ],
         "fx": 115,
-        "sx": 128,
+        "grp": 1,
+        "id": 1,
         "ix": 128,
-        "pal": 3,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 6,
+        "mi": false,
+        "n": "Second Floor",
         "start": 222,
         "stop": 439,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
-        "bri": 128,
-        "cct": 127,
-        "n": "Second Floor",
-        "col": [
-          [
-            8,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ],
-          [
-            255,
-            200,
-            0
-          ]
-        ],
-        "fx": 115,
-        "sx": 128,
-        "ix": 128,
         "pal": 3,
-        "sel": true,
         "rev": true,
-        "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
+        "sel": true,
+        "spc": 0,
+        "sx": 128
       }
-    ]
+    ],
+    "transition": 7
   },
   "22": {
+    "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Chase2",
     "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 5,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "bri": 128,
+        "cct": 127,
+        "col": [
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            255,
+            200,
+            0
+          ]
+        ],
+        "fx": 37,
+        "grp": 1,
+        "id": 0,
+        "ix": 128,
+        "mi": false,
+        "n": "First Floor",
         "start": 0,
         "stop": 222,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
+        "pal": 3,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 128
+      },
+      {
         "bri": 128,
         "cct": 127,
-        "n": "First Floor",
         "col": [
           [
-            8,
+            0,
             255,
             0
           ],
@@ -2135,162 +983,72 @@
           ]
         ],
         "fx": 37,
-        "sx": 128,
+        "grp": 1,
+        "id": 1,
         "ix": 128,
-        "pal": 3,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 6,
+        "mi": false,
+        "n": "Second Floor",
         "start": 222,
         "stop": 439,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
-        "bri": 128,
-        "cct": 127,
-        "n": "Second Floor",
-        "col": [
-          [
-            8,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ],
-          [
-            255,
-            200,
-            0
-          ]
-        ],
-        "fx": 37,
-        "sx": 128,
-        "ix": 128,
         "pal": 3,
-        "sel": true,
         "rev": true,
-        "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
+        "sel": true,
+        "spc": 0,
+        "sx": 128
       }
-    ]
+    ],
+    "transition": 7
   },
   "23": {
+    "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Chunchun",
     "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 5,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "bri": 128,
+        "cct": 127,
+        "col": [
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            255,
+            200,
+            0
+          ]
+        ],
+        "fx": 111,
+        "grp": 1,
+        "id": 0,
+        "ix": 128,
+        "mi": false,
+        "n": "First Floor",
         "start": 0,
         "stop": 222,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
+        "pal": 3,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 128
+      },
+      {
         "bri": 128,
         "cct": 127,
-        "n": "First Floor",
         "col": [
           [
-            8,
+            0,
             255,
             0
           ],
@@ -2306,162 +1064,72 @@
           ]
         ],
         "fx": 111,
-        "sx": 128,
+        "grp": 1,
+        "id": 1,
         "ix": 128,
-        "pal": 3,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 6,
+        "mi": false,
+        "n": "Second Floor",
         "start": 222,
         "stop": 439,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
-        "bri": 128,
-        "cct": 127,
-        "n": "Second Floor",
-        "col": [
-          [
-            8,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ],
-          [
-            255,
-            200,
-            0
-          ]
-        ],
-        "fx": 111,
-        "sx": 128,
-        "ix": 128,
         "pal": 3,
-        "sel": true,
         "rev": true,
-        "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
+        "sel": true,
+        "spc": 0,
+        "sx": 128
       }
-    ]
+    ],
+    "transition": 7
   },
   "24": {
+    "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Colorwaves",
     "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 5,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "bri": 128,
+        "cct": 127,
+        "col": [
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            255,
+            200,
+            0
+          ]
+        ],
+        "fx": 67,
+        "grp": 1,
+        "id": 0,
+        "ix": 128,
+        "mi": false,
+        "n": "First Floor",
         "start": 0,
         "stop": 222,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
+        "pal": 3,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 128
+      },
+      {
         "bri": 128,
         "cct": 127,
-        "n": "First Floor",
         "col": [
           [
-            8,
+            0,
             255,
             0
           ],
@@ -2477,161 +1145,72 @@
           ]
         ],
         "fx": 67,
-        "sx": 128,
+        "grp": 1,
+        "id": 1,
         "ix": 128,
-        "pal": 3,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 6,
+        "mi": false,
+        "n": "Second Floor",
         "start": 222,
         "stop": 439,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
-        "bri": 128,
-        "cct": 127,
-        "n": "Second Floor",
-        "col": [
-          [
-            8,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ],
-          [
-            255,
-            200,
-            0
-          ]
-        ],
-        "fx": 67,
-        "sx": 128,
-        "ix": 128,
         "pal": 3,
-        "sel": true,
         "rev": true,
-        "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
+        "sel": true,
+        "spc": 0,
+        "sx": 128
       }
-    ]
+    ],
+    "transition": 7
   },
   "25": {
+    "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Twinkle Cat",
     "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 5,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "bri": 128,
+        "cct": 127,
+        "col": [
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            255,
+            200,
+            0
+          ]
+        ],
+        "fx": 81,
+        "grp": 1,
+        "id": 0,
+        "ix": 128,
+        "mi": false,
+        "n": "First Floor",
         "start": 0,
         "stop": 222,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
+        "pal": 11,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 128
+      },
+      {
         "bri": 128,
         "cct": 127,
         "col": [
           [
-            8,
+            0,
             255,
             0
           ],
@@ -2647,162 +1226,72 @@
           ]
         ],
         "fx": 81,
-        "sx": 128,
+        "grp": 1,
+        "id": 1,
         "ix": 128,
-        "pal": 11,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 6,
+        "mi": false,
+        "n": "Second Floor",
         "start": 222,
         "stop": 439,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
-        "bri": 128,
-        "cct": 127,
-        "n": "Second Floor",
-        "col": [
-          [
-            8,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ],
-          [
-            255,
-            200,
-            0
-          ]
-        ],
-        "fx": 81,
-        "sx": 128,
-        "ix": 128,
         "pal": 11,
-        "sel": true,
         "rev": true,
-        "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
+        "sel": true,
+        "spc": 0,
+        "sx": 128
       }
-    ]
+    ],
+    "transition": 7
   },
   "26": {
+    "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Fireworks 1D",
     "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 5,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "bri": 128,
+        "cct": 127,
+        "col": [
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            255,
+            200,
+            0
+          ]
+        ],
+        "fx": 90,
+        "grp": 1,
+        "id": 0,
+        "ix": 128,
+        "mi": false,
+        "n": "First Floor",
         "start": 0,
         "stop": 222,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
+        "pal": 3,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 128
+      },
+      {
         "bri": 128,
         "cct": 127,
-        "n": "First Floor",
         "col": [
           [
-            8,
+            0,
             255,
             0
           ],
@@ -2818,162 +1307,72 @@
           ]
         ],
         "fx": 90,
-        "sx": 128,
+        "grp": 1,
+        "id": 1,
         "ix": 128,
-        "pal": 3,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 6,
+        "mi": false,
+        "n": "Second Floor",
         "start": 222,
         "stop": 439,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
-        "bri": 128,
-        "cct": 127,
-        "n": "Second Floor",
-        "col": [
-          [
-            8,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ],
-          [
-            255,
-            200,
-            0
-          ]
-        ],
-        "fx": 90,
-        "sx": 128,
-        "ix": 128,
         "pal": 3,
-        "sel": true,
         "rev": true,
-        "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
+        "sel": true,
+        "spc": 0,
+        "sx": 128
       }
-    ]
+    ],
+    "transition": 7
   },
   "27": {
+    "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Flow",
     "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 5,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "bri": 128,
+        "cct": 127,
+        "col": [
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            255,
+            200,
+            0
+          ]
+        ],
+        "fx": 90,
+        "grp": 1,
+        "id": 0,
+        "ix": 128,
+        "mi": false,
+        "n": "First Floor",
         "start": 0,
         "stop": 222,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
+        "pal": 3,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 128
+      },
+      {
         "bri": 128,
         "cct": 127,
-        "n": "First Floor",
         "col": [
           [
-            8,
+            0,
             255,
             0
           ],
@@ -2989,162 +1388,72 @@
           ]
         ],
         "fx": 90,
-        "sx": 128,
+        "grp": 1,
+        "id": 1,
         "ix": 128,
-        "pal": 3,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 6,
+        "mi": false,
+        "n": "Second Floor",
         "start": 222,
         "stop": 439,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
-        "bri": 128,
-        "cct": 127,
-        "n": "Second Floor",
-        "col": [
-          [
-            8,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ],
-          [
-            255,
-            200,
-            0
-          ]
-        ],
-        "fx": 90,
-        "sx": 128,
-        "ix": 128,
         "pal": 3,
-        "sel": true,
         "rev": true,
-        "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
+        "sel": true,
+        "spc": 0,
+        "sx": 128
       }
-    ]
+    ],
+    "transition": 7
   },
   "28": {
+    "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Popcorn",
     "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 5,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "bri": 128,
+        "cct": 127,
+        "col": [
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            255,
+            200,
+            0
+          ]
+        ],
+        "fx": 95,
+        "grp": 1,
+        "id": 0,
+        "ix": 128,
+        "mi": false,
+        "n": "First Floor",
         "start": 0,
         "stop": 222,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
+        "pal": 5,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 128
+      },
+      {
         "bri": 128,
         "cct": 127,
-        "n": "First Floor",
         "col": [
           [
-            8,
+            0,
             255,
             0
           ],
@@ -3160,162 +1469,72 @@
           ]
         ],
         "fx": 95,
-        "sx": 128,
+        "grp": 1,
+        "id": 1,
         "ix": 128,
-        "pal": 5,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 6,
+        "mi": false,
+        "n": "Second Floor",
         "start": 222,
         "stop": 439,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
-        "bri": 128,
-        "cct": 127,
-        "n": "Second Floor",
-        "col": [
-          [
-            8,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ],
-          [
-            255,
-            200,
-            0
-          ]
-        ],
-        "fx": 95,
-        "sx": 128,
-        "ix": 128,
         "pal": 5,
-        "sel": true,
         "rev": true,
-        "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
+        "sel": true,
+        "spc": 0,
+        "sx": 128
       }
-    ]
+    ],
+    "transition": 7
   },
   "29": {
+    "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Scanner Dual",
     "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 5,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "bri": 128,
+        "cct": 127,
+        "col": [
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            255,
+            200,
+            0
+          ]
+        ],
+        "fx": 60,
+        "grp": 1,
+        "id": 0,
+        "ix": 128,
+        "mi": false,
+        "n": "First Floor",
         "start": 0,
         "stop": 222,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
+        "pal": 5,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 128
+      },
+      {
         "bri": 128,
         "cct": 127,
-        "n": "First Floor",
         "col": [
           [
-            8,
+            0,
             255,
             0
           ],
@@ -3331,27 +1550,40 @@
           ]
         ],
         "fx": 60,
-        "sx": 128,
+        "grp": 1,
+        "id": 1,
         "ix": 128,
-        "pal": 5,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 6,
+        "mi": false,
+        "n": "Second Floor",
         "start": 222,
         "stop": 439,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
+        "pal": 5,
+        "rev": true,
+        "sel": true,
+        "spc": 0,
+        "sx": 128
+      }
+    ],
+    "transition": 7
+  },
+  "3": {
+    "mainseg": 0,
+    "bri": 128,
+    "n": "Candy Cane",
+    "on": true,
+    "seg": [
+      {
         "bri": 128,
-        "cct": 127,
-        "n": "Second Floor",
         "col": [
           [
-            8,
+            255,
+            0,
+            0
+          ],
+          [
+            0,
             255,
             0
           ],
@@ -3359,134 +1591,108 @@
             255,
             255,
             255
+          ]
+        ],
+        "fx": 114,
+        "grp": 1,
+        "id": 0,
+        "ix": 128,
+        "mi": false,
+        "n": "First Floor",
+        "start": 0,
+        "stop": 222,
+        "on": true,
+        "pal": 0,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 128
+      },
+      {
+        "bri": 128,
+        "col": [
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            0,
+            255,
+            0
           ],
           [
             255,
-            200,
-            0
+            255,
+            255
           ]
         ],
-        "fx": 60,
-        "sx": 128,
+        "fx": 114,
+        "grp": 1,
+        "id": 1,
         "ix": 128,
-        "pal": 5,
-        "sel": true,
+        "mi": false,
+        "n": "Second Floor",
+        "start": 222,
+        "stop": 439,
+        "on": true,
+        "pal": 0,
         "rev": true,
-        "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
+        "sel": true,
+        "spc": 0,
+        "sx": 128
       }
-    ]
+    ],
+    "transition": 7
   },
   "30": {
+    "mainseg": 0,
+    "bri": 128,
     "n": "St. Pats - Washing Machine",
     "on": true,
-    "bri": 128,
-    "transition": 7,
-    "mainseg": 5,
     "seg": [
       {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "id": 5,
+        "bri": 128,
+        "cct": 127,
+        "col": [
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            255,
+            200,
+            0
+          ]
+        ],
+        "fx": 113,
+        "grp": 1,
+        "id": 0,
+        "ix": 128,
+        "mi": false,
+        "n": "First Floor",
         "start": 0,
         "stop": 222,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
+        "pal": 11,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 128
+      },
+      {
         "bri": 128,
         "cct": 127,
-        "n": "First Floor",
         "col": [
           [
-            8,
+            0,
             255,
             0
           ],
@@ -3502,140 +1708,28 @@
           ]
         ],
         "fx": 113,
-        "sx": 128,
+        "grp": 1,
+        "id": 1,
         "ix": 128,
-        "pal": 11,
-        "sel": true,
-        "rev": false,
-        "mi": false
-      },
-      {
-        "id": 6,
+        "mi": false,
+        "n": "Second Floor",
         "start": 222,
         "stop": 439,
-        "grp": 1,
-        "spc": 0,
         "of": 0,
         "on": true,
-        "bri": 128,
-        "cct": 127,
-        "n": "Second Floor",
-        "col": [
-          [
-            8,
-            255,
-            0
-          ],
-          [
-            255,
-            255,
-            255
-          ],
-          [
-            255,
-            200,
-            0
-          ]
-        ],
-        "fx": 113,
-        "sx": 128,
-        "ix": 128,
         "pal": 11,
-        "sel": true,
         "rev": true,
-        "mi": false
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
-      },
-      {
-        "stop": 0
+        "sel": true,
+        "spc": 0,
+        "sx": 128
       }
-    ]
+    ],
+    "transition": 7
   },
   "31": {
+    "n": "St. Pats Playlist",
+    "on": true,
     "playlist": {
-      "ps": [
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30
-      ],
       "dur": [
         300,
         300,
@@ -3648,6 +1742,21 @@
         300,
         300
       ],
+      "end": 0,
+      "ps": [
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "r": false,
+      "repeat": 0,
       "transition": [
         7,
         7,
@@ -3659,12 +1768,434 @@
         7,
         7,
         7
-      ],
-      "repeat": 0,
-      "r": false,
-      "end": 0
-    },
+      ]
+    }
+  },
+  "4": {
+    "mainseg": 0,
+    "bri": 128,
+    "n": "Christmas",
     "on": true,
-    "n": "St. Pats Playlist"
+    "seg": [
+      {
+        "bri": 128,
+        "col": [
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 37,
+        "grp": 1,
+        "id": 0,
+        "ix": 128,
+        "mi": false,
+        "n": "First Floor",
+        "start": 0,
+        "stop": 222,
+        "on": true,
+        "pal": 0,
+        "rev": true,
+        "sel": true,
+        "spc": 0,
+        "sx": 122
+      },
+      {
+        "bri": 128,
+        "col": [
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 37,
+        "grp": 1,
+        "id": 1,
+        "ix": 128,
+        "mi": false,
+        "n": "Second Floor",
+        "start": 222,
+        "stop": 439,
+        "on": true,
+        "pal": 0,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 122
+      }
+    ],
+    "transition": 7
+  },
+  "5": {
+    "mainseg": 0,
+    "bri": 128,
+    "n": "Twinkle",
+    "on": true,
+    "seg": [
+      {
+        "bri": 128,
+        "col": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            0,
+            0,
+            191
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 106,
+        "grp": 1,
+        "id": 0,
+        "ix": 128,
+        "mi": false,
+        "n": "First Floor",
+        "start": 0,
+        "stop": 222,
+        "on": true,
+        "pal": 0,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 122
+      },
+      {
+        "bri": 128,
+        "col": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            0,
+            0,
+            191
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 106,
+        "grp": 1,
+        "id": 1,
+        "ix": 128,
+        "mi": false,
+        "n": "Second Floor",
+        "start": 222,
+        "stop": 439,
+        "on": true,
+        "pal": 0,
+        "rev": true,
+        "sel": true,
+        "spc": 0,
+        "sx": 122
+      }
+    ],
+    "transition": 7
+  },
+  "6": {
+    "mainseg": 0,
+    "bri": 128,
+    "n": "Candy Cane 2",
+    "on": true,
+    "seg": [
+      {
+        "bri": 128,
+        "col": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            0,
+            0,
+            191
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 114,
+        "grp": 1,
+        "id": 0,
+        "ix": 128,
+        "mi": false,
+        "n": "Garage",
+        "start": 0,
+        "stop": 114,
+        "on": true,
+        "pal": 0,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 122
+      },
+      {
+        "bri": 128,
+        "col": [
+          [
+            102,
+            153,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "fx": 114,
+        "grp": 1,
+        "id": 1,
+        "ix": 128,
+        "mi": false,
+        "n": "Porch",
+        "start": 114,
+        "stop": 222,
+        "on": true,
+        "pal": 0,
+        "rev": true,
+        "sel": false,
+        "spc": 0,
+        "sx": 128
+      },
+      {
+        "bri": 128,
+        "col": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            0,
+            0,
+            191
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 114,
+        "grp": 1,
+        "id": 2,
+        "ix": 128,
+        "mi": false,
+        "n": "Over Porch",
+        "start": 222,
+        "stop": 337,
+        "on": true,
+        "pal": 0,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 122
+      },
+      {
+        "bri": 128,
+        "col": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            0,
+            0,
+            191
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 114,
+        "grp": 1,
+        "id": 3,
+        "ix": 128,
+        "mi": false,
+        "n": "Peak",
+        "start": 337,
+        "stop": 439,
+        "on": true,
+        "pal": 0,
+        "rev": true,
+        "sel": true,
+        "spc": 0,
+        "sx": 122
+      }
+    ],
+    "transition": 7
+  },
+  "7": {
+    "mainseg": 0,
+    "bri": 128,
+    "n": "XmasColorTwinkles",
+    "on": true,
+    "seg": [
+      {
+        "bri": 192,
+        "col": [
+          [
+            255,
+            0,
+            0
+          ],
+          [
+            0,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ],
+        "fx": 74,
+        "grp": 1,
+        "id": 0,
+        "ix": 192,
+        "mi": false,
+        "n": "Whole Roof",
+        "start": 0,
+        "stop": 439,
+        "on": true,
+        "pal": 5,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 123
+      }
+    ]
+  },
+  "8": {
+    "mainseg": 0,
+    "bri": 128,
+    "n": "CandleMulti",
+    "on": true,
+    "seg": [
+      {
+        "bri": 128,
+        "col": [
+          [
+            255,
+            153,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "fx": 102,
+        "grp": 1,
+        "id": 0,
+        "ix": 255,
+        "mi": false,
+        "n": "Whole Roof",
+        "start": 0,
+        "stop": 439,
+        "on": true,
+        "pal": 0,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 125
+      }
+    ],
+    "transition": 7
+  },
+  "9": {
+    "mainseg": 0,
+    "bri": 128,
+    "n": "TwinkleFoxRainbow",
+    "on": true,
+    "seg": [
+      {
+        "bri": 128,
+        "col": [
+          [
+            255,
+            153,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "fx": 80,
+        "grp": 1,
+        "id": 0,
+        "ix": 255,
+        "mi": false,
+        "n": "Whole Roof",
+        "start": 0,
+        "stop": 439,
+        "on": true,
+        "pal": 11,
+        "rev": false,
+        "sel": true,
+        "spc": 0,
+        "sx": 125
+      }
+    ],
+    "transition": 7
   }
-,"32":{"n":"Colorloop","on":true,"bri":128,"transition":7,"mainseg":0,"seg":[{"id":0,"start":0,"stop":439,"grp":1,"spc":0,"of":0,"on":true,"bri":128,"cct":127,"n":"Whole Roof","col":[[255,153,0],[0,0,0],[0,0,0]],"fx":8,"sx":74,"ix":255,"pal":11,"sel":true,"rev":false,"mi":false},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0},{"stop":0}]}}
+}
