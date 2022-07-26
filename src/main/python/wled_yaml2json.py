@@ -5,6 +5,13 @@ import json
 from wled_cfg import WledCfg
 from wled_presets import WledPresets
 
+DEFAULT_COLORS_FILE = "colors.yaml"
+DEFAULT_PALLETS_FILE = "pallets.yaml"
+DEFAULT_EFFECTS_FILE = "effects.yaml"
+DEFAULT_SEGMENTS_FILE = "segments.yaml"
+DEFAULT_PRESETS_FILE = "presets.yaml"
+DEFAULT_CONFIG_FILE = "cfg.yaml"
+
 
 def main(name, args):
     parser = argparse.ArgumentParser(description='Convert YAML files to WLED JSON.')
@@ -12,20 +19,20 @@ def main(name, args):
                         help="WLED data file location. Applies to presets, cfg, and segments files",
                         action="store", default=".")
     parser.add_argument("--presets", type=str, help="WLED presets file name (YAML).", action="store",
-                        default="")
+                        default=DEFAULT_PRESETS_FILE)
     parser.add_argument("--segments", type=str, help="Segments definition file name (YAML).", action="store",
-                        default="")
+                        default=DEFAULT_SEGMENTS_FILE)
     parser.add_argument("--cfg", type=str, help="WLED cfg file name (YAML).", action="store",
-                        default="")
+                        default=DEFAULT_CONFIG_FILE)
     parser.add_argument("--definitions_dir", type=str,
                         help="Definition file location. Applies to effects, pallets, and colors files",
                         action="store", default=".")
     parser.add_argument("--effects", type=str, help="WLED effect definition file name (YAML).", action="store",
-                        default="")
+                        default=DEFAULT_EFFECTS_FILE)
     parser.add_argument("--pallets", type=str, help="WLED pallet definitions file-name (YAML).", action="store",
-                        default="")
+                        default=DEFAULT_PALLETS_FILE)
     parser.add_argument("--colors", type=str, help="HTML color-name definitions file-name (YAML).", action="store",
-                        default="")
+                        default=DEFAULT_COLORS_FILE)
 
     args = parser.parse_args()
     wled_dir = str(args.wled_dir)
