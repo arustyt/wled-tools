@@ -40,7 +40,7 @@ class WledPresets(WledYaml):
         self.current_segment_defaults = {}
 
     def process_other_args(self, presets_file_path, other_args):
-        self.presets = Presets(presets_file_path)
+        self.presets = Presets(presets_file=presets_file_path)
         if SEGMENTS_FILE_TAG in other_args:
             self.segments = Segments(other_args[SEGMENTS_FILE_TAG])
         else:

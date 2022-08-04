@@ -66,16 +66,16 @@ def main(name, args):
     print("colors_path: {path}".format(path=colors_path))
 
     wled_presets = WledPresets(colors_path, pallets_path, effects_path)
-    json_data = wled_presets.process_yaml_file(presets_path, segments_file=segments_path)
+    preset_data = wled_presets.process_yaml_file(presets_path, segments_file=segments_path)
     json_file_path = get_json_file_name(presets_path)
     with open(json_file_path, "w") as out_file:
-        json.dump(json_data, out_file, indent=2)
+        json.dump(preset_data, out_file, indent=2)
 
-    wled_cfg = WledCfg(presets_path)
-    json_data = wled_cfg.process_yaml_file(cfg_path)
+    wled_cfg = WledCfg(presets_file=presets_path)
+    cfg_data = wled_cfg.process_yaml_file(cfg_path)
     json_file_path = get_json_file_name(cfg_path)
     with open(json_file_path, "w") as out_file:
-        json.dump(json_data, out_file, indent=2)
+        json.dump(cfg_data, out_file, indent=2)
 
 
 def build_path(directory, file):

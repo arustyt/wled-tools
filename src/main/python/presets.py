@@ -3,19 +3,31 @@ import yaml
 
 from wled_yaml import DEFAULTS
 
+PRESETS_FILE_ARG = 'presets_file'
+PRESETS_DATA_ARG = 'presets_data'
+KWDICT_ARG = 'kwdict'
+
 
 class Presets:
 
-    def __init__(self, preset_names_file='presets.yaml'):
-        with open(preset_names_file) as f:
-            preset_data = yaml.safe_load(f)
+    def __init__(self, **kwargs):
+
+        if KWDICT_ARG in kwargs:
+            kwargs = kwargs[KWDICT_ARG]
+
+        presets_data = kwargs[PRESETS_DATA_ARG] if PRESETS_DATA_ARG in kwargs else None
+
+        if presets_data is None:
+            presets_file = kwargs[PRESETS_FILE_ARG] if PRESETS_FILE_ARG in kwargs else 'presets.yaml'
+            with open(presets_file) as f:
+                presets_data = yaml.safe_load(f)
 
         self.presets_by_name = {}
-        for key in preset_data.keys():
+        for key in presets_data.keys():
             if key == DEFAULTS:
                 continue
 
-            preset = preset_data[key]
+            preset = presets_data[key]
             if len(preset) == 0:
                 continue
 
