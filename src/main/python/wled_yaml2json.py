@@ -35,6 +35,27 @@ def main(name, args):
                         default=DEFAULT_PALLETS_FILE)
     parser.add_argument("--colors", type=str, help="HTML color-name definitions file-name (YAML).", action="store",
                         default=DEFAULT_COLORS_FILE)
+    parser.add_argument("--include", type=str, help=("A comma-separated list of preset/playlist IDs/names to INCLUDE "
+                                                     "in the output presets file. When this option is provided the "
+                                                     "script will start with an empty set of presets and include only "
+                                                     "those in the list. If a playlist is provided in the list "
+                                                     " the playlist itself will be included. If the --deep option is "
+                                                     "present presets referenced in the playlist will also be "
+                                                     "included. The --include and --exclude "
+                                                     "options are mutually exclusive.  Providing both will result in "
+                                                     "an error and script termination."), action="store",
+                        default=None)
+    parser.add_argument("--exclude", type=str, help=("A comma-separated list of preset/playlist IDs/names to EXCLUDE "
+                                                     "from the output presets file. When this option is provided the "
+                                                     "script will start with all presets in the --presets file "
+                                                     "exclude those in the list. If a playlist is provided in the "
+                                                     "list the playlist itself will be excluded. If the --deep option "
+                                                     "is present presets referenced in the playlist will also be"
+                                                     "excluded. The --include and --exclude options are mutually "
+                                                     "exclusive.  Providing both will result in an error and script "
+                                                     "termination."), action="store",
+                        default=None)
+    parser.add_argument('--deep', action='store_true')
 
     args = parser.parse_args()
     wled_dir = str(args.wled_dir)
@@ -45,6 +66,9 @@ def main(name, args):
     effects_file = str(args.effects)
     pallets_file = str(args.pallets)
     colors_file = str(args.colors)
+    include_list = str(args.include).split(',') if args.include is not None else None
+    exclude_list = str(args.exclude).split(',') if args.exclude is not None else None
+    deep = str(args.deep)
 
     presets_path = build_path(wled_dir, presets_file)
     segments_path = build_path(wled_dir, segments_file)
@@ -54,7 +78,14 @@ def main(name, args):
     print("presets_path: {path}".format(path=presets_path))
     print("segments_path: {path}".format(path=segments_path))
     print("cfg_path: {path}".format(path=cfg_path))
+    print("include_list: " + str(include_list))
+    print("exclude_list: " + str(exclude_list))
+    print("deep: " + deep)
+
     print()
+
+    if include_list is not None and exclude_list is not None:
+        raise ValueError("The --include and --exclude options are mutually exclusive and cannot both be provided.")
 
     effects_path = build_path(definitions_dir, effects_file)
     pallets_path = build_path(definitions_dir, pallets_file)
