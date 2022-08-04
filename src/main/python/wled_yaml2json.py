@@ -71,7 +71,7 @@ def main(name, args):
     with open(json_file_path, "w") as out_file:
         json.dump(preset_data, out_file, indent=2)
 
-    wled_cfg = WledCfg(presets_file=presets_path)
+    wled_cfg = WledCfg(presets_data=preset_data)
     cfg_data = wled_cfg.process_yaml_file(cfg_path)
     json_file_path = get_json_file_name(cfg_path)
     with open(json_file_path, "w") as out_file:
