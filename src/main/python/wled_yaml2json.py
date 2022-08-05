@@ -2,6 +2,8 @@ import argparse
 import sys
 import json
 
+from presets_exclude_filter import PresetsExcludeFilter
+from presets_include_filter import PresetsIncludeFilter
 from wled_cfg import WledCfg
 from wled_presets import WledPresets
 
@@ -68,7 +70,7 @@ def main(name, args):
     colors_file = str(args.colors)
     include_list = str(args.include).split(',') if args.include is not None else None
     exclude_list = str(args.exclude).split(',') if args.exclude is not None else None
-    deep = str(args.deep)
+    deep = args.deep
 
     presets_path = build_path(wled_dir, presets_file)
     segments_path = build_path(wled_dir, segments_file)
@@ -80,7 +82,7 @@ def main(name, args):
     print("cfg_path: {path}".format(path=cfg_path))
     print("include_list: " + str(include_list))
     print("exclude_list: " + str(exclude_list))
-    print("deep: " + deep)
+    print("deep: " + str(deep))
 
     print()
 
@@ -99,6 +101,14 @@ def main(name, args):
     wled_presets = WledPresets(colors_path, pallets_path, effects_path)
     preset_data = wled_presets.process_yaml_file(presets_path, segments_file=segments_path)
     json_file_path = get_json_file_name(presets_path)
+
+    if include_list is not None:
+        include_filter = PresetsIncludeFilter(preset_data, deep)
+        preset_data = include_filter.apply(include_list)
+    elif exclude_list is not None:
+        exclude_filter = PresetsExcludeFilter(preset_data, deep)
+        preset_data = exclude_filter.apply(exclude_list)
+
     with open(json_file_path, "w") as out_file:
         json.dump(preset_data, out_file, indent=2)
 
