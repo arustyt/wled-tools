@@ -13,7 +13,8 @@ class PresetsIncludeFilter(PresetsFilter):
         super().__init__(presets_in, deep, {})
 
     def apply_filter_item(self, preset_id: str):
-        self.presets_out[preset_id] = self.presets_in[preset_id]
+        if preset_id not in self.presets_out:
+            self.presets_out[preset_id] = self.presets_in[preset_id]
         return self.presets_in[preset_id]
 
     def init_filter(self):
