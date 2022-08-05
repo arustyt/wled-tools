@@ -41,7 +41,7 @@ class Presets:
         preset_name_normalized = re.sub('[ _]', '', preset_name_normalized)
         return preset_name_normalized
 
-    #  Returns tuple containing preset data: (name, id)
+    #  Returns dict containing preset data: {'name': name, 'id': id}
     def get_preset_by_name(self, preset_string):
         preset_data = None
         preset_string_normalized = self.normalize_preset_name(preset_string)
