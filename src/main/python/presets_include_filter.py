@@ -17,5 +17,8 @@ class PresetsIncludeFilter(PresetsFilter):
             self.presets_out[preset_id] = self.presets_in[preset_id]
         return self.presets_in[preset_id]
 
-    def init_filter(self):
+    def initialize_filter(self):
         self.presets_out['0'] = self.presets_in['0']
+
+    def finalize_filter(self):
+        pass

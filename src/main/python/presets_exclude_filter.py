@@ -17,6 +17,8 @@ class PresetsExcludeFilter(PresetsFilter):
             del self.presets_out[preset_id]
         return self.presets_in[preset_id]
 
-    def init_filter(self):
+    def initialize_filter(self):
         pass
 
+    def finalize_filter(self):
+        pass
