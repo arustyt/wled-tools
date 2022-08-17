@@ -2,6 +2,8 @@ import argparse
 import sys
 import json
 
+from presets_exclude_filter import PresetsExcludeFilter
+from presets_include_filter import PresetsIncludeFilter
 from wled_cfg import WledCfg
 from wled_presets import WledPresets
 
@@ -35,6 +37,27 @@ def main(name, args):
                         default=DEFAULT_PALLETS_FILE)
     parser.add_argument("--colors", type=str, help="HTML color-name definitions file-name (YAML).", action="store",
                         default=DEFAULT_COLORS_FILE)
+    parser.add_argument("--include", type=str, help=("A comma-separated list of preset/playlist IDs/names to INCLUDE "
+                                                     "in the output presets file. When this option is provided the "
+                                                     "script will start with an empty set of presets and include only "
+                                                     "those in the list. If a playlist is provided in the list "
+                                                     " the playlist itself will be included. If the --deep option is "
+                                                     "present presets referenced in the playlist will also be "
+                                                     "included. The --include and --exclude "
+                                                     "options are mutually exclusive.  Providing both will result in "
+                                                     "an error and script termination."), action="store",
+                        default=None)
+    parser.add_argument("--exclude", type=str, help=("A comma-separated list of preset/playlist IDs/names to EXCLUDE "
+                                                     "from the output presets file. When this option is provided the "
+                                                     "script will start with all presets in the --presets file "
+                                                     "exclude those in the list. If a playlist is provided in the "
+                                                     "list the playlist itself will be excluded. If the --deep option "
+                                                     "is present presets referenced in the playlist will also be"
+                                                     "excluded. The --include and --exclude options are mutually "
+                                                     "exclusive.  Providing both will result in an error and script "
+                                                     "termination."), action="store",
+                        default=None)
+    parser.add_argument('--deep', action='store_true')
 
     args = parser.parse_args()
     wled_dir = str(args.wled_dir)
@@ -45,6 +68,9 @@ def main(name, args):
     effects_file = str(args.effects)
     pallets_file = str(args.pallets)
     colors_file = str(args.colors)
+    include_list = str(args.include).split(',') if args.include is not None else None
+    exclude_list = str(args.exclude).split(',') if args.exclude is not None else None
+    deep = args.deep
 
     presets_path = build_path(wled_dir, presets_file)
     segments_path = build_path(wled_dir, segments_file)
@@ -54,7 +80,14 @@ def main(name, args):
     print("presets_path: {path}".format(path=presets_path))
     print("segments_path: {path}".format(path=segments_path))
     print("cfg_path: {path}".format(path=cfg_path))
+    print("include_list: " + str(include_list))
+    print("exclude_list: " + str(exclude_list))
+    print("deep: " + str(deep))
+
     print()
+
+    if include_list is not None and exclude_list is not None:
+        raise ValueError("The --include and --exclude options are mutually exclusive and cannot both be provided.")
 
     effects_path = build_path(definitions_dir, effects_file)
     pallets_path = build_path(definitions_dir, pallets_file)
@@ -66,16 +99,24 @@ def main(name, args):
     print("colors_path: {path}".format(path=colors_path))
 
     wled_presets = WledPresets(colors_path, pallets_path, effects_path)
-    json_data = wled_presets.process_yaml_file(presets_path, segments_file=segments_path)
+    preset_data = wled_presets.process_yaml_file(presets_path, segments_file=segments_path)
     json_file_path = get_json_file_name(presets_path)
-    with open(json_file_path, "w") as out_file:
-        json.dump(json_data, out_file, indent=2)
 
-    wled_cfg = WledCfg(presets_path)
-    json_data = wled_cfg.process_yaml_file(cfg_path)
+    if include_list is not None:
+        include_filter = PresetsIncludeFilter(preset_data, deep)
+        preset_data = include_filter.apply(include_list)
+    elif exclude_list is not None:
+        exclude_filter = PresetsExcludeFilter(preset_data, deep)
+        preset_data = exclude_filter.apply(exclude_list)
+
+    with open(json_file_path, "w") as out_file:
+        json.dump(preset_data, out_file, indent=2)
+
+    wled_cfg = WledCfg(presets_data=preset_data)
+    cfg_data = wled_cfg.process_yaml_file(cfg_path)
     json_file_path = get_json_file_name(cfg_path)
     with open(json_file_path, "w") as out_file:
-        json.dump(json_data, out_file, indent=2)
+        json.dump(cfg_data, out_file, indent=2)
 
 
 def build_path(directory, file):

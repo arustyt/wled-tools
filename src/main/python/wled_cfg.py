@@ -1,7 +1,7 @@
 import sys
 import json
 
-from presets import Presets
+from presets import Presets, PRESETS_DATA_ARG, PRESETS_FILE_ARG
 from wled_yaml import WledYaml
 
 DEFAULT_PRESET_PATH = 'def.ps'
@@ -9,9 +9,11 @@ DEFAULT_PRESET_PATH = 'def.ps'
 
 class WledCfg(WledYaml):
 
-    def __init__(self, presets_yaml_file='presets.yaml'):
+    def __init__(self, **kwargs):
         super().__init__()
-        self.presets = Presets(presets_yaml_file)
+
+        self.presets = Presets(kwdict=kwargs)
+
 
     def process_dict_element(self, path: str, name, data):
         if path == DEFAULT_PRESET_PATH:
