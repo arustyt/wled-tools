@@ -14,23 +14,34 @@ def main(name, args):
     host = str(args.host)
     presets_file = str(args.presets)
     cfg_file = str(args.cfg)
-    print("host: " + host)
-    print("presets_file: " + presets_file)
-    print("cfg_file: " + cfg_file)
+    # print("host: " + host)
+    # print("presets_file: " + presets_file)
+    # print("cfg_file: " + cfg_file)
 
-    quit()
-    test_url = 'http://192.168.196.11/upload'
-    # test_url = "http://httpbin.org/post"
+    url = 'http://{host}/upload'.format(host=host)
+    # print("URL: " + url)
 
-    test_files = {'file': ('presets.json', open('presets-off.json', 'rb'))}
+    if presets_file is not None:
+        upload_file(url, presets_file, 'presets.json')
 
-    test_response = requests.post(test_url, files=test_files)
+    if cfg_file is not None:
+        upload_file(url, cfg_file, 'cfg.json')
 
-    if test_response.ok:
-        print("Upload completed successfully!")
-        print(test_response.text)
-    else:
-        print("Something went wrong!")
+
+def upload_file(url, src_file_name, dst_file_name):
+    presets_files = {'file': (dst_file_name, open(src_file_name, 'rb'))}
+    # print("presets_files: " + str(presets_files))
+    try:
+        upload_response = requests.post(url, files=presets_files)
+        if upload_response.ok:
+            print("{file} upload completed successfully!".format(file=src_file_name))
+        else:
+            print("{file} upload failed.".format(file=src_file_name))
+            print(upload_response.text)
+    except Exception as ex:
+        print("{file} upload failed.".format(file=src_file_name))
+        print(str(ex))
+
 
 if __name__ == '__main__':
   main(sys.argv[0], sys.argv[1:])
