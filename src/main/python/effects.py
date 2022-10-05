@@ -27,7 +27,7 @@ class Effects:
         if effect_string_normalized in self.effects_by_name:
             effect_data = self.effects_by_name[effect_string_normalized]
         else:
-            raise ValueError("Input '{name}' is a recognized effect name".format(name=effect_string))
+            raise ValueError("Input '{name}' is not a recognized effect name".format(name=effect_string))
 
         return effect_data
 
