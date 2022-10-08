@@ -120,7 +120,7 @@ def main(name, args):
     if exists(json_file_path):
         rename_existing_file(json_file_path)
     print("Generating {file}".format(file=json_file_path))
-    with open(json_file_path, "w") as out_file:
+    with open(json_file_path, "w", newline='\n') as out_file:
         json.dump(preset_data, out_file, indent=2)
 
     print()
@@ -131,7 +131,7 @@ def main(name, args):
     if exists(json_file_path):
         rename_existing_file(json_file_path)
     print("Generating {file}".format(file=json_file_path))
-    with open(json_file_path, "w") as out_file:
+    with open(json_file_path, "w", newline='\n') as out_file:
         json.dump(cfg_data, out_file, indent=2)
 
 
