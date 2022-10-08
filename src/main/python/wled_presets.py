@@ -8,6 +8,9 @@ from presets import Presets
 from segments import Segments
 from wled_yaml import WledYaml
 
+STOP_TAG = 'stop'
+PRESET_KEY = 'seg'
+
 ID_TAG = 'id'
 SEGMENTS_FILE_TAG = 'segments_file'
 
@@ -38,6 +41,7 @@ class WledPresets(WledYaml):
         self.preset_segment_defaults = {}
         self.current_preset_defaults = {}
         self.current_segment_defaults = {}
+        self.max_segments = 0
 
     def process_other_args(self, presets_file_path, other_args):
         self.presets = Presets(presets_file=presets_file_path)
@@ -76,6 +80,11 @@ class WledPresets(WledYaml):
         else:
             return False, new_data
 
+    def finalize_list(self, path: str, name, data: list, new_data: list):
+        if name == 'seg':
+            if len(new_data) > self.max_segments:
+                self.max_segments = len(new_data)
+
     def process_dict_element(self, path: str, name, data):
         if SEGMENT_TAG in path:
             if name == SEGMENT_NAME_TAG:
@@ -110,6 +119,16 @@ class WledPresets(WledYaml):
             result = [data]
 
         return result
+
+    def finalize_wled_data(self, preset_data: dict):
+        for preset in preset_data.values():
+            if PRESET_KEY in preset:
+                segments: list = preset[PRESET_KEY]
+                num_segments = len(segments)
+                if self.max_segments > num_segments:
+                    for i in range(num_segments, self.max_segments):
+                        segments.append({STOP_TAG: 0})
+        return preset_data
 
     def process_colors(self, path: str, name, color_list: list):
         new_color_list = []
