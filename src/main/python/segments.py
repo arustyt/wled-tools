@@ -27,7 +27,7 @@ class Segments:
         if segment_string_normalized in self.segments_by_name:
             segment_data = self.segments_by_name[segment_string_normalized]
         else:
-            raise ValueError("Input '{name}' is a recognized segment name".format(name=segment_string))
+            raise ValueError("Input '{name}' is not a recognized segment name".format(name=segment_string))
 
         return segment_data
 
