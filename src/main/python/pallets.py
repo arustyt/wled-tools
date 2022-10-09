@@ -27,7 +27,7 @@ class Pallets:
         if pallet_string_normalized in self.pallets_by_name:
             pallet_data = self.pallets_by_name[pallet_string_normalized]
         else:
-            raise ValueError("Input '{name}' is a recognized pallet name".format(name=pallet_string))
+            raise ValueError("Input '{name}' is not a recognized pallet name".format(name=pallet_string))
 
         return pallet_data
 

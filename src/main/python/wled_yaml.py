@@ -18,26 +18,28 @@ class WledYaml:
         self.process_other_args(yaml_file_name, other_args)
         yaml_data = self.load_yaml_file(yaml_file_name)
 
-        new_preset_data = {}
+        new_wled_data = {}
 
         self.load_global_defaults(yaml_data)
 
         for key in yaml_data.keys():
             if key == DEFAULTS:
                 continue
-            preset = yaml_data[key]
-            self.load_defaults(key, key, preset)
-            if isinstance(preset, dict):
-                new_preset_data[key] = self.process_dict(key, key, preset)
-            elif isinstance(preset, list):
-                new_preset_data[key] = self.process_list(key, key, preset)
+            wled_element = yaml_data[key]
+            self.load_defaults(key, key, wled_element)
+            if isinstance(wled_element, dict):
+                new_wled_data[key] = self.process_dict(key, key, wled_element)
+            elif isinstance(wled_element, list):
+                new_wled_data[key] = self.process_list(key, key, wled_element)
             else:
-                replacements = self.process_dict_element(key, key, preset)
+                replacements = self.process_dict_element(key, key, wled_element)
                 if len(replacements) >= 1:
                     for replacement in replacements:
-                        new_preset_data[replacement[0]] = replacement[1]
+                        new_wled_data[replacement[0]] = replacement[1]
 
-        return new_preset_data
+        new_wled_data = self.finalize_wled_data(new_wled_data)
+
+        return new_wled_data
 
     def load_yaml_file(self, yaml_file_name):
         with open(yaml_file_name) as in_file:
@@ -137,3 +139,7 @@ class WledYaml:
     @abstractmethod
     def process_other_args(self, yaml_file_name, other_args):
         pass
+
+    @abstractmethod
+    def finalize_wled_data(self, wled_data):
+        return wled_data

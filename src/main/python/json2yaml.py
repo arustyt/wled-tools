@@ -13,7 +13,7 @@ json_data = json.load(open(json_file))
 #  print(yaml.dump(json_data, default_flow_style=False))
 
 yaml_file = get_yaml_file_name(json_file)
-with open(yaml_file, "w") as out_file:
+with open(yaml_file, "w", newline='\n') as out_file:
     out_file.write(yaml.dump(json_data, default_flow_style=False))
 
 

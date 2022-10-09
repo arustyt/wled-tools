@@ -1,5 +1,7 @@
 import yaml
 
+INVALID_COLOR_STRING = "Input '{value}' is not in #RRGGBB format and is not a recognized color name"
+
 
 class Colors:
 
@@ -19,9 +21,13 @@ class Colors:
         rrggbb_string = rrggbb_string.strip()
         if rrggbb_string[0] == '#': rrggbb_string = rrggbb_string[1:]
         if len(rrggbb_string) != 6:
-            raise ValueError("Input '{value}' is not a recognized color or in #RRGGBB format".format(value=color_string))
+            raise ValueError(INVALID_COLOR_STRING.format(value=color_string))
         r, g, b = rrggbb_string[:2], rrggbb_string[2:4], rrggbb_string[4:]
-        r, g, b = [int(n, 16) for n in (r, g, b)]
+        try:
+            r, g, b = [int(n, 16) for n in (r, g, b)]
+        except ValueError:
+            raise ValueError(INVALID_COLOR_STRING.format(value=color_string))
+
         return r, g, b
 
     def get_color_by_name(self, color_string):
