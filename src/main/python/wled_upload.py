@@ -5,8 +5,8 @@ import requests
 
 
 def main(name, args):
-    parser = argparse.ArgumentParser(description='Convert YAML files to WLED JSON.')
-    parser.add_argument("--host", type=str, help="Hostname to the file will be uploaded.", action="store", required=True)
+    parser = argparse.ArgumentParser(description='Upload WLED presets and config files to a WLED instance.')
+    parser.add_argument("--host", type=str, help="Hostname to which the file(s) will be uploaded.", action="store", required=True)
     parser.add_argument("--presets", type=str, help="Presets file to be uploaded.", action="store")
     parser.add_argument("--cfg", type=str, help="Cfg file to be uploaded.", action="store")
 
