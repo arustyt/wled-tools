@@ -8,6 +8,7 @@ from pprint import pprint
 
 import requests
 
+
 def main(name, args):
     parser = argparse.ArgumentParser(description='Compare JSON/YAML files.')
     parser.add_argument('files', metavar='file', type=str, nargs=2,
@@ -24,8 +25,6 @@ def main(name, args):
     target_data = load_file_data(target_file)
 
     result = DeepDiff(source_data, target_data, verbose_level=2)
-
-#    diffs = json.dumps(result, indent=2)
 
     pprint(result, indent=2)
 
@@ -85,4 +84,4 @@ def load_file_data(file: str):
 
 
 if __name__ == '__main__':
-  main(sys.argv[0], sys.argv[1:])
+    main(sys.argv[0], sys.argv[1:])

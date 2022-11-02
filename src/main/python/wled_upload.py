@@ -12,11 +12,11 @@ def main(name, args):
 
     args = parser.parse_args()
     host = str(args.host)
-    presets_file = str(args.presets)
-    cfg_file = str(args.cfg)
-    # print("host: " + host)
-    # print("presets_file: " + presets_file)
-    # print("cfg_file: " + cfg_file)
+    presets_file = str(args.presets) if args.presets is not None else None
+    cfg_file = str(args.cfg) if args.cfg is not None else None
+    print("host: " + host)
+    print("presets_file: " + str(presets_file))
+    print("cfg_file: " + str(cfg_file))
 
     url = 'http://{host}/upload'.format(host=host)
     # print("URL: " + url)
