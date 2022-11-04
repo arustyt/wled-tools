@@ -37,8 +37,8 @@ def main(name, args):
             file_uploaded = True
 
     if file_uploaded:
-        # reset_wled(base_url)
-        reboot_wled(base_url)
+        reset_wled(base_url)
+        # reboot_wled(base_url)
 
 
 def reboot_wled(base_url):
