@@ -6,24 +6,9 @@ from effects import Effects
 from pallets import Pallets
 from presets import Presets
 from segments import Segments
+from wled_constants import SEGMENTS_FILE_TAG, SEGMENT_TAG, COLOR_TAG, SEGMENT_NAME_TAG, PALLET_NAME_TAG, \
+    EFFECT_NAME_TAG, PALLET_TAG, EFFECT_TAG, ID_TAG, PRESET_KEY, STOP_TAG, DEFAULTS, PRESET_DEFAULTS, SEGMENT_DEFAULTS
 from wled_yaml import WledYaml
-
-STOP_TAG = 'stop'
-PRESET_KEY = 'seg'
-
-ID_TAG = 'id'
-SEGMENTS_FILE_TAG = 'segments_file'
-
-COLOR_TAG = 'col'
-EFFECT_TAG = 'fx'
-EFFECT_NAME_TAG = 'fx_name'
-PALLET_TAG = 'pal'
-PALLET_NAME_TAG = 'pal_name'
-SEGMENT_NAME_TAG = 'seg_name'
-SEGMENT_TAG = 'seg'
-DEFAULTS = 'defaults'
-PRESET_DEFAULTS = 'preset'
-SEGMENT_DEFAULTS = 'segment'
 
 
 class WledPresets(WledYaml):
@@ -91,10 +76,10 @@ class WledPresets(WledYaml):
                 return self.process_segment_name(path, name, data)
             elif name == PALLET_NAME_TAG:
                 pallet = self.process_pallet_name(path, name, data)
-                return (PALLET_TAG, pallet[1][1]),
+                return (PALLET_TAG, pallet[ID_TAG]),
             elif name == EFFECT_NAME_TAG:
                 effect = self.process_effect_name(path, name, data)
-                return (EFFECT_TAG, effect[1][1]),
+                return (EFFECT_TAG, effect[ID_TAG]),
         return (name, data),
 
     def process_segment_name(self, path, name, data):

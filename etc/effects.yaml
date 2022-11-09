@@ -112,6 +112,8 @@ effects:
     desc: Like Sweep, but uses random colors
   - id: 37
     name: Running 2
+    aliases:
+      - Chase 2
     desc: Pattern of n LEDs primary and n LEDs secondary moves along the strip
   - id: 38
     name: Aurora
@@ -163,6 +165,8 @@ effects:
     desc: Running 2, but always uses orange and purple
   - id: 54
     name: Tri Chase
+    aliases:
+      - Chase 3
     desc: Like Chase, but with 3 colors
   - id: 55
     name: Tri Wipe
