@@ -2,6 +2,16 @@ import re
 
 import yaml
 
+EFFECTS_TAG = 'effects'
+
+ID_TAG = 'id'
+
+DESCRIPTION_TAG = 'desc'
+
+NAME_TAG = 'name'
+
+ALIASES_TAG = 'aliases'
+
 
 class Effects:
 
@@ -10,10 +20,16 @@ class Effects:
             effect_data = yaml.safe_load(f)
 
         self.effects_by_name = {}
-        for effect in effect_data['effects']:
-            effect_name_normalized = self.normalize_effect_name(effect['name'])
-            self.effects_by_name[effect_name_normalized] = (('name', effect['name']), ('id', effect['id']),
-                                                            ('desc', effect['desc']))
+        for effect in effect_data[EFFECTS_TAG]:
+            effect_name_normalized = self.normalize_effect_name(effect[NAME_TAG])
+
+            self.effects_by_name[effect_name_normalized] = ((NAME_TAG, effect[NAME_TAG]), (ID_TAG, effect[ID_TAG]),
+                                                            (DESCRIPTION_TAG, effect[DESCRIPTION_TAG]))
+            if ALIASES_TAG in effect:
+                for alias in effect[ALIASES_TAG]:
+                    alias_name_normalized = self.normalize_effect_name(alias)
+                    self.effects_by_name[alias_name_normalized] = ((NAME_TAG, alias), (ID_TAG, effect[ID_TAG]),
+                                                                   (DESCRIPTION_TAG, effect[DESCRIPTION_TAG]))
 
     def normalize_effect_name(self, effect_name):
         effect_name_normalized = str(effect_name).lower()
@@ -33,7 +49,7 @@ class Effects:
 
 
 if __name__ == '__main__':
-    effects = Effects()
+    effects = Effects('../../../etc/effects.yaml')
     test_effect_string = 'Wipe Random'
     properties = effects.get_effect_by_name(test_effect_string)
     print(test_effect_string, flush=True)
@@ -49,7 +65,16 @@ if __name__ == '__main__':
     print(test_effect_string, flush=True)
     print(properties, flush=True)
 
-    test_effect_string = 'walking'
+    test_effect_string = 'Chase 3'
     properties = effects.get_effect_by_name(test_effect_string)
     print(test_effect_string, flush=True)
     print(properties, flush=True)
+
+    test_effect_string = 'walking'
+    try:
+        properties = effects.get_effect_by_name(test_effect_string)
+        print("Test Failed: Expected ValueError.", flush=True)
+    except ValueError:
+        print(test_effect_string, flush=True)
+        print("Caused ValueError, as expected.", flush=True)
+
