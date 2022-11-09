@@ -12,7 +12,18 @@ class Colors:
         self.colors_by_name = {}
         for color in yaml_data['colors']:
             color_name_normalized = str(color['name']).lower().replace(' ', '')
-            self.colors_by_name[color_name_normalized] = color['code']
+            if color_name_normalized in self.colors_by_name:
+                if self.colors_by_name[color_name_normalized] != color['code']:
+                    pass
+                else:
+                    code1 = self.colors_by_name[color_name_normalized]
+                    code2 = color['code']
+                    print("Duplicate color definitions for {name}: {code1}, {code2}.".format(name=color['name'],
+                                                                                             code1=code1,
+                                                                                             code2=code2))
+                    print("Using first definition, {name}: {code1}.".format(name=color['name'], code1=code1))
+            else:
+                self.colors_by_name[color_name_normalized] = color['code']
 
     def html_color_to_rgb(self, color_string):
         rrggbb_string = self.get_color_by_name(color_string)
@@ -39,7 +50,7 @@ class Colors:
 
 
 if __name__ == '__main__':
-    colors = Colors()
+    colors = Colors('../../../etc/colors.yaml')
     test_color_string = '#ff00cc'
     rgb = colors.html_color_to_rgb(test_color_string)
     print(test_color_string, flush=True)
@@ -53,4 +64,3 @@ if __name__ == '__main__':
     rgb = colors.html_color_to_rgb(test_color_string)
     print(test_color_string, flush=True)
     print(rgb, flush=True)
-
