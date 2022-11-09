@@ -1,5 +1,6 @@
 import re
 import yaml
+
 from wled_constants import EFFECTS_TAG, NAME_TAG, ID_TAG, DESCRIPTION_TAG, ALIASES_TAG
 
 
@@ -12,15 +13,16 @@ class Effects:
         self.effects_by_name = {}
         for effect in effect_data[EFFECTS_TAG]:
             effect_name_normalized = self.normalize_effect_name(effect[NAME_TAG])
-            self.effects_by_name[effect_name_normalized] = {NAME_TAG: effect[NAME_TAG],
-                                                            ID_TAG: effect[ID_TAG],
-                                                            DESCRIPTION_TAG: effect[DESCRIPTION_TAG]}
+            effect_details = {NAME_TAG: effect[NAME_TAG],
+                              ID_TAG: effect[ID_TAG],
+                              DESCRIPTION_TAG: effect[DESCRIPTION_TAG]}
             if ALIASES_TAG in effect:
+                effect_details[ALIASES_TAG] = effect[ALIASES_TAG]
                 for alias in effect[ALIASES_TAG]:
                     alias_name_normalized = self.normalize_effect_name(alias)
-                    self.effects_by_name[alias_name_normalized] = {NAME_TAG: alias,
-                                                                   ID_TAG: effect[ID_TAG],
-                                                                   DESCRIPTION_TAG: effect[DESCRIPTION_TAG]}
+                    self.effects_by_name[alias_name_normalized] = effect_details
+
+            self.effects_by_name[effect_name_normalized] = effect_details
 
     def normalize_effect_name(self, effect_name):
         effect_name_normalized = str(effect_name).lower()
@@ -52,6 +54,11 @@ if __name__ == '__main__':
     print(properties, flush=True)
 
     test_effect_string = 'theater_rainbow'
+    properties = effects.get_effect_by_name(test_effect_string)
+    print(test_effect_string, flush=True)
+    print(properties, flush=True)
+
+    test_effect_string = 'Tri Chase'
     properties = effects.get_effect_by_name(test_effect_string)
     print(test_effect_string, flush=True)
     print(properties, flush=True)
