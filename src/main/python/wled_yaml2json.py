@@ -25,11 +25,11 @@ def main(name, args):
                         help="WLED data file location. Applies to presets, cfg, and segments files",
                         action="store", default=DEFAULT_WLED_DIR)
     parser.add_argument("--presets", type=str, help="WLED presets file name (YAML).", action="store",
-                        default=DEFAULT_PRESETS_FILE)
+                        default=None)
     parser.add_argument("--segments", type=str, help="Segments definition file name (YAML).", action="store",
                         default=DEFAULT_SEGMENTS_FILE)
     parser.add_argument("--cfg", type=str, help="WLED cfg file name (YAML).", action="store",
-                        default=DEFAULT_CONFIG_FILE)
+                        default=None)
     parser.add_argument("--definitions_dir", type=str,
                         help="Definition file location. Applies to effects, pallets, and colors files",
                         action="store", default=DEFAULT_DEFINITIONS_DIR)
@@ -66,9 +66,9 @@ def main(name, args):
 
     args = parser.parse_args()
     wled_dir = str(args.wled_dir)
-    presets_file = str(args.presets)
+    presets_file = str(args.presets) if args.presets is not None else None
     segments_file = str(args.segments)
-    cfg_file = str(args.cfg)
+    cfg_file = str(args.cfg) if args.cfg is not None else None
     definitions_dir = str(args.definitions_dir)
     effects_file = str(args.effects)
     pallets_file = str(args.pallets)
@@ -78,14 +78,10 @@ def main(name, args):
     exclude_list = str(args.exclude).split(',') if args.exclude is not None else None
     deep = args.deep
 
-    presets_path = build_path(wled_dir, presets_file)
     segments_path = build_path(wled_dir, segments_file)
-    cfg_path = build_path(wled_dir, cfg_file)
 
     print("wled_dir: " + wled_dir)
-    print("presets_path: {path}".format(path=presets_path))
     print("segments_path: {path}".format(path=segments_path))
-    print("cfg_path: {path}".format(path=cfg_path))
     print("suffix: '{suffix}'".format(suffix=suffix))
     print("include_list: " + str(include_list))
     print("exclude_list: " + str(exclude_list))
@@ -105,34 +101,40 @@ def main(name, args):
     print("pallets_path: {path}".format(path=pallets_path))
     print("colors_path: {path}".format(path=colors_path))
 
-    wled_presets = WledPresets(colors_path, pallets_path, effects_path)
-    print("Processing {file}".format(file=presets_path))
-    preset_data = wled_presets.process_yaml_file(presets_path, segments_file=segments_path)
+    if presets_file is not None:
+        presets_path = build_path(wled_dir, presets_file)
+        print("presets_path: {path}".format(path=presets_path))
+        wled_presets = WledPresets(colors_path, pallets_path, effects_path)
+        print("Processing {file}".format(file=presets_path))
+        preset_data = wled_presets.process_yaml_file(presets_path, segments_file=segments_path)
 
-    if include_list is not None:
-        include_filter = PresetsIncludeFilter(preset_data, deep)
-        preset_data = include_filter.apply(include_list)
-    elif exclude_list is not None:
-        exclude_filter = PresetsExcludeFilter(preset_data, deep)
-        preset_data = exclude_filter.apply(exclude_list)
+        if include_list is not None:
+            include_filter = PresetsIncludeFilter(preset_data, deep)
+            preset_data = include_filter.apply(include_list)
+        elif exclude_list is not None:
+            exclude_filter = PresetsExcludeFilter(preset_data, deep)
+            preset_data = exclude_filter.apply(exclude_list)
 
-    json_file_path = get_json_file_name(presets_path, suffix)
-    if exists(json_file_path):
-        rename_existing_file(json_file_path)
-    print("Generating {file}".format(file=json_file_path))
-    with open(json_file_path, "w", newline='\n') as out_file:
-        json.dump(preset_data, out_file, indent=2)
+        json_file_path = get_json_file_name(presets_path, suffix)
+        if exists(json_file_path):
+            rename_existing_file(json_file_path)
+        print("Generating {file}".format(file=json_file_path))
+        with open(json_file_path, "w", newline='\n') as out_file:
+            json.dump(preset_data, out_file, indent=2)
 
-    print()
-    wled_cfg = WledCfg(presets_data=preset_data)
-    print("Processing {file}".format(file=cfg_path))
-    cfg_data = wled_cfg.process_yaml_file(cfg_path)
-    json_file_path = get_json_file_name(cfg_path, suffix)
-    if exists(json_file_path):
-        rename_existing_file(json_file_path)
-    print("Generating {file}".format(file=json_file_path))
-    with open(json_file_path, "w", newline='\n') as out_file:
-        json.dump(cfg_data, out_file, indent=2)
+    if cfg_file is not None:
+        cfg_path = build_path(wled_dir, cfg_file)
+        print()
+        print("cfg_path: {path}".format(path=cfg_path))
+        wled_cfg = WledCfg(presets_data=preset_data)
+        print("Processing {file}".format(file=cfg_path))
+        cfg_data = wled_cfg.process_yaml_file(cfg_path)
+        json_file_path = get_json_file_name(cfg_path, suffix)
+        if exists(json_file_path):
+            rename_existing_file(json_file_path)
+        print("Generating {file}".format(file=json_file_path))
+        with open(json_file_path, "w", newline='\n') as out_file:
+            json.dump(cfg_data, out_file, indent=2)
 
 
 def build_path(directory, file):
