@@ -686,3 +686,37 @@ colors:
   name: Milk White
 - code: 'FFFFFF'
   name: White
+- code: '996236'
+  name: Coconut
+- code: 'F8B12C'
+  name: Yellow-Orange
+- code: 'ED732E'
+  name: Vivid Tangelo
+- code: '9D221E'
+  name: Vivid Auburn
+- code: '382615'
+  name: Bistre
+- code: 'FCAF2C'
+  name: Crayolas Bright Yellow
+- code: 'E26831'
+  name: Deep Carrot Orange
+- code: 'D63420'
+  name: Plocheres Vermilion
+- code: '44220B'
+  name: French Puce
+- code: '4E8926'
+  name: Sap Green
+- code: '829D36'
+  name: Palm Leaf
+- code: '702F49'
+  name: Old Mauve
+- code: '97413E'
+  name: Smoky Topaz
+- code: 'C97D3E'
+  name: Peru
+- code: 'E0D058'
+  name: Chinese Green
+- code: '79A353'
+  name: Moss Green
+- code: '453A66'
+  name: American Blue
