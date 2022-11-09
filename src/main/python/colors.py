@@ -1,3 +1,4 @@
+import re
 import yaml
 
 INVALID_COLOR_STRING = "Input '{value}' is not in #RRGGBB format and is not a recognized color name"
