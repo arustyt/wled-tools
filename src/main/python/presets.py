@@ -48,7 +48,7 @@ class Presets:
         if preset_string_normalized in self.presets_by_name:
             preset_data = self.presets_by_name[preset_string_normalized]
         else:
-            raise ValueError("Input '{name}' is a recognized preset name or id".format(name=preset_string))
+            raise ValueError("Input '{name}' is not a recognized preset name or id".format(name=preset_string))
 
         return dict(preset_data)
 
