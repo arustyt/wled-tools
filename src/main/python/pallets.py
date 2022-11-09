@@ -2,7 +2,7 @@ import re
 
 import yaml
 
-from wled_constants import NAME_TAG, PALLETS_TAG, ID_TAG, DESCRIPTION_TAG
+from wled_constants import NAME_TAG, PALLETS_TAG, ID_TAG, DESCRIPTION_TAG, ALIASES_TAG
 
 
 class Pallets:
@@ -14,8 +14,16 @@ class Pallets:
         self.pallets_by_name = {}
         for pallet in pallet_data[PALLETS_TAG]:
             pallet_name_normalized = self.normalize_pallet_name(pallet[NAME_TAG])
-            self.pallets_by_name[pallet_name_normalized] = {NAME_TAG: pallet[NAME_TAG], ID_TAG: pallet[ID_TAG],
-                                                            DESCRIPTION_TAG: pallet[DESCRIPTION_TAG]}
+            pallet_details = {NAME_TAG: pallet[NAME_TAG], ID_TAG: pallet[ID_TAG],
+                              DESCRIPTION_TAG: pallet[DESCRIPTION_TAG]}
+
+            if ALIASES_TAG in pallet:
+                pallet_details[ALIASES_TAG] = pallet[ALIASES_TAG]
+                for alias in pallet[ALIASES_TAG]:
+                    alias_name_normalized = self.normalize_pallet_name(alias)
+                    self.pallets_by_name[alias_name_normalized] = pallet_details
+
+            self.pallets_by_name[pallet_name_normalized] = pallet_details
 
     def normalize_pallet_name(self, pallet_name):
         pallet_name_normalized = str(pallet_name).lower()
