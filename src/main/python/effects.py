@@ -1,16 +1,6 @@
 import re
-
 import yaml
-
-EFFECTS_TAG = 'effects'
-
-ID_TAG = 'id'
-
-DESCRIPTION_TAG = 'desc'
-
-NAME_TAG = 'name'
-
-ALIASES_TAG = 'aliases'
+from wled_constants import EFFECTS_TAG, NAME_TAG, ID_TAG, DESCRIPTION_TAG, ALIASES_TAG
 
 
 class Effects:
@@ -22,14 +12,15 @@ class Effects:
         self.effects_by_name = {}
         for effect in effect_data[EFFECTS_TAG]:
             effect_name_normalized = self.normalize_effect_name(effect[NAME_TAG])
-
-            self.effects_by_name[effect_name_normalized] = ((NAME_TAG, effect[NAME_TAG]), (ID_TAG, effect[ID_TAG]),
-                                                            (DESCRIPTION_TAG, effect[DESCRIPTION_TAG]))
+            self.effects_by_name[effect_name_normalized] = {NAME_TAG: effect[NAME_TAG],
+                                                            ID_TAG: effect[ID_TAG],
+                                                            DESCRIPTION_TAG: effect[DESCRIPTION_TAG]}
             if ALIASES_TAG in effect:
                 for alias in effect[ALIASES_TAG]:
                     alias_name_normalized = self.normalize_effect_name(alias)
-                    self.effects_by_name[alias_name_normalized] = ((NAME_TAG, alias), (ID_TAG, effect[ID_TAG]),
-                                                                   (DESCRIPTION_TAG, effect[DESCRIPTION_TAG]))
+                    self.effects_by_name[alias_name_normalized] = {NAME_TAG: alias,
+                                                                   ID_TAG: effect[ID_TAG],
+                                                                   DESCRIPTION_TAG: effect[DESCRIPTION_TAG]}
 
     def normalize_effect_name(self, effect_name):
         effect_name_normalized = str(effect_name).lower()
@@ -77,4 +68,3 @@ if __name__ == '__main__':
     except ValueError:
         print(test_effect_string, flush=True)
         print("Caused ValueError, as expected.", flush=True)
-
