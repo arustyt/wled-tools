@@ -11,7 +11,7 @@ class Colors:
 
         self.colors_by_name = {}
         for color in yaml_data['colors']:
-            color_name_normalized = str(color['name']).lower().replace(' ', '')
+            color_name_normalized = self.normalize_color_name(color['name'])
             if color_name_normalized in self.colors_by_name:
                 if self.colors_by_name[color_name_normalized] != color['code']:
                     pass
@@ -24,6 +24,11 @@ class Colors:
                     print("Using first definition, {name}: {code1}.".format(name=color['name'], code1=code1))
             else:
                 self.colors_by_name[color_name_normalized] = color['code']
+
+    def normalize_color_name(self, pallet_name):
+        color_name_normalized = str(pallet_name).lower()
+        color_name_normalized = re.sub('[ _]', '', color_name_normalized)
+        return color_name_normalized
 
     def html_color_to_rgb(self, color_string):
         rrggbb_string = self.get_color_by_name(color_string)
