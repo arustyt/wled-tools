@@ -76,7 +76,7 @@ class WledPresets(WledYaml):
                 return self.process_segment_name(path, name, data)
             elif name == PALLET_NAME_TAG:
                 pallet = self.process_pallet_name(path, name, data)
-                return (PALLET_TAG, pallet[1][1]),
+                return (PALLET_TAG, pallet[ID_TAG]),
             elif name == EFFECT_NAME_TAG:
                 effect = self.process_effect_name(path, name, data)
                 return (EFFECT_TAG, effect[ID_TAG]),

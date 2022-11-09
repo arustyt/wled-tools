@@ -2,6 +2,8 @@ import re
 
 import yaml
 
+from wled_constants import NAME_TAG, PALLETS_TAG, ID_TAG, DESCRIPTION_TAG
+
 
 class Pallets:
 
@@ -10,10 +12,10 @@ class Pallets:
             pallet_data = yaml.safe_load(f)
 
         self.pallets_by_name = {}
-        for pallet in pallet_data['pallets']:
-            pallet_name_normalized = self.normalize_pallet_name(pallet['name'])
-            self.pallets_by_name[pallet_name_normalized] = (('name', pallet['name']), ('id', pallet['id']),
-                                                            ('desc', pallet['desc']))
+        for pallet in pallet_data[PALLETS_TAG]:
+            pallet_name_normalized = self.normalize_pallet_name(pallet[NAME_TAG])
+            self.pallets_by_name[pallet_name_normalized] = {NAME_TAG: pallet[NAME_TAG], ID_TAG: pallet[ID_TAG],
+                                                            DESCRIPTION_TAG: pallet[DESCRIPTION_TAG]}
 
     def normalize_pallet_name(self, pallet_name):
         pallet_name_normalized = str(pallet_name).lower()
@@ -33,7 +35,7 @@ class Pallets:
 
 
 if __name__ == '__main__':
-    pallets = Pallets()
+    pallets = Pallets('../../../etc/pallets.yaml')
     test_pallet_string = 'default'
     properties = pallets.get_pallet_by_name(test_pallet_string)
     print(test_pallet_string, flush=True)
@@ -50,6 +52,9 @@ if __name__ == '__main__':
     print(properties, flush=True)
 
     test_pallet_string = 'Hult 65'
-    properties = pallets.get_pallet_by_name(test_pallet_string)
-    print(test_pallet_string, flush=True)
-    print(properties, flush=True)
+    try:
+        properties = pallets.get_pallet_by_name(test_pallet_string)
+        print("Test Failed: Expected ValueError.", flush=True)
+    except ValueError:
+        print(test_pallet_string, flush=True)
+        print("Caused ValueError, as expected.", flush=True)
