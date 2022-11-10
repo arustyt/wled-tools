@@ -26,8 +26,8 @@ class Colors:
             else:
                 self.colors_by_name[color_name_normalized] = color['code']
 
-    def normalize_color_name(self, pallet_name):
-        color_name_normalized = str(pallet_name).lower()
+    def normalize_color_name(self, color_name):
+        color_name_normalized = str(color_name).lower()
         color_name_normalized = re.sub('[ _]', '', color_name_normalized)
         return color_name_normalized
 
