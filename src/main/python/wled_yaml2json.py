@@ -12,7 +12,7 @@ from wled_presets import WledPresets
 DEFAULT_DEFINITIONS_DIR = "../../../etc"
 DEFAULT_WLED_DIR = "."
 DEFAULT_COLORS_FILE = "colors.yaml"
-DEFAULT_PALLETS_FILE = "pallets.yaml"
+DEFAULT_PALETTES_FILE = "palettes.yaml"
 DEFAULT_EFFECTS_FILE = "effects.yaml"
 DEFAULT_SEGMENTS_FILE = "segments.yaml"
 DEFAULT_PRESETS_FILE = "presets.yaml"
@@ -31,12 +31,12 @@ def main(name, args):
     parser.add_argument("--cfg", type=str, help="WLED cfg file name (YAML).", action="store",
                         default=None)
     parser.add_argument("--definitions_dir", type=str,
-                        help="Definition file location. Applies to effects, pallets, and colors files",
+                        help="Definition file location. Applies to effects, palettes, and colors files",
                         action="store", default=DEFAULT_DEFINITIONS_DIR)
     parser.add_argument("--effects", type=str, help="WLED effect definition file name (YAML).", action="store",
                         default=DEFAULT_EFFECTS_FILE)
-    parser.add_argument("--pallets", type=str, help="WLED pallet definitions file-name (YAML).", action="store",
-                        default=DEFAULT_PALLETS_FILE)
+    parser.add_argument("--palettes", type=str, help="WLED palette definitions file-name (YAML).", action="store",
+                        default=DEFAULT_PALETTES_FILE)
     parser.add_argument("--colors", type=str, help="HTML color-name definitions file-name (YAML).", action="store",
                         default=DEFAULT_COLORS_FILE)
     parser.add_argument("--suffix", type=str, help=("Suffix to be appended to the output file names, preceded by a "
@@ -71,7 +71,7 @@ def main(name, args):
     cfg_file = str(args.cfg) if args.cfg is not None else None
     definitions_dir = str(args.definitions_dir)
     effects_file = str(args.effects)
-    pallets_file = str(args.pallets)
+    palettes_file = str(args.palettes)
     colors_file = str(args.colors)
     suffix = '-' + str(args.suffix) if args.suffix is not None else ''
     include_list = str(args.include).split(',') if args.include is not None else None
@@ -93,18 +93,18 @@ def main(name, args):
         raise ValueError("The --include and --exclude options are mutually exclusive and cannot both be provided.")
 
     effects_path = build_path(definitions_dir, effects_file)
-    pallets_path = build_path(definitions_dir, pallets_file)
+    palettes_path = build_path(definitions_dir, palettes_file)
     colors_path = build_path(definitions_dir, colors_file)
 
     print("definitions_dir: " + definitions_dir)
     print("effects_path: {path}".format(path=effects_path))
-    print("pallets_path: {path}".format(path=pallets_path))
+    print("palettes_path: {path}".format(path=palettes_path))
     print("colors_path: {path}".format(path=colors_path))
 
     if presets_file is not None:
         presets_path = build_path(wled_dir, presets_file)
         print("presets_path: {path}".format(path=presets_path))
-        wled_presets = WledPresets(colors_path, pallets_path, effects_path)
+        wled_presets = WledPresets(colors_path, palettes_path, effects_path)
         print("Processing {file}".format(file=presets_path))
         preset_data = wled_presets.process_yaml_file(presets_path, segments_file=segments_path)
 

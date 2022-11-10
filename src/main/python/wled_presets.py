@@ -3,21 +3,21 @@ import json
 
 from colors import Colors
 from effects import Effects
-from pallets import Pallets
+from palettes import Palettes
 from presets import Presets
 from segments import Segments
-from wled_constants import SEGMENTS_FILE_TAG, SEGMENT_TAG, COLOR_TAG, SEGMENT_NAME_TAG, PALLET_NAME_TAG, \
-    EFFECT_NAME_TAG, PALLET_TAG, EFFECT_TAG, ID_TAG, PRESET_KEY, STOP_TAG, DEFAULTS, PRESET_DEFAULTS, SEGMENT_DEFAULTS
+from wled_constants import SEGMENTS_FILE_TAG, SEGMENT_TAG, COLOR_TAG, SEGMENT_NAME_TAG, PALETTE_NAME_TAG, \
+    EFFECT_NAME_TAG, PALETTE_TAG, EFFECT_TAG, ID_TAG, PRESET_KEY, STOP_TAG, DEFAULTS, PRESET_DEFAULTS, SEGMENT_DEFAULTS
 from wled_yaml import WledYaml
 
 
 class WledPresets(WledYaml):
 
-    def __init__(self, color_names_file='colors.yaml', pallet_names_file='pallets.yaml',
+    def __init__(self, color_names_file='colors.yaml', palette_names_file='palettes.yaml',
                  effect_names_file='effects.yaml'):
         super().__init__()
         self.colors = Colors(color_names_file)
-        self.pallets = Pallets(pallet_names_file)
+        self.palettes = Palettes(palette_names_file)
         self.effects = Effects(effect_names_file)
         self.segments = None
         self.presets = None
@@ -74,9 +74,9 @@ class WledPresets(WledYaml):
         if SEGMENT_TAG in path:
             if name == SEGMENT_NAME_TAG:
                 return self.process_segment_name(path, name, data)
-            elif name == PALLET_NAME_TAG:
-                pallet = self.process_pallet_name(path, name, data)
-                return (PALLET_TAG, pallet[ID_TAG]),
+            elif name == PALETTE_NAME_TAG:
+                palette = self.process_palette_name(path, name, data)
+                return (PALETTE_TAG, palette[ID_TAG]),
             elif name == EFFECT_NAME_TAG:
                 effect = self.process_effect_name(path, name, data)
                 return (EFFECT_TAG, effect[ID_TAG]),
@@ -85,8 +85,8 @@ class WledPresets(WledYaml):
     def process_segment_name(self, path, name, data):
         return self.segments.get_segment_by_name(data)
 
-    def process_pallet_name(self, path, name, data):
-        return self.pallets.get_pallet_by_name(data)
+    def process_palette_name(self, path, name, data):
+        return self.palettes.get_palette_by_name(data)
 
     def process_effect_name(self, path, name, data):
         return self.effects.get_effect_by_name(data)

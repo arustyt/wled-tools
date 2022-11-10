@@ -1,4 +1,4 @@
-pallets:
+palettes:
   - id: 0
     name: Default
     desc: The palette is automatically selected depending on the effect. For most effects, this is the primary color
