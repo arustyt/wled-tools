@@ -1,14 +1,15 @@
 import re
 import yaml
 
+from decision_maker import DecisionMaker
 from wled_constants import EFFECTS_TAG, NAME_TAG, ID_TAG, DESCRIPTION_TAG, ALIASES_TAG
 from wled_definitions import WledDefinitions
 
 
 class Effects(WledDefinitions):
 
-    def __init__(self, definitions_file='effects.yaml'):
-        super().__init__(definitions_file, EFFECTS_TAG)
+    def __init__(self, definitions_file='effects.yaml', decision_maker: DecisionMaker = DecisionMaker()):
+        super().__init__(definitions_file, EFFECTS_TAG, decision_maker)
 
 
 if __name__ == '__main__':

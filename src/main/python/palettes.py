@@ -2,14 +2,15 @@ import re
 
 import yaml
 
+from decision_maker import DecisionMaker
 from wled_constants import NAME_TAG, PALETTES_TAG, ID_TAG, DESCRIPTION_TAG, ALIASES_TAG
 from wled_definitions import WledDefinitions
 
 
 class Palettes(WledDefinitions):
 
-    def __init__(self, definitions_file='palettes.yaml'):
-        super().__init__(definitions_file, PALETTES_TAG)
+    def __init__(self, definitions_file='palettes.yaml', decision_maker: DecisionMaker = DecisionMaker()):
+        super().__init__(definitions_file, PALETTES_TAG, decision_maker)
 
 
 if __name__ == '__main__':

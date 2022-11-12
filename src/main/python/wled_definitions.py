@@ -1,11 +1,14 @@
 import re
 import yaml
+
+from decision_maker import DecisionMaker, DECISION_UPDATE, DECISION_REPLACE
 from wled_constants import NAME_TAG, ID_TAG, DESCRIPTION_TAG, ALIASES_TAG
 
 
 class WledDefinitions:
 
-    def __init__(self, definitions_file: str, definition_list_tag: str):
+    def __init__(self, definitions_file: str, definition_list_tag: str, decision_maker: DecisionMaker):
+        self.decision_maker = decision_maker
         self.definition_list_tag = definition_list_tag
         with open(definitions_file) as f:
             self.definition_data = yaml.safe_load(f)
@@ -76,20 +79,40 @@ class WledDefinitions:
         except ValueError:
             self.create_definition(definition_id, definition_name, definition_desc)
 
-    def update_definition(self, definition, definition_name, definition_desc):
-        if definition_name != definition[NAME_TAG]:
-            if ALIASES_TAG in definition:
-                aliases = definition[ALIASES_TAG]
-                if definition_name not in aliases:
-                    aliases.add(definition_name)
-                    self.modified = True
-            else:
-                definition[ALIASES_TAG] = {definition_name}
-                self.modified = True
+    def update_definition(self, definition, new_name, new_desc):
+        if self.definition_changed(definition, new_name, new_desc):
+            self.handle_definition_change(definition, new_name, new_desc)
 
-        if definition_desc is not None:
-            definition[DESCRIPTION_TAG] = definition_desc
-            self.modified = True
+    def handle_definition_change(self, definition, new_name, new_desc):
+        new_definition = {NAME_TAG: new_name, DESCRIPTION_TAG: new_desc}
+        decision = self.decision_maker.handle_change(definition, new_definition)
+        if decision == DECISION_UPDATE:
+            if new_name != definition[NAME_TAG]:
+                if ALIASES_TAG in definition:
+                    aliases = definition[ALIASES_TAG]
+                    if new_name not in aliases:
+                        aliases.add(new_name)
+                        self.modified = True
+                else:
+                    definition[ALIASES_TAG] = {new_name}
+                    self.modified = True
+
+            if new_desc is not None:
+                definition[DESCRIPTION_TAG] = new_desc
+                self.modified = True
+        elif decision == DECISION_REPLACE:
+            definition[NAME_TAG] = new_name
+            definition[DESCRIPTION_TAG] = new_desc
+            definition[ALIASES_TAG] = None
+        # else DECISION_SKIP
+
+    def definition_changed(self, definition, new_name, new_desc):
+        name_not_an_alias = ALIASES_TAG not in definition or new_name not in definition[ALIASES_TAG]
+        name_is_new = new_name != definition[NAME_TAG] and name_not_an_alias
+        current_desc = definition[DESCRIPTION_TAG] if DESCRIPTION_TAG in definition else None
+        description_is_new = new_desc is not None and new_desc != current_desc
+
+        return name_is_new or description_is_new
 
     def create_definition(self, definition_id, definition_name, definition_desc):
         definition_name_normalized = self.normalize_definition_name(definition_name)
@@ -102,11 +125,12 @@ class WledDefinitions:
 
     def dump(self):
         definition_list = []
-        for id in self.definitions_by_id:
-            definition = self.definitions_by_id[id]
+        for definition_id in self.definitions_by_id:
+            definition = self.definitions_by_id[definition_id]
             out_definition = {ID_TAG: definition[ID_TAG], NAME_TAG: definition[NAME_TAG], DESCRIPTION_TAG: definition[DESCRIPTION_TAG]}
-            if ALIASES_TAG in definition:
+            if ALIASES_TAG in definition and definition[ALIASES_TAG] is not None:
                 out_definition[ALIASES_TAG] = list(definition[ALIASES_TAG])
             definition_list.append(out_definition)
         return {self.definition_list_tag: definition_list}
+
 
