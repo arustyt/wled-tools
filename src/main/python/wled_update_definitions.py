@@ -49,7 +49,7 @@ def main():
         effects_data = effects.dump()
         backup_existing_file(effects_path)
         with open(effects_path, "w", newline='\n') as out_file:
-            out_file.write(yaml.dump(effects_data, sort_keys=False, default_flow_style=False))
+            out_file.write(yaml.dump(effects_data, sort_keys=False, default_flow_style=False, width=1000))
 #        print("effects: {effects}".format(effects=effects_data))
 
     palettes = Palettes(palettes_path)
@@ -58,7 +58,7 @@ def main():
         palettes_data = palettes.dump()
         backup_existing_file(palettes_path)
         with open(palettes_path, "w", newline='\n') as out_file:
-            out_file.write(yaml.dump(palettes_data, sort_keys=False, default_flow_style=False))
+            out_file.write(yaml.dump(palettes_data, sort_keys=False, default_flow_style=False, width=1000))
 #        print("palettes: {palettes}".format(palettes=palettes_data))
 
 
