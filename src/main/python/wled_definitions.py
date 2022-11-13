@@ -3,7 +3,8 @@ from collections import OrderedDict
 
 import yaml
 
-from decision_maker import DecisionMaker, DECISION_UPDATE, DECISION_REPLACE, DECISION_REPLACE_NAME, DECISION_CREATE
+from decision_maker import DecisionMaker, DECISION_UPDATE, DECISION_REPLACE, DECISION_REPLACE_NAME, DECISION_CREATE, \
+    DECISION_REPLACE_NAME_WITH_ALIAS
 from wled_constants import NAME_TAG, ID_TAG, DESCRIPTION_TAG, ALIASES_TAG
 
 
@@ -96,15 +97,8 @@ class WledDefinitions:
         decision = self.decision_maker.handle_change(definition, new_definition)
         if decision == DECISION_UPDATE:
             if new_name != definition[NAME_TAG]:
-                if ALIASES_TAG in definition:
-                    aliases = definition[ALIASES_TAG]
-                    if new_name not in aliases:
-                        aliases.add(new_name)
-                        self.modified = True
-                else:
-                    definition[ALIASES_TAG] = {new_name}
-                    self.modified = True
-
+                modified = self.add_alias(definition, new_name)
+                self.modified |= modified
             if new_desc is not None:
                 definition[DESCRIPTION_TAG] = new_desc
                 self.modified = True
@@ -116,10 +110,24 @@ class WledDefinitions:
                 definition.pop(DESCRIPTION_TAG, None)
             definition.pop(ALIASES_TAG, None)
             self.modified = True
-        elif decision == DECISION_REPLACE_NAME:
+        elif decision in (DECISION_REPLACE_NAME, DECISION_REPLACE_NAME_WITH_ALIAS):
+            if decision == DECISION_REPLACE_NAME_WITH_ALIAS:
+                self.add_alias(definition, definition[NAME_TAG])
             definition[NAME_TAG] = new_name
             self.modified = True
         # else DECISION_SKIP
+
+    def add_alias(self, definition, new_name):
+        modified = False
+        if ALIASES_TAG in definition:
+            aliases = definition[ALIASES_TAG]
+            if new_name not in aliases:
+                aliases.add(new_name)
+                modified = True
+        else:
+            definition[ALIASES_TAG] = {new_name}
+            modified = True
+        return modified
 
     def definition_changed(self, definition, new_name, new_desc):
         name_normalized = self.normalize_name(definition[NAME_TAG])
