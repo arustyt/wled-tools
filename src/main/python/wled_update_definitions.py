@@ -4,6 +4,7 @@ import json
 from os.path import exists
 
 import requests
+import yaml
 
 from effects import Effects
 from palettes import Palettes
@@ -46,13 +47,19 @@ def main():
     effects.merge(wled_data[EFFECTS_TAG])
     if effects.is_modified():
         effects_data = effects.dump()
-        print("effects: {effects}".format(effects=effects_data))
+        backup_existing_file(effects_path)
+        with open(effects_path, "w", newline='\n') as out_file:
+            out_file.write(yaml.dump(effects_data, sort_keys=False, default_flow_style=False))
+#        print("effects: {effects}".format(effects=effects_data))
 
     palettes = Palettes(palettes_path)
     palettes.merge(wled_data[PALETTES_TAG])
     if palettes.is_modified():
         palettes_data = palettes.dump()
-        print("palettes: {palettes}".format(palettes=palettes_data))
+        backup_existing_file(palettes_path)
+        with open(palettes_path, "w", newline='\n') as out_file:
+            out_file.write(yaml.dump(palettes_data, sort_keys=False, default_flow_style=False))
+#        print("palettes: {palettes}".format(palettes=palettes_data))
 
 
 def download_wled_data(host):
@@ -87,7 +94,7 @@ def build_path(directory, file):
     return "{dir}/{file}".format(dir=directory, file=file) if file is not None and len(file) > 0 else None
 
 
-def rename_existing_file(file_path):
+def backup_existing_file(file_path):
     backup_file_path = "{file_path}.backup".format(file_path=file_path)
     if exists(backup_file_path):
         print("Removing existing backup file: {file}".format(file=backup_file_path))

@@ -1,7 +1,9 @@
 import re
+from collections import OrderedDict
+
 import yaml
 
-from decision_maker import DecisionMaker, DECISION_UPDATE, DECISION_REPLACE
+from decision_maker import DecisionMaker, DECISION_UPDATE, DECISION_REPLACE, DECISION_REPLACE_NAME, DECISION_CREATE
 from wled_constants import NAME_TAG, ID_TAG, DESCRIPTION_TAG, ALIASES_TAG
 
 
@@ -14,16 +16,20 @@ class WledDefinitions:
             self.definition_data = yaml.safe_load(f)
 
         self.definitions_by_name = {}
-        self.definitions_by_id = {}
+        self.definitions_by_id = OrderedDict()
         for definition in self.definition_data[self.definition_list_tag]:
-            definition_name_normalized = self.normalize_definition_name(definition[NAME_TAG])
-            definition_details = {NAME_TAG: definition[NAME_TAG], ID_TAG: definition[ID_TAG],
-                                  DESCRIPTION_TAG: definition[DESCRIPTION_TAG]}
+            definition_name_normalized = self.normalize_name(definition[NAME_TAG])
+            definition_details = OrderedDict()
+            definition_details[ID_TAG] = definition[ID_TAG]
+            definition_details[NAME_TAG] = definition[NAME_TAG]
+
+            if DESCRIPTION_TAG in definition:
+                definition_details[DESCRIPTION_TAG] = definition[DESCRIPTION_TAG]
 
             if ALIASES_TAG in definition:
                 definition_details[ALIASES_TAG] = set(definition[ALIASES_TAG])
                 for alias in definition[ALIASES_TAG]:
-                    alias_name_normalized = self.normalize_definition_name(alias)
+                    alias_name_normalized = self.normalize_name(alias)
                     self.definitions_by_name[alias_name_normalized] = definition_details
 
             self.definitions_by_name[definition_name_normalized] = definition_details
@@ -31,15 +37,15 @@ class WledDefinitions:
 
         self.modified = False
 
-    def normalize_definition_name(self, definition_name):
-        definition_name_normalized = str(definition_name).lower()
-        definition_name_normalized = re.sub('[ _]', '', definition_name_normalized)
-        return definition_name_normalized
+    def normalize_name(self, definition_name):
+        name_normalized = str(definition_name).lower()
+        name_normalized = re.sub('[ _*]', '', name_normalized)
+        return name_normalized
 
     #  Returns dict containing definition data: name, id, desc and aliases (if any)
     def get_by_name(self, definition_string):
         definition = None
-        definition_string_normalized = self.normalize_definition_name(definition_string)
+        definition_string_normalized = self.normalize_name(definition_string)
         if definition_string_normalized in self.definitions_by_name:
             definition = self.definitions_by_name[definition_string_normalized]
         else:
@@ -84,7 +90,9 @@ class WledDefinitions:
             self.handle_definition_change(definition, new_name, new_desc)
 
     def handle_definition_change(self, definition, new_name, new_desc):
-        new_definition = {NAME_TAG: new_name, DESCRIPTION_TAG: new_desc}
+        new_definition = OrderedDict()
+        new_definition[NAME_TAG] = new_name
+        new_definition[DESCRIPTION_TAG] = new_desc
         decision = self.decision_maker.handle_change(definition, new_definition)
         if decision == DECISION_UPDATE:
             if new_name != definition[NAME_TAG]:
@@ -102,32 +110,51 @@ class WledDefinitions:
                 self.modified = True
         elif decision == DECISION_REPLACE:
             definition[NAME_TAG] = new_name
-            definition[DESCRIPTION_TAG] = new_desc
-            definition[ALIASES_TAG] = None
+            if new_desc is not None:
+                definition[DESCRIPTION_TAG] = new_desc
+            else:
+                definition.pop(DESCRIPTION_TAG, None)
+            definition.pop(ALIASES_TAG, None)
+            self.modified = True
+        elif decision == DECISION_REPLACE_NAME:
+            definition[NAME_TAG] = new_name
+            self.modified = True
         # else DECISION_SKIP
 
     def definition_changed(self, definition, new_name, new_desc):
+        name_normalized = self.normalize_name(definition[NAME_TAG])
+        new_name_normalized = self.normalize_name(new_name)
         name_not_an_alias = ALIASES_TAG not in definition or new_name not in definition[ALIASES_TAG]
-        name_is_new = new_name != definition[NAME_TAG] and name_not_an_alias
+#        name_is_new = new_name != definition[NAME_TAG] and name_not_an_alias
+        name_is_new = new_name_normalized != name_normalized and name_not_an_alias
         current_desc = definition[DESCRIPTION_TAG] if DESCRIPTION_TAG in definition else None
         description_is_new = new_desc is not None and new_desc != current_desc
 
         return name_is_new or description_is_new
 
     def create_definition(self, definition_id, definition_name, definition_desc):
-        definition_name_normalized = self.normalize_definition_name(definition_name)
-        definition_details = {NAME_TAG: definition_name_normalized, ID_TAG: definition_id,
-                              DESCRIPTION_TAG: definition_desc}
+        definition_details = OrderedDict()
+        definition_details[ID_TAG] = definition_id
+        definition_details[NAME_TAG] = definition_name
+        if definition_desc is not None:
+            definition_details[DESCRIPTION_TAG] = definition_desc
 
+        if self.decision_maker.handle_new(definition_details) == DECISION_CREATE:
+            self.handle_definition_creation(definition_details)
+
+    def handle_definition_creation(self, definition_details):
+        definition_name_normalized = self.normalize_name(definition_details[NAME_TAG])
         self.definitions_by_name[definition_name_normalized] = definition_details
-        self.definitions_by_id[definition_id] = definition_details
+        self.definitions_by_id[definition_details[ID_TAG]] = definition_details
         self.modified = True
 
     def dump(self):
         definition_list = []
         for definition_id in self.definitions_by_id:
             definition = self.definitions_by_id[definition_id]
-            out_definition = {ID_TAG: definition[ID_TAG], NAME_TAG: definition[NAME_TAG], DESCRIPTION_TAG: definition[DESCRIPTION_TAG]}
+            out_definition = {ID_TAG: definition[ID_TAG], NAME_TAG: definition[NAME_TAG]}
+            if DESCRIPTION_TAG in definition:
+                out_definition[DESCRIPTION_TAG] = definition[DESCRIPTION_TAG]
             if ALIASES_TAG in definition and definition[ALIASES_TAG] is not None:
                 out_definition[ALIASES_TAG] = list(definition[ALIASES_TAG])
             definition_list.append(out_definition)

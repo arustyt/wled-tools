@@ -2,12 +2,14 @@
 DECISION_UPDATE = 'u'
 DECISION_REPLACE = 'r'
 DECISION_SKIP = 's'
-DECISION_ADD = 'a'
+DECISION_CREATE = 'c'
+DECISION_REPLACE_NAME = 'n'
 
 decisions = {DECISION_UPDATE: DECISION_UPDATE,
              DECISION_REPLACE: DECISION_REPLACE,
-             DECISION_ADD: DECISION_ADD,
-             DECISION_SKIP: DECISION_SKIP}
+             DECISION_CREATE: DECISION_CREATE,
+             DECISION_SKIP: DECISION_SKIP,
+             DECISION_REPLACE_NAME: DECISION_REPLACE_NAME}
 
 
 class DecisionMaker:
@@ -16,7 +18,7 @@ class DecisionMaker:
         print("Current Value: {value}".format(value=str(old_value)))
         print("New Value:     {value}".format(value=str(new_value)))
         while True:
-            user_input = input("Update, Replace, or Skip [U|R|S]?").lower()
+            user_input = input("[U]pdate, [R]eplace, replace [N]ame, or [S]kip [U|R|N|S]?").lower()
             if user_input in decisions:
                 decision = decisions[user_input]
                 break
@@ -25,7 +27,7 @@ class DecisionMaker:
     def handle_new(self, new_value):
         print("New Value:     {value}".format(value=str(new_value)))
         while True:
-            user_input = input("Create or Skip [A|S]?")
+            user_input = input("[C]reate or [S]kip [C|S]?")
             if user_input in decisions:
                 decision = decisions[user_input]
                 break
