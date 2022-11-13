@@ -54,8 +54,10 @@ palettes:
   name: Yellowout
   desc: Yellow, fading out
 - id: 18
-  name: Analoguous
+  name: Analogous
   desc: Red running on blue
+  aliases:
+  - Analoguous
 - id: 19
   name: Splash
   desc: Vibrant pink and magenta

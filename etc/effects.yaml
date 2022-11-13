@@ -149,14 +149,12 @@ effects:
   name: Police
   desc: A red and a blue dot running
 - id: 49
-  name: Police All
-  desc: Two areas, one red and one blue, sweeping
+  name: Fairy
 - id: 50
   name: Two Dots
   desc: Like Police, but with custom colors
 - id: 51
-  name: Two Areas
-  desc: Like Police All, but with custom colors
+  name: Fairytwinkle
 - id: 52
   name: Running Dual
   desc: Sine waves in both directions
