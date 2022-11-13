@@ -114,7 +114,7 @@ effects:
   name: Running 2
   desc: Pattern of n LEDs primary and n LEDs secondary moves along the strip
   aliases:
-    - Chase 2
+  - Chase 2
 - id: 38
   name: Aurora
   desc: Simulation of the Aurora Borealis
@@ -167,7 +167,7 @@ effects:
   name: Tri Chase
   desc: Like Chase, but with 3 colors
   aliases:
-    - Chase 3
+  - Chase 3
 - id: 55
   name: Tri Wipe
   desc: Like Wipe but turns LEDs off as "third color"
