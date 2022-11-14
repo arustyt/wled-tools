@@ -86,10 +86,10 @@ class WledPresets(WledYaml):
         return self.segments.get_segment_by_name(data)
 
     def process_palette_name(self, path, name, data):
-        return self.palettes.get_palette_by_name(data)
+        return self.palettes.get_by_name(data)
 
     def process_effect_name(self, path, name, data):
-        return self.effects.get_effect_by_name(data)
+        return self.effects.get_by_name(data)
 
     def process_list_element(self, path: str, name, data):
         data_str = str(data)
