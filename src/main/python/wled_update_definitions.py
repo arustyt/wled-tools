@@ -16,15 +16,19 @@ DEFAULT_EFFECTS_FILE = "effects.yaml"
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Convert YAML files to WLED JSON.')
-    parser.add_argument("--host", type=str, help="Hostname to which the file(s) will be uploaded.", action="store",
-                        required=True)
+    parser = argparse.ArgumentParser(description='Updates effects and palettes definition files by downloading effects '
+                                                 'and pallets from running WLED instance.')
+    parser.add_argument("--host", type=str, help="Hostname of WLED instance from which the effects and pallets will "
+                                                 "be downloaded.",
+                        action="store", required=True)
     parser.add_argument("--definitions_dir", type=str,
-                        help="Definition file location. Applies to effects, palettes, and colors files",
+                        help="Definition file location. Applies to effects and palettes files",
                         action="store", default=DEFAULT_DEFINITIONS_DIR)
-    parser.add_argument("--effects", type=str, help="WLED effect definition file name (YAML).", action="store",
+    parser.add_argument("--effects", type=str, help="Name of file to which WLED effect definitions will be written "
+                                                    "(YAML).", action="store",
                         default=DEFAULT_EFFECTS_FILE)
-    parser.add_argument("--palettes", type=str, help="WLED palette definitions file-name (YAML).", action="store",
+    parser.add_argument("--palettes", type=str, help="Name of file to which WLED palette definitions will be written "
+                                                     "(YAML).", action="store",
                         default=DEFAULT_PALETTES_FILE)
 
     args = parser.parse_args()
