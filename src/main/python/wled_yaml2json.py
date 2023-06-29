@@ -24,8 +24,8 @@ def main(name, args):
     parser.add_argument("--wled_dir", type=str,
                         help="WLED data file location. Applies to presets, cfg, and segments files",
                         action="store", default=DEFAULT_WLED_DIR)
-    parser.add_argument("--presets", type=str, help="WLED presets file name (YAML).", action="store",
-                        default=None)
+    parser.add_argument("--presets", type=str, help="One or more WLED presets file name (YAML), separated by commas.",
+                        action="store", default=None)
     parser.add_argument("--segments", type=str, help="Segments definition file name (YAML).", action="store",
                         default=DEFAULT_SEGMENTS_FILE)
     parser.add_argument("--cfg", type=str, help="WLED cfg file name (YAML).", action="store",
