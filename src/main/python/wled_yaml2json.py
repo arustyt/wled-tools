@@ -24,7 +24,7 @@ def main(name, args):
     parser.add_argument("--wled_dir", type=str,
                         help="WLED data file location. Applies to presets, cfg, and segments files",
                         action="store", default=DEFAULT_WLED_DIR)
-    parser.add_argument("--presets", type=str, help="One or more WLED presets file name (YAML), separated by commas.",
+    parser.add_argument("--presets", type=str, help="One or more WLED preset file names (YAML), separated by commas.",
                         action="store", default=None)
     parser.add_argument("--segments", type=str, help="Segments definition file name (YAML).", action="store",
                         default=DEFAULT_SEGMENTS_FILE)
@@ -66,7 +66,7 @@ def main(name, args):
 
     args = parser.parse_args()
     wled_dir = str(args.wled_dir)
-    presets_file = str(args.presets) if args.presets is not None else None
+    presets_files = str(args.presets) if args.presets is not None else None
     segments_file = str(args.segments)
     cfg_file = str(args.cfg) if args.cfg is not None else None
     definitions_dir = str(args.definitions_dir)
@@ -101,12 +101,12 @@ def main(name, args):
     print("palettes_path: {path}".format(path=palettes_path))
     print("colors_path: {path}".format(path=colors_path))
 
-    if presets_file is not None:
-        presets_path = build_path(wled_dir, presets_file)
-        print("presets_path: {path}".format(path=presets_path))
+    if presets_files is not None:
+        presets_paths = build_path_list(wled_dir, presets_files)
+        print("presets_path: {paths}".format(paths=presets_paths))
         wled_presets = WledPresets(colors_path, palettes_path, effects_path)
-        print("Processing {file}".format(file=presets_path))
-        preset_data = wled_presets.process_yaml_file(presets_path, segments_file=segments_path)
+        print("Processing {file}".format(file=presets_paths))
+        preset_data = wled_presets.process_yaml_file(presets_paths, segments_file=segments_path)
 
         if include_list is not None:
             include_filter = PresetsIncludeFilter(preset_data, deep)
@@ -115,7 +115,7 @@ def main(name, args):
             exclude_filter = PresetsExcludeFilter(preset_data, deep)
             preset_data = exclude_filter.apply(exclude_list)
 
-        json_file_path = get_json_file_name(presets_path, suffix)
+        json_file_path = get_json_file_name(presets_paths[0], suffix)
         if exists(json_file_path):
             rename_existing_file(json_file_path)
         print("Generating {file}".format(file=json_file_path))
@@ -135,6 +135,17 @@ def main(name, args):
         print("Generating {file}".format(file=json_file_path))
         with open(json_file_path, "w", newline='\n') as out_file:
             json.dump(cfg_data, out_file, indent=2)
+
+
+def build_path_list(directory, files):
+    paths = []
+    if files is not None and len(files) > 0:
+        for file in files.split(','):
+            path = build_path(directory, file)
+            if path is not None:
+                paths.append(path)
+
+    return paths
 
 
 def build_path(directory, file):

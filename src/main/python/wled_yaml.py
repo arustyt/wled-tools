@@ -4,6 +4,7 @@ from abc import abstractmethod
 
 import yaml
 
+from yaml_multi_file_loader import load_yaml_files
 
 DEFAULTS = 'defaults'
 
@@ -14,11 +15,11 @@ class WledYaml:
         pass
 
     @abstractmethod
-    def process_yaml_file(self, yaml_file_name, **other_args):
-        self.process_other_args(yaml_file_name, other_args)
-        yaml_data = self.load_yaml_file(yaml_file_name)
-
+    def process_yaml_file(self, yaml_file_names, **other_args):
+        self.process_other_args(yaml_file_names, other_args)
         new_wled_data = {}
+
+        yaml_data = load_yaml_files(yaml_file_names)
 
         self.load_global_defaults(yaml_data)
 
@@ -40,11 +41,6 @@ class WledYaml:
         new_wled_data = self.finalize_wled_data(new_wled_data)
 
         return new_wled_data
-
-    def load_yaml_file(self, yaml_file_name):
-        with open(yaml_file_name) as in_file:
-            yaml_data = yaml.safe_load(in_file)
-        return yaml_data
 
     def process_dict(self, path: str, name, data: dict):
         new_data = self.init_dict(path, name, data)
