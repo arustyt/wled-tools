@@ -12,21 +12,21 @@ DEFAULTS = 'defaults'
 class WledYaml:
 
     def __init__(self):
-        pass
+        self.yaml_data = None
 
     @abstractmethod
     def process_yaml_file(self, yaml_file_names, **other_args):
         self.process_other_args(yaml_file_names, other_args)
         new_wled_data = {}
 
-        yaml_data = load_yaml_files(yaml_file_names)
+        self.yaml_data = load_yaml_files(yaml_file_names)
 
-        self.load_global_defaults(yaml_data)
+        self.load_global_defaults()
 
-        for key in yaml_data.keys():
+        for key in self.yaml_data.keys():
             if key == DEFAULTS:
                 continue
-            wled_element = yaml_data[key]
+            wled_element = self.yaml_data[key]
             self.load_defaults(key, key, wled_element)
             if isinstance(wled_element, dict):
                 new_wled_data[key] = self.process_dict(key, key, wled_element)
@@ -126,7 +126,7 @@ class WledYaml:
         return [data]
 
     @abstractmethod
-    def load_global_defaults(self, yaml_data: {}):
+    def load_global_defaults(self):
         pass
 
     def load_defaults(self, path, name, defaults):

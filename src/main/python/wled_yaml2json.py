@@ -4,6 +4,8 @@ import sys
 import json
 from os.path import exists
 
+import yaml
+
 from presets_exclude_filter import PresetsExcludeFilter
 from presets_include_filter import PresetsIncludeFilter
 from wled_cfg import WledCfg
@@ -108,6 +110,12 @@ def main(name, args):
         print("Processing {file}".format(file=presets_paths))
         preset_data = wled_presets.process_yaml_file(presets_paths, segments_file=segments_path)
 
+        if len(presets_paths) > 1:
+            yaml_file_path = get_output_file_name(presets_paths[0], suffix + '-merged', 'yaml')
+            print("Saving merged YAML to {file}".format(file=yaml_file_path))
+            with open(yaml_file_path, "w", newline='\n') as out_file:
+                yaml.dump(preset_data, out_file, indent=2)
+
         if include_list is not None:
             include_filter = PresetsIncludeFilter(preset_data, deep)
             preset_data = include_filter.apply(include_list)
@@ -115,7 +123,7 @@ def main(name, args):
             exclude_filter = PresetsExcludeFilter(preset_data, deep)
             preset_data = exclude_filter.apply(exclude_list)
 
-        json_file_path = get_json_file_name(presets_paths[0], suffix)
+        json_file_path = get_output_file_name(presets_paths[0], suffix)
         if exists(json_file_path):
             rename_existing_file(json_file_path)
         print("Generating {file}".format(file=json_file_path))
@@ -129,7 +137,7 @@ def main(name, args):
         wled_cfg = WledCfg(presets_data=preset_data)
         print("Processing {file}".format(file=cfg_path))
         cfg_data = wled_cfg.process_yaml_file(cfg_path)
-        json_file_path = get_json_file_name(cfg_path, suffix)
+        json_file_path = get_output_file_name(cfg_path, suffix)
         if exists(json_file_path):
             rename_existing_file(json_file_path)
         print("Generating {file}".format(file=json_file_path))
@@ -152,12 +160,13 @@ def build_path(directory, file):
     return "{dir}/{file}".format(dir=directory, file=file) if len(file) > 0 else None
 
 
-def get_json_file_name(yaml_file_name: str, suffix: str):
+def get_output_file_name(yaml_file_name: str, suffix: str, extension: str="json"):
     file_base_name = yaml_file_name.replace('.yaml', '', 1)
     if file_base_name.endswith(suffix):
-        json_file_name = '{base_name}.json'.format(base_name=file_base_name)
+        json_file_name = '{base_name}.{extension}'.format(base_name=file_base_name, extension=extension)
     else:
-        json_file_name = '{base_name}{suffix}.json'.format(base_name=file_base_name, suffix=suffix)
+        json_file_name = '{base_name}{suffix}.{extension}'.format(base_name=file_base_name, suffix=suffix,
+                                                                  extension=extension)
 
     return json_file_name
 

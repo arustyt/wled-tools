@@ -130,7 +130,8 @@ class WledPresets(WledYaml):
     def is_placeholder(self, value: str):
         return isinstance(value, str), value
 
-    def load_global_defaults(self, preset_data):
+    def load_global_defaults(self):
+        preset_data = self.yaml_data
         if DEFAULTS in preset_data:
             defaults = preset_data[DEFAULTS]
             if PRESET_DEFAULTS in defaults:
