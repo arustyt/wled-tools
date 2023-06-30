@@ -24,23 +24,35 @@ DEFAULT_CONFIG_FILE = "cfg.yaml"
 def main(name, args):
     parser = argparse.ArgumentParser(description='Convert YAML files to WLED JSON.')
     parser.add_argument("--wled_dir", type=str,
-                        help="WLED data file location. Applies to presets, cfg, and segments files",
+                        help="WLED data file location. Applies to presets, cfg, and segments files. If not specified, "
+                             "'" + DEFAULT_WLED_DIR + "' is used.",
                         action="store", default=DEFAULT_WLED_DIR)
-    parser.add_argument("--presets", type=str, help="One or more WLED preset file names (YAML), separated by commas.",
+    parser.add_argument("--presets", type=str, help="A comma-separated list of WLED preset file names (YAML).  The "
+                                                    "file names are relative to the --wled_dir directory. "
+                                                    "Note that preset IDs must be unique across all preset files.",
                         action="store", default=None)
-    parser.add_argument("--segments", type=str, help="Segments definition file name (YAML).", action="store",
-                        default=DEFAULT_SEGMENTS_FILE)
-    parser.add_argument("--cfg", type=str, help="WLED cfg file name (YAML).", action="store",
-                        default=None)
+    parser.add_argument("--segments", type=str, help="Segments definition file name (YAML) relative to the --wled_dir "
+                                                     "directory. If not specified, '" + DEFAULT_SEGMENTS_FILE +
+                                                     "' is used.",
+                        action="store", default=DEFAULT_SEGMENTS_FILE)
+    parser.add_argument("--cfg", type=str, help="WLED cfg file name (YAML) relative to the --wled_dir directory. ",
+                        action="store", default=None)
     parser.add_argument("--definitions_dir", type=str,
-                        help="Definition file location. Applies to effects, palettes, and colors files",
+                        help="Definition file location. Applies to effects, palettes, and colors files. If not "
+                             "specified, '" + DEFAULT_DEFINITIONS_DIR + "' is used.",
                         action="store", default=DEFAULT_DEFINITIONS_DIR)
-    parser.add_argument("--effects", type=str, help="WLED effect definition file name (YAML).", action="store",
-                        default=DEFAULT_EFFECTS_FILE)
-    parser.add_argument("--palettes", type=str, help="WLED palette definitions file-name (YAML).", action="store",
-                        default=DEFAULT_PALETTES_FILE)
-    parser.add_argument("--colors", type=str, help="HTML color-name definitions file-name (YAML).", action="store",
-                        default=DEFAULT_COLORS_FILE)
+    parser.add_argument("--effects", type=str, help="WLED effect definition file name (YAML) relative to the "
+                                                    "--definitions_dir directory. If not specified, '" +
+                                                    DEFAULT_EFFECTS_FILE + "' is used.",
+                        action="store", default=DEFAULT_EFFECTS_FILE)
+    parser.add_argument("--palettes", type=str, help="WLED palette definitions file-name (YAML) relative to the "
+                                                     "--definitions_dir directory. If not specified, '" +
+                                                     DEFAULT_PALETTES_FILE + "' is used.",
+                        action="store", default=DEFAULT_PALETTES_FILE)
+    parser.add_argument("--colors", type=str, help="HTML color-name definitions file-name (YAML) relative to the "
+                                                   "--definitions_dir directory. If not specified, '" +
+                                                   DEFAULT_COLORS_FILE + "' is used.",
+                        action="store", default=DEFAULT_COLORS_FILE)
     parser.add_argument("--suffix", type=str, help=("Suffix to be appended to the output file names, preceded by a "
                                                     "'-',  before the '.json' extension."),
                         action="store", default=None)
@@ -64,7 +76,10 @@ def main(name, args):
                                                      "exclusive.  Providing both will result in an error and script "
                                                      "termination."), action="store",
                         default=None)
-    parser.add_argument('--deep', action='store_true')
+    parser.add_argument('--deep', help=("If the --deep option is present, presets referenced in playlists will "
+                                        "be included/excluded depending on the presence of the --include or --exclude "
+                                        "options.  If neither the --include or --exclude options are present the "
+                                        "--deep option will be ignored."), action='store_true')
 
     args = parser.parse_args()
     wled_dir = str(args.wled_dir)
