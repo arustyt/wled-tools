@@ -10,6 +10,12 @@ def load_yaml_files(yaml_file_list):
     return yaml_data
 
 
+def load_yaml_file(yaml_file):
+    yaml_data = {}
+    yaml_data = add_yaml_file(yaml_file, yaml_data)
+    return yaml_data
+
+
 def add_yaml_file(yaml_file, yaml_data):
     with open(yaml_file) as in_file:
         new_yaml_data: dict = yaml.safe_load(in_file)

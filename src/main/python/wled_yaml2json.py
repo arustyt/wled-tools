@@ -131,13 +131,13 @@ def main(name, args):
             json.dump(preset_data, out_file, indent=2)
 
     if cfg_file is not None:
-        cfg_path = build_path(wled_dir, cfg_file)
+        cfg_paths = build_path_list(wled_dir, cfg_file)
         print()
-        print("cfg_path: {path}".format(path=cfg_path))
+        print("cfg_path: {paths}".format(paths=cfg_paths))
         wled_cfg = WledCfg(presets_data=preset_data)
-        print("Processing {file}".format(file=cfg_path))
-        cfg_data = wled_cfg.process_yaml_file(cfg_path)
-        json_file_path = get_output_file_name(cfg_path, suffix)
+        print("Processing {file}".format(file=cfg_paths))
+        cfg_data = wled_cfg.process_yaml_file(cfg_paths)
+        json_file_path = get_output_file_name(cfg_paths[0], suffix)
         if exists(json_file_path):
             rename_existing_file(json_file_path)
         print("Generating {file}".format(file=json_file_path))
