@@ -1,7 +1,7 @@
 import sys
 import json
 
-from presets import Presets, PRESETS_DATA_ARG, PRESETS_FILE_ARG
+from presets import Presets, PRESETS_DATA_ARG, PRESETS_FILES_ARG
 from wled_yaml import WledYaml
 
 DEFAULT_PRESET_PATH = 'def.ps'

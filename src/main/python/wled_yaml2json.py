@@ -4,6 +4,8 @@ import sys
 import json
 from os.path import exists
 
+import yaml
+
 from presets_exclude_filter import PresetsExcludeFilter
 from presets_include_filter import PresetsIncludeFilter
 from wled_cfg import WledCfg
@@ -22,23 +24,35 @@ DEFAULT_CONFIG_FILE = "cfg.yaml"
 def main(name, args):
     parser = argparse.ArgumentParser(description='Convert YAML files to WLED JSON.')
     parser.add_argument("--wled_dir", type=str,
-                        help="WLED data file location. Applies to presets, cfg, and segments files",
+                        help="WLED data file location. Applies to presets, cfg, and segments files. If not specified, "
+                             "'" + DEFAULT_WLED_DIR + "' is used.",
                         action="store", default=DEFAULT_WLED_DIR)
-    parser.add_argument("--presets", type=str, help="WLED presets file name (YAML).", action="store",
-                        default=None)
-    parser.add_argument("--segments", type=str, help="Segments definition file name (YAML).", action="store",
-                        default=DEFAULT_SEGMENTS_FILE)
-    parser.add_argument("--cfg", type=str, help="WLED cfg file name (YAML).", action="store",
-                        default=None)
+    parser.add_argument("--presets", type=str, help="A comma-separated list of WLED preset file names (YAML).  The "
+                                                    "file names are relative to the --wled_dir directory. "
+                                                    "Note that preset IDs must be unique across all preset files.",
+                        action="store", default=None)
+    parser.add_argument("--segments", type=str, help="Segments definition file name (YAML) relative to the --wled_dir "
+                                                     "directory. If not specified, '" + DEFAULT_SEGMENTS_FILE +
+                                                     "' is used.",
+                        action="store", default=DEFAULT_SEGMENTS_FILE)
+    parser.add_argument("--cfg", type=str, help="WLED cfg file name (YAML) relative to the --wled_dir directory. ",
+                        action="store", default=None)
     parser.add_argument("--definitions_dir", type=str,
-                        help="Definition file location. Applies to effects, palettes, and colors files",
+                        help="Definition file location. Applies to effects, palettes, and colors files. If not "
+                             "specified, '" + DEFAULT_DEFINITIONS_DIR + "' is used.",
                         action="store", default=DEFAULT_DEFINITIONS_DIR)
-    parser.add_argument("--effects", type=str, help="WLED effect definition file name (YAML).", action="store",
-                        default=DEFAULT_EFFECTS_FILE)
-    parser.add_argument("--palettes", type=str, help="WLED palette definitions file-name (YAML).", action="store",
-                        default=DEFAULT_PALETTES_FILE)
-    parser.add_argument("--colors", type=str, help="HTML color-name definitions file-name (YAML).", action="store",
-                        default=DEFAULT_COLORS_FILE)
+    parser.add_argument("--effects", type=str, help="WLED effect definition file name (YAML) relative to the "
+                                                    "--definitions_dir directory. If not specified, '" +
+                                                    DEFAULT_EFFECTS_FILE + "' is used.",
+                        action="store", default=DEFAULT_EFFECTS_FILE)
+    parser.add_argument("--palettes", type=str, help="WLED palette definitions file-name (YAML) relative to the "
+                                                     "--definitions_dir directory. If not specified, '" +
+                                                     DEFAULT_PALETTES_FILE + "' is used.",
+                        action="store", default=DEFAULT_PALETTES_FILE)
+    parser.add_argument("--colors", type=str, help="HTML color-name definitions file-name (YAML) relative to the "
+                                                   "--definitions_dir directory. If not specified, '" +
+                                                   DEFAULT_COLORS_FILE + "' is used.",
+                        action="store", default=DEFAULT_COLORS_FILE)
     parser.add_argument("--suffix", type=str, help=("Suffix to be appended to the output file names, preceded by a "
                                                     "'-',  before the '.json' extension."),
                         action="store", default=None)
@@ -62,11 +76,14 @@ def main(name, args):
                                                      "exclusive.  Providing both will result in an error and script "
                                                      "termination."), action="store",
                         default=None)
-    parser.add_argument('--deep', action='store_true')
+    parser.add_argument('--deep', help=("If the --deep option is present, presets referenced in playlists will "
+                                        "be included/excluded depending on the presence of the --include or --exclude "
+                                        "options.  If neither the --include or --exclude options are present the "
+                                        "--deep option will be ignored."), action='store_true')
 
     args = parser.parse_args()
     wled_dir = str(args.wled_dir)
-    presets_file = str(args.presets) if args.presets is not None else None
+    presets_files = str(args.presets) if args.presets is not None else None
     segments_file = str(args.segments)
     cfg_file = str(args.cfg) if args.cfg is not None else None
     definitions_dir = str(args.definitions_dir)
@@ -101,12 +118,18 @@ def main(name, args):
     print("palettes_path: {path}".format(path=palettes_path))
     print("colors_path: {path}".format(path=colors_path))
 
-    if presets_file is not None:
-        presets_path = build_path(wled_dir, presets_file)
-        print("presets_path: {path}".format(path=presets_path))
+    if presets_files is not None:
+        presets_paths = build_path_list(wled_dir, presets_files)
+        print("presets_path: {paths}".format(paths=presets_paths))
         wled_presets = WledPresets(colors_path, palettes_path, effects_path)
-        print("Processing {file}".format(file=presets_path))
-        preset_data = wled_presets.process_yaml_file(presets_path, segments_file=segments_path)
+        print("Processing {file}".format(file=presets_paths))
+        preset_data = wled_presets.process_yaml_file(presets_paths, segments_file=segments_path)
+
+        if len(presets_paths) > 1:
+            yaml_file_path = get_output_file_name(presets_paths[0], suffix + '-merged', 'yaml')
+            print("Saving merged YAML to {file}".format(file=yaml_file_path))
+            with open(yaml_file_path, "w", newline='\n') as out_file:
+                yaml.dump(preset_data, out_file, indent=2)
 
         if include_list is not None:
             include_filter = PresetsIncludeFilter(preset_data, deep)
@@ -115,7 +138,7 @@ def main(name, args):
             exclude_filter = PresetsExcludeFilter(preset_data, deep)
             preset_data = exclude_filter.apply(exclude_list)
 
-        json_file_path = get_json_file_name(presets_path, suffix)
+        json_file_path = get_output_file_name(presets_paths[0], suffix)
         if exists(json_file_path):
             rename_existing_file(json_file_path)
         print("Generating {file}".format(file=json_file_path))
@@ -123,13 +146,13 @@ def main(name, args):
             json.dump(preset_data, out_file, indent=2)
 
     if cfg_file is not None:
-        cfg_path = build_path(wled_dir, cfg_file)
+        cfg_paths = build_path_list(wled_dir, cfg_file)
         print()
-        print("cfg_path: {path}".format(path=cfg_path))
+        print("cfg_path: {paths}".format(paths=cfg_paths))
         wled_cfg = WledCfg(presets_data=preset_data)
-        print("Processing {file}".format(file=cfg_path))
-        cfg_data = wled_cfg.process_yaml_file(cfg_path)
-        json_file_path = get_json_file_name(cfg_path, suffix)
+        print("Processing {file}".format(file=cfg_paths))
+        cfg_data = wled_cfg.process_yaml_file(cfg_paths)
+        json_file_path = get_output_file_name(cfg_paths[0], suffix)
         if exists(json_file_path):
             rename_existing_file(json_file_path)
         print("Generating {file}".format(file=json_file_path))
@@ -137,16 +160,28 @@ def main(name, args):
             json.dump(cfg_data, out_file, indent=2)
 
 
+def build_path_list(directory, files):
+    paths = []
+    if files is not None and len(files) > 0:
+        for file in files.split(','):
+            path = build_path(directory, file)
+            if path is not None:
+                paths.append(path)
+
+    return paths
+
+
 def build_path(directory, file):
     return "{dir}/{file}".format(dir=directory, file=file) if len(file) > 0 else None
 
 
-def get_json_file_name(yaml_file_name: str, suffix: str):
+def get_output_file_name(yaml_file_name: str, suffix: str, extension: str="json"):
     file_base_name = yaml_file_name.replace('.yaml', '', 1)
     if file_base_name.endswith(suffix):
-        json_file_name = '{base_name}.json'.format(base_name=file_base_name)
+        json_file_name = '{base_name}.{extension}'.format(base_name=file_base_name, extension=extension)
     else:
-        json_file_name = '{base_name}{suffix}.json'.format(base_name=file_base_name, suffix=suffix)
+        json_file_name = '{base_name}{suffix}.{extension}'.format(base_name=file_base_name, suffix=suffix,
+                                                                  extension=extension)
 
     return json_file_name
 

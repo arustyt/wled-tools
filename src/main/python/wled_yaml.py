@@ -4,6 +4,7 @@ from abc import abstractmethod
 
 import yaml
 
+from yaml_multi_file_loader import load_yaml_files
 
 DEFAULTS = 'defaults'
 
@@ -11,21 +12,21 @@ DEFAULTS = 'defaults'
 class WledYaml:
 
     def __init__(self):
-        pass
+        self.yaml_data = None
 
     @abstractmethod
-    def process_yaml_file(self, yaml_file_name, **other_args):
-        self.process_other_args(yaml_file_name, other_args)
-        yaml_data = self.load_yaml_file(yaml_file_name)
-
+    def process_yaml_file(self, yaml_file_names, **other_args):
+        self.process_other_args(yaml_file_names, other_args)
         new_wled_data = {}
 
-        self.load_global_defaults(yaml_data)
+        self.yaml_data = load_yaml_files(yaml_file_names)
 
-        for key in yaml_data.keys():
+        self.load_global_defaults()
+
+        for key in self.yaml_data.keys():
             if key == DEFAULTS:
                 continue
-            wled_element = yaml_data[key]
+            wled_element = self.yaml_data[key]
             self.load_defaults(key, key, wled_element)
             if isinstance(wled_element, dict):
                 new_wled_data[key] = self.process_dict(key, key, wled_element)
@@ -40,11 +41,6 @@ class WledYaml:
         new_wled_data = self.finalize_wled_data(new_wled_data)
 
         return new_wled_data
-
-    def load_yaml_file(self, yaml_file_name):
-        with open(yaml_file_name) as in_file:
-            yaml_data = yaml.safe_load(in_file)
-        return yaml_data
 
     def process_dict(self, path: str, name, data: dict):
         new_data = self.init_dict(path, name, data)
@@ -130,7 +126,7 @@ class WledYaml:
         return [data]
 
     @abstractmethod
-    def load_global_defaults(self, yaml_data: {}):
+    def load_global_defaults(self):
         pass
 
     def load_defaults(self, path, name, defaults):

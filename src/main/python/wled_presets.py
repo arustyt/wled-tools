@@ -28,8 +28,8 @@ class WledPresets(WledYaml):
         self.current_segment_defaults = {}
         self.max_segments = 0
 
-    def process_other_args(self, presets_file_path, other_args):
-        self.presets = Presets(presets_file=presets_file_path)
+    def process_other_args(self, presets_file_paths, other_args):
+        self.presets = Presets(presets_files=presets_file_paths)
         if SEGMENTS_FILE_TAG in other_args:
             self.segments = Segments(other_args[SEGMENTS_FILE_TAG])
         else:
@@ -130,7 +130,8 @@ class WledPresets(WledYaml):
     def is_placeholder(self, value: str):
         return isinstance(value, str), value
 
-    def load_global_defaults(self, preset_data):
+    def load_global_defaults(self):
+        preset_data = self.yaml_data
         if DEFAULTS in preset_data:
             defaults = preset_data[DEFAULTS]
             if PRESET_DEFAULTS in defaults:
