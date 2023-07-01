@@ -66,8 +66,10 @@ class WledPlaceholderReplacer(WledDataProcessor):
             else:
                 raise ValueError("Placeholder not defined: {placeholder}".format(placeholder=placeholder))
 
-        if not isinstance(current_level, str):
-            raise ValueError("Placeholder did not resolve to a string: {placeholder}".format(placeholder=placeholder))
+        if isinstance(current_level, dict):
+            raise ValueError("Placeholder resolves to a dict: {placeholder}".format(placeholder=placeholder))
+        if isinstance(current_level, list):
+            raise ValueError("Placeholder resolves to a list: {placeholder}".format(placeholder=placeholder))
 
         return current_level
 
