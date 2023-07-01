@@ -1,13 +1,13 @@
-import sys
 import json
+import sys
 
-from presets import Presets, PRESETS_DATA_ARG, PRESETS_FILES_ARG
-from wled_yaml import WledYaml
+from presets import Presets
+from wled_data_processor import WledDataProcessor
 
 DEFAULT_PRESET_PATH = 'def.ps'
 
 
-class WledCfg(WledYaml):
+class WledCfg(WledDataProcessor):
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -28,7 +28,7 @@ class WledCfg(WledYaml):
 
 if __name__ == '__main__':
     wled_cfg = WledCfg()
-    json_data = wled_cfg.process_yaml_file(sys.argv[1])
+    json_data = wled_cfg.process_wled_data(sys.argv[1])
     json_string = json.dumps(json_data, indent=2)
 
     print(json_string)
