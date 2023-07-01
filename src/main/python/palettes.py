@@ -1,9 +1,5 @@
-import re
-
-import yaml
-
 from decision_maker import DecisionMaker
-from wled_constants import NAME_TAG, PALETTES_TAG, ID_TAG, DESCRIPTION_TAG, ALIASES_TAG
+from wled_constants import PALETTES_TAG
 from wled_definitions import WledDefinitions
 
 

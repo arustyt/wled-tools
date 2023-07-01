@@ -1,12 +1,12 @@
 import argparse
 import json
 import sys
-# import jsondiff
-import yaml
-from deepdiff import DeepDiff
 from pprint import pprint
 
 import requests
+# import jsondiff
+import yaml
+from deepdiff import DeepDiff
 
 
 def main(name, args):

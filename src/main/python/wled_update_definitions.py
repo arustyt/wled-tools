@@ -1,6 +1,6 @@
 import argparse
-import os
 import json
+import os
 from os.path import exists
 
 import requests
