@@ -14,7 +14,6 @@ class WledCfg(WledDataProcessor):
 
         self.presets = Presets(kwdict=kwargs)
 
-
     def process_dict_element(self, path: str, name, data):
         if path == DEFAULT_PRESET_PATH:
             return self.process_default_preset_name(path, name, data)
