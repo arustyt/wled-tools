@@ -1,32 +1,26 @@
-import sys
-import json
 from abc import abstractmethod
 
-import yaml
-
-from yaml_multi_file_loader import load_yaml_files
-
-DEFAULTS = 'defaults'
+from wled_constants import DEFAULTS
 
 
-class WledYaml:
+class WledDataProcessor:
 
     def __init__(self):
-        self.yaml_data = None
+        self.raw_wled_data = None
 
     @abstractmethod
-    def process_yaml_file(self, yaml_file_names, **other_args):
-        self.process_other_args(yaml_file_names, other_args)
+    def process_wled_data(self, raw_wled_data, **other_args):
+        self.process_other_args(raw_wled_data, other_args)
         new_wled_data = {}
 
-        self.yaml_data = load_yaml_files(yaml_file_names)
+        self.raw_wled_data = raw_wled_data
 
         self.load_global_defaults()
 
-        for key in self.yaml_data.keys():
+        for key in self.raw_wled_data.keys():
             if key == DEFAULTS:
                 continue
-            wled_element = self.yaml_data[key]
+            wled_element = self.raw_wled_data[key]
             self.load_defaults(key, key, wled_element)
             if isinstance(wled_element, dict):
                 new_wled_data[key] = self.process_dict(key, key, wled_element)
@@ -133,7 +127,7 @@ class WledYaml:
         pass
 
     @abstractmethod
-    def process_other_args(self, yaml_file_name, other_args):
+    def process_other_args(self, raw_wled_data, other_args):
         pass
 
     @abstractmethod

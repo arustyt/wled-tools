@@ -1,10 +1,7 @@
 import re
-import yaml
 
-from wled_yaml import DEFAULTS
-from yaml_multi_file_loader import load_yaml_files
+from wled_constants import DEFAULTS
 
-PRESETS_FILES_ARG = 'presets_files'
 PRESETS_DATA_ARG = 'presets_data'
 KWDICT_ARG = 'kwdict'
 
@@ -17,10 +14,6 @@ class Presets:
             kwargs = kwargs[KWDICT_ARG]
 
         presets_data = kwargs[PRESETS_DATA_ARG] if PRESETS_DATA_ARG in kwargs else None
-
-        if presets_data is None:
-            presets_files = kwargs[PRESETS_FILES_ARG] if PRESETS_FILES_ARG in kwargs else 'presets.yaml'
-            presets_data = load_yaml_files(presets_files)
 
         self.presets_by_name = {}
         for key in presets_data.keys():

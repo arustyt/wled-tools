@@ -1,5 +1,5 @@
-import sys
 import json
+import sys
 
 from colors import Colors
 from effects import Effects
@@ -8,10 +8,10 @@ from presets import Presets
 from segments import Segments
 from wled_constants import SEGMENTS_FILE_TAG, SEGMENT_TAG, COLOR_TAG, SEGMENT_NAME_TAG, PALETTE_NAME_TAG, \
     EFFECT_NAME_TAG, PALETTE_TAG, EFFECT_TAG, ID_TAG, PRESET_KEY, STOP_TAG, DEFAULTS, PRESET_DEFAULTS, SEGMENT_DEFAULTS
-from wled_yaml import WledYaml
+from wled_data_processor import WledDataProcessor
 
 
-class WledPresets(WledYaml):
+class WledPresets(WledDataProcessor):
 
     def __init__(self, color_names_file='colors.yaml', palette_names_file='palettes.yaml',
                  effect_names_file='effects.yaml'):
@@ -28,8 +28,8 @@ class WledPresets(WledYaml):
         self.current_segment_defaults = {}
         self.max_segments = 0
 
-    def process_other_args(self, presets_file_paths, other_args):
-        self.presets = Presets(presets_files=presets_file_paths)
+    def process_other_args(self, raw_preset_data, other_args):
+        self.presets = Presets(presets_data=raw_preset_data)
         if SEGMENTS_FILE_TAG in other_args:
             self.segments = Segments(other_args[SEGMENTS_FILE_TAG])
         else:
@@ -131,7 +131,7 @@ class WledPresets(WledYaml):
         return isinstance(value, str), value
 
     def load_global_defaults(self):
-        preset_data = self.yaml_data
+        preset_data = self.raw_wled_data
         if DEFAULTS in preset_data:
             defaults = preset_data[DEFAULTS]
             if PRESET_DEFAULTS in defaults:
@@ -166,7 +166,7 @@ class WledPresets(WledYaml):
 
 if __name__ == '__main__':
     wled_presets = WledPresets()
-    json_data = wled_presets.process_yaml_file(sys.argv[1])
+    json_data = wled_presets.process_wled_data(sys.argv[1])
     json_string = json.dumps(json_data, indent=2)
 
     print(json_string)

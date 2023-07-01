@@ -1,7 +1,7 @@
 import argparse
+import json
 import os
 import sys
-import json
 from os.path import exists
 
 import yaml
@@ -9,7 +9,9 @@ import yaml
 from presets_exclude_filter import PresetsExcludeFilter
 from presets_include_filter import PresetsIncludeFilter
 from wled_cfg import WledCfg
+from wled_placeholder_replacer import WledPlaceholderReplacer
 from wled_presets import WledPresets
+from yaml_multi_file_loader import load_yaml_files, load_yaml_file
 
 DEFAULT_DEFINITIONS_DIR = "../../../etc"
 DEFAULT_WLED_DIR = "."
@@ -18,6 +20,7 @@ DEFAULT_PALETTES_FILE = "palettes.yaml"
 DEFAULT_EFFECTS_FILE = "effects.yaml"
 DEFAULT_SEGMENTS_FILE = "segments.yaml"
 DEFAULT_PRESETS_FILE = "presets.yaml"
+DEFAULT_ENV_FILE = "env.yaml"
 DEFAULT_CONFIG_FILE = "cfg.yaml"
 
 
@@ -27,9 +30,15 @@ def main(name, args):
                         help="WLED data file location. Applies to presets, cfg, and segments files. If not specified, "
                              "'" + DEFAULT_WLED_DIR + "' is used.",
                         action="store", default=DEFAULT_WLED_DIR)
+    parser.add_argument("--env", type=str, help="A file (YAML) defining values for placeholder replacement within "
+                                                "config and preset files.  The file name is relative to the "
+                                                "--wled_dir directory. If not specified, placeholder replacement will "
+                                                "not occur.",
+                        action="store", default=None)
     parser.add_argument("--presets", type=str, help="A comma-separated list of WLED preset file names (YAML).  The "
                                                     "file names are relative to the --wled_dir directory. "
-                                                    "Note that preset IDs must be unique across all preset files.",
+                                                    "Note that preset IDs must be unique across all preset files. If "
+                                                    "not specified, '" + DEFAULT_PRESETS_FILE + "' is used.",
                         action="store", default=None)
     parser.add_argument("--segments", type=str, help="Segments definition file name (YAML) relative to the --wled_dir "
                                                      "directory. If not specified, '" + DEFAULT_SEGMENTS_FILE +
@@ -83,6 +92,7 @@ def main(name, args):
 
     args = parser.parse_args()
     wled_dir = str(args.wled_dir)
+    env_file = str(args.env) if args.env is not None else None
     presets_files = str(args.presets) if args.presets is not None else None
     segments_file = str(args.segments)
     cfg_file = str(args.cfg) if args.cfg is not None else None
@@ -97,7 +107,10 @@ def main(name, args):
 
     segments_path = build_path(wled_dir, segments_file)
 
+    placeholder_replacer = load_placeholder_replacer(wled_dir, env_file)
+
     print("wled_dir: " + wled_dir)
+    print("env_file: " + str(env_file))
     print("segments_path: {path}".format(path=segments_path))
     print("suffix: '{suffix}'".format(suffix=suffix))
     print("include_list: " + str(include_list))
@@ -109,6 +122,9 @@ def main(name, args):
     if include_list is not None and exclude_list is not None:
         raise ValueError("The --include and --exclude options are mutually exclusive and cannot both be provided.")
 
+    if cfg_file is not None and presets_files is None:
+        raise ValueError("Cannot process config file without presets file.")
+
     effects_path = build_path(definitions_dir, effects_file)
     palettes_path = build_path(definitions_dir, palettes_file)
     colors_path = build_path(definitions_dir, colors_file)
@@ -118,46 +134,75 @@ def main(name, args):
     print("palettes_path: {path}".format(path=palettes_path))
     print("colors_path: {path}".format(path=colors_path))
 
+    presets_data = None
+
     if presets_files is not None:
         presets_paths = build_path_list(wled_dir, presets_files)
         print("presets_path: {paths}".format(paths=presets_paths))
         wled_presets = WledPresets(colors_path, palettes_path, effects_path)
         print("Processing {file}".format(file=presets_paths))
-        preset_data = wled_presets.process_yaml_file(presets_paths, segments_file=segments_path)
+
+        raw_presets_data = load_yaml_files(presets_paths)
+
+        if placeholder_replacer is not None:
+            prepped_presets_data = placeholder_replacer.process_wled_data(raw_presets_data)
+        else:
+            prepped_presets_data = raw_presets_data
+
+        presets_data = wled_presets.process_wled_data(prepped_presets_data, segments_file=segments_path)
 
         if len(presets_paths) > 1:
             yaml_file_path = get_output_file_name(presets_paths[0], suffix + '-merged', 'yaml')
             print("Saving merged YAML to {file}".format(file=yaml_file_path))
             with open(yaml_file_path, "w", newline='\n') as out_file:
-                yaml.dump(preset_data, out_file, indent=2)
+                yaml.dump(presets_data, out_file, indent=2)
 
         if include_list is not None:
-            include_filter = PresetsIncludeFilter(preset_data, deep)
-            preset_data = include_filter.apply(include_list)
+            include_filter = PresetsIncludeFilter(presets_data, deep)
+            presets_data = include_filter.apply(include_list)
         elif exclude_list is not None:
-            exclude_filter = PresetsExcludeFilter(preset_data, deep)
-            preset_data = exclude_filter.apply(exclude_list)
+            exclude_filter = PresetsExcludeFilter(presets_data, deep)
+            presets_data = exclude_filter.apply(exclude_list)
 
         json_file_path = get_output_file_name(presets_paths[0], suffix)
         if exists(json_file_path):
             rename_existing_file(json_file_path)
         print("Generating {file}".format(file=json_file_path))
         with open(json_file_path, "w", newline='\n') as out_file:
-            json.dump(preset_data, out_file, indent=2)
+            json.dump(presets_data, out_file, indent=2)
 
     if cfg_file is not None:
         cfg_paths = build_path_list(wled_dir, cfg_file)
         print()
         print("cfg_path: {paths}".format(paths=cfg_paths))
-        wled_cfg = WledCfg(presets_data=preset_data)
+        wled_cfg = WledCfg(presets_data=presets_data)
         print("Processing {file}".format(file=cfg_paths))
-        cfg_data = wled_cfg.process_yaml_file(cfg_paths)
+
+        raw_cfg_data = load_yaml_files(cfg_paths)
+
+        if placeholder_replacer is not None:
+            prepped_cfg_data = placeholder_replacer.process_wled_data(raw_cfg_data)
+        else:
+            prepped_cfg_data = raw_cfg_data
+
+        cfg_data = wled_cfg.process_wled_data(prepped_cfg_data)
         json_file_path = get_output_file_name(cfg_paths[0], suffix)
         if exists(json_file_path):
             rename_existing_file(json_file_path)
         print("Generating {file}".format(file=json_file_path))
         with open(json_file_path, "w", newline='\n') as out_file:
             json.dump(cfg_data, out_file, indent=2)
+
+
+def load_placeholder_replacer(wled_dir, env_file):
+    if env_file is not None:
+        env_path = build_path(wled_dir, env_file)
+        env_data = load_yaml_file(env_path)
+        placeholder_replacer = WledPlaceholderReplacer(env_data)
+    else:
+        placeholder_replacer = None
+
+    return placeholder_replacer
 
 
 def build_path_list(directory, files):
