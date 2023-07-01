@@ -26,8 +26,13 @@ class WledPlaceholderReplacer(WledDataProcessor):
         return [self.replace_placeholders(data)]
 
     def replace_placeholders(self, data):
+
         new_data = data
+
         while True:
+            if not isinstance(new_data, str):
+                break
+
             matches = re.match(self.placeholder_re, new_data)
             if matches is not None:
                 new_data = self.replace_placeholder(new_data, matches.groups())
@@ -42,25 +47,44 @@ class WledPlaceholderReplacer(WledDataProcessor):
         if placeholder is None or len(placeholder) == 0:
             raise ValueError("Empty placeholder encountered.")
 
-        if placeholder in self.placeholder_data:
-            text_to_replace = PLACEHOLDER_PREFIX + placeholder + PLACEHOLDER_SUFFIX
-            new_data = data.replace(text_to_replace, self.placeholder_data[placeholder])
+        replacement_value = self.drill_down_placeholder(placeholder)
+
+        text_to_replace = PLACEHOLDER_PREFIX + placeholder + PLACEHOLDER_SUFFIX
+        if data != text_to_replace:
+            new_data = data.replace(text_to_replace, str(replacement_value))
         else:
-            raise ValueError("Placeholder not defined: {placeholder}".format(placeholder=placeholder))
+            new_data = replacement_value
 
         return new_data
+
+    def drill_down_placeholder(self, placeholder):
+        placeholder_levels = placeholder.split('.')
+        current_level = self.placeholder_data
+        for placeholder_level in placeholder_levels:
+            if placeholder_level in current_level:
+                current_level = current_level[placeholder_level]
+            else:
+                raise ValueError("Placeholder not defined: {placeholder}".format(placeholder=placeholder))
+
+        if not isinstance(current_level, str):
+            raise ValueError("Placeholder did not resolve to a string: {placeholder}".format(placeholder=placeholder))
+
+        return current_level
 
 
 if __name__ == '__main__':
     env_data = {'it_worked': 'IT WORKED ',
-                'dict': 'IN A DICT (${nested})',
-                'list': 'IN A LIST (${again})',
-                'again': 'again',
-                'nested': 'nested'
+                'dict': {
+                    'dict': 'IN A DICT (${dict.nested})',
+                    'nested': 'nested'
+                },
+                'list': {
+                    'list': 'IN A LIST (${list.again})',
+                    'again': 'again'}
                 }
 
-    wled_data = {'1': {'n': 'Hey look, ${it_worked}${dict}!!!', 'h': 'Some other dict value.',
-                       'l': ['1', 'Hey look, ${it_worked}${list}!!!', '3']}}
+    wled_data = {'1': {'n': 'Hey look, ${it_worked}${dict.dict}!!!', 'h': 'Some other dict value.',
+                       'l': ['1', 'Hey look, ${it_worked}${list.list}!!!', '3']}}
 
     wled_presets = WledPlaceholderReplacer(env_data)
 
