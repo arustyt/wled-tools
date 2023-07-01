@@ -9,8 +9,9 @@ import yaml
 from presets_exclude_filter import PresetsExcludeFilter
 from presets_include_filter import PresetsIncludeFilter
 from wled_cfg import WledCfg
+from wled_placeholder_replacer import WledPlaceholderReplacer
 from wled_presets import WledPresets
-from yaml_multi_file_loader import load_yaml_files
+from yaml_multi_file_loader import load_yaml_files, load_yaml_file
 
 DEFAULT_DEFINITIONS_DIR = "../../../etc"
 DEFAULT_WLED_DIR = "."
@@ -91,7 +92,7 @@ def main(name, args):
 
     args = parser.parse_args()
     wled_dir = str(args.wled_dir)
-    env_file = str(args.env)
+    env_file = str(args.env) if args.env is not None else None
     presets_files = str(args.presets) if args.presets is not None else None
     segments_file = str(args.segments)
     cfg_file = str(args.cfg) if args.cfg is not None else None
@@ -106,7 +107,10 @@ def main(name, args):
 
     segments_path = build_path(wled_dir, segments_file)
 
+    placeholder_replacer = load_placeholder_replacer(wled_dir, env_file)
+
     print("wled_dir: " + wled_dir)
+    print("env_file: " + str(env_file))
     print("segments_path: {path}".format(path=segments_path))
     print("suffix: '{suffix}'".format(suffix=suffix))
     print("include_list: " + str(include_list))
@@ -140,7 +144,12 @@ def main(name, args):
 
         raw_presets_data = load_yaml_files(presets_paths)
 
-        presets_data = wled_presets.process_wled_data(raw_presets_data, segments_file=segments_path)
+        if placeholder_replacer is not None:
+            prepped_presets_data = placeholder_replacer.process_wled_data(raw_presets_data)
+        else:
+            prepped_presets_data = raw_presets_data
+
+        presets_data = wled_presets.process_wled_data(prepped_presets_data, segments_file=segments_path)
 
         if len(presets_paths) > 1:
             yaml_file_path = get_output_file_name(presets_paths[0], suffix + '-merged', 'yaml')
@@ -171,13 +180,29 @@ def main(name, args):
 
         raw_cfg_data = load_yaml_files(cfg_paths)
 
-        cfg_data = wled_cfg.process_wled_data(raw_cfg_data)
+        if placeholder_replacer is not None:
+            prepped_cfg_data = placeholder_replacer.process_wled_data(raw_cfg_data)
+        else:
+            prepped_cfg_data = raw_cfg_data
+
+        cfg_data = wled_cfg.process_wled_data(prepped_cfg_data)
         json_file_path = get_output_file_name(cfg_paths[0], suffix)
         if exists(json_file_path):
             rename_existing_file(json_file_path)
         print("Generating {file}".format(file=json_file_path))
         with open(json_file_path, "w", newline='\n') as out_file:
             json.dump(cfg_data, out_file, indent=2)
+
+
+def load_placeholder_replacer(wled_dir, env_file):
+    if env_file is not None:
+        env_path = build_path(wled_dir, env_file)
+        env_data = load_yaml_file(env_path)
+        placeholder_replacer = WledPlaceholderReplacer(env_data)
+    else:
+        placeholder_replacer = None
+
+    return placeholder_replacer
 
 
 def build_path_list(directory, files):
