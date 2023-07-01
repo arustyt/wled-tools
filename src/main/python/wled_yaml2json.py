@@ -18,6 +18,7 @@ DEFAULT_PALETTES_FILE = "palettes.yaml"
 DEFAULT_EFFECTS_FILE = "effects.yaml"
 DEFAULT_SEGMENTS_FILE = "segments.yaml"
 DEFAULT_PRESETS_FILE = "presets.yaml"
+DEFAULT_ENV_FILE = "env.yaml"
 DEFAULT_CONFIG_FILE = "cfg.yaml"
 
 
@@ -27,9 +28,15 @@ def main(name, args):
                         help="WLED data file location. Applies to presets, cfg, and segments files. If not specified, "
                              "'" + DEFAULT_WLED_DIR + "' is used.",
                         action="store", default=DEFAULT_WLED_DIR)
+    parser.add_argument("--env", type=str, help="A file (YAML) defining values for placeholder replacement within "
+                                                "config and preset files.  The file name is relative to the "
+                                                "--wled_dir directory. If not specified, placeholder replacement will "
+                                                "not occur.",
+                        action="store", default=None)
     parser.add_argument("--presets", type=str, help="A comma-separated list of WLED preset file names (YAML).  The "
                                                     "file names are relative to the --wled_dir directory. "
-                                                    "Note that preset IDs must be unique across all preset files.",
+                                                    "Note that preset IDs must be unique across all preset files. If "
+                                                    "not specified, '" + DEFAULT_PRESETS_FILE + "' is used.",
                         action="store", default=None)
     parser.add_argument("--segments", type=str, help="Segments definition file name (YAML) relative to the --wled_dir "
                                                      "directory. If not specified, '" + DEFAULT_SEGMENTS_FILE +
@@ -83,6 +90,7 @@ def main(name, args):
 
     args = parser.parse_args()
     wled_dir = str(args.wled_dir)
+    env_file = str(args.env)
     presets_files = str(args.presets) if args.presets is not None else None
     segments_file = str(args.segments)
     cfg_file = str(args.cfg) if args.cfg is not None else None
