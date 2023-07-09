@@ -258,7 +258,7 @@ def load_placeholder_replacer(directory: str, environment: str, file_option: str
     print("Loading properties from: {file}".format(file=properties_path))
     if properties_path is not None:
         properties_data = load_yaml_file(properties_path)
-        placeholder_replacer = WledPlaceholderReplacer(properties_data)
+        placeholder_replacer = WledPlaceholderReplacer(properties_data, environment)
     else:
         placeholder_replacer = None
 

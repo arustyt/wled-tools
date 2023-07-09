@@ -11,9 +11,10 @@ PLACEHOLDER_CHARS_RE = '[^}]'
 
 class WledPlaceholderReplacer(WledDataProcessor):
 
-    def __init__(self, placeholder_data: dict):
+    def __init__(self, placeholder_data: dict, environment=None):
         super().__init__()
         self.placeholder_data = placeholder_data
+        self.environment = environment
         placeholder_re_str = '^.*{prefix}({chars}*){suffix}.*$'.format(prefix=PLACEHOLDER_PREFIX_RE,
                                                                        chars=PLACEHOLDER_CHARS_RE,
                                                                        suffix=PLACEHOLDER_SUFFIX_RE)
@@ -47,7 +48,10 @@ class WledPlaceholderReplacer(WledDataProcessor):
         if placeholder is None or len(placeholder) == 0:
             raise ValueError("Empty placeholder encountered.")
 
-        replacement_value = self.drill_down_placeholder(placeholder)
+        try:  # Try with environment as prefix
+            replacement_value = self.drill_down_placeholder("{env}.{placeholder}".format(env=self.environment, placeholder=placeholder))
+        except ValueError:  # Else ignore environment
+            replacement_value = self.drill_down_placeholder(placeholder)
 
         text_to_replace = PLACEHOLDER_PREFIX + placeholder + PLACEHOLDER_SUFFIX
         if data != text_to_replace:
