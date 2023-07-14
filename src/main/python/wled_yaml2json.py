@@ -16,6 +16,8 @@ from yaml_multi_file_loader import load_yaml_files, load_yaml_file
 
 YAML_EXTENSION = '.yaml'
 
+INDENT = '  '
+
 DEFAULT_DEFINITIONS_DIR = "../../../etc"
 DEFAULT_WLED_DIR = "."
 DEFAULT_COLORS_FILE = "colors.yaml"
@@ -137,26 +139,21 @@ def main(name, args):
     effects_file = str(args.effects)
     palettes_file = str(args.palettes)
     colors_file = str(args.colors)
-    suffix = '-' + str(args.suffix) if args.suffix is not None else ''
+    suffix = "-{suffix}".format(suffix=args.suffix) if args.suffix is not None else ''
     include_list = str(args.include).split(',') if args.include is not None else None
     exclude_list = str(args.exclude).split(',') if args.exclude is not None else None
     deep = args.deep
     test_mode = args.test
 
-    segments_path = build_path(wled_dir, environment, segments_option, DEFAULT_SEGMENTS_FILE_BASE)
-
-    properties_path = build_path(wled_dir, environment, properties_option, DEFAULT_PROPERTIES_FILE_BASE)
-
-    print("wled_dir: " + wled_dir)
-    print("environment: " + str(environment))
-    print("segments_path: {path}".format(path=segments_path))
-    print("suffix: '{suffix}'".format(suffix=suffix))
-    print("include_list: " + str(include_list))
-    print("exclude_list: " + str(exclude_list))
-    print("deep: " + str(deep))
-    print("test: " + str(test_mode))
-
-    print()
+    print("\nOPTION VALUES ...")
+    print("  wled_dir: " + wled_dir)
+    print("  definitions_dir: " + definitions_dir)
+    print("  environment: " + str(environment))
+    print("  suffix: '{suffix}'".format(suffix=suffix))
+    print("  include_list: " + str(include_list))
+    print("  exclude_list: " + str(exclude_list))
+    print("  deep: " + str(deep))
+    print("  test: " + str(test_mode))
 
     if include_list is not None and exclude_list is not None:
         raise ValueError("The --include and --exclude options are mutually exclusive and cannot both be provided.")
@@ -168,27 +165,32 @@ def main(name, args):
     palettes_path = build_path(definitions_dir, environment, palettes_file, DEFAULT_PALETTES_FILE)
     colors_path = build_path(definitions_dir, environment, colors_file, DEFAULT_COLORS_FILE)
 
-    print("definitions_dir: " + definitions_dir)
-    print("effects_path: {path}".format(path=effects_path))
-    print("palettes_path: {path}".format(path=palettes_path))
-    print("colors_path: {path}".format(path=colors_path))
-
+    segments_path = build_path(wled_dir, environment, segments_option, DEFAULT_SEGMENTS_FILE_BASE)
+    properties_path = build_path(wled_dir, environment, properties_option, DEFAULT_PROPERTIES_FILE_BASE)
     presets_paths = build_path_list(wled_dir, environment, presets_option, DEFAULT_PRESETS_FILE_BASE) if presets_option is not None else None
-
     cfg_paths = build_path_list(wled_dir, environment, cfg_option, DEFAULT_CFG_FILE) if cfg_option is not None else None
+
+    print("\nINPUT FILE PATHS ...")
+    print("  effects_path: {path}".format(path=effects_path))
+    print("  palettes_path: {path}".format(path=palettes_path))
+    print("  colors_path: {path}".format(path=colors_path))
+    print("  segments_path: {path}".format(path=segments_path))
+    print("  properties_path: {path}".format(path=properties_path))
+    print("  presets_paths: {path}".format(path=presets_paths))
+    print("  cfg_paths: {path}".format(path=cfg_paths))
+
+    print("\nLOADING PROPERTIES ...")
+    print("  From: {file}".format(file=properties_path))
+    placeholder_replacer = load_placeholder_replacer(properties_path, environment)
 
     presets_data = None
 
-    placeholder_replacer = load_placeholder_replacer(properties_path, environment)
-
     if presets_paths is not None:
-        print("presets_path: {paths}".format(paths=presets_paths))
+        print("\nPROCESSING PRESETS ...")
         wled_presets = WledPresets(colors_path, palettes_path, effects_path)
-        print("Processing {file}".format(file=presets_paths))
+        print("  Processing {file}".format(file=presets_paths))
 
         raw_presets_data = load_yaml_files(presets_paths)
-
-        placeholder_replacer = load_placeholder_replacer(properties_path, environment)
 
         if placeholder_replacer is not None:
             prepped_presets_data = placeholder_replacer.process_wled_data(raw_presets_data)
@@ -204,11 +206,11 @@ def main(name, args):
                                                                                 if environment is not None else ""),
                                                   'yaml')
             if not test_mode:
-                print("Saving merged YAML to {file}".format(file=yaml_file_path))
+                print("  Saving merged YAML to {file}".format(file=yaml_file_path))
                 with open(yaml_file_path, "w", newline='\n') as out_file:
                     yaml.dump(presets_data, out_file, indent=2)
             else:
-                print("Would have saved merged YAML to {file}".format(file=yaml_file_path))
+                print("  Would have saved merged YAML to {file}".format(file=yaml_file_path))
 
         if include_list is not None:
             include_filter = PresetsIncludeFilter(presets_data, deep)
@@ -224,17 +226,16 @@ def main(name, args):
         if not test_mode:
             if exists(json_file_path):
                 rename_existing_file(json_file_path)
-            print("Generating {file}".format(file=json_file_path))
+            print("  Generating {file}".format(file=json_file_path))
             with open(json_file_path, "w", newline='\n') as out_file:
                 json.dump(presets_data, out_file, indent=2)
         else:
-            print("Would have generated {file}".format(file=json_file_path))
+            print("  Would have generated {file}".format(file=json_file_path))
 
     if cfg_paths is not None:
-        print()
-        print("cfg_path: {paths}".format(paths=cfg_paths))
+        print("\nPROCESSING CFG ...")
         wled_cfg = WledCfg(presets_data=presets_data)
-        print("Processing {file}".format(file=cfg_paths))
+        print("  Processing {file}".format(file=cfg_paths))
 
         raw_cfg_data = load_yaml_files(cfg_paths)
 
@@ -248,15 +249,14 @@ def main(name, args):
         if not test_mode:
             if exists(json_file_path):
                 rename_existing_file(json_file_path)
-            print("Generating {file}".format(file=json_file_path))
+            print("  Generating {file}".format(file=json_file_path))
             with open(json_file_path, "w", newline='\n') as out_file:
                 json.dump(cfg_data, out_file, indent=2)
         else:
-            print("Would have generated {file}".format(file=json_file_path))
+            print("  Would have generated {file}".format(file=json_file_path))
 
 
 def load_placeholder_replacer(properties_path: str, environment: str):
-    print("Loading properties from: {file}".format(file=properties_path))
     if properties_path is not None:
         properties_data = load_yaml_file(properties_path)
         placeholder_replacer = WledPlaceholderReplacer(properties_data, environment)
@@ -333,10 +333,10 @@ def get_output_file_name(yaml_file_name: str, suffix: str, extension: str = "jso
 def rename_existing_file(file_path):
     backup_file_path = "{file_path}.backup".format(file_path=file_path)
     if exists(backup_file_path):
-        print("Removing existing backup file: {file}".format(file=backup_file_path))
+        print("  Removing existing backup file: {file}".format(file=backup_file_path))
         os.remove(backup_file_path)
 
-    print("Renaming existing file from {file}\n                         to {backup_file}".format(file=file_path,
+    print("  Renaming existing file from {file}\n                           to {backup_file}".format(file=file_path,
                                                                                                  backup_file=backup_file_path))
     os.rename(file_path, backup_file_path)
 
