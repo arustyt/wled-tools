@@ -1,18 +1,11 @@
 import argparse
-import json
-import os
 import sys
-from os.path import exists
 from pathlib import Path
 
-import yaml
-
-from presets_exclude_filter import PresetsExcludeFilter
-from presets_include_filter import PresetsIncludeFilter
-from wled_cfg import WledCfg
+from cfg_file_processor import CfgFileProcessor
+from presets_file_processor import PresetsFileProcessor
 from wled_placeholder_replacer import WledPlaceholderReplacer
-from wled_presets import WledPresets
-from yaml_multi_file_loader import load_yaml_files, load_yaml_file
+from yaml_multi_file_loader import load_yaml_file
 
 YAML_EXTENSION = '.yaml'
 
@@ -167,7 +160,8 @@ def main(name, args):
 
     segments_path = build_path(wled_dir, environment, segments_option, DEFAULT_SEGMENTS_FILE_BASE)
     properties_path = build_path(wled_dir, environment, properties_option, DEFAULT_PROPERTIES_FILE_BASE)
-    presets_paths = build_path_list(wled_dir, environment, presets_option, DEFAULT_PRESETS_FILE_BASE) if presets_option is not None else None
+    presets_paths = build_path_list(wled_dir, environment, presets_option,
+                                    DEFAULT_PRESETS_FILE_BASE) if presets_option is not None else None
     cfg_paths = build_path_list(wled_dir, environment, cfg_option, DEFAULT_CFG_FILE) if cfg_option is not None else None
 
     print("\nINPUT FILE PATHS ...")
@@ -183,77 +177,14 @@ def main(name, args):
     print("  From: {file}".format(file=properties_path))
     placeholder_replacer = load_placeholder_replacer(properties_path, environment)
 
-    presets_data = None
+    presets_processor = PresetsFileProcessor(presets_paths, segments_path, environment, palettes_path, effects_path,
+                                             colors_path, include_list, exclude_list, deep, placeholder_replacer,
+                                             suffix, test_mode)
+    presets_processor.process()
+    presets_data = presets_processor.get_processed_data()
 
-    if presets_paths is not None:
-        print("\nPROCESSING PRESETS ...")
-        wled_presets = WledPresets(colors_path, palettes_path, effects_path)
-        print("  Processing {file}".format(file=presets_paths))
-
-        raw_presets_data = load_yaml_files(presets_paths)
-
-        if placeholder_replacer is not None:
-            prepped_presets_data = placeholder_replacer.process_wled_data(raw_presets_data)
-        else:
-            prepped_presets_data = raw_presets_data
-
-        presets_data = wled_presets.process_wled_data(prepped_presets_data, segments_file=segments_path)
-
-        if len(presets_paths) > 1:
-            yaml_file_path = get_output_file_name(presets_paths[0],
-                                                  "{suffix}{env}-merged".format(suffix=suffix,
-                                                                                env="-" + environment
-                                                                                if environment is not None else ""),
-                                                  'yaml')
-            if not test_mode:
-                print("  Saving merged YAML to {file}".format(file=yaml_file_path))
-                with open(yaml_file_path, "w", newline='\n') as out_file:
-                    yaml.dump(presets_data, out_file, indent=2)
-            else:
-                print("  Would have saved merged YAML to {file}".format(file=yaml_file_path))
-
-        if include_list is not None:
-            include_filter = PresetsIncludeFilter(presets_data, deep)
-            presets_data = include_filter.apply(include_list)
-        elif exclude_list is not None:
-            exclude_filter = PresetsExcludeFilter(presets_data, deep)
-            presets_data = exclude_filter.apply(exclude_list)
-
-        json_file_path = get_output_file_name(presets_paths[0],
-                                              "{suffix}{env}".format(suffix=suffix,
-                                                                     env="-" + environment
-                                                                     if environment is not None else ""))
-        if not test_mode:
-            if exists(json_file_path):
-                rename_existing_file(json_file_path)
-            print("  Generating {file}".format(file=json_file_path))
-            with open(json_file_path, "w", newline='\n') as out_file:
-                json.dump(presets_data, out_file, indent=2)
-        else:
-            print("  Would have generated {file}".format(file=json_file_path))
-
-    if cfg_paths is not None:
-        print("\nPROCESSING CFG ...")
-        wled_cfg = WledCfg(presets_data=presets_data)
-        print("  Processing {file}".format(file=cfg_paths))
-
-        raw_cfg_data = load_yaml_files(cfg_paths)
-
-        if placeholder_replacer is not None:
-            prepped_cfg_data = placeholder_replacer.process_wled_data(raw_cfg_data)
-        else:
-            prepped_cfg_data = raw_cfg_data
-
-        cfg_data = wled_cfg.process_wled_data(prepped_cfg_data)
-        json_file_path = get_output_file_name(cfg_paths[0], suffix)
-        if not test_mode:
-            if exists(json_file_path):
-                rename_existing_file(json_file_path)
-            print("  Generating {file}".format(file=json_file_path))
-            with open(json_file_path, "w", newline='\n') as out_file:
-                json.dump(cfg_data, out_file, indent=2)
-        else:
-            print("  Would have generated {file}".format(file=json_file_path))
+    cfg_processor = CfgFileProcessor(cfg_paths, presets_data, placeholder_replacer, suffix, test_mode)
+    cfg_processor.process()
 
 
 def load_placeholder_replacer(properties_path: str, environment: str):
@@ -305,7 +236,6 @@ def get_file_name_candidates(environment: str, file_nickname: str, file_base: st
                                     environment)
 
         add_nickname_candidates(candidates, file_nickname, environment)
-
         add_nickname_candidates(candidates, file_base, environment)
 
     return candidates
@@ -317,28 +247,6 @@ def add_nickname_candidates(candidates, file_nickname, environment):
             candidates.append("{nickname}-{env}.yaml".format(nickname=file_nickname, env=environment))
 
         candidates.append("{nickname}.yaml".format(nickname=file_nickname))
-
-
-def get_output_file_name(yaml_file_name: str, suffix: str, extension: str = "json"):
-    file_base_name = yaml_file_name.replace('.yaml', '', 1)
-    if file_base_name.endswith(suffix):
-        json_file_name = '{base_name}.{extension}'.format(base_name=file_base_name, extension=extension)
-    else:
-        json_file_name = '{base_name}{suffix}.{extension}'.format(base_name=file_base_name, suffix=suffix,
-                                                                  extension=extension)
-
-    return json_file_name
-
-
-def rename_existing_file(file_path):
-    backup_file_path = "{file_path}.backup".format(file_path=file_path)
-    if exists(backup_file_path):
-        print("  Removing existing backup file: {file}".format(file=backup_file_path))
-        os.remove(backup_file_path)
-
-    print("  Renaming existing file from {file}\n                           to {backup_file}".format(file=file_path,
-                                                                                                 backup_file=backup_file_path))
-    os.rename(file_path, backup_file_path)
 
 
 if __name__ == '__main__':
