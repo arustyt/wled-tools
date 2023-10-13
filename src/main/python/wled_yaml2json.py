@@ -148,21 +148,55 @@ def main(name, args):
     print("  deep: " + str(deep))
     print("  test: " + str(test_mode))
 
+    wled_yaml2json(wled_dir=wled_dir,
+                   environment=environment,
+                   properties=properties_option,
+                   presets=presets_option,
+                   segments=segments_option,
+                   cfg=cfg_option,
+                   definitions_dir=definitions_dir,
+                   effects=effects_file,
+                   palettes=palettes_file,
+                   colors=colors_file,
+                   suffix=suffix,
+                   include_list=include_list,
+                   exclude_list=exclude_list,
+                   deep=deep,
+                   test_mode=test_mode)
+
+
+def wled_yaml2json(*,
+                   wled_dir=DEFAULT_WLED_DIR,
+                   definitions_dir=DEFAULT_DEFINITIONS_DIR,
+                   environment=DEFAULT_ENVIRONMENT,
+                   properties=None,
+                   presets=None,
+                   cfg=None,
+                   segments=DEFAULT_SEGMENTS_FILE_BASE,
+                   effects=DEFAULT_EFFECTS_FILE,
+                   palettes=DEFAULT_PALETTES_FILE,
+                   colors=DEFAULT_COLORS_FILE,
+                   suffix=None,
+                   include_list=None,
+                   exclude_list=None,
+                   deep=False,
+                   test_mode=False):
+
     if include_list is not None and exclude_list is not None:
         raise ValueError("The --include and --exclude options are mutually exclusive and cannot both be provided.")
 
-    if cfg_option is not None and presets_option is None:
+    if cfg is not None and presets is None:
         raise ValueError("Cannot process config file without presets file.")
 
-    effects_path = build_path(definitions_dir, environment, effects_file, DEFAULT_EFFECTS_FILE)
-    palettes_path = build_path(definitions_dir, environment, palettes_file, DEFAULT_PALETTES_FILE)
-    colors_path = build_path(definitions_dir, environment, colors_file, DEFAULT_COLORS_FILE)
+    effects_path = build_path(definitions_dir, environment, effects, DEFAULT_EFFECTS_FILE)
+    palettes_path = build_path(definitions_dir, environment, palettes, DEFAULT_PALETTES_FILE)
+    colors_path = build_path(definitions_dir, environment, colors, DEFAULT_COLORS_FILE)
 
-    segments_path = build_path(wled_dir, environment, segments_option, DEFAULT_SEGMENTS_FILE_BASE)
-    properties_path = build_path(wled_dir, environment, properties_option, DEFAULT_PROPERTIES_FILE_BASE)
-    presets_paths = build_path_list(wled_dir, environment, presets_option,
-                                    DEFAULT_PRESETS_FILE_BASE) if presets_option is not None else None
-    cfg_paths = build_path_list(wled_dir, environment, cfg_option, DEFAULT_CFG_FILE) if cfg_option is not None else None
+    segments_path = build_path(wled_dir, environment, segments, DEFAULT_SEGMENTS_FILE_BASE)
+    properties_path = build_path(wled_dir, environment, properties, DEFAULT_PROPERTIES_FILE_BASE)
+    presets_paths = build_path_list(wled_dir, environment, presets,
+                                    DEFAULT_PRESETS_FILE_BASE) if presets is not None else None
+    cfg_paths = build_path_list(wled_dir, environment, cfg, DEFAULT_CFG_FILE) if cfg is not None else None
 
     print("\nINPUT FILE PATHS ...")
     print("  effects_path: {path}".format(path=effects_path))
