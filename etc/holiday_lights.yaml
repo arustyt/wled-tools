@@ -1,0 +1,71 @@
+# Date format is MMDD
+holidays:
+  new_years_day:
+    start_date: 0101
+    end_date: 0101+6
+    lights: newyears
+  martin_luther_king_jr_day:
+    start_date: martin_luther_king_jr_day
+    end_date: martin_luther_king_jr_day
+    lights: mlkday
+  ground_hog_day:
+    start_date: 0202
+    end_date: 0202
+    lights: groundhogday
+  valentines_day:
+    start_date: 0214
+    end_date: 0214
+    lights: valentinesday
+  presidents_day:
+    start_date: presidents_day
+    end_date: presidents_day
+    lights: presidentsday
+  mardi_gras:
+    start_date: easter-40
+    end_date: easter-40
+    lights: mardigras
+  st_patricks_day:
+    start_date: 0317-7
+    end_date: 0317
+    lights: stpatricksday
+  easter:
+    start_date: easter-7
+    end_date: easter
+    lights: easter
+  memorial_day:
+    start_date: memorial_day-2
+    end_date: memorial_day
+    lights: memorialday
+  flag_day:
+    start_date: 0614
+    end_date: 0614
+    lights: flagday
+  juneteenth:
+    start_date: 0619
+    end_date: 0619
+    lights: juneteenth
+  4th_of_july:
+    start_date: 0704-3
+    end_date: 0704
+    lights: july4th
+  labor_day:
+    start_date: labor_day-2
+    end_date: labor_day
+    lights: laborday
+  halloween:
+    start_date: 1001
+    end_date: 1031
+    lights: halloween
+  veterans_day:
+    start_date: veterans_day
+    end_date: veterans_day
+    lights: veteransday
+  thanksgiving:
+    start_date: 1101
+    end_date: thanksgiving
+    lights: thanksgiving
+  christmas:
+    start_date: thanksgiving+1
+    end_date: newyearsday-1
+    lights: christmas
+

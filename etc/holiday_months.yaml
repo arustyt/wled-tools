@@ -1,0 +1,57 @@
+months:
+  "1":
+    name: January
+    holidays:
+      - New Year's Day
+      - Martin Luther King Jr. Day
+  "2":
+    name: February
+    holidays:
+      - Ground Hog Day
+      - Valentines Day
+      - Presidents Day
+      - Mardi Gras
+  "3":
+    name: March
+    holidays:
+      - St. Patrick's Day
+      - Easter
+  "4":
+    name: April
+    holidays:
+      - Easter
+  "5":
+    name: May
+    holidays:
+      - Memorial Day
+  "6":
+    name: June
+    holidays:
+      - Flag Day
+      - Juneteenth
+  "7":
+    name: July
+    holidays:
+      - 4th Of July
+  "8":
+    name: August
+    holidays: []
+  "9":
+    name: September
+    holidays:
+      - Labor Day
+  "10":
+    name: October
+    holidays:
+      - Halloween
+  "11":
+    name: November
+    holidays:
+      - Veterans Day
+      - Thanksgiving
+      - Christmas
+  "12":
+    name: December
+    holidays:
+      - Christmas
+      - New Year's Day
