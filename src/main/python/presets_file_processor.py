@@ -7,7 +7,7 @@ from presets_exclude_filter import PresetsExcludeFilter
 from presets_include_filter import PresetsIncludeFilter
 from wled_file_processor import WledFileProcessor
 from wled_presets import WledPresets
-from yaml_multi_file_loader import load_yaml_files
+from wled_utils.yaml_multi_file_loader import load_yaml_files
 
 
 class PresetsFileProcessor(WledFileProcessor):

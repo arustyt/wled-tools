@@ -5,7 +5,7 @@ from pathlib import Path
 from cfg_file_processor import CfgFileProcessor
 from presets_file_processor import PresetsFileProcessor
 from wled_placeholder_replacer import WledPlaceholderReplacer
-from yaml_multi_file_loader import load_yaml_file
+from wled_utils.yaml_multi_file_loader import load_yaml_file
 
 YAML_EXTENSION = '.yaml'
 

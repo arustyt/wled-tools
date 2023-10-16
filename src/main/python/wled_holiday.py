@@ -7,6 +7,8 @@ from dateutil.rrule import *
 from dateutil.parser import *
 from datetime import *
 
+from wled_utils.path_utils import build_path
+
 YAML_EXTENSION = '.yaml'
 
 INDENT = '  '
@@ -63,7 +65,9 @@ def get_todays_date():
 
 
 def evaluate_lights_for_date(*, definitions_dir, months_file, lights_file, date_str):
-    pass
+    months_path = build_path(definitions_dir, months_file)
+    lights_path = build_path(definitions_dir, lights_file)
+
 
 
 if __name__ == '__main__':

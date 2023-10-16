@@ -3,7 +3,7 @@ from os.path import exists
 
 from wled_cfg import WledCfg
 from wled_file_processor import WledFileProcessor
-from yaml_multi_file_loader import load_yaml_files
+from wled_utils.yaml_multi_file_loader import load_yaml_files
 
 
 class CfgFileProcessor(WledFileProcessor):
