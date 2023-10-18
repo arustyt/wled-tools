@@ -118,7 +118,7 @@ def main(name, args):
                                         "options.  If neither the --include or --exclude options are present the "
                                         "--deep option will be ignored."), action='store_true')
 
-    parser.add_argument('--test', help="If the --deep processing will be performed, but no files will be saved.",
+    parser.add_argument('--test', help="Processing will be performed, but no files will be saved.",
                         action='store_true')
 
     args = parser.parse_args()
