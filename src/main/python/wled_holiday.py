@@ -11,14 +11,21 @@ from datetime import *
 from wled_utils.path_utils import build_path
 from wled_utils.yaml_multi_file_loader import load_yaml_file
 
+END_DAY_OF_YEAR_KEY = 'end_day_of_year'
+START_DAY_OF_YEAR_KEY = 'start_daY_of_year'
+START_DATE_KEY = 'start_date'
+END_DATE_KEY = 'end_date'
+
 MONTHS_KEY = 'months'
 HOLIDAYS_KEY = 'holidays'
+NORMALIZED_HOLIDAYS_KEY = 'normalized_holidays'
 DATE_FORMAT = '%Y-%m-%d'
 YAML_EXTENSION = '.yaml'
 INDENT = '  '
 DEFAULT_DEFINITIONS_DIR = "../../../etc"
 DEFAULT_MONTHS_FILE = "holiday_months.yaml"
 DEFAULT_LIGHTS_FILE = "holiday_lights.yaml"
+DEFAULT_HOLIDAY_NAME = "normal"
 
 
 def main(name, args):
@@ -37,6 +44,10 @@ def main(name, args):
                                                    "--definitions_dir directory. If not specified, '" +
                                                    DEFAULT_LIGHTS_FILE + "' is used.",
                         action="store", default=DEFAULT_LIGHTS_FILE)
+    parser.add_argument("--default", type=str, help="WLED lights name that will be used if not a provided date is not "
+                                                    "a holiday. If not specified, '" + DEFAULT_HOLIDAY_NAME +
+                                                    "' is used.",
+                        action="store", default=DEFAULT_HOLIDAY_NAME)
     parser.add_argument('--verbose', help="Intermediate output will be generated in addition to result output.",
                         action='store_true')
 
@@ -49,6 +60,7 @@ def main(name, args):
     months_file = args.months
     lights_file = args.lights
     verbose_mode = args.verbose
+    default_lights_name = args.default
     date_str = args.date
 
     if verbose_mode:
@@ -62,50 +74,135 @@ def main(name, args):
         date_str = get_todays_date()
 
     try:
-        processing_date = parse_date_string(date_str)
+        evaluation_date = parse_date_string(date_str)
     except ValueError:
-        if verbose_mode:
-            print("Invalid date format. Must be YYYY-MM-DD.")
-        quit(1)
+        raise ValueError("Invalid date format. Must be YYYY-MM-DD.")
 
     if verbose_mode:
-        print("  date to process: " + str(processing_date))
+        print("  date to process: " + str(evaluation_date))
 
-    evaluate_lights_for_date(definitions_dir=definitions_dir, months_file=months_file, lights_file=lights_file,
-                             processing_date=processing_date, verbose_mode=verbose_mode)
+    matched_holiday = evaluate_lights_for_date(definitions_dir=definitions_dir, months_file=months_file,
+                                               lights_file=lights_file, evaluation_date=evaluation_date,
+                                               default_lights_name=default_lights_name, verbose_mode=verbose_mode)
+
+    print(matched_holiday)
 
 
 def get_todays_date():
     return datetime.today().strftime(DATE_FORMAT)
 
 
-def evaluate_lights_for_date(*, definitions_dir, months_file, lights_file, processing_date, verbose_mode):
+def evaluate_lights_for_date(*, definitions_dir, months_file, lights_file, evaluation_date, default_lights_name,
+                             verbose_mode):
     months_path = build_path(definitions_dir, months_file)
     months_data = load_yaml_file(months_path)
+    normalize_holidays(months_data)
 
     lights_path = build_path(definitions_dir, lights_file)
     lights_data = load_yaml_file(lights_path)
     normalize_keys(lights_data)
 
-    processing_month = str(processing_date.month)
+    evaluation_month = str(evaluation_date.month)
 
-    holidays = months_data[MONTHS_KEY][processing_month][HOLIDAYS_KEY]
+    month_holidays = months_data[MONTHS_KEY][evaluation_month][NORMALIZED_HOLIDAYS_KEY]
     if verbose_mode:
-        print(str(holidays))
+        print(str(month_holidays))
 
-    holidays_data = prepare_holidays_data(lights_data, holidays)
+    month_holiday_dates = generate_holiday_dates(lights_data, month_holidays, evaluation_date)
+    evaluation_day_of_year = calculate_day_of_year(evaluation_date)
+    matched_holiday = None
+    min_range = None
+    for holiday in month_holiday_dates:
+        candidate_holiday = month_holiday_dates[holiday]
+        start_day_of_year = candidate_holiday[START_DAY_OF_YEAR_KEY]
+        end_day_of_year = candidate_holiday[END_DAY_OF_YEAR_KEY]
+        if start_day_of_year <= evaluation_day_of_year <= end_day_of_year:
+            range = end_day_of_year - start_day_of_year + 1
+            if min_range is None or range < min_range:
+                min_range = range
+                matched_holiday = holiday
 
-    for holiday in holidays:
-        holiday_normalized = normalize_name(holiday)
-        if verbose_mode:
-            print(holiday_normalized)
-        if holiday_normalized in lights_data[HOLIDAYS_KEY]:
-            if verbose_mode:
-                print("Found {holiday_norm}, a.k.a. {holiday}".format(holiday_norm=holiday_normalized, holiday=holiday))
+    return matched_holiday if matched_holiday is not None else default_lights_name
 
-            break
 
-    pass
+def generate_holiday_dates(lights_data, month_holidays, evaluation_date):
+    holiday_dates = dict()
+    all_holidays = lights_data[HOLIDAYS_KEY]
+    for holiday in month_holidays:
+        holiday_dates[holiday] = dict()
+        holiday_dates[holiday][START_DAY_OF_YEAR_KEY], holiday_dates[holiday][END_DAY_OF_YEAR_KEY] = \
+            get_holiday_dates(all_holidays[holiday], evaluation_date)
+
+    return holiday_dates
+
+
+def get_holiday_dates(holiday, evaluation_date):
+    start_day_of_year = interpret_date_expr(holiday[START_DATE_KEY], evaluation_date)
+    end_day_of_year = interpret_date_expr(holiday[END_DATE_KEY], evaluation_date)
+
+    return start_day_of_year, end_day_of_year
+
+
+def interpret_date_expr(date_expr, evaluation_date):
+    if date_expr[0].isdigit():
+        jdate = interpret_numeric_expr(date_expr, evaluation_date)
+    else:
+        jdate = interpret_placeholder_expr(date_expr, evaluation_date)
+    return jdate
+
+
+def interpret_numeric_expr(date_expr, evaluation_date):
+    delta = 0
+    expr_len = len(date_expr)
+    if expr_len >= 4:
+        month = int(date_expr[0:2])
+        day = int(date_expr[2:4])
+    else:
+        raise ValueError('Date expression must be formatted, "MMDD[+/-delta].')
+
+    sign = 1
+    if expr_len > 4:
+        if date_expr[4] == "+":
+            sign = 1
+        elif date_expr[4] == "-":
+            sign = -1
+        else:
+            raise ValueError('Delta operator must be "+" or "-".')
+
+        if expr_len > 5:
+            delta = sign * int(date_expr[5:])
+        else:
+            raise ValueError('Date expression must be formatted, "MMDD[{+/-}delta].')
+
+    jdate = calculate_day_of_year(evaluation_date, month, day)
+
+    return jdate + delta
+
+
+def calculate_day_of_year(evaluation_date: datetime, evaluation_month=None, evaluation_day=None):
+    evaluation_year = evaluation_date.year
+    if evaluation_month is None:
+        evaluation_month = evaluation_date.month
+    if evaluation_day is None:
+        evaluation_day = evaluation_date.day
+
+    calc_date = datetime(evaluation_year, evaluation_month, evaluation_day)
+
+    return calc_date.timetuple().tm_yday
+
+
+def interpret_placeholder_expr(date_expr):
+    return 0
+
+
+def normalize_holidays(months_data: dict):
+    months = months_data[MONTHS_KEY]
+    for month_num in months:
+        normalized_holidays = list()
+        holidays = months[month_num][HOLIDAYS_KEY]
+        for holiday in holidays:
+            normalized_holidays.append(normalize_name(holiday))
+        months[month_num][NORMALIZED_HOLIDAYS_KEY] = normalized_holidays
 
 
 def normalize_keys(lights_data: dict):
