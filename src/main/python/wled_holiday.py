@@ -1,4 +1,5 @@
 import argparse
+import datetime
 import re
 import sys
 
@@ -9,23 +10,28 @@ from dateutil.parser import *
 from datetime import *
 
 from wled_utils.path_utils import build_path
+from wled_utils.rrule_utils import get_frequency, get_byweekday
 from wled_utils.yaml_multi_file_loader import load_yaml_file
 
+BY_EASTER_KEY = 'by_easter'
+
 END_DAY_OF_YEAR_KEY = 'end_day_of_year'
-START_DAY_OF_YEAR_KEY = 'start_daY_of_year'
+ySTART_DAY_OF_YEAR_KEY = 'start_day_of_year'
 START_DATE_KEY = 'start_date'
 END_DATE_KEY = 'end_date'
 
-MONTHS_KEY = 'months'
 HOLIDAYS_KEY = 'holidays'
 NORMALIZED_HOLIDAYS_KEY = 'normalized_holidays'
 DATE_FORMAT = '%Y-%m-%d'
 YAML_EXTENSION = '.yaml'
 INDENT = '  '
 DEFAULT_DEFINITIONS_DIR = "../../../etc"
-DEFAULT_MONTHS_FILE = "holiday_months.yaml"
+DEFAULT_HOLIDAYS_FILE = "holidays.yaml"
 DEFAULT_LIGHTS_FILE = "holiday_lights.yaml"
 DEFAULT_HOLIDAY_NAME = "normal"
+DATE_KEY = 'date'
+RRULE_KEY = 'rrule'
+DAY_OF_YEAR_KEY = 'day_of_year'
 
 
 def main(name, args):
@@ -36,10 +42,10 @@ def main(name, args):
                         help="Definition file location. Applies to holiday months and lights files. If not "
                              "specified, '" + DEFAULT_DEFINITIONS_DIR + "' is used.",
                         action="store", default=DEFAULT_DEFINITIONS_DIR)
-    parser.add_argument("--months", type=str, help="WLED holiday months definition file name (YAML) relative to the "
-                                                   "--definitions_dir directory. If not specified, '" +
-                                                   DEFAULT_MONTHS_FILE + "' is used.",
-                        action="store", default=DEFAULT_MONTHS_FILE)
+    parser.add_argument("--holidays", type=str, help="Holiday definitions file name (YAML) relative to the "
+                                                     "--definitions_dir directory. If not specified, '" +
+                                                     DEFAULT_HOLIDAYS_FILE + "' is used.",
+                        action="store", default=DEFAULT_HOLIDAYS_FILE)
     parser.add_argument("--lights", type=str, help="WLED holiday lights definitions file-name (YAML) relative to the "
                                                    "--definitions_dir directory. If not specified, '" +
                                                    DEFAULT_LIGHTS_FILE + "' is used.",
@@ -57,7 +63,7 @@ def main(name, args):
 
     args = parser.parse_args()
     definitions_dir = args.definitions_dir
-    months_file = args.months
+    holidays_file = args.months
     lights_file = args.lights
     verbose_mode = args.verbose
     default_lights_name = args.default
@@ -66,7 +72,7 @@ def main(name, args):
     if verbose_mode:
         print("\nOPTION VALUES ...")
         print("  definitions_dir: " + definitions_dir)
-        print("  months_file: " + months_file)
+        print("  holidays_file: " + holidays_file)
         print("  lights_file: " + lights_file)
         print("  date_str: " + str(date_str))
 
@@ -81,7 +87,7 @@ def main(name, args):
     if verbose_mode:
         print("  date to process: " + str(evaluation_date))
 
-    matched_holiday = evaluate_lights_for_date(definitions_dir=definitions_dir, months_file=months_file,
+    matched_holiday = evaluate_lights_for_date(definitions_dir=definitions_dir, holidays_file=holidays_file,
                                                lights_file=lights_file, evaluation_date=evaluation_date,
                                                default_lights_name=default_lights_name, verbose_mode=verbose_mode)
 
@@ -92,11 +98,11 @@ def get_todays_date():
     return datetime.today().strftime(DATE_FORMAT)
 
 
-def evaluate_lights_for_date(*, definitions_dir, months_file, lights_file, evaluation_date, default_lights_name,
+def evaluate_lights_for_date(*, definitions_dir, holidays_file, lights_file, evaluation_date, default_lights_name,
                              verbose_mode):
-    months_path = build_path(definitions_dir, months_file)
-    months_data = load_yaml_file(months_path)
-    normalize_holidays(months_data)
+    holidays_path = build_path(definitions_dir, holidays_file)
+    holidays_data = load_yaml_file(holidays_path)
+    evaluate_holidays(holidays_data, evaluation_date)
 
     lights_path = build_path(definitions_dir, lights_file)
     lights_data = load_yaml_file(lights_path)
@@ -180,29 +186,61 @@ def interpret_numeric_expr(date_expr, evaluation_date):
 
 
 def calculate_day_of_year(evaluation_date: datetime, evaluation_month=None, evaluation_day=None):
+    calc_date = calculate_date(evaluation_date, evaluation_day, evaluation_month)
+
+    return calc_date.timetuple().tm_yday
+
+
+def calculate_date(evaluation_date, evaluation_day, evaluation_month):
     evaluation_year = evaluation_date.year
     if evaluation_month is None:
         evaluation_month = evaluation_date.month
     if evaluation_day is None:
         evaluation_day = evaluation_date.day
-
     calc_date = datetime(evaluation_year, evaluation_month, evaluation_day)
-
-    return calc_date.timetuple().tm_yday
-
-
-def interpret_placeholder_expr(date_expr):
-    return 0
+    return calc_date
 
 
-def normalize_holidays(months_data: dict):
-    months = months_data[MONTHS_KEY]
-    for month_num in months:
-        normalized_holidays = list()
-        holidays = months[month_num][HOLIDAYS_KEY]
-        for holiday in holidays:
-            normalized_holidays.append(normalize_name(holiday))
-        months[month_num][NORMALIZED_HOLIDAYS_KEY] = normalized_holidays
+def evaluate_holidays(holidays_data: dict, evaluation_date):
+    holidays = holidays_data[HOLIDAYS_KEY]
+    for holiday_key in holidays:
+        holiday = holidays[holiday_key]
+        if DATE_KEY in holiday:
+            holiday_day_of_year = interpret_numeric_expr(holiday[DATE_KEY], evaluation_date)
+        elif RRULE_KEY in holiday:
+            holiday_day_of_year = interpret_rrule(holiday[RRULE_KEY], evaluation_date)
+        else:
+            raise ValueError("Invalid holiday specification. Must include either {date} or {rrule}".format(date=DATE_KEY, rrule=RRULE_KEY))
+
+        holiday[DAY_OF_YEAR_KEY] = holiday_day_of_year
+
+
+def interpret_rrule(holiday_rrule: dict, evaluation_date):
+    first_day_of_year = calculate_date(evaluation_date, 1, 1)
+    frequency = get_frequency(rrule['frequency'])
+    if BY_EASTER_KEY in rrule:
+        holiday_date = interpret_easter_rrule(frequency, rrule[BY_EASTER_KEY], first_day_of_year)
+    else:
+        month = rrule['month']
+        day_of_week = rrule['day_of_week']
+        occurrence = rrule['occurrence']
+        weekday = get_byweekday(day_of_week, occurrence)
+
+        holiday_date = interpret_general_rrule(frequency, month, weekday, first_day_of_year)
+
+    return holiday_date.timetuple().tm_yday
+
+
+def interpret_general_rrule(frequency, month, weekday, evaluation_date):
+    holiday_date = rrule(frequency, dtstart=test_date, count=1, bymonth=month, byweekday=weekday)
+
+    return holiday_date
+
+
+def interpret_easter_rrule(frequency, by_easter, evaluation_date):
+    holiday_date = rrule(frequency, dtstart=test_date, count=1, byeaster=by_easter)
+
+    return holiday_date
 
 
 def normalize_keys(lights_data: dict):

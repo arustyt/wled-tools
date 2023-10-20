@@ -4,6 +4,8 @@ from dateutil.rrule import *
 from dateutil.parser import *
 from datetime import *
 
+from wled_utils.rrule_utils import get_byweekday, get_frequency
+
 test_date = date(2023, 3, 17)
 this_year = test_date.year
 this_month = test_date.month
@@ -32,3 +34,32 @@ if next_mardi_gras < test_date:
 
 print("Next Mardi Gras is: %s" % next_mardi_gras)
 
+test_date = date(2023, 3, 17)
+frequency_str = 'YEARLY'
+month = 11
+day_of_week = 'TH'
+occurrence = 4
+by_easter = None
+
+frequency = get_frequency(frequency_str)
+weekday = get_byweekday(day_of_week, occurrence)
+
+result = rrule(frequency, dtstart=test_date, count=1, byeaster=by_easter, bymonth=month, byweekday=weekday)
+print("Next Thanksgiving is: %s" % result[0])
+
+test_date = date(2023, 10, 19)
+frequency_str = 'yearly'
+month = None
+day_of_week = None
+occurrence = None
+by_easter = 0
+
+frequency = get_frequency(frequency_str)
+
+result = rrule(frequency, dtstart=test_date, count=1, byeaster=by_easter)
+print("Next Easter is: %s" % result[0])
+
+by_easter = -40
+result = rrule(frequency, dtstart=test_date, count=1, byeaster=by_easter)
+easter_date = result[0]
+print("Next Mardi Gras is: %s" % result[0])

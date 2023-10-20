@@ -1,0 +1,61 @@
+# Date format is MMDD
+holidays:
+  "new_years_day":
+    date: '0101'
+  martin_luther_king_jr_day:
+    rrule: 
+      frequency: YEARLY
+      month: 1
+      day_of_week: MO
+      occurrence: 3
+  ground_hog_day:
+    date: '0202'
+  valentines_day:
+    date: '0214'
+  presidents_day:
+    rrule: 
+      frequency: YEARLY
+      month: 2
+      day_of_week: MO
+      occurrence: 4
+  mardi_gras:
+    rrule:
+      frequency: YEARLY
+      by_easter: -40
+  st_patricks_day:
+    date: '0317'
+  easter:
+    rrule:
+      frequency: YEARLY
+      by_easter: 0
+  memorial_day:
+    rrule:
+      frequency: YEARLY
+      month: 5
+      day_of_week: MO
+      occurrence: -1
+  flag_day:
+    date: '0614'
+  juneteenth:
+    date: '0619'
+  4th_of_july:
+    date: '0704'
+  labor_day:
+    rrule: 
+      frequency: YEARLY
+      month: 9
+      day_of_week: MO
+      occurrence: 1
+  halloween:
+    date: '1031'
+  veterans_day:
+    date: '1111'
+  thanksgiving:
+    rrule:
+      frequency: YEARLY
+      month: 11
+      day_of_week: TH
+      occurrence: 4
+  christmas:
+    date: '1225'
+
