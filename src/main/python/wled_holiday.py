@@ -16,7 +16,7 @@ from wled_utils.yaml_multi_file_loader import load_yaml_file
 BY_EASTER_KEY = 'by_easter'
 
 END_DAY_OF_YEAR_KEY = 'end_day_of_year'
-ySTART_DAY_OF_YEAR_KEY = 'start_day_of_year'
+START_DAY_OF_YEAR_KEY = 'start_day_of_year'
 START_DATE_KEY = 'start_date'
 END_DATE_KEY = 'end_date'
 
@@ -63,7 +63,7 @@ def main(name, args):
 
     args = parser.parse_args()
     definitions_dir = args.definitions_dir
-    holidays_file = args.months
+    holidays_file = args.holidays
     lights_file = args.lights
     verbose_mode = args.verbose
     default_lights_name = args.default
@@ -103,23 +103,18 @@ def evaluate_lights_for_date(*, definitions_dir, holidays_file, lights_file, eva
     holidays_path = build_path(definitions_dir, holidays_file)
     holidays_data = load_yaml_file(holidays_path)
     evaluate_holidays(holidays_data, evaluation_date)
+    normalize_keys(holidays_data)
 
     lights_path = build_path(definitions_dir, lights_file)
     lights_data = load_yaml_file(lights_path)
     normalize_keys(lights_data)
 
-    evaluation_month = str(evaluation_date.month)
-
-    month_holidays = months_data[MONTHS_KEY][evaluation_month][NORMALIZED_HOLIDAYS_KEY]
-    if verbose_mode:
-        print(str(month_holidays))
-
-    month_holiday_dates = generate_holiday_dates(lights_data, month_holidays, evaluation_date)
+    holiday_dates = generate_holiday_dates(lights_data, holidays_data, evaluation_date)
     evaluation_day_of_year = calculate_day_of_year(evaluation_date)
     matched_holiday = None
     min_range = None
-    for holiday in month_holiday_dates:
-        candidate_holiday = month_holiday_dates[holiday]
+    for holiday in holiday_dates:
+        candidate_holiday = holiday_dates[holiday]
         start_day_of_year = candidate_holiday[START_DAY_OF_YEAR_KEY]
         end_day_of_year = candidate_holiday[END_DAY_OF_YEAR_KEY]
         if start_day_of_year <= evaluation_day_of_year <= end_day_of_year:
@@ -131,7 +126,7 @@ def evaluate_lights_for_date(*, definitions_dir, holidays_file, lights_file, eva
     return matched_holiday if matched_holiday is not None else default_lights_name
 
 
-def generate_holiday_dates(lights_data, month_holidays, evaluation_date):
+def generate_holiday_dates(lights_data, holidays_data, evaluation_date):
     holiday_dates = dict()
     all_holidays = lights_data[HOLIDAYS_KEY]
     for holiday in month_holidays:
@@ -217,13 +212,13 @@ def evaluate_holidays(holidays_data: dict, evaluation_date):
 
 def interpret_rrule(holiday_rrule: dict, evaluation_date):
     first_day_of_year = calculate_date(evaluation_date, 1, 1)
-    frequency = get_frequency(rrule['frequency'])
-    if BY_EASTER_KEY in rrule:
-        holiday_date = interpret_easter_rrule(frequency, rrule[BY_EASTER_KEY], first_day_of_year)
+    frequency = get_frequency(holiday_rrule['frequency'])
+    if BY_EASTER_KEY in holiday_rrule:
+        holiday_date = interpret_easter_rrule(frequency, holiday_rrule[BY_EASTER_KEY], first_day_of_year)
     else:
-        month = rrule['month']
-        day_of_week = rrule['day_of_week']
-        occurrence = rrule['occurrence']
+        month = holiday_rrule['month']
+        day_of_week = holiday_rrule['day_of_week']
+        occurrence = holiday_rrule['occurrence']
         weekday = get_byweekday(day_of_week, occurrence)
 
         holiday_date = interpret_general_rrule(frequency, month, weekday, first_day_of_year)
@@ -231,16 +226,16 @@ def interpret_rrule(holiday_rrule: dict, evaluation_date):
     return holiday_date.timetuple().tm_yday
 
 
-def interpret_general_rrule(frequency, month, weekday, evaluation_date):
-    holiday_date = rrule(frequency, dtstart=test_date, count=1, bymonth=month, byweekday=weekday)
+def interpret_general_rrule(frequency, month, weekday, first_day_of_year):
+    holiday_date = rrule(frequency, dtstart=first_day_of_year, count=1, bymonth=month, byweekday=weekday)
 
-    return holiday_date
+    return holiday_date[0]
 
 
-def interpret_easter_rrule(frequency, by_easter, evaluation_date):
-    holiday_date = rrule(frequency, dtstart=test_date, count=1, byeaster=by_easter)
+def interpret_easter_rrule(frequency, by_easter, first_day_of_year):
+    holiday_date = rrule(frequency, dtstart=first_day_of_year, count=1, byeaster=by_easter)
 
-    return holiday_date
+    return holiday_date[0]
 
 
 def normalize_keys(lights_data: dict):
