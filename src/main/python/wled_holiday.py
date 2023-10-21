@@ -109,7 +109,7 @@ def evaluate_lights_for_date(*, definitions_dir, holidays_file, lights_file, eva
     lights_data = load_yaml_file(lights_path)
     normalize_keys(lights_data)
 
-    holiday_dates = generate_holiday_dates(lights_data, holidays_data, evaluation_date)
+    holiday_dates = evaluate_holiday_lights_dates(lights_data, holidays_data, evaluation_date)
     evaluation_day_of_year = calculate_day_of_year(evaluation_date)
     matched_holiday = None
     min_range = None
@@ -126,30 +126,49 @@ def evaluate_lights_for_date(*, definitions_dir, holidays_file, lights_file, eva
     return matched_holiday if matched_holiday is not None else default_lights_name
 
 
-def generate_holiday_dates(lights_data, holidays_data, evaluation_date):
+def evaluate_holiday_lights_dates(lights_data, holidays_data, evaluation_date):
     holiday_dates = dict()
     all_holidays = lights_data[HOLIDAYS_KEY]
-    for holiday in month_holidays:
+    for holiday in all_holidays:
         holiday_dates[holiday] = dict()
         holiday_dates[holiday][START_DAY_OF_YEAR_KEY], holiday_dates[holiday][END_DAY_OF_YEAR_KEY] = \
-            get_holiday_dates(all_holidays[holiday], evaluation_date)
+            evaluate_holiday_dates(all_holidays[holiday], holidays_data, evaluation_date)
 
     return holiday_dates
 
 
-def get_holiday_dates(holiday, evaluation_date):
-    start_day_of_year = interpret_date_expr(holiday[START_DATE_KEY], evaluation_date)
-    end_day_of_year = interpret_date_expr(holiday[END_DATE_KEY], evaluation_date)
+def evaluate_holiday_dates(holiday, holidays_data, evaluation_date):
+    start_day_of_year = interpret_date_expr(holiday[START_DATE_KEY], holidays_data, evaluation_date)
+    end_day_of_year = interpret_date_expr(holiday[END_DATE_KEY], holidays_data, evaluation_date)
 
     return start_day_of_year, end_day_of_year
 
 
-def interpret_date_expr(date_expr, evaluation_date):
+def interpret_date_expr(date_expr, holidays_data, evaluation_date):
     if date_expr[0].isdigit():
-        jdate = interpret_numeric_expr(date_expr, evaluation_date)
+        day_of_year = interpret_numeric_expr(date_expr, evaluation_date)
     else:
-        jdate = interpret_placeholder_expr(date_expr, evaluation_date)
-    return jdate
+        day_of_year = interpret_placeholder_expr(date_expr, holidays_data, evaluation_date)
+    return day_of_year
+
+
+def interpret_placeholder_expr(date_expr, holidays_data, evaluation_date):
+    delta = 0
+    placeholder_re = re.compile(r'(.*)[+-](.*)')
+
+    matches = re.match(placeholder_re, date_expr)
+    if matches is not None:
+        holiday = matches.groups()[0]
+        delta = int(matches.groups()[1])
+    else:
+        holiday = date_expr
+
+    holiday_date = holidays_data[HOLIDAYS_KEY][holiday][DAY_OF_YEAR_KEY]
+
+    day_of_year = holiday_date + delta
+
+    return day_of_year
+
 
 
 def interpret_numeric_expr(date_expr, evaluation_date):
@@ -175,9 +194,9 @@ def interpret_numeric_expr(date_expr, evaluation_date):
         else:
             raise ValueError('Date expression must be formatted, "MMDD[{+/-}delta].')
 
-    jdate = calculate_day_of_year(evaluation_date, month, day)
+    day_of_year = calculate_day_of_year(evaluation_date, month, day)
 
-    return jdate + delta
+    return day_of_year + delta
 
 
 def calculate_day_of_year(evaluation_date: datetime, evaluation_month=None, evaluation_day=None):

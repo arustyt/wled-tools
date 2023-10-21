@@ -66,6 +66,6 @@ holidays:
     lights: thanksgiving
   christmas:
     start_date: thanksgiving+1
-    end_date: newyearsday-1
+    end_date: new_years_eve
     lights: christmas
 

@@ -58,4 +58,6 @@ holidays:
       occurrence: 4
   christmas:
     date: '1225'
+  new_years_eve:
+    date: '1231'
 
