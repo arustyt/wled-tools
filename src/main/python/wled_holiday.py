@@ -1,4 +1,5 @@
 import argparse
+import calendar
 import datetime
 import re
 import sys
@@ -30,6 +31,8 @@ DATE_KEY = 'date'
 RRULE_KEY = 'rrule'
 DAY_OF_YEAR_KEY = 'day_of_year'
 
+ALL_DATES = '*'
+
 
 def main(name, args):
     arg_parser = argparse.ArgumentParser(
@@ -56,8 +59,9 @@ def main(name, args):
     arg_parser.add_argument('--verbose', help="Intermediate output will be generated in addition to result output.",
                             action='store_true')
 
-    arg_parser.add_argument("date", type=str, help="Date (YYYY-MM-DD) for which holiday lights it to be evaluated. "
-                                                   "If not specified today's date is used.",
+    arg_parser.add_argument("date", type=str, help="Date (YYYY-MM-DD) for which holiday lights it to be evaluated, "
+                                                   "unless the value is '*' which will output holidays for all days of "
+                                                   "the current year. If not specified, today's date is used.",
                             action="store", nargs='?', default=None)
 
     args = arg_parser.parse_args()
@@ -78,21 +82,44 @@ def main(name, args):
     if date_str is None:
         date_str = get_todays_date()
 
+    if date_str != ALL_DATES:
+        process_one_date(date_str, default_lights_name, definitions_dir, holidays_file, lights_file, verbose_mode)
+    else:
+        process_all_dates(default_lights_name, definitions_dir, holidays_file, lights_file)
+
+
+def process_one_date(date_str, default_lights_name, definitions_dir, holidays_file, lights_file, verbose_mode):
     try:
         evaluation_date = parse_date_string(date_str)
     except ValueError:
         raise ValueError("Invalid date format. Must be YYYY-MM-DD.")
-
     if verbose_mode:
         print("  date to process: " + str(evaluation_date))
-
     wled_lights = WledHoliday(definitions_dir=definitions_dir, holidays_file=holidays_file,
                               lights_file=lights_file, evaluation_date=evaluation_date,
                               default_lights_name=default_lights_name, verbose_mode=verbose_mode)
-
     matched_holiday = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
-
     print(matched_holiday)
+
+
+def process_all_dates(default_lights_name, definitions_dir, holidays_file, lights_file):
+    current_date = datetime.today()
+    first_day_of_year = calculate_date(current_date, 1, 1)
+    count = 365
+
+    if calendar.isleap(current_date.year):
+        count += 1
+
+    dates = list(rrule(DAILY, dtstart=first_day_of_year, count=count))
+
+    wled_lights = WledHoliday(definitions_dir=definitions_dir, holidays_file=holidays_file,
+                              lights_file=lights_file, evaluation_date=current_date,
+                              default_lights_name=default_lights_name, verbose_mode=False)
+
+    for evaluation_date in dates:
+        matched_holiday = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
+
+        print("{date}: {holiday}".format(date=evaluation_date.strftime(DATE_FORMAT), holiday=matched_holiday))
 
 
 def get_todays_date():
@@ -103,11 +130,20 @@ def parse_date_string(date_str):
     return datetime.strptime(date_str, DATE_FORMAT)
 
 
+def calculate_date(evaluation_date, evaluation_day, evaluation_month):
+    evaluation_year = evaluation_date.year
+    if evaluation_month is None:
+        evaluation_month = evaluation_date.month
+    if evaluation_day is None:
+        evaluation_day = evaluation_date.day
+    calc_date = datetime(evaluation_year, evaluation_month, evaluation_day)
+    return calc_date
+
+
 class WledHoliday:
 
     def __init__(self, *, definitions_dir, holidays_file, lights_file, evaluation_date,
-                 default_lights_name,
-                 verbose_mode):
+                 default_lights_name, verbose_mode):
         holidays_path = build_path(definitions_dir, holidays_file)
         self.holidays_data = load_yaml_file(holidays_path)
         self.evaluate_holidays(self.holidays_data, evaluation_date)
@@ -209,18 +245,9 @@ class WledHoliday:
         return day_of_year + delta
 
     def calculate_day_of_year(self, evaluation_date: datetime, evaluation_month=None, evaluation_day=None):
-        calc_date = self.calculate_date(evaluation_date, evaluation_day, evaluation_month)
+        calc_date = calculate_date(evaluation_date, evaluation_day, evaluation_month)
 
         return calc_date.timetuple().tm_yday
-
-    def calculate_date(self, evaluation_date, evaluation_day, evaluation_month):
-        evaluation_year = evaluation_date.year
-        if evaluation_month is None:
-            evaluation_month = evaluation_date.month
-        if evaluation_day is None:
-            evaluation_day = evaluation_date.day
-        calc_date = datetime(evaluation_year, evaluation_month, evaluation_day)
-        return calc_date
 
     def evaluate_holidays(self, holidays_data: dict, evaluation_date):
         holidays = holidays_data[HOLIDAYS_KEY]
@@ -238,7 +265,7 @@ class WledHoliday:
             holiday[DAY_OF_YEAR_KEY] = holiday_day_of_year
 
     def interpret_rrule(self, holiday_rrule: dict, evaluation_date):
-        first_day_of_year = self.calculate_date(evaluation_date, 1, 1)
+        first_day_of_year = calculate_date(evaluation_date, 1, 1)
         frequency = get_frequency(holiday_rrule['frequency'])
         if BY_EASTER_KEY in holiday_rrule:
             holiday_date = self.interpret_easter_rrule(frequency, holiday_rrule[BY_EASTER_KEY], first_day_of_year)
