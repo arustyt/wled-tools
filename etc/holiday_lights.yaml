@@ -21,8 +21,8 @@ holidays:
     end_date: presidents_day
     lights: presidentsday
   mardi_gras:
-    start_date: easter-40
-    end_date: easter-40
+    start_date: mardi_gras
+    end_date: mardi_gras
     lights: mardigras
   st_patricks_day:
     start_date: st_patricks_day-7
