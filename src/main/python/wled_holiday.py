@@ -11,6 +11,10 @@ from wled_utils.path_utils import build_path
 from wled_utils.rrule_utils import get_frequency, get_byweekday
 from wled_utils.yaml_multi_file_loader import load_yaml_file
 
+
+PLACEHOLDER_RE = re.compile(r'([a-zA-Z0-9_]*)([+-][1-9][0-9]*)')
+DATE_RE = re.compile(r'([0-9][0-9][0-9][0-9])([+-][1-9][0-9]*)*')
+
 BY_EASTER_KEY = 'by_easter'
 
 END_DAY_OF_YEAR_KEY = 'end_day_of_year'
@@ -144,6 +148,8 @@ class WledHoliday:
 
     def __init__(self, *, definitions_dir, holidays_file, lights_file, evaluation_date,
                  default_lights_name, verbose_mode):
+
+
         holidays_path = build_path(definitions_dir, holidays_file)
         self.holidays_data = load_yaml_file(holidays_path)
         self.evaluate_holidays(self.holidays_data, evaluation_date)
@@ -156,6 +162,7 @@ class WledHoliday:
         self.verbose_mode = verbose_mode
 
         self.holiday_dates = self.evaluate_holiday_lights_dates(evaluation_date)
+
 
     def evaluate_lights_for_date(self, evaluation_date):
 
@@ -191,18 +198,18 @@ class WledHoliday:
         return start_day_of_year, end_day_of_year
 
     def interpret_date_expr(self, date_expr, evaluation_date):
-        if date_expr[0].isdigit():
-            day_of_year = self.interpret_numeric_expr(date_expr, evaluation_date)
-        else:
+
+        day_of_year = self.interpret_numeric_expr(date_expr, evaluation_date)
+        if day_of_year is None:
             day_of_year = self.interpret_placeholder_expr(date_expr)
+
         return day_of_year
 
     def interpret_placeholder_expr(self, date_expr):
         delta = 0
         sign = 1
-        placeholder_re = re.compile(r'([a-zA-Z0-9_]*)([+-][1-9][0-9]*)')
 
-        matches = re.match(placeholder_re, date_expr)
+        matches = re.match(PLACEHOLDER_RE, date_expr)
         if matches is not None:
             holiday = matches.groups()[0]
             delta_str = matches.groups()[1]
@@ -218,31 +225,25 @@ class WledHoliday:
         return day_of_year
 
     def interpret_numeric_expr(self, date_expr, evaluation_date):
-        delta = 0
-        expr_len = len(date_expr)
-        if expr_len >= 4:
-            month = int(date_expr[0:2])
-            day = int(date_expr[2:4])
+        matches = re.match(DATE_RE, date_expr)
+        if matches is None:
+            return None
+
+        mmdd = matches.groups()[0]
+        delta_str = matches.groups()[1]
+        if delta_str is not None:
+            sign = 1 if delta_str[0] == '+' else -1
+            delta = int(delta_str[1:])
         else:
-            raise ValueError('Date expression must be formatted, "MMDD[+/-delta].')
+            sign = 1
+            delta = 0
 
-        sign = 1
-        if expr_len > 4:
-            if date_expr[4] == "+":
-                sign = 1
-            elif date_expr[4] == "-":
-                sign = -1
-            else:
-                raise ValueError('Delta operator must be "+" or "-".')
-
-            if expr_len > 5:
-                delta = sign * int(date_expr[5:])
-            else:
-                raise ValueError('Date expression must be formatted, "MMDD[{+/-}delta].')
+        month = int(mmdd[0:2])
+        day = int(mmdd[2:4])
 
         day_of_year = self.calculate_day_of_year(evaluation_date, month, day)
 
-        return day_of_year + delta
+        return day_of_year + sign * delta
 
     def calculate_day_of_year(self, evaluation_date: datetime, evaluation_month=None, evaluation_day=None):
         calc_date = calculate_date(evaluation_date, evaluation_day, evaluation_month)
