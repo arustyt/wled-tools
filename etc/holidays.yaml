@@ -21,9 +21,41 @@ holidays:
   mardi_gras:
     rrule:
       frequency: YEARLY
-      by_easter: -40
+      by_easter: -47
   st_patricks_day:
     date: '0317'
+  ash_wednesday:
+    rrule:
+      frequency: YEARLY
+      by_easter: -46
+  palm_sunday:
+    rrule:
+      frequency: YEARLY
+      by_easter: -7
+  holy_monday:
+    rrule:
+      frequency: YEARLY
+      by_easter: -6
+  holy_tuesday:
+    rrule:
+      frequency: YEARLY
+      by_easter: -5
+  holy_wednesday:
+    rrule:
+      frequency: YEARLY
+      by_easter: -4
+  maundy_thursday:
+    rrule:
+      frequency: YEARLY
+      by_easter: -3
+  good_friday:
+    rrule:
+      frequency: YEARLY
+      by_easter: -2
+  holy_saturday:
+    rrule:
+      frequency: YEARLY
+      by_easter: -1
   easter:
     rrule:
       frequency: YEARLY

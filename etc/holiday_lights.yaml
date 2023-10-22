@@ -9,12 +9,12 @@ holidays:
     end_date: martin_luther_king_jr_day
     lights: mlkday
   ground_hog_day:
-    start_date: '0202'
-    end_date: '0202'
+    start_date: ground_hog_day
+    end_date: ground_hog_day
     lights: groundhogday
   valentines_day:
-    start_date: '0214'
-    end_date: '0214'
+    start_date: valentines_day
+    end_date: valentines_day
     lights: valentinesday
   presidents_day:
     start_date: presidents_day
@@ -25,9 +25,41 @@ holidays:
     end_date: easter-40
     lights: mardigras
   st_patricks_day:
-    start_date: '0317-7'
-    end_date: '0317'
+    start_date: st_patricks_day-7
+    end_date: st_patricks_day
     lights: stpatricksday
+  lent:
+    start_date: ash_wednesday
+    end_date: holy_saturday
+    lights: ash_wednesday
+  palm_sunday:
+    start_date: palm_sunday
+    end_date: palm_sunday
+    lights: palm_sunday
+  holy_monday:
+    start_date: holy_monday
+    end_date: holy_monday
+    lights: holy_monday
+  holy_tuesday:
+    start_date: holy_tuesday
+    end_date: holy_tuesday
+    lights: holy_tuesday
+  holy_wednesday:
+    start_date: holy_wednesday
+    end_date: holy_wednesday
+    lights: holy_wednesday
+  maundy_thursday:
+    start_date: maundy_thursday
+    end_date: maundy_thursday
+    lights: maundy_thursday
+  good_friday:
+    start_date: good_friday
+    end_date: good_friday
+    lights: good_friday
+  holy_saturday:
+    start_date: holy_saturday
+    end_date: holy_saturday
+    lights: holy_saturday
   easter:
     start_date: easter-7
     end_date: easter
@@ -37,16 +69,16 @@ holidays:
     end_date: memorial_day
     lights: memorialday
   flag_day:
-    start_date: '0614'
-    end_date: '0614'
+    start_date: flag_day
+    end_date: flag_day
     lights: flagday
   juneteenth:
-    start_date: '0619'
-    end_date: '0619'
+    start_date: juneteenth
+    end_date: juneteenth
     lights: juneteenth
   4th_of_july:
-    start_date: '0704-3'
-    end_date: '0704'
+    start_date: 4th_of_july-3
+    end_date: 4th_of_july
     lights: july4th
   labor_day:
     start_date: labor_day-2
@@ -54,7 +86,7 @@ holidays:
     lights: laborday
   halloween:
     start_date: '1001'
-    end_date: '1031'
+    end_date: halloween
     lights: halloween
   veterans_day:
     start_date: veterans_day
