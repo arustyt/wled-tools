@@ -60,12 +60,13 @@ def main(name, args):
                                  "a holiday. If not specified, '" + DEFAULT_HOLIDAY_NAME +
                                  "' is used.",
                             action="store", default=DEFAULT_HOLIDAY_NAME)
+    arg_parser.add_argument('--all', help="Display all dates for entire year specified by the 'date' argument.",
+                            action='store_true')
     arg_parser.add_argument('--verbose', help="Intermediate output will be generated in addition to result output.",
                             action='store_true')
 
-    arg_parser.add_argument("date", type=str, help="Date (YYYY-MM-DD) for which holiday lights it to be evaluated, "
-                                                   "unless the value is '*' which will output holidays for all days of "
-                                                   "the current year. If not specified, today's date is used.",
+    arg_parser.add_argument("date", type=str, help="Date (YYYY-MM-DD) for which holiday lights it to be evaluated. "
+                                                   "If not specified, today's date is used.",
                             action="store", nargs='?', default=None)
 
     args = arg_parser.parse_args()
@@ -73,6 +74,7 @@ def main(name, args):
     holidays_file = args.holidays
     lights_file = args.lights
     verbose_mode = args.verbose
+    all_dates = args.all
     default_lights_name = args.default
     date_str = args.date
 
@@ -86,10 +88,10 @@ def main(name, args):
     if date_str is None:
         date_str = get_todays_date()
 
-    if date_str != ALL_DATES:
+    if not all_dates:
         process_one_date(date_str, default_lights_name, definitions_dir, holidays_file, lights_file, verbose_mode)
     else:
-        process_all_dates(default_lights_name, definitions_dir, holidays_file, lights_file)
+        process_all_dates(date_str, default_lights_name, definitions_dir, holidays_file, lights_file)
 
 
 def process_one_date(date_str, default_lights_name, definitions_dir, holidays_file, lights_file, verbose_mode):
@@ -106,18 +108,21 @@ def process_one_date(date_str, default_lights_name, definitions_dir, holidays_fi
     print(matched_holiday)
 
 
-def process_all_dates(default_lights_name, definitions_dir, holidays_file, lights_file):
-    current_date = datetime.today()
-    first_day_of_year = calculate_date(current_date, 1, 1)
+def process_all_dates(date_str, default_lights_name, definitions_dir, holidays_file, lights_file):
+    try:
+        evaluation_date = parse_date_string(date_str)
+    except ValueError:
+        raise ValueError("Invalid date format. Must be YYYY-MM-DD.")
+    first_day_of_year = calculate_date(evaluation_date, 1, 1)
     count = 365
 
-    if calendar.isleap(current_date.year):
+    if calendar.isleap(first_day_of_year.year):
         count += 1
 
     dates = list(rrule(DAILY, dtstart=first_day_of_year, count=count))
 
     wled_lights = WledHoliday(definitions_dir=definitions_dir, holidays_file=holidays_file,
-                              lights_file=lights_file, evaluation_date=current_date,
+                              lights_file=lights_file, evaluation_date=evaluation_date,
                               default_lights_name=default_lights_name, verbose_mode=False)
 
     for evaluation_date in dates:
@@ -134,7 +139,7 @@ def parse_date_string(date_str):
     return datetime.strptime(date_str, DATE_FORMAT)
 
 
-def calculate_date(evaluation_date, evaluation_day, evaluation_month):
+def calculate_date(evaluation_date: datetime, evaluation_day, evaluation_month):
     evaluation_year = evaluation_date.year
     if evaluation_month is None:
         evaluation_month = evaluation_date.month
