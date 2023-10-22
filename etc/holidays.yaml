@@ -22,6 +22,8 @@ holidays:
     rrule:
       frequency: YEARLY
       by_easter: -47
+  pi_day:
+    date: '0314'
   st_patricks_day:
     date: '0317'
   ash_wednesday:
@@ -60,6 +62,18 @@ holidays:
     rrule:
       frequency: YEARLY
       by_easter: 0
+  earth_day:
+    date: '0422'
+  arbor_day:
+    rrule:
+      frequency: YEARLY
+      month: 4
+      day_of_week: FR
+      occurrence: -1
+  star_wars_day:
+    date: '0504'
+  cinco_de_mayo:
+    date: '0505'
   memorial_day:
     rrule:
       frequency: YEARLY
