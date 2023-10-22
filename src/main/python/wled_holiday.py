@@ -2,12 +2,9 @@ import argparse
 import datetime
 import re
 import sys
-
-from dateutil.relativedelta import *
-from dateutil.easter import *
-from dateutil.rrule import *
-from dateutil.parser import *
 from datetime import *
+
+from dateutil.rrule import *
 
 from wled_utils.path_utils import build_path
 from wled_utils.rrule_utils import get_frequency, get_byweekday
@@ -35,33 +32,35 @@ DAY_OF_YEAR_KEY = 'day_of_year'
 
 
 def main(name, args):
-    parser = argparse.ArgumentParser(
+    arg_parser = argparse.ArgumentParser(
         description="Returns suffix for wled lights corresponding to provided date or today if none provided",
     )
-    parser.add_argument("--definitions_dir", type=str,
-                        help="Definition file location. Applies to holiday months and lights files. If not "
-                             "specified, '" + DEFAULT_DEFINITIONS_DIR + "' is used.",
-                        action="store", default=DEFAULT_DEFINITIONS_DIR)
-    parser.add_argument("--holidays", type=str, help="Holiday definitions file name (YAML) relative to the "
-                                                     "--definitions_dir directory. If not specified, '" +
-                                                     DEFAULT_HOLIDAYS_FILE + "' is used.",
-                        action="store", default=DEFAULT_HOLIDAYS_FILE)
-    parser.add_argument("--lights", type=str, help="WLED holiday lights definitions file-name (YAML) relative to the "
-                                                   "--definitions_dir directory. If not specified, '" +
-                                                   DEFAULT_LIGHTS_FILE + "' is used.",
-                        action="store", default=DEFAULT_LIGHTS_FILE)
-    parser.add_argument("--default", type=str, help="WLED lights name that will be used if not a provided date is not "
-                                                    "a holiday. If not specified, '" + DEFAULT_HOLIDAY_NAME +
-                                                    "' is used.",
-                        action="store", default=DEFAULT_HOLIDAY_NAME)
-    parser.add_argument('--verbose', help="Intermediate output will be generated in addition to result output.",
-                        action='store_true')
+    arg_parser.add_argument("--definitions_dir", type=str,
+                            help="Definition file location. Applies to --holidays and --lights files. If not "
+                                 "specified, '" + DEFAULT_DEFINITIONS_DIR + "' is used.",
+                            action="store", default=DEFAULT_DEFINITIONS_DIR)
+    arg_parser.add_argument("--holidays", type=str, help="Holiday definitions file name (YAML) relative to the "
+                                                         "--definitions_dir directory. If not specified, '" +
+                                                         DEFAULT_HOLIDAYS_FILE + "' is used.",
+                            action="store", default=DEFAULT_HOLIDAYS_FILE)
+    arg_parser.add_argument("--lights", type=str,
+                            help="WLED holiday lights definitions file-name (YAML) relative to the "
+                                 "--definitions_dir directory. If not specified, '" +
+                                 DEFAULT_LIGHTS_FILE + "' is used.",
+                            action="store", default=DEFAULT_LIGHTS_FILE)
+    arg_parser.add_argument("--default", type=str,
+                            help="WLED lights name that will be used if not a provided date is not "
+                                 "a holiday. If not specified, '" + DEFAULT_HOLIDAY_NAME +
+                                 "' is used.",
+                            action="store", default=DEFAULT_HOLIDAY_NAME)
+    arg_parser.add_argument('--verbose', help="Intermediate output will be generated in addition to result output.",
+                            action='store_true')
 
-    parser.add_argument("date", type=str, help="Date (YYYY-MM-DD) for which holiday lights it to be evaluated. "
-                                               "If not specified today's date is used.",
-                        action="store", nargs='?', default=None)
+    arg_parser.add_argument("date", type=str, help="Date (YYYY-MM-DD) for which holiday lights it to be evaluated. "
+                                                   "If not specified today's date is used.",
+                            action="store", nargs='?', default=None)
 
-    args = parser.parse_args()
+    args = arg_parser.parse_args()
     definitions_dir = args.definitions_dir
     holidays_file = args.holidays
     lights_file = args.lights
@@ -173,7 +172,6 @@ def interpret_placeholder_expr(date_expr, holidays_data, evaluation_date):
     return day_of_year
 
 
-
 def interpret_numeric_expr(date_expr, evaluation_date):
     delta = 0
     expr_len = len(date_expr)
@@ -227,7 +225,9 @@ def evaluate_holidays(holidays_data: dict, evaluation_date):
         elif RRULE_KEY in holiday:
             holiday_day_of_year = interpret_rrule(holiday[RRULE_KEY], evaluation_date)
         else:
-            raise ValueError("Invalid holiday specification. Must include either {date} or {rrule}".format(date=DATE_KEY, rrule=RRULE_KEY))
+            raise ValueError(
+                "Invalid holiday specification. Must include either {date} or {rrule}".format(date=DATE_KEY,
+                                                                                              rrule=RRULE_KEY))
 
         holiday[DAY_OF_YEAR_KEY] = holiday_day_of_year
 
