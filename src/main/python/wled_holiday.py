@@ -154,18 +154,21 @@ def interpret_date_expr(date_expr, holidays_data, evaluation_date):
 
 def interpret_placeholder_expr(date_expr, holidays_data, evaluation_date):
     delta = 0
-    placeholder_re = re.compile(r'(.*)[+-](.*)')
+    sign = 1
+    placeholder_re = re.compile(r'([a-zA-Z0-9_]*)([+-][1-9][0-9]*)')
 
     matches = re.match(placeholder_re, date_expr)
     if matches is not None:
         holiday = matches.groups()[0]
-        delta = int(matches.groups()[1])
+        delta_str = matches.groups()[1]
+        sign = 1 if delta_str[0] == '+' else -1
+        delta = int(delta_str[1:])
     else:
         holiday = date_expr
 
     holiday_date = holidays_data[HOLIDAYS_KEY][holiday][DAY_OF_YEAR_KEY]
 
-    day_of_year = holiday_date + delta
+    day_of_year = holiday_date + sign * delta
 
     return day_of_year
 
