@@ -255,7 +255,7 @@ def build_path(directory: str, environment: str, file_nickname: str, file_base: 
             if path.is_file():
                 return file_path
 
-    return None
+    raise ValueError("None of the candidate files exist: '{candidates}'.".format(candidates=str(candidates)))
 
 
 def get_file_name_candidates(environment: str, file_nickname: str, file_base: str):
