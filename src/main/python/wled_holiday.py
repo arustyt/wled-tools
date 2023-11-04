@@ -154,7 +154,6 @@ class WledHoliday:
     def __init__(self, *, definitions_dir, holidays_file, lights_file, evaluation_date,
                  default_lights_name, verbose_mode):
 
-
         holidays_path = build_path(definitions_dir, holidays_file)
         self.holidays_data = load_yaml_file(holidays_path)
         self.evaluate_holidays(self.holidays_data, evaluation_date)

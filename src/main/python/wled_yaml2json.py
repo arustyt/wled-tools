@@ -1,4 +1,5 @@
 import argparse
+import os
 import sys
 from pathlib import Path
 
@@ -11,6 +12,7 @@ YAML_EXTENSION = '.yaml'
 
 INDENT = '  '
 
+DEFAULT_OUTPUT_DIR = "generated"
 DEFAULT_DEFINITIONS_DIR = "../../../etc"
 DEFAULT_WLED_DIR = "."
 DEFAULT_COLORS_FILE = "colors.yaml"
@@ -74,6 +76,10 @@ def main(name, args):
                                                 "cfg file name will be determined as described above where the "
                                                 "default file base is 'cfg'.",
                         action="store", default=None)
+    parser.add_argument("--output_dir", type=str,
+                        help="Directory where generated files output. If not "
+                             "specified, '" + DEFAULT_OUTPUT_DIR + "' is used.",
+                        action="store", default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--definitions_dir", type=str,
                         help="Definition file location. Applies to effects, palettes, and colors files. If not "
                              "specified, '" + DEFAULT_DEFINITIONS_DIR + "' is used.",
@@ -129,6 +135,7 @@ def main(name, args):
     segments_option = str(args.segments) if args.segments is not None else None
     cfg_option = str(args.cfg) if args.cfg is not None else None
     definitions_dir = str(args.definitions_dir)
+    output_dir = str(args.output_dir)
     effects_file = str(args.effects)
     palettes_file = str(args.palettes)
     colors_file = str(args.colors)
@@ -141,6 +148,7 @@ def main(name, args):
     print("\nOPTION VALUES ...")
     print("  wled_dir: " + wled_dir)
     print("  definitions_dir: " + definitions_dir)
+    print("  output_dir: " + output_dir)
     print("  environment: " + str(environment))
     print("  suffix: '{suffix}'".format(suffix=suffix))
     print("  include_list: " + str(include_list))
@@ -154,6 +162,7 @@ def main(name, args):
                    presets=presets_option,
                    segments=segments_option,
                    cfg=cfg_option,
+                   output_dir=output_dir,
                    definitions_dir=definitions_dir,
                    effects=effects_file,
                    palettes=palettes_file,
@@ -172,6 +181,7 @@ def wled_yaml2json(*,
                    properties=None,
                    presets=None,
                    cfg=None,
+                   output_dir=DEFAULT_OUTPUT_DIR,
                    segments=DEFAULT_SEGMENTS_FILE_BASE,
                    effects=DEFAULT_EFFECTS_FILE,
                    palettes=DEFAULT_PALETTES_FILE,
@@ -188,7 +198,10 @@ def wled_yaml2json(*,
     if cfg is not None and presets is None:
         raise ValueError("Cannot process config file without presets file.")
 
+    os.makedirs(output_dir, exist_ok=True)
+
     effects_path = build_path(definitions_dir, environment, effects, DEFAULT_EFFECTS_FILE)
+
     palettes_path = build_path(definitions_dir, environment, palettes, DEFAULT_PALETTES_FILE)
     colors_path = build_path(definitions_dir, environment, colors, DEFAULT_COLORS_FILE)
 
@@ -212,12 +225,12 @@ def wled_yaml2json(*,
     placeholder_replacer = load_placeholder_replacer(properties_path, environment)
 
     presets_processor = PresetsFileProcessor(presets_paths, segments_path, environment, palettes_path, effects_path,
-                                             colors_path, include_list, exclude_list, deep, placeholder_replacer,
-                                             suffix, test_mode)
+                                             colors_path, include_list, exclude_list, deep, output_dir,
+                                             placeholder_replacer, suffix, test_mode)
     presets_processor.process()
     presets_data = presets_processor.get_processed_data()
 
-    cfg_processor = CfgFileProcessor(cfg_paths, presets_data, placeholder_replacer, suffix, test_mode)
+    cfg_processor = CfgFileProcessor(cfg_paths, presets_data, output_dir, placeholder_replacer, suffix, test_mode)
     cfg_processor.process()
 
 

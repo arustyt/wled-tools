@@ -13,8 +13,8 @@ from wled_utils.yaml_multi_file_loader import load_yaml_files
 class PresetsFileProcessor(WledFileProcessor):
 
     def __init__(self, presets_paths, segments_path, environment, palettes_path, effects_path, colors_path,
-                 include_list, exclude_list, deep, placeholder_replacer, suffix, test_mode):
-        super().__init__(placeholder_replacer, suffix, test_mode)
+                 include_list, exclude_list, deep, output_dir, placeholder_replacer, suffix, test_mode):
+        super().__init__(output_dir, placeholder_replacer, suffix, test_mode)
         self.presets_paths = presets_paths
         self.segments_path = segments_path
         self.environment = environment

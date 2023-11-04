@@ -8,8 +8,8 @@ from wled_utils.yaml_multi_file_loader import load_yaml_files
 
 class CfgFileProcessor(WledFileProcessor):
 
-    def __init__(self, cfg_paths, presets_data, placeholder_replacer, suffix, test_mode):
-        super().__init__(placeholder_replacer, suffix, test_mode)
+    def __init__(self, cfg_paths, presets_data, output_dir, placeholder_replacer, suffix, test_mode):
+        super().__init__(output_dir, placeholder_replacer, suffix, test_mode)
         self.cfg_paths = cfg_paths
         self.presets_data = presets_data
         self.cfg_data = None
