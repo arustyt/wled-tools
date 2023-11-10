@@ -10,6 +10,7 @@ class WledFileProcessor:
         self.suffix = suffix
         self.test_mode = test_mode
         self.output_dir = output_dir
+        self.json_file_path = None
 
     @abstractmethod
     def process(self):
@@ -42,6 +43,9 @@ class WledFileProcessor:
         print("  Renaming existing file from {file}\n                           to {backup_file}".
               format(file=file_path, backup_file=backup_file_path))
         os.rename(file_path, backup_file_path)
+
+    def get_json_file_path(self):
+        return self.json_file_path
 
 
 

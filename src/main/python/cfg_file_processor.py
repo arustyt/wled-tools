@@ -35,6 +35,7 @@ class CfgFileProcessor(WledFileProcessor):
                 print("  Generating {file}".format(file=json_file_path))
                 with open(json_file_path, "w", newline='\n') as out_file:
                     json.dump(self.cfg_data, out_file, indent=2)
+                    self.json_file_path = json_file_path
             else:
                 print("  Would have generated {file}".format(file=json_file_path))
 
