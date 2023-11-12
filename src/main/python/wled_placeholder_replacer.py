@@ -1,6 +1,7 @@
 import re
 
 from wled_data_processor import WledDataProcessor
+from wled_utils.dict_tools import drill_down_env_key
 
 PLACEHOLDER_PREFIX = '${'
 PLACEHOLDER_PREFIX_RE = '[$][{]'
@@ -48,10 +49,7 @@ class WledPlaceholderReplacer(WledDataProcessor):
         if placeholder is None or len(placeholder) == 0:
             raise ValueError("Empty placeholder encountered.")
 
-        try:  # Try with environment as prefix
-            replacement_value = self.drill_down_placeholder("{env}.{placeholder}".format(env=self.environment, placeholder=placeholder))
-        except ValueError:  # Else ignore environment
-            replacement_value = self.drill_down_placeholder(placeholder)
+        replacement_value = drill_down_env_key(self.environment, placeholder, self.placeholder_data)
 
         text_to_replace = PLACEHOLDER_PREFIX + placeholder + PLACEHOLDER_SUFFIX
         if data != text_to_replace:
@@ -60,22 +58,6 @@ class WledPlaceholderReplacer(WledDataProcessor):
             new_data = replacement_value
 
         return new_data
-
-    def drill_down_placeholder(self, placeholder):
-        placeholder_levels = placeholder.split('.')
-        current_level = self.placeholder_data
-        for placeholder_level in placeholder_levels:
-            if placeholder_level in current_level:
-                current_level = current_level[placeholder_level]
-            else:
-                raise ValueError("Placeholder not defined: {placeholder}".format(placeholder=placeholder))
-
-        if isinstance(current_level, dict):
-            raise ValueError("Placeholder resolves to a dict: {placeholder}".format(placeholder=placeholder))
-        if isinstance(current_level, list):
-            raise ValueError("Placeholder resolves to a list: {placeholder}".format(placeholder=placeholder))
-
-        return current_level
 
 
 if __name__ == '__main__':
