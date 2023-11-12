@@ -21,16 +21,22 @@ class WledFileProcessor:
         return None
 
     def get_output_file_name(self, yaml_file_name: str, suffix: str, extension: str = "json"):
-        file_base_name = yaml_file_name.replace('.yaml', '', 1)
+        path_sep = os.sep
+        dir_name = os.path.dirname(yaml_file_name)
+        file_name = os.path.basename(yaml_file_name)
+        file_base_name = file_name.split('.', 1)[0]
         if file_base_name.endswith(suffix):
-            output_file_name = '{out_dir}/{base_name}.{extension}'.format(out_dir=self.output_dir,
-                                                                          base_name=file_base_name,
-                                                                          extension=extension)
+            output_file_name = '{dir}{sep}{out_dir}{sep}{base_name}.{extension}'.format(dir=dir_name, sep=path_sep,
+                                                                                        out_dir=self.output_dir,
+                                                                                        base_name=file_base_name,
+                                                                                        extension=extension)
         else:
-            output_file_name = '{out_dir}/{base_name}{suffix}.{extension}'.format(out_dir=self.output_dir,
-                                                                                  base_name=file_base_name,
-                                                                                  suffix=suffix,
-                                                                                  extension=extension)
+            output_file_name = '{dir}{sep}{out_dir}{sep}{base_name}{suffix}.{extension}'.format(dir=dir_name,
+                                                                                                sep=path_sep,
+                                                                                                out_dir=self.output_dir,
+                                                                                                base_name=file_base_name,
+                                                                                                suffix=suffix,
+                                                                                                extension=extension)
 
         return output_file_name
 
@@ -46,6 +52,3 @@ class WledFileProcessor:
 
     def get_json_file_path(self):
         return self.json_file_path
-
-
-
