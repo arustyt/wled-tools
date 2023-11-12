@@ -7,6 +7,7 @@ from datetime import *
 
 from dateutil.rrule import *
 
+from wled_utils.date_utils import get_date_str, get_todays_date_str, parse_date_str
 from wled_utils.path_utils import build_path
 from wled_utils.rrule_utils import get_frequency, get_byweekday
 from wled_utils.yaml_multi_file_loader import load_yaml_file
@@ -24,7 +25,6 @@ END_DATE_KEY = 'end_date'
 
 HOLIDAYS_KEY = 'holidays'
 NORMALIZED_HOLIDAYS_KEY = 'normalized_holidays'
-DATE_FORMAT = '%Y-%m-%d'
 YAML_EXTENSION = '.yaml'
 INDENT = '  '
 DEFAULT_DEFINITIONS_DIR = "../../../etc"
@@ -86,7 +86,7 @@ def main(name, args):
         print("  date_str: " + str(date_str))
 
     if date_str is None:
-        date_str = get_todays_date()
+        date_str = get_todays_date_str()
 
     if not all_dates:
         process_one_date(date_str, default_lights_name, definitions_dir, holidays_file, lights_file, verbose_mode)
@@ -96,7 +96,7 @@ def main(name, args):
 
 def process_one_date(date_str, default_lights_name, definitions_dir, holidays_file, lights_file, verbose_mode):
     try:
-        evaluation_date = parse_date_string(date_str)
+        evaluation_date = parse_date_str(date_str)
     except ValueError:
         raise ValueError("Invalid date format. Must be YYYY-MM-DD.")
     if verbose_mode:
@@ -110,7 +110,7 @@ def process_one_date(date_str, default_lights_name, definitions_dir, holidays_fi
 
 def process_all_dates(date_str, default_lights_name, definitions_dir, holidays_file, lights_file):
     try:
-        evaluation_date = parse_date_string(date_str)
+        evaluation_date = parse_date_str(date_str)
     except ValueError:
         raise ValueError("Invalid date format. Must be YYYY-MM-DD.")
     first_day_of_year = calculate_date(evaluation_date, 1, 1)
@@ -128,15 +128,7 @@ def process_all_dates(date_str, default_lights_name, definitions_dir, holidays_f
     for evaluation_date in dates:
         matched_holiday = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
 
-        print("{date}: {holiday}".format(date=evaluation_date.strftime(DATE_FORMAT), holiday=matched_holiday))
-
-
-def get_todays_date():
-    return datetime.today().strftime(DATE_FORMAT)
-
-
-def parse_date_string(date_str):
-    return datetime.strptime(date_str, DATE_FORMAT)
+        print("{date}: {holiday}".format(date=get_date_str(evaluation_date), holiday=matched_holiday))
 
 
 def calculate_date(evaluation_date: datetime, evaluation_day, evaluation_month):
