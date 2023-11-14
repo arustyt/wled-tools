@@ -1,7 +1,7 @@
 import re
 
 from wled_data_processor import WledDataProcessor
-from wled_utils.dict_tools import drill_down_env_key
+from wled_utils.dict_tools import get_env_property
 
 PLACEHOLDER_PREFIX = '${'
 PLACEHOLDER_PREFIX_RE = '[$][{]'
@@ -49,7 +49,7 @@ class WledPlaceholderReplacer(WledDataProcessor):
         if placeholder is None or len(placeholder) == 0:
             raise ValueError("Empty placeholder encountered.")
 
-        replacement_value = drill_down_env_key(self.environment, placeholder, self.placeholder_data)
+        replacement_value = get_env_property(self.environment, placeholder, self.placeholder_data)
 
         text_to_replace = PLACEHOLDER_PREFIX + placeholder + PLACEHOLDER_SUFFIX
         if data != text_to_replace:

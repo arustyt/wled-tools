@@ -1,13 +1,29 @@
+def strip_property_level(key: str):
+    idx = key.find(".")
 
-
-def drill_down_env_key(env: str, key: str, dict_data: dict):
-    if env is not None and env in dict_data:
-        try:  # Try with environment as prefix
-            replacement_value = drill_down_key("{env}.{placeholder}".format(env=env, placeholder=key), dict_data)
-        except ValueError:  # Else ignore environment
-            replacement_value = drill_down_key(key, dict_data)
+    if idx != -1:
+        new_key = key[idx]
     else:
-        replacement_value = drill_down_key(key, dict_data)
+        new_key = None
+
+    return new_key
+
+
+def get_env_property(env: str, key: str, dict_data: dict):
+    return get_property("{env}.{key}".format(env=env, key=key), dict_data)
+
+    
+def get_property(key: str, dict_data: dict):
+    replacement_value = None
+    new_key = key
+    while not_found:
+        try:
+            replacement_value = drill_down_key(new_key, dict_data)
+            not_found = False
+        except ValueError:
+            new_key = strip_property_level(key)
+            if new_key is None:
+                raise ValueError("Property/sub-property not found, {key}".format(key=key))
 
     return replacement_value
 
