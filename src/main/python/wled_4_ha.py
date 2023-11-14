@@ -2,6 +2,13 @@ import argparse
 import sys
 
 from wled_utils.date_utils import get_todays_date_str
+from wled_utils.dict_tools import get_env_property
+from wled_utils.yaml_multi_file_loader import load_yaml_file
+
+DEFINITIONS_DIR_KEY = "definitions_dir"
+LIGHTS_FILE_KEY = "wled_holiday.lights_file"
+DEFAULT_LIGHTS_NAME_KEY = "wled_holiday.default_lights_name"
+HOLIDAYS_FILE_KEY = "wled_holiday.holidays_file"
 
 
 # wled_f_ha.py job_file env [date_str]
@@ -26,11 +33,23 @@ def main(name, args):
 
     print("job: " + job)
     print("env: " + env)
-    
+
     if date_str is None:
         date_str = get_todays_date_str()
 
     print("date_str: " + date_str)
+
+    job_data = load_yaml_file(job)
+
+    definitions_dir = get_env_property(env, DEFINITIONS_DIR_KEY, job_data)
+    holidays_file = get_env_property(env, HOLIDAYS_FILE_KEY, job_data)
+    lights_file = get_env_property(env, LIGHTS_FILE_KEY, job_data)
+    default_lights_name = get_env_property(env, DEFAULT_LIGHTS_NAME_KEY, job_data)
+
+    wled_dir = get_env_property(env, "wled_dir", job_data)
+
+
+
 
 
 
