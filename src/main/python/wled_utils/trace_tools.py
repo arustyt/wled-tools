@@ -3,22 +3,23 @@ from collections import deque
 
 class Tracer:
 
-    def __init__(self):
+    def __init__(self, verbose=False):
+        self.verbose = verbose
         self.function_stack = deque()
         self.indent_stack = deque()
 
-    def entering(self, function, verbose=True):
+    def entering(self, function):
         self.function_stack.append(function)
         self.indent()
 
-        if verbose:
+        if self.verbose:
             print("{indent}{prefix} Entering {function}".format(indent=self.get_indent(), prefix="{", function=".".join(self.function_stack)))
 
     def indent(self):
         self.indent_stack.append("  ")
 
-    def exiting(self, verbose=True):
-        if verbose:
+    def exiting(self):
+        if self.verbose:
             print("{indent}{prefix} Exiting {function}".format(indent=self.get_indent(), prefix="}", function=".".join(self.function_stack)))
 
         self.function_stack.pop()

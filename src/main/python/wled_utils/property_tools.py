@@ -4,10 +4,10 @@ from wled_utils.trace_tools import Tracer
 
 class PropertyEvaluator:
     
-    def __init__(self, dict_data: dict, verbose=True):
+    def __init__(self, dict_data: dict, verbose=False):
         self.dict_data = dict_data
         self.verbose = verbose
-        self.tracer = Tracer()
+        self.tracer = Tracer(verbose)
 
     def get_property(self, *key_parts: str, ):
         parts_count = len(key_parts)
@@ -75,12 +75,13 @@ class PropertyEvaluator:
         candidate_property = None
         current_level = self.dict_data
         for key_level in key_levels:
+            candidate_property = "{candidate}.{level}".format(candidate=candidate_property, level=key_level) if candidate_property is not None else key_level
             if self.verbose:
-                candidate_property = "{candidate}.{level}".format(candidate=candidate_property, level=key_level) if candidate_property is not None else key_level
                 print("{indent}   Trying {property} ... ".format(indent=self.tracer.get_indent(), property=candidate_property), end="")
             if key_level in current_level:
                 current_level = current_level[key_level]
-                print("FOUND")
+                if self.verbose:
+                    print("FOUND")
             else:
                 if start_idx + 1 < len(var_parts):
                     if self.verbose:
@@ -119,7 +120,7 @@ def main(prog_name, args):
                  "b": {"c": {"e": "something else", "d": "another thing"}},
                  "c": {"d": "last resort"}}
 
-    property_evaluator = PropertyEvaluator(test_data)
+    property_evaluator = PropertyEvaluator(test_data, True)
 
     print_result(property_evaluator.get_property("a", "b", "c.d"))
     print_result(property_evaluator.get_property("a", "c.d"))
