@@ -2,8 +2,10 @@ import argparse
 import sys
 
 from wled_utils.date_utils import get_todays_date_str
-from wled_utils.dict_tools import get_property
+from wled_utils.property_tools import PropertyEvaluator
 from wled_utils.yaml_multi_file_loader import load_yaml_file
+
+HOST_KEY = "host"
 
 WLED_HOLIDAY_KEY = "wled_holiday"
 WLED_YAML2JSON_KEY = "wled_yaml2json"
@@ -50,21 +52,23 @@ def main(name, args):
         print("date_str: " + date_str)
 
     job_data = load_yaml_file(job)
+    property_evaluator = PropertyEvaluator(job_data, False)
     section = WLED_HOLIDAY_KEY
-    definitions_dir = get_property(job_data, env, section, DEFINITIONS_DIR_KEY)
-    holidays_file = get_property(job_data, env, section, HOLIDAYS_FILE_KEY)
-    lights_file = get_property(job_data, env, section, LIGHTS_FILE_KEY)
-    default_lights_name = get_property(job_data, env, section, DEFAULT_LIGHTS_NAME_KEY)
-    wled_dir = get_property(job_data, env, section, WLED_DIR_KEY)
-    lights_file = get_property(job_data, env, section, LIGHTS_FILE_KEY)
+    definitions_dir = property_evaluator.get_property(env, section, DEFINITIONS_DIR_KEY)
+    holidays_file = property_evaluator.get_property(env, section, HOLIDAYS_FILE_KEY)
+    lights_file = property_evaluator.get_property(env, section, LIGHTS_FILE_KEY)
+    default_lights_name = property_evaluator.get_property(env, section, DEFAULT_LIGHTS_NAME_KEY)
+    wled_dir = property_evaluator.get_property(env, section, WLED_DIR_KEY)
+    host = property_evaluator.get_property(env, section, HOST_KEY)
 
     if verbose:
         print()
-        print("definitions_dir: " + definitions_dir)
-        print("holidays_file: " + holidays_file)
-        print("lights_file: " + lights_file)
-        print("default_lights_name: " + default_lights_name)
-        print("wled_dir: " + wled_dir)
+        print("definitions_dir: " + str(definitions_dir))
+        print("holidays_file: " + str(holidays_file))
+        print("lights_file: " + str(lights_file))
+        print("default_lights_name: " + str(default_lights_name))
+        print("wled_dir: " + str(wled_dir))
+        print("host: " + str(host))
 
 
 #     wled_yaml2json.py --properties properties-all.yaml --env lab_300 --wled_dir . --presets presets-sunset.yaml,presets-halloween.yaml --definitions_dir ../../wled-tools/etc --suffix halloween
