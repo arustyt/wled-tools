@@ -16,7 +16,7 @@ class Tracer:
             print("{indent}{prefix} Entering {function}".format(indent=self.get_indent(), prefix="{", function=".".join(self.function_stack)))
 
     def indent(self):
-        self.indent_stack.append("  ")
+        self.indent_stack.append("    ")
 
     def exiting(self):
         if self.verbose:

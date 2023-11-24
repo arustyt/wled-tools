@@ -17,15 +17,19 @@ class PropertyEvaluator:
         if self.verbose:
             print("\nEvaluating variable: '{var}', fixed: '{fixed}'".format(var=".".join(var_parts), fixed=".".join(fixed_parts)))
     
-        property_value, property_name = self.evaluate_without_elimination(var_parts, fixed_parts)
+        property_value, property_name = self.evaluate_with_all_var_parts(var_parts, fixed_parts)
     
         if property_value is None:
-            property_value, property_name = self.evaluate_with_elimination(var_parts, fixed_parts)
-    
+            property_value, property_name = self.evaluate_eliminating_var_parts(var_parts, fixed_parts)
+
+        if property_value is None:
+            property_value, property_name = self.evaluate_fixed_parts(fixed_parts)
+
         return property_value, property_name
 
-    def evaluate_without_elimination(self, var_parts: list, fixed_parts: list):
-        self.tracer.entering("evaluate_without_elimination")
+    def evaluate_with_all_var_parts(self, var_parts: list, fixed_parts: list):
+        if self.verbose:
+            self.tracer.entering("evaluate_without_elimination")
         try:
             property_value, property_name = self.evaluate_by_order(0, var_parts, fixed_parts)
         except ValueError:
@@ -36,7 +40,7 @@ class PropertyEvaluator:
             self.tracer.exiting()
         return property_value, property_name
 
-    def evaluate_with_elimination(self, var_parts: list, fixed_parts: list):
+    def evaluate_eliminating_var_parts(self, var_parts: list, fixed_parts: list):
         if self.verbose:
             self.tracer.entering("evaluate_with_elimination")
         property_value = None
@@ -55,6 +59,37 @@ class PropertyEvaluator:
             self.tracer.exiting()
     
         return property_value, property_name
+
+    def evaluate_fixed_parts(self, fixed_parts: list):
+        if self.verbose:
+            self.tracer.entering("evaluate_fixed_parts")
+
+        key_levels = list(fixed_parts)
+        candidate_property = None
+        current_level = self.dict_data
+        for key_level in key_levels:
+            candidate_property = "{candidate}.{level}".format(candidate=candidate_property,
+                                                              level=key_level) if candidate_property is not None else key_level
+            if self.verbose:
+                print("{indent}   Trying {property} ... ".format(indent=self.tracer.get_indent(),
+                                                                 property=candidate_property), end="")
+            if key_level in current_level:
+                current_level = current_level[key_level]
+                if self.verbose:
+                    print("FOUND")
+            else:
+                if self.verbose:
+                    print("NOT FOUND")
+
+        if self.verbose:
+            self.tracer.exiting()
+
+        if isinstance(current_level, dict):
+            raise ValueError("Property resolves to a dict: {placeholder}".format(placeholder='.'.join(key_levels)))
+        if isinstance(current_level, list):
+            raise ValueError("Property resolves to a list: {placeholder}".format(placeholder='.'.join(key_levels)))
+
+        return current_level, candidate_property
 
     def reorder_list(self, start_idx, list_data):
         start_value = list_data[start_idx]
@@ -86,9 +121,14 @@ class PropertyEvaluator:
                 if start_idx + 1 < len(var_parts):
                     if self.verbose:
                         print("NOT FOUND")
-                    property_value, property_name = self.evaluate_by_order(start_idx + 1, var_parts, fixed_parts)
-                    current_level = property_value
-                    candidate_property = property_name
+                    try:
+                        property_value, property_name = self.evaluate_by_order(start_idx + 1, var_parts, fixed_parts)
+                        current_level = property_value
+                        candidate_property = property_name
+                    except ValueError:
+                        current_level = None
+                        candidate_property = None
+                        break
                 else:
                     if self.verbose:
                         print("NOT FOUND")
@@ -118,7 +158,7 @@ def print_result(property_tuple):
 def main(prog_name, args):
     test_data = {"a": {"b": {"c": "something"}},
                  "b": {"c": {"e": "something else", "d": "another thing"}},
-                 "c": {"d": "last resort"}}
+                 "c": {"d": "last resort"}, "f": {"g": "lonesome thing"}}
 
     property_evaluator = PropertyEvaluator(test_data, True)
 
@@ -126,7 +166,11 @@ def main(prog_name, args):
     print_result(property_evaluator.get_property("a", "c.d"))
     print_result(property_evaluator.get_property("a.b.c"))
     print_result(property_evaluator.get_property("b.c.d"))
-    print_result(property_evaluator.get_property("b.c"))
+    try:
+        print_result(property_evaluator.get_property("b.c"))
+    except ValueError as ve:
+        print(str(ve))
+    print_result(property_evaluator.get_property("b", "c", "f.g"))
 
 
 if __name__ == '__main__':
