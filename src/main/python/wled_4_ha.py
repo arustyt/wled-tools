@@ -5,15 +5,17 @@ from wled_holiday import WledHoliday
 from wled_utils.date_utils import get_todays_date_str, parse_date_str
 from wled_utils.property_tools import PropertyEvaluator
 from wled_utils.yaml_multi_file_loader import load_yaml_file
+from wled_yaml2json import wled_yaml2json
+
+TEST_MODE = False
+
+PROPERTIES_FILE_KEY = "properties"
 
 HOST_KEY = "host"
-
 WLED_HOLIDAY_KEY = "wled_holiday"
 WLED_YAML2JSON_KEY = "wled_yaml2json"
 WLED_UPLOAD_KEY = "wled_upload"
-
 WLED_DIR_KEY = "wled_dir"
-
 DEFINITIONS_DIR_KEY = "definitions_dir"
 LIGHTS_FILE_KEY = "lights_file"
 DEFAULT_LIGHTS_NAME_KEY = "default_lights_name"
@@ -21,6 +23,8 @@ HOLIDAYS_FILE_KEY = "holidays_file"
 
 
 # wled_f_ha.py job_file env [date_str]
+
+
 def main(name, args):
     arg_parser = argparse.ArgumentParser(
         description="Determines and uploads appropriate lights based on env and date_str",
@@ -77,13 +81,31 @@ def main(name, args):
                               lights_file=lights_file, evaluation_date=evaluation_date,
                               default_lights_name=default_lights_name, verbose_mode=verbose)
     matched_holiday = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
-    print(matched_holiday)
 
+    if verbose:
+        print("\nmatched_holiday: " + str(matched_holiday))
 
+    properties_file = property_evaluator.get_property(env, section, PROPERTIES_FILE_KEY)
+    presets_file = build_presets_option(matched_holiday)
 
-#     wled_yaml2json.py --properties properties-all.yaml --env lab_300 --wled_dir . --presets presets-sunset.yaml,presets-halloween.yaml --definitions_dir ../../wled-tools/etc --suffix halloween
+    presets_json_path, cfg_json_path = wled_yaml2json(wled_dir=wled_dir,
+                                                      environment=env,
+                                                      properties=properties_file,
+                                                      presets=presets_file,
+                                                      definitions_dir=definitions_dir,
+                                                      suffix="-{holiday}".format(holiday=matched_holiday),
+                                                      test_mode=TEST_MODE)
+
+    if verbose:
+        print("\npresets_json_path: " + str(presets_json_path))
+        print("cfg_json_path: " + str(cfg_json_path))
+
 
 # ../../wled-tools/src/main/python/wled_upload.py --host 192.168.196.11 --presets presets-sunset-halloween-lab_300.json
+
+
+def build_presets_option(matched_holiday):
+    return "presets-sunset.yaml,presets-{holiday}.yaml".format(holiday=matched_holiday)
 
 
 if __name__ == '__main__':
