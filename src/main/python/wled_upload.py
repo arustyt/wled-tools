@@ -22,23 +22,25 @@ def main(name, args):
         print("presets_file: " + str(presets_file))
         print("cfg_file: " + str(cfg_file))
 
+    upload(host=host, presets_file=presets_file, cfg_file=cfg_file)
+
+
+def upload(*, host, presets_file=None, cfg_file=None):
     base_url = 'http://{host}'.format(host=host)
-
     file_uploaded = False
-
     if presets_file is not None:
         upload_succeeded = upload_file(base_url, presets_file, '/presets.json')
         if upload_succeeded:
             file_uploaded = True
-
     if cfg_file is not None:
         upload_succeeded = upload_file(base_url, cfg_file, '/cfg.json')
         if upload_succeeded:
             file_uploaded = True
-
     if file_uploaded:
         reset_wled(base_url)
         # reboot_wled(base_url)
+
+    return file_uploaded
 
 
 def reboot_wled(base_url):
