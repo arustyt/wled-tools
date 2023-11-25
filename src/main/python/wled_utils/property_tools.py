@@ -115,6 +115,8 @@ class PropertyEvaluator:
         candidate_property = None
         current_level = self.dict_data
         for key_level in key_levels:
+            if key_level is None:
+                continue
             candidate_property = "{candidate}.{level}".format(candidate=candidate_property, level=key_level) if candidate_property is not None else key_level
             if self.verbose:
                 print("{indent}   Trying {property} ... ".format(indent=self.tracer.get_indent(), property=candidate_property), end="")
@@ -138,15 +140,15 @@ class PropertyEvaluator:
                     if self.verbose:
                         print("NOT FOUND")
                         self.tracer.exiting()
-                    raise ValueError("Property not defined: {property}".format(property='.'.join(key_levels)))
+                    raise ValueError("Property not defined: '{property}'".format(property='.'.join(key_levels)))
     
         if self.verbose:
             self.tracer.exiting()
     
         if isinstance(current_level, dict):
-            raise ValueError("Property resolves to a dict: {placeholder}".format(placeholder='.'.join(key_levels)))
+            raise ValueError("Property resolves to a dict: '{placeholder}'".format(placeholder='.'.join(key_levels)))
         if isinstance(current_level, list):
-            raise ValueError("Property resolves to a list: {placeholder}".format(placeholder='.'.join(key_levels)))
+            raise ValueError("Property resolves to a list: '{placeholder}'".format(placeholder='.'.join(key_levels)))
     
         return current_level, candidate_property
     
