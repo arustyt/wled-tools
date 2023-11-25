@@ -2,6 +2,7 @@ import argparse
 import sys
 
 from wled_holiday import WledHoliday
+from wled_upload import upload
 from wled_utils.date_utils import get_todays_date_str, parse_date_str
 from wled_utils.property_tools import PropertyEvaluator
 from wled_utils.yaml_multi_file_loader import load_yaml_file
@@ -100,8 +101,13 @@ def main(name, args):
         print("\npresets_json_path: " + str(presets_json_path))
         print("cfg_json_path: " + str(cfg_json_path))
 
+    file_uploaded = upload(host=host, presets_file=presets_json_path)
 
-# ../../wled-tools/src/main/python/wled_upload.py --host 192.168.196.11 --presets presets-sunset-halloween-lab_300.json
+    if verbose:
+        if file_uploaded:
+            print("\nFile upload successful.")
+        else:
+           print("\nFile upload failed.")
 
 
 def build_presets_option(matched_holiday):
