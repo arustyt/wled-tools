@@ -5,10 +5,12 @@ from os.path import exists
 
 class WledFileProcessor:
 
-    def __init__(self, placeholder_replacer, suffix, test_mode):
+    def __init__(self, output_dir, placeholder_replacer, suffix, test_mode):
         self.placeholder_replacer = placeholder_replacer
         self.suffix = suffix
         self.test_mode = test_mode
+        self.output_dir = output_dir
+        self.json_file_path = None
 
     @abstractmethod
     def process(self):
@@ -19,14 +21,24 @@ class WledFileProcessor:
         return None
 
     def get_output_file_name(self, yaml_file_name: str, suffix: str, extension: str = "json"):
-        file_base_name = yaml_file_name.replace('.yaml', '', 1)
+        path_sep = os.sep
+        dir_name = os.path.dirname(yaml_file_name)
+        file_name = os.path.basename(yaml_file_name)
+        file_base_name = file_name.split('.', 1)[0]
         if file_base_name.endswith(suffix):
-            json_file_name = '{base_name}.{extension}'.format(base_name=file_base_name, extension=extension)
+            output_file_name = '{dir}{sep}{out_dir}{sep}{base_name}.{extension}'.format(dir=dir_name, sep=path_sep,
+                                                                                        out_dir=self.output_dir,
+                                                                                        base_name=file_base_name,
+                                                                                        extension=extension)
         else:
-            json_file_name = '{base_name}{suffix}.{extension}'.format(base_name=file_base_name, suffix=suffix,
-                                                                      extension=extension)
+            output_file_name = '{dir}{sep}{out_dir}{sep}{base_name}{suffix}.{extension}'.format(dir=dir_name,
+                                                                                                sep=path_sep,
+                                                                                                out_dir=self.output_dir,
+                                                                                                base_name=file_base_name,
+                                                                                                suffix=suffix,
+                                                                                                extension=extension)
 
-        return json_file_name
+        return output_file_name
 
     def rename_existing_file(self, file_path):
         backup_file_path = "{file_path}.backup".format(file_path=file_path)
@@ -38,5 +50,5 @@ class WledFileProcessor:
               format(file=file_path, backup_file=backup_file_path))
         os.rename(file_path, backup_file_path)
 
-
-
+    def get_json_file_path(self):
+        return self.json_file_path

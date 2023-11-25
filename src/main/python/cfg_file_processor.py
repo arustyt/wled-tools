@@ -3,13 +3,13 @@ from os.path import exists
 
 from wled_cfg import WledCfg
 from wled_file_processor import WledFileProcessor
-from yaml_multi_file_loader import load_yaml_files
+from wled_utils.yaml_multi_file_loader import load_yaml_files
 
 
 class CfgFileProcessor(WledFileProcessor):
 
-    def __init__(self, cfg_paths, presets_data, placeholder_replacer, suffix, test_mode):
-        super().__init__(placeholder_replacer, suffix, test_mode)
+    def __init__(self, cfg_paths, presets_data, output_dir, placeholder_replacer, suffix, test_mode):
+        super().__init__(output_dir, placeholder_replacer, suffix, test_mode)
         self.cfg_paths = cfg_paths
         self.presets_data = presets_data
         self.cfg_data = None
@@ -35,6 +35,7 @@ class CfgFileProcessor(WledFileProcessor):
                 print("  Generating {file}".format(file=json_file_path))
                 with open(json_file_path, "w", newline='\n') as out_file:
                     json.dump(self.cfg_data, out_file, indent=2)
+                    self.json_file_path = json_file_path
             else:
                 print("  Would have generated {file}".format(file=json_file_path))
 

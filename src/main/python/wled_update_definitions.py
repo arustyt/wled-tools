@@ -9,6 +9,7 @@ import yaml
 from effects import Effects
 from palettes import Palettes
 from wled_constants import EFFECTS_TAG, PALETTES_TAG
+from wled_utils.path_utils import build_path
 
 DEFAULT_DEFINITIONS_DIR = "../../../etc"
 DEFAULT_PALETTES_FILE = "palettes.yaml"
@@ -92,10 +93,6 @@ def process_palettes(palettes, device_palettes):
         i += 1
 
     return modified
-
-
-def build_path(directory, file):
-    return "{dir}/{file}".format(dir=directory, file=file) if file is not None and len(file) > 0 else None
 
 
 def backup_existing_file(file_path):

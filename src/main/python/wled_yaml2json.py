@@ -1,16 +1,18 @@
 import argparse
+import os
 import sys
 from pathlib import Path
 
 from cfg_file_processor import CfgFileProcessor
 from presets_file_processor import PresetsFileProcessor
 from wled_placeholder_replacer import WledPlaceholderReplacer
-from yaml_multi_file_loader import load_yaml_file
+from wled_utils.yaml_multi_file_loader import load_yaml_file
 
 YAML_EXTENSION = '.yaml'
 
 INDENT = '  '
 
+DEFAULT_OUTPUT_DIR = "generated"
 DEFAULT_DEFINITIONS_DIR = "../../../etc"
 DEFAULT_WLED_DIR = "."
 DEFAULT_COLORS_FILE = "colors.yaml"
@@ -74,6 +76,10 @@ def main(name, args):
                                                 "cfg file name will be determined as described above where the "
                                                 "default file base is 'cfg'.",
                         action="store", default=None)
+    parser.add_argument("--output_dir", type=str,
+                        help="Directory where generated files output. If not "
+                             "specified, '" + DEFAULT_OUTPUT_DIR + "' is used.",
+                        action="store", default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--definitions_dir", type=str,
                         help="Definition file location. Applies to effects, palettes, and colors files. If not "
                              "specified, '" + DEFAULT_DEFINITIONS_DIR + "' is used.",
@@ -118,7 +124,7 @@ def main(name, args):
                                         "options.  If neither the --include or --exclude options are present the "
                                         "--deep option will be ignored."), action='store_true')
 
-    parser.add_argument('--test', help="If the --deep processing will be performed, but no files will be saved.",
+    parser.add_argument('--test', help="Processing will be performed, but no files will be saved.",
                         action='store_true')
 
     args = parser.parse_args()
@@ -129,6 +135,7 @@ def main(name, args):
     segments_option = str(args.segments) if args.segments is not None else None
     cfg_option = str(args.cfg) if args.cfg is not None else None
     definitions_dir = str(args.definitions_dir)
+    output_dir = str(args.output_dir)
     effects_file = str(args.effects)
     palettes_file = str(args.palettes)
     colors_file = str(args.colors)
@@ -141,6 +148,7 @@ def main(name, args):
     print("\nOPTION VALUES ...")
     print("  wled_dir: " + wled_dir)
     print("  definitions_dir: " + definitions_dir)
+    print("  output_dir: " + output_dir)
     print("  environment: " + str(environment))
     print("  suffix: '{suffix}'".format(suffix=suffix))
     print("  include_list: " + str(include_list))
@@ -148,21 +156,60 @@ def main(name, args):
     print("  deep: " + str(deep))
     print("  test: " + str(test_mode))
 
+    wled_yaml2json(wled_dir=wled_dir,
+                   environment=environment,
+                   properties=properties_option,
+                   presets=presets_option,
+                   segments=segments_option,
+                   cfg=cfg_option,
+                   output_dir=output_dir,
+                   definitions_dir=definitions_dir,
+                   effects=effects_file,
+                   palettes=palettes_file,
+                   colors=colors_file,
+                   suffix=suffix,
+                   include_list=include_list,
+                   exclude_list=exclude_list,
+                   deep=deep,
+                   test_mode=test_mode)
+
+
+def wled_yaml2json(*,
+                   wled_dir=DEFAULT_WLED_DIR,
+                   definitions_dir=DEFAULT_DEFINITIONS_DIR,
+                   environment=DEFAULT_ENVIRONMENT,
+                   properties=None,
+                   presets=None,
+                   cfg=None,
+                   output_dir=DEFAULT_OUTPUT_DIR,
+                   segments=DEFAULT_SEGMENTS_FILE_BASE,
+                   effects=DEFAULT_EFFECTS_FILE,
+                   palettes=DEFAULT_PALETTES_FILE,
+                   colors=DEFAULT_COLORS_FILE,
+                   suffix=None,
+                   include_list=None,
+                   exclude_list=None,
+                   deep=False,
+                   test_mode=False):
+
     if include_list is not None and exclude_list is not None:
         raise ValueError("The --include and --exclude options are mutually exclusive and cannot both be provided.")
 
-    if cfg_option is not None and presets_option is None:
+    if cfg is not None and presets is None:
         raise ValueError("Cannot process config file without presets file.")
 
-    effects_path = build_path(definitions_dir, environment, effects_file, DEFAULT_EFFECTS_FILE)
-    palettes_path = build_path(definitions_dir, environment, palettes_file, DEFAULT_PALETTES_FILE)
-    colors_path = build_path(definitions_dir, environment, colors_file, DEFAULT_COLORS_FILE)
+    os.makedirs(output_dir, exist_ok=True)
 
-    segments_path = build_path(wled_dir, environment, segments_option, DEFAULT_SEGMENTS_FILE_BASE)
-    properties_path = build_path(wled_dir, environment, properties_option, DEFAULT_PROPERTIES_FILE_BASE)
-    presets_paths = build_path_list(wled_dir, environment, presets_option,
-                                    DEFAULT_PRESETS_FILE_BASE) if presets_option is not None else None
-    cfg_paths = build_path_list(wled_dir, environment, cfg_option, DEFAULT_CFG_FILE) if cfg_option is not None else None
+    effects_path = build_path(definitions_dir, environment, effects, DEFAULT_EFFECTS_FILE)
+
+    palettes_path = build_path(definitions_dir, environment, palettes, DEFAULT_PALETTES_FILE)
+    colors_path = build_path(definitions_dir, environment, colors, DEFAULT_COLORS_FILE)
+
+    segments_path = build_path(wled_dir, environment, segments, DEFAULT_SEGMENTS_FILE_BASE)
+    properties_path = build_path(wled_dir, environment, properties, DEFAULT_PROPERTIES_FILE_BASE)
+    presets_paths = build_path_list(wled_dir, environment, presets,
+                                    DEFAULT_PRESETS_FILE_BASE) if presets is not None else None
+    cfg_paths = build_path_list(wled_dir, environment, cfg, DEFAULT_CFG_FILE) if cfg is not None else None
 
     print("\nINPUT FILE PATHS ...")
     print("  effects_path: {path}".format(path=effects_path))
@@ -178,13 +225,17 @@ def main(name, args):
     placeholder_replacer = load_placeholder_replacer(properties_path, environment)
 
     presets_processor = PresetsFileProcessor(presets_paths, segments_path, environment, palettes_path, effects_path,
-                                             colors_path, include_list, exclude_list, deep, placeholder_replacer,
-                                             suffix, test_mode)
+                                             colors_path, include_list, exclude_list, deep, output_dir,
+                                             placeholder_replacer, suffix, test_mode)
     presets_processor.process()
     presets_data = presets_processor.get_processed_data()
+    presets_json_path = presets_processor.get_json_file_path()
 
-    cfg_processor = CfgFileProcessor(cfg_paths, presets_data, placeholder_replacer, suffix, test_mode)
+    cfg_processor = CfgFileProcessor(cfg_paths, presets_data, output_dir, placeholder_replacer, suffix, test_mode)
     cfg_processor.process()
+    cfg_json_path = cfg_processor.get_json_file_path()
+
+    return presets_json_path, cfg_json_path
 
 
 def load_placeholder_replacer(properties_path: str, environment: str):
@@ -221,7 +272,7 @@ def build_path(directory: str, environment: str, file_nickname: str, file_base: 
             if path.is_file():
                 return file_path
 
-    return None
+    raise ValueError("None of the candidate files exist: '{candidates}'.".format(candidates=str(candidates)))
 
 
 def get_file_name_candidates(environment: str, file_nickname: str, file_base: str):

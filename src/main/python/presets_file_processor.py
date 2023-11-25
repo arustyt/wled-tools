@@ -7,14 +7,14 @@ from presets_exclude_filter import PresetsExcludeFilter
 from presets_include_filter import PresetsIncludeFilter
 from wled_file_processor import WledFileProcessor
 from wled_presets import WledPresets
-from yaml_multi_file_loader import load_yaml_files
+from wled_utils.yaml_multi_file_loader import load_yaml_files
 
 
 class PresetsFileProcessor(WledFileProcessor):
 
     def __init__(self, presets_paths, segments_path, environment, palettes_path, effects_path, colors_path,
-                 include_list, exclude_list, deep, placeholder_replacer, suffix, test_mode):
-        super().__init__(placeholder_replacer, suffix, test_mode)
+                 include_list, exclude_list, deep, output_dir, placeholder_replacer, suffix, test_mode):
+        super().__init__(output_dir, placeholder_replacer, suffix, test_mode)
         self.presets_paths = presets_paths
         self.segments_path = segments_path
         self.environment = environment
@@ -72,6 +72,7 @@ class PresetsFileProcessor(WledFileProcessor):
                 print("  Generating {file}".format(file=json_file_path))
                 with open(json_file_path, "w", newline='\n') as out_file:
                     json.dump(self.presets_data, out_file, indent=2)
+                    self.json_file_path = json_file_path
             else:
                 print("  Would have generated {file}".format(file=json_file_path))
 
