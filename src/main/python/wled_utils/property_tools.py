@@ -10,6 +10,11 @@ class PropertyEvaluator:
         self.tracer = Tracer(verbose)
 
     def get_property(self, *key_parts: str, ):
+        property_value, property_name = self.get_property_tuple(*key_parts)
+
+        return property_value
+
+    def get_property_tuple(self, *key_parts: str, ):
         parts_count = len(key_parts)
         var_parts = list(key_parts[0:parts_count - 1])
         fixed_parts = list(key_parts[parts_count - 1].split('.'))
@@ -162,15 +167,15 @@ def main(prog_name, args):
 
     property_evaluator = PropertyEvaluator(test_data, True)
 
-    print_result(property_evaluator.get_property("a", "b", "c.d"))
-    print_result(property_evaluator.get_property("a", "c.d"))
-    print_result(property_evaluator.get_property("a.b.c"))
-    print_result(property_evaluator.get_property("b.c.d"))
+    print_result(property_evaluator.get_property_tuple("a", "b", "c.d"))
+    print_result(property_evaluator.get_property_tuple("a", "c.d"))
+    print_result(property_evaluator.get_property_tuple("a.b.c"))
+    print_result(property_evaluator.get_property_tuple("b.c.d"))
     try:
-        print_result(property_evaluator.get_property("b.c"))
+        print_result(property_evaluator.get_property_tuple("b.c"))
     except ValueError as ve:
         print(str(ve))
-    print_result(property_evaluator.get_property("b", "c", "f.g"))
+    print_result(property_evaluator.get_property_tuple("b", "c", "f.g"))
 
 
 if __name__ == '__main__':

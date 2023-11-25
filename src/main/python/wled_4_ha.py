@@ -55,29 +55,30 @@ def main(name, args):
     job_data = load_yaml_file(job)
     property_evaluator = PropertyEvaluator(job_data, False)
     section = WLED_HOLIDAY_KEY
-    definitions_dir_tuple = property_evaluator.get_property(env, section, DEFINITIONS_DIR_KEY)
-    holidays_file_tuple = property_evaluator.get_property(env, section, HOLIDAYS_FILE_KEY)
-    lights_file_tuple = property_evaluator.get_property(env, section, LIGHTS_FILE_KEY)
-    default_lights_name_tuple = property_evaluator.get_property(env, section, DEFAULT_LIGHTS_NAME_KEY)
-    wled_dir_tuple = property_evaluator.get_property(env, section, WLED_DIR_KEY)
-    host_tuple = property_evaluator.get_property(env, section, HOST_KEY)
+    definitions_dir = property_evaluator.get_property(env, section, DEFINITIONS_DIR_KEY)
+    holidays_file = property_evaluator.get_property(env, section, HOLIDAYS_FILE_KEY)
+    lights_file = property_evaluator.get_property(env, section, LIGHTS_FILE_KEY)
+    default_lights_name = property_evaluator.get_property(env, section, DEFAULT_LIGHTS_NAME_KEY)
+    host = property_evaluator.get_property(env, section, HOST_KEY)
+    wled_dir = property_evaluator.get_property(env, section, WLED_DIR_KEY)
 
     if verbose:
         print()
-        print("definitions_dir_tuple: " + str(definitions_dir_tuple))
-        print("holidays_file_tuple: " + str(holidays_file_tuple))
-        print("lights_file_tuple: " + str(lights_file_tuple))
-        print("default_lights_name_tuple: " + str(default_lights_name_tuple))
-        print("wled_dir_tuple: " + str(wled_dir_tuple))
-        print("host_tuple: " + str(host_tuple))
+        print("definitions_dir: " + str(definitions_dir))
+        print("holidays_file: " + str(holidays_file))
+        print("lights_file: " + str(lights_file))
+        print("default_lights_name: " + str(default_lights_name))
+        print("wled_dir: " + str(wled_dir))
+        print("host: " + str(host))
 
     evaluation_date = parse_date_str(date_str)
 
-    wled_lights = WledHoliday(definitions_dir=definitions_dir_tuple[0], holidays_file=holidays_file_tuple[0],
-                              lights_file=lights_file_tuple[0], evaluation_date=evaluation_date,
-                              default_lights_name=default_lights_name_tuple[0], verbose_mode=verbose)
+    wled_lights = WledHoliday(definitions_dir=definitions_dir, holidays_file=holidays_file,
+                              lights_file=lights_file, evaluation_date=evaluation_date,
+                              default_lights_name=default_lights_name, verbose_mode=verbose)
     matched_holiday = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
     print(matched_holiday)
+
 
 
 #     wled_yaml2json.py --properties properties-all.yaml --env lab_300 --wled_dir . --presets presets-sunset.yaml,presets-halloween.yaml --definitions_dir ../../wled-tools/etc --suffix halloween
