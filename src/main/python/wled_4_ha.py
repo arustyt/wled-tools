@@ -51,8 +51,13 @@ def main(name, args):
     date_str = args.date_str
     verbose = args.verbose
 
-    process_successful = False
+    process_successful = wled_4_ha(job=job, env=env, date_str=date_str, verbose=verbose)
 
+    return 0 if process_successful else 1
+
+
+def wled_4_ha(*, job, env, date_str=None, verbose=False):
+    process_successful = False
     try:
         if date_str is None:
             date_str = get_todays_date_str()
@@ -95,7 +100,8 @@ def main(name, args):
         properties_file = property_evaluator.get_property(env, section, PROPERTIES_FILE_KEY)
         presets_file = build_presets_option(matched_holiday)
 
-        presets_json_path = test_presets(definitions_dir, env, matched_holiday, presets_file, properties_file, wled_dir, verbose)
+        presets_json_path = test_presets(definitions_dir, env, matched_holiday, presets_file, properties_file, wled_dir,
+                                         verbose)
 
         if need_to_generate_presets(wled_dir, matched_holiday, presets_json_path):
             presets_json_path = generate_presets(definitions_dir, env, matched_holiday, presets_file, properties_file,
@@ -108,8 +114,7 @@ def main(name, args):
     except Exception as ex:
         if verbose:
             print(ex)
-
-    return 0 if process_successful else 1
+    return process_successful
 
 
 def test_presets(definitions_dir, env, matched_holiday, presets_file, properties_file, wled_dir, verbose: bool):
