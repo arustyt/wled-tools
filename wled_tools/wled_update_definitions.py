@@ -6,8 +6,8 @@ from os.path import exists
 import requests
 import yaml
 
-from effects import Effects
-from palettes import Palettes
+from definition_files.effects import Effects
+from definition_files.palettes import Palettes
 from wled_constants import EFFECTS_TAG, PALETTES_TAG
 from wled_utils.path_utils import build_path
 

@@ -1,11 +1,11 @@
 import json
 import sys
 
-from colors import Colors
-from effects import Effects
-from palettes import Palettes
+from data_files.segments import Segments
+from definition_files.colors import Colors
+from definition_files.effects import Effects
+from definition_files.palettes import Palettes
 from presets import Presets
-from segments import Segments
 from wled_constants import SEGMENTS_FILE_TAG, SEGMENT_TAG, COLOR_TAG, SEGMENT_NAME_TAG, PALETTE_NAME_TAG, \
     EFFECT_NAME_TAG, PALETTE_TAG, EFFECT_TAG, ID_TAG, PRESET_KEY, STOP_TAG, DEFAULTS, PRESET_DEFAULTS, SEGMENT_DEFAULTS
 from wled_data_processor import WledDataProcessor

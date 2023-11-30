@@ -1,8 +1,8 @@
-from dateutil.relativedelta import *
-from dateutil.easter import *
-from dateutil.rrule import *
-from dateutil.parser import *
 from datetime import *
+
+from dateutil.easter import *
+from dateutil.relativedelta import *
+from dateutil.rrule import *
 
 from wled_utils.rrule_utils import get_byweekday, get_frequency
 
