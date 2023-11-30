@@ -13,8 +13,8 @@ from wled_utils.yaml_multi_file_loader import load_yaml_files
 class PresetsFileProcessor(WledFileProcessor):
 
     def __init__(self, presets_paths, segments_path, environment, palettes_path, effects_path, colors_path,
-                 include_list, exclude_list, deep, output_dir, placeholder_replacer, suffix, test_mode):
-        super().__init__(output_dir, placeholder_replacer, suffix, test_mode)
+                 include_list, exclude_list, deep, output_dir, placeholder_replacer, suffix, test_mode, quiet_mode):
+        super().__init__(output_dir, placeholder_replacer, suffix, test_mode, quiet_mode)
         self.presets_paths = presets_paths
         self.segments_path = segments_path
         self.environment = environment
@@ -28,9 +28,11 @@ class PresetsFileProcessor(WledFileProcessor):
 
     def process(self):
         if self.presets_paths is not None:
-            print("\nPROCESSING PRESETS ...")
+            if not self.quiet_mode:
+                print("\nPROCESSING PRESETS ...")
             wled_presets = WledPresets(self.colors_path, self.palettes_path, self.effects_path)
-            print("  Processing {file}".format(file=self.presets_paths))
+            if not self.quiet_mode:
+                print("  Processing {file}".format(file=self.presets_paths))
 
             raw_presets_data = load_yaml_files(self.presets_paths)
 
@@ -49,11 +51,13 @@ class PresetsFileProcessor(WledFileProcessor):
                                                                   if self.environment is not None else ""),
                                                            'yaml')
                 if not self.test_mode:
-                    print("  Saving merged YAML to {file}".format(file=yaml_file_path))
+                    if not self.quiet_mode:
+                        print("  Saving merged YAML to {file}".format(file=yaml_file_path))
                     with open(yaml_file_path, "w", newline='\n') as out_file:
                         yaml.dump(self.presets_data, out_file, indent=2)
                 else:
-                    print("  Would have saved merged YAML to {file}".format(file=yaml_file_path))
+                    if not self.quiet_mode:
+                        print("  Would have saved merged YAML to {file}".format(file=yaml_file_path))
 
             if self.include_list is not None:
                 include_filter = PresetsIncludeFilter(self.presets_data, self.deep)
@@ -69,12 +73,14 @@ class PresetsFileProcessor(WledFileProcessor):
             if not self.test_mode:
                 if exists(self.json_file_path):
                     self.rename_existing_file(self.json_file_path)
-                print("  Generating {file}".format(file=self.json_file_path))
+                if not self.quiet_mode:
+                    print("  Generating {file}".format(file=self.json_file_path))
                 with open(self.json_file_path, "w", newline='\n') as out_file:
                     json.dump(self.presets_data, out_file, indent=2)
                     self.json_file_path = self.json_file_path
             else:
-                print("  Would have generated {file}".format(file=self.json_file_path))
+                if not self.quiet_mode:
+                    print("  Would have generated {file}".format(file=self.json_file_path))
 
     def get_processed_data(self):
         return self.presets_data

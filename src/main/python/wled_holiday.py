@@ -105,7 +105,6 @@ def process_one_date(date_str, default_lights_name, definitions_dir, holidays_fi
                               lights_file=lights_file, evaluation_date=evaluation_date,
                               default_lights_name=default_lights_name, verbose_mode=verbose_mode)
     matched_holiday = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
-    print(matched_holiday)
 
 
 def process_all_dates(date_str, default_lights_name, definitions_dir, holidays_file, lights_file):
@@ -158,7 +157,6 @@ class WledHoliday:
         self.verbose_mode = verbose_mode
 
         self.holiday_dates = self.evaluate_holiday_lights_dates(evaluation_date)
-
 
     def evaluate_lights_for_date(self, evaluation_date):
 

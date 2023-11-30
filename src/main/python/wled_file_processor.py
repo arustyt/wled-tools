@@ -5,10 +5,11 @@ from os.path import exists
 
 class WledFileProcessor:
 
-    def __init__(self, output_dir, placeholder_replacer, suffix, test_mode):
+    def __init__(self, output_dir, placeholder_replacer, suffix, test_mode, quiet_mode):
         self.placeholder_replacer = placeholder_replacer
         self.suffix = suffix
         self.test_mode = test_mode
+        self.quiet_mode = quiet_mode
         self.output_dir = output_dir
         self.json_file_path = None
 
@@ -43,11 +44,13 @@ class WledFileProcessor:
     def rename_existing_file(self, file_path):
         backup_file_path = "{file_path}.backup".format(file_path=file_path)
         if exists(backup_file_path):
-            print("  Removing existing backup file: {file}".format(file=backup_file_path))
+            if not self.quiet_mode:
+                print("  Removing existing backup file: {file}".format(file=backup_file_path))
             os.remove(backup_file_path)
 
-        print("  Renaming existing file from {file}\n                           to {backup_file}".
-              format(file=file_path, backup_file=backup_file_path))
+        if not self.quiet_mode:
+            print("  Renaming existing file from {file}\n                           to {backup_file}".
+                  format(file=file_path, backup_file=backup_file_path))
         os.rename(file_path, backup_file_path)
 
     def get_json_file_path(self):
