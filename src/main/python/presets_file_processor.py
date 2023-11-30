@@ -62,19 +62,19 @@ class PresetsFileProcessor(WledFileProcessor):
                 exclude_filter = PresetsExcludeFilter(self.presets_data, self.deep)
                 self.presets_data = exclude_filter.apply(self.exclude_list)
 
-            json_file_path = self.get_output_file_name(self.presets_paths[0],
-                                                       "{suffix}{env}".format(suffix=self.suffix,
-                                                                              env="-" + self.environment
-                                                                              if self.environment is not None else ""))
+            self.json_file_path = self.get_output_file_name(self.presets_paths[0],
+                                                            "{suffix}{env}".format(suffix=self.suffix,
+                                                                                   env="-" + self.environment
+                                                                                   if self.environment is not None else ""))
             if not self.test_mode:
-                if exists(json_file_path):
-                    self.rename_existing_file(json_file_path)
-                print("  Generating {file}".format(file=json_file_path))
-                with open(json_file_path, "w", newline='\n') as out_file:
+                if exists(self.json_file_path):
+                    self.rename_existing_file(self.json_file_path)
+                print("  Generating {file}".format(file=self.json_file_path))
+                with open(self.json_file_path, "w", newline='\n') as out_file:
                     json.dump(self.presets_data, out_file, indent=2)
-                    self.json_file_path = json_file_path
+                    self.json_file_path = self.json_file_path
             else:
-                print("  Would have generated {file}".format(file=json_file_path))
+                print("  Would have generated {file}".format(file=self.json_file_path))
 
     def get_processed_data(self):
         return self.presets_data

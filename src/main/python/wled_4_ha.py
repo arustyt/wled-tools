@@ -1,4 +1,5 @@
 import argparse
+import os
 import sys
 
 from wled_holiday import WledHoliday
@@ -8,7 +9,8 @@ from wled_utils.property_tools import PropertyEvaluator
 from wled_utils.yaml_multi_file_loader import load_yaml_file
 from wled_yaml2json import wled_yaml2json
 
-TEST_MODE = False
+PROD_MODE = False
+TEST_MODE = True
 
 PROPERTIES_FILE_KEY = "properties"
 
@@ -89,6 +91,18 @@ def main(name, args):
     properties_file = property_evaluator.get_property(env, section, PROPERTIES_FILE_KEY)
     presets_file = build_presets_option(matched_holiday)
 
+    presets_json_path = test_presets(definitions_dir, env, matched_holiday, presets_file, properties_file, wled_dir)
+
+    if need_to_generate_presets(wled_dir, matched_holiday, presets_json_path):
+        presets_json_path = generate_presets(definitions_dir, env, matched_holiday, presets_file, properties_file,
+                                             verbose, wled_dir)
+    else:
+        print("\n{file} is up-to-date.".format(file=presets_json_path))
+
+    upload_presets(host, presets_json_path, verbose)
+
+
+def test_presets(definitions_dir, env, matched_holiday, presets_file, properties_file, wled_dir):
     presets_json_path, cfg_json_path = wled_yaml2json(wled_dir=wled_dir,
                                                       environment=env,
                                                       properties=properties_file,
@@ -96,22 +110,63 @@ def main(name, args):
                                                       definitions_dir=definitions_dir,
                                                       suffix="-{holiday}".format(holiday=matched_holiday),
                                                       test_mode=TEST_MODE)
+    return presets_json_path
 
-    if verbose:
-        print("\npresets_json_path: " + str(presets_json_path))
-        print("cfg_json_path: " + str(cfg_json_path))
 
+def upload_presets(host, presets_json_path, verbose):
     file_uploaded = upload(host=host, presets_file=presets_json_path)
-
     if verbose:
         if file_uploaded:
             print("\nFile upload successful.")
         else:
-           print("\nFile upload failed.")
+            print("\nFile upload failed.")
 
 
-def build_presets_option(matched_holiday):
-    return "presets-sunset.yaml,presets-{holiday}.yaml".format(holiday=matched_holiday)
+def generate_presets(definitions_dir, env, matched_holiday, presets_file, properties_file, verbose, wled_dir):
+    presets_json_path, cfg_json_path = wled_yaml2json(wled_dir=wled_dir,
+                                                      environment=env,
+                                                      properties=properties_file,
+                                                      presets=presets_file,
+                                                      definitions_dir=definitions_dir,
+                                                      suffix="-{holiday}".format(holiday=matched_holiday),
+                                                      test_mode=PROD_MODE)
+    if verbose:
+        print("\npresets_json_path: " + str(presets_json_path))
+        print("cfg_json_path: " + str(cfg_json_path))
+
+    return presets_json_path
+
+
+def build_presets_option(holiday):
+    presets_files = get_presets_files(holiday)
+    return ",".join(presets_files)
+
+
+def get_presets_files(holiday):
+    return ["presets-sunset.yaml", "presets-{holiday}.yaml".format(holiday=holiday)]
+
+
+def need_to_generate_presets(wled_dir, holiday, presets_json):
+    presets_files = get_presets_files(holiday)
+    presets_paths = []
+
+    for presets_yaml in presets_files:
+        presets_path = "{dir}/{file}".format(dir=wled_dir, file=presets_yaml)
+        presets_paths.append(presets_path)
+        if not os.path.exists(presets_path):
+            raise ValueError('File "{path}" does not exist.'.format(path=presets_path))
+
+    if not os.path.exists(presets_json):
+        return True
+
+    presets_json_mtime = os.stat(presets_json).st_mtime
+
+    for presets_yaml in presets_paths:
+        presets_yaml_mtime = os.stat(presets_yaml).st_mtime
+        if presets_json_mtime <= presets_yaml_mtime:
+            return True
+
+    return False
 
 
 if __name__ == '__main__':

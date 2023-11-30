@@ -47,7 +47,7 @@ def reboot_wled(base_url):
     url = '{base_url}/settings/sec?'.format(base_url=base_url)
     payload = 'OP=&AO=on&data=&data2='
     cookies = {'Content-Type': 'application/x-www-form-urlencoded'}
-    print("Initiating reboot ... ", end='')
+    print("\nInitiating reboot ... ", end='')
 
     try:
         reboot_response = requests.post(url, data=payload, cookies=cookies)
@@ -83,7 +83,7 @@ def upload_file(base_url, src_file_name, dst_file_name):
     presets_files = {'file': (dst_file_name, open(src_file_name, 'rb'), 'application/json', {'name': 'data'})}
 
     result = False
-    print("Uploading {file} ... ".format(file=src_file_name), end='')
+    print("\nUploading {file} ... ".format(file=src_file_name), end='')
     try:
         upload_response = requests.post(url, files=presets_files)
         if upload_response.ok:
