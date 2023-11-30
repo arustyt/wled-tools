@@ -1,0 +1,12 @@
+definitions_dir: ../../../../wled-config/etc
+wled_dir: ../../../../wled-config/presets
+wled_holiday:
+    holidays_file: holidays.yaml
+    lights_file: holiday_lights.yaml
+    default_lights_name: normal_night
+properties: properties-all.yaml
+lab_300:
+    host: 192.168.196.11
+roof:
+    host: 192.168.196.10
+
