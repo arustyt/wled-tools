@@ -1,6 +1,6 @@
-from decision_maker import DecisionMaker
+from definition_files.decision_maker import DecisionMaker
+from definition_files.wled_definitions import WledDefinitions
 from wled_constants import PALETTES_TAG
-from wled_definitions import WledDefinitions
 
 
 class Palettes(WledDefinitions):

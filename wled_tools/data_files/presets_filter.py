@@ -1,6 +1,6 @@
 from abc import abstractmethod
 
-from presets import Presets
+from data_files.presets import Presets
 
 PLAYLIST_TAG = 'playlist'
 PLAYLIST_PRESETS_TAG = 'ps'

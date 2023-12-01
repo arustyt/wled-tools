@@ -4,7 +4,6 @@ import sys
 from pprint import pprint
 
 import requests
-# import jsondiff
 import yaml
 from deepdiff import DeepDiff
 

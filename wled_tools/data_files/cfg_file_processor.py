@@ -1,8 +1,8 @@
 import json
 from os.path import exists
 
-from wled_cfg import WledCfg
-from wled_file_processor import WledFileProcessor
+from data_files.wled_cfg import WledCfg
+from data_files.wled_file_processor import WledFileProcessor
 from wled_utils.yaml_multi_file_loader import load_yaml_files
 
 

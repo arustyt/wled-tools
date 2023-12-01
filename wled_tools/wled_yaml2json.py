@@ -3,9 +3,9 @@ import os
 import sys
 from pathlib import Path
 
-from cfg_file_processor import CfgFileProcessor
-from presets_file_processor import PresetsFileProcessor
-from wled_placeholder_replacer import WledPlaceholderReplacer
+from data_files.cfg_file_processor import CfgFileProcessor
+from data_files.presets_file_processor import PresetsFileProcessor
+from data_files.wled_placeholder_replacer import WledPlaceholderReplacer
 from wled_utils.yaml_multi_file_loader import load_yaml_file
 
 YAML_EXTENSION = '.yaml'
@@ -13,8 +13,8 @@ YAML_EXTENSION = '.yaml'
 INDENT = '  '
 
 DEFAULT_OUTPUT_DIR = "generated"
-DEFAULT_DEFINITIONS_DIR = "../../../etc"
-DEFAULT_WLED_DIR = "."
+DEFAULT_DEFINITIONS_DIR = "../../wled_config/etc"
+DEFAULT_WLED_DIR = "../../wled_config/presets"
 DEFAULT_COLORS_FILE = "colors.yaml"
 DEFAULT_PALETTES_FILE = "palettes.yaml"
 DEFAULT_EFFECTS_FILE = "effects.yaml"

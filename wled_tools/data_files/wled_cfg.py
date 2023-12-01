@@ -1,8 +1,8 @@
 import json
 import sys
 
-from presets import Presets
-from wled_data_processor import WledDataProcessor
+from data_files.presets import Presets
+from data_files.wled_data_processor import WledDataProcessor
 
 DEFAULT_PRESET_PATH = 'def.ps'
 

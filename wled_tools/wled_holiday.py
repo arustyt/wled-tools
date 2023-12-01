@@ -12,7 +12,6 @@ from wled_utils.path_utils import build_path
 from wled_utils.rrule_utils import get_frequency, get_byweekday
 from wled_utils.yaml_multi_file_loader import load_yaml_file
 
-
 PLACEHOLDER_RE = re.compile(r'([a-zA-Z0-9_]*)([+-][1-9][0-9]*)')
 DATE_RE = re.compile(r'([0-9][0-9][0-9][0-9])([+-][1-9][0-9]*)*')
 

@@ -3,8 +3,8 @@ from collections import OrderedDict
 
 import yaml
 
-from decision_maker import DecisionMaker, DECISION_UPDATE, DECISION_REPLACE, DECISION_REPLACE_NAME, DECISION_CREATE, \
-    DECISION_REPLACE_NAME_WITH_ALIAS
+from definition_files.decision_maker import DecisionMaker, DECISION_UPDATE, DECISION_REPLACE, DECISION_REPLACE_NAME, \
+    DECISION_REPLACE_NAME_WITH_ALIAS, DECISION_CREATE
 from wled_constants import NAME_TAG, ID_TAG, DESCRIPTION_TAG, ALIASES_TAG
 
 
