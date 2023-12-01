@@ -2,6 +2,8 @@ import argparse
 import os
 import sys
 
+from wled_constants import WLED_HOLIDAY_KEY, DEFINITIONS_DIR_KEY, HOLIDAYS_FILE_KEY, LIGHTS_FILE_KEY, \
+    DEFAULT_LIGHTS_NAME_KEY, HOST_KEY, WLED_DIR_KEY
 from wled_holiday import WledHoliday
 from wled_upload import upload
 from wled_utils.date_utils import get_todays_date_str, parse_date_str
@@ -14,17 +16,6 @@ TEST_MODE = True
 QUIET_MODE = True
 
 PROPERTIES_FILE_KEY = "properties"
-
-HOST_KEY = "host"
-WLED_HOLIDAY_KEY = "wled_holiday"
-WLED_YAML2JSON_KEY = "wled_yaml2json"
-WLED_UPLOAD_KEY = "wled_upload"
-WLED_DIR_KEY = "wled_dir"
-DEFINITIONS_DIR_KEY = "definitions_dir"
-LIGHTS_FILE_KEY = "lights_file"
-DEFAULT_LIGHTS_NAME_KEY = "default_lights_name"
-HOLIDAYS_FILE_KEY = "holidays_file"
-
 
 # wled_f_ha.py job_file env [date_str]
 

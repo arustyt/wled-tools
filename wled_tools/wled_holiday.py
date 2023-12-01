@@ -7,6 +7,8 @@ from datetime import *
 
 from dateutil.rrule import *
 
+from wled_constants import DEFAULT_DEFINITIONS_DIR, DEFAULT_HOLIDAYS_FILE, DEFAULT_LIGHTS_FILE, DEFAULT_HOLIDAY_NAME, \
+    HOLIDAYS_KEY, DATE_KEY, RRULE_KEY, DAY_OF_YEAR_KEY
 from wled_utils.date_utils import get_date_str, get_todays_date_str, parse_date_str
 from wled_utils.path_utils import build_path
 from wled_utils.rrule_utils import get_frequency, get_byweekday
@@ -21,19 +23,6 @@ END_DAY_OF_YEAR_KEY = 'end_day_of_year'
 START_DAY_OF_YEAR_KEY = 'start_day_of_year'
 START_DATE_KEY = 'start_date'
 END_DATE_KEY = 'end_date'
-
-HOLIDAYS_KEY = 'holidays'
-NORMALIZED_HOLIDAYS_KEY = 'normalized_holidays'
-YAML_EXTENSION = '.yaml'
-INDENT = '  '
-DEFAULT_DEFINITIONS_DIR = "../../../etc"
-DEFAULT_HOLIDAYS_FILE = "holidays.yaml"
-DEFAULT_LIGHTS_FILE = "holiday_lights.yaml"
-DEFAULT_HOLIDAY_NAME = "normal"
-DATE_KEY = 'date'
-RRULE_KEY = 'rrule'
-DAY_OF_YEAR_KEY = 'day_of_year'
-
 ALL_DATES = '*'
 
 
@@ -56,8 +45,7 @@ def main(name, args):
                             action="store", default=DEFAULT_LIGHTS_FILE)
     arg_parser.add_argument("--default", type=str,
                             help="WLED lights name that will be used if not a provided date is not "
-                                 "a holiday. If not specified, '" + DEFAULT_HOLIDAY_NAME +
-                                 "' is used.",
+                                 "a holiday. If not specified, '" + DEFAULT_HOLIDAY_NAME + "' is used.",
                             action="store", default=DEFAULT_HOLIDAY_NAME)
     arg_parser.add_argument('--all', help="Display all dates for entire year specified by the 'date' argument.",
                             action='store_true')
@@ -100,10 +88,14 @@ def process_one_date(date_str, default_lights_name, definitions_dir, holidays_fi
         raise ValueError("Invalid date format. Must be YYYY-MM-DD.")
     if verbose_mode:
         print("  date to process: " + str(evaluation_date))
+
     wled_lights = WledHoliday(definitions_dir=definitions_dir, holidays_file=holidays_file,
                               lights_file=lights_file, evaluation_date=evaluation_date,
                               default_lights_name=default_lights_name, verbose_mode=verbose_mode)
     matched_holiday = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
+
+    if verbose_mode:
+        print("\n  Matched Holiday: " + str(matched_holiday))
 
 
 def process_all_dates(date_str, default_lights_name, definitions_dir, holidays_file, lights_file):

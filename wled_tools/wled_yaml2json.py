@@ -6,24 +6,10 @@ from pathlib import Path
 from data_files.cfg_file_processor import CfgFileProcessor
 from data_files.presets_file_processor import PresetsFileProcessor
 from data_files.wled_placeholder_replacer import WledPlaceholderReplacer
+from wled_constants import DEFAULT_WLED_DIR, DEFAULT_ENVIRONMENT, DEFAULT_SEGMENTS_FILE_BASE, DEFAULT_PROPERTIES_FILE, \
+    DEFAULT_OUTPUT_DIR, DEFAULT_DEFINITIONS_DIR, DEFAULT_EFFECTS_FILE, DEFAULT_PALETTES_FILE, DEFAULT_COLORS_FILE, \
+    DEFAULT_PROPERTIES_FILE_BASE, DEFAULT_PRESETS_FILE_BASE, DEFAULT_CFG_FILE_BASE, YAML_EXTENSION
 from wled_utils.yaml_multi_file_loader import load_yaml_file
-
-YAML_EXTENSION = '.yaml'
-
-INDENT = '  '
-
-DEFAULT_OUTPUT_DIR = "generated"
-DEFAULT_DEFINITIONS_DIR = "../../wled_config/etc"
-DEFAULT_WLED_DIR = "../../wled_config/presets"
-DEFAULT_COLORS_FILE = "colors.yaml"
-DEFAULT_PALETTES_FILE = "palettes.yaml"
-DEFAULT_EFFECTS_FILE = "effects.yaml"
-DEFAULT_SEGMENTS_FILE_BASE = "segments"
-DEFAULT_PRESETS_FILE_BASE = "presets"
-DEFAULT_PROPERTIES_FILE_BASE = "properties"
-DEFAULT_ENVIRONMENT = None
-DEFAULT_CFG_FILE = "cfg"
-ENVIRONMENTS = ['lab_300', 'lab_50', 'roof', 'trailer']
 
 FILE_NAME_OPTIONS = ("   env     file     file\n"
                      "  option   option   option ends\n"
@@ -52,15 +38,14 @@ def main(name, args):
     parser.add_argument("--env", type=str, help="The name of the environment for this execution.  Currently recognized "
                                                 "environments are: {environments}. The environment name is used to "
                                                 "construct file names for properties, presets, segments, and cfg "
-                                                "files per the rules above in the description."
-                                                "".format(environments=ENVIRONMENTS),
+                                                "files per the rules above in the description.",
                         action="store", default=DEFAULT_ENVIRONMENT)
     parser.add_argument("--properties", type=str, help="A file (YAML) defining properties for placeholder replacement "
                                                        "within config and preset files.  The file name is relative to "
                                                        "the --wled_dir directory. The properties file name will be "
                                                        "determined as described above where the default file base is "
                                                        "'properties'.",
-                        action="store", default=None)
+                        action="store", default=DEFAULT_PROPERTIES_FILE)
 
     parser.add_argument("--presets", type=str, help="A comma-separated list of WLED preset file names (YAML). The "
                                                     "file names are relative to the --wled_dir directory. Note that "
@@ -215,7 +200,7 @@ def wled_yaml2json(*,
     properties_path = build_path(wled_dir, environment, properties, DEFAULT_PROPERTIES_FILE_BASE)
     presets_paths = build_path_list(wled_dir, environment, presets,
                                     DEFAULT_PRESETS_FILE_BASE) if presets is not None else None
-    cfg_paths = build_path_list(wled_dir, environment, cfg, DEFAULT_CFG_FILE) if cfg is not None else None
+    cfg_paths = build_path_list(wled_dir, environment, cfg, DEFAULT_CFG_FILE_BASE) if cfg is not None else None
 
     if not quiet_mode:
         print("\nINPUT FILE PATHS ...")
