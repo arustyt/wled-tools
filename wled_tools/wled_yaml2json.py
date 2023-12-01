@@ -13,8 +13,8 @@ YAML_EXTENSION = '.yaml'
 INDENT = '  '
 
 DEFAULT_OUTPUT_DIR = "generated"
-DEFAULT_DEFINITIONS_DIR = "../../../etc"
-DEFAULT_WLED_DIR = "../src/main/python"
+DEFAULT_DEFINITIONS_DIR = "../../wled_config/etc"
+DEFAULT_WLED_DIR = "../../wled_config/presets"
 DEFAULT_COLORS_FILE = "colors.yaml"
 DEFAULT_PALETTES_FILE = "palettes.yaml"
 DEFAULT_EFFECTS_FILE = "effects.yaml"

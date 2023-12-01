@@ -1,6 +1,6 @@
 import re
 
-from wled_data_processor import WledDataProcessor
+from data_files.wled_data_processor import WledDataProcessor
 from wled_utils.property_tools import PropertyEvaluator
 
 PLACEHOLDER_PREFIX = '${'
