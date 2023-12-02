@@ -8,7 +8,7 @@ from data_files.presets_file_processor import PresetsFileProcessor
 from data_files.wled_placeholder_replacer import WledPlaceholderReplacer
 from wled_constants import DEFAULT_WLED_DIR, DEFAULT_ENVIRONMENT, DEFAULT_SEGMENTS_FILE_BASE, DEFAULT_PROPERTIES_FILE, \
     DEFAULT_OUTPUT_DIR, DEFAULT_DEFINITIONS_DIR, DEFAULT_EFFECTS_FILE, DEFAULT_PALETTES_FILE, DEFAULT_COLORS_FILE, \
-    DEFAULT_PROPERTIES_FILE_BASE, DEFAULT_PRESETS_FILE_BASE, DEFAULT_CFG_FILE_BASE, YAML_EXTENSION
+    DEFAULT_PROPERTIES_FILE_BASE, DEFAULT_PRESETS_FILE_BASE, DEFAULT_CFG_FILE_BASE, YAML_EXTENSION, DEFAULT_DATA_DIR
 from wled_utils.yaml_multi_file_loader import load_yaml_file
 
 FILE_NAME_OPTIONS = ("   env     file     file\n"
@@ -31,6 +31,10 @@ def main(name, args):
         # formatter_class=argparse.RawTextHelpFormatter
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
+    parser.add_argument("--data_dir", type=str,
+                        help="Directory from which wled_dir and definitions_dir are relative.  If not specified, "
+                             "'" + DEFAULT_DATA_DIR + "' is used.",
+                        action="store", default=DEFAULT_WLED_DIR)
     parser.add_argument("--wled_dir", type=str,
                         help="WLED data file location. Applies to presets, cfg, and segments files. If not specified, "
                              "'" + DEFAULT_WLED_DIR + "' is used.",
@@ -115,13 +119,14 @@ def main(name, args):
                         action='store_true')
 
     args = parser.parse_args()
-    wled_dir = str(args.wled_dir)
+    data_dir = str(args.data_dir)
+    wled_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=str(args.wled_dir))
     environment = str(args.env) if args.env is not None else None
     properties_option = str(args.properties) if args.properties is not None else None
     presets_option = str(args.presets) if args.presets is not None else None
     segments_option = str(args.segments) if args.segments is not None else None
     cfg_option = str(args.cfg) if args.cfg is not None else None
-    definitions_dir = str(args.definitions_dir)
+    definitions_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=str(args.definitions_dir))
     output_dir = str(args.output_dir)
     effects_file = str(args.effects)
     palettes_file = str(args.palettes)

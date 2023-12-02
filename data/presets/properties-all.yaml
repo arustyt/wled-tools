@@ -1,0 +1,28 @@
+lab_300:
+  sunset:
+    begin_dark_duration: 10
+    sun_duration: 600
+    sunset_duration: 600
+    end_dark_duration: 10
+    begin_dark_transition: 0
+    sun_transition: 30
+    sunset_transition: 30
+    end_dark_transition: 0
+    sunset_sx: 61
+  july4th:
+    playlist_duration: 300
+  playlist_duration: 300
+roof:
+  sunset:
+    begin_dark_duration: 10
+    sun_duration: 6000
+    sunset_duration: 18000
+    end_dark_duration: 10
+    begin_dark_transition: 0
+    sun_transition: 300
+    sunset_transition: 300
+    end_dark_transition: 0
+    sunset_sx: 90
+  july4th:
+    playlist_duration: 3000
+  playlist_duration: 3000

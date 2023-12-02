@@ -1,0 +1,109 @@
+# Date format is MMDD
+holidays:
+  "new_years_day":
+    date: '0101'
+  martin_luther_king_jr_day:
+    rrule: 
+      frequency: YEARLY
+      month: 1
+      day_of_week: MO
+      occurrence: 3
+  ground_hog_day:
+    date: '0202'
+  valentines_day:
+    date: '0214'
+  presidents_day:
+    rrule: 
+      frequency: YEARLY
+      month: 2
+      day_of_week: MO
+      occurrence: 4
+  mardi_gras:
+    rrule:
+      frequency: YEARLY
+      by_easter: -47
+  pi_day:
+    date: '0314'
+  st_patricks_day:
+    date: '0317'
+  ash_wednesday:
+    rrule:
+      frequency: YEARLY
+      by_easter: -46
+  palm_sunday:
+    rrule:
+      frequency: YEARLY
+      by_easter: -7
+  holy_monday:
+    rrule:
+      frequency: YEARLY
+      by_easter: -6
+  holy_tuesday:
+    rrule:
+      frequency: YEARLY
+      by_easter: -5
+  holy_wednesday:
+    rrule:
+      frequency: YEARLY
+      by_easter: -4
+  maundy_thursday:
+    rrule:
+      frequency: YEARLY
+      by_easter: -3
+  good_friday:
+    rrule:
+      frequency: YEARLY
+      by_easter: -2
+  holy_saturday:
+    rrule:
+      frequency: YEARLY
+      by_easter: -1
+  easter:
+    rrule:
+      frequency: YEARLY
+      by_easter: 0
+  earth_day:
+    date: '0422'
+  arbor_day:
+    rrule:
+      frequency: YEARLY
+      month: 4
+      day_of_week: FR
+      occurrence: -1
+  star_wars_day:
+    date: '0504'
+  cinco_de_mayo:
+    date: '0505'
+  memorial_day:
+    rrule:
+      frequency: YEARLY
+      month: 5
+      day_of_week: MO
+      occurrence: -1
+  flag_day:
+    date: '0614'
+  juneteenth:
+    date: '0619'
+  4th_of_july:
+    date: '0704'
+  labor_day:
+    rrule: 
+      frequency: YEARLY
+      month: 9
+      day_of_week: MO
+      occurrence: 1
+  halloween:
+    date: '1031'
+  veterans_day:
+    date: '1111'
+  thanksgiving:
+    rrule:
+      frequency: YEARLY
+      month: 11
+      day_of_week: TH
+      occurrence: 4
+  christmas:
+    date: '1225'
+  new_years_eve:
+    date: '1231'
+

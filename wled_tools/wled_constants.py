@@ -22,9 +22,10 @@ PALETTES_TAG = 'palettes'
 
 YAML_EXTENSION = '.yaml'
 INDENT = '  '
+DEFAULT_DATA_DIR = '.'
 DEFAULT_OUTPUT_DIR = "generated"
-DEFAULT_DEFINITIONS_DIR = "../../wled-config/etc"
-DEFAULT_WLED_DIR = "../../wled-config/presets"
+DEFAULT_DEFINITIONS_DIR = "etc"
+DEFAULT_WLED_DIR = "presets"
 DEFAULT_PRESETS_FILE_BASE = "presets"
 DEFAULT_PRESETS_FILE = "{base}.yaml".format(base=DEFAULT_PRESETS_FILE_BASE)
 DEFAULT_CFG_FILE_BASE = "cfg"
