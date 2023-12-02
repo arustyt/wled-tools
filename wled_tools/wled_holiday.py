@@ -133,9 +133,10 @@ def calculate_date(evaluation_date: datetime, evaluation_day, evaluation_month):
 
 class WledHoliday:
 
-    def __init__(self, *, definitions_dir, holidays_file, lights_file, evaluation_date,
+    def __init__(self, *, data_dir, definitions_rel_dir, holidays_file, lights_file, evaluation_date,
                  default_lights_name, verbose_mode):
 
+        definitions_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=definitions_rel_dir)
         holidays_path = build_path(definitions_dir, holidays_file)
         self.holidays_data = load_yaml_file(holidays_path)
         self.evaluate_holidays(self.holidays_data, evaluation_date)
