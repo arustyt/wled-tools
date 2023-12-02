@@ -120,13 +120,13 @@ def main(name, args):
 
     args = parser.parse_args()
     data_dir = str(args.data_dir)
-    wled_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=str(args.wled_dir))
+    wled_rel_dir = str(args.wled_dir)
     environment = str(args.env) if args.env is not None else None
     properties_option = str(args.properties) if args.properties is not None else None
     presets_option = str(args.presets) if args.presets is not None else None
     segments_option = str(args.segments) if args.segments is not None else None
     cfg_option = str(args.cfg) if args.cfg is not None else None
-    definitions_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=str(args.definitions_dir))
+    definitions_rel_dir = str(args.definitions_dir)
     output_dir = str(args.output_dir)
     effects_file = str(args.effects)
     palettes_file = str(args.palettes)
@@ -140,8 +140,9 @@ def main(name, args):
 
     if not quiet_mode:
         print("\nOPTION VALUES ...")
-        print("  wled_dir: " + wled_dir)
-        print("  definitions_dir: " + definitions_dir)
+        print("  data_dir: " + data_dir)
+        print("  wled_dir: " + wled_rel_dir)
+        print("  definitions_dir: " + definitions_rel_dir)
         print("  output_dir: " + output_dir)
         print("  environment: " + str(environment))
         print("  suffix: '{suffix}'".format(suffix=suffix))
@@ -150,14 +151,15 @@ def main(name, args):
         print("  deep: " + str(deep))
         print("  test: " + str(test_mode))
 
-    wled_yaml2json(wled_dir=wled_dir,
+    wled_yaml2json(data_dir=data_dir,
+                   wled_rel_dir=wled_rel_dir,
                    environment=environment,
                    properties=properties_option,
                    presets=presets_option,
                    segments=segments_option,
                    cfg=cfg_option,
                    output_dir=output_dir,
-                   definitions_dir=definitions_dir,
+                   definitions_rel_dir=definitions_rel_dir,
                    effects=effects_file,
                    palettes=palettes_file,
                    colors=colors_file,
@@ -170,8 +172,9 @@ def main(name, args):
 
 
 def wled_yaml2json(*,
-                   wled_dir=DEFAULT_WLED_DIR,
-                   definitions_dir=DEFAULT_DEFINITIONS_DIR,
+                   data_dir=DEFAULT_DATA_DIR,
+                   wled_rel_dir=DEFAULT_WLED_DIR,
+                   definitions_rel_dir=DEFAULT_DEFINITIONS_DIR,
                    environment=DEFAULT_ENVIRONMENT,
                    properties=None,
                    presets=None,
@@ -187,6 +190,9 @@ def wled_yaml2json(*,
                    deep=False,
                    test_mode=False,
                    quiet_mode=False):
+
+    wled_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=wled_rel_dir)
+    definitions_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=definitions_rel_dir)
 
     if include_list is not None and exclude_list is not None:
         raise ValueError("The --include and --exclude options are mutually exclusive and cannot both be provided.")
