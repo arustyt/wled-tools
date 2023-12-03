@@ -1,0 +1,316 @@
+'20':
+  n: Playlist Du Jour
+  'on': true
+  playlist:
+    dur:
+    - ${playlist_duration} * 10
+    end: 0
+    ps:
+    - Candy Cane
+    - Christmas
+    - Twinkle
+    - Candy Cane 2
+    - XmasColorTwinkles
+    - CandleMulti
+    - TwinkleFoxRainbow
+    - TriChaseXmas
+    - ChunChunXmas
+    - Tetrix
+    r: false
+    repeat: 0
+    transition:
+    - 10 * 10
+'21':
+  n: Candy Cane
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - Red
+    - Green
+    - White
+    fx_name: Candy Cane
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    'on': true
+    pal_name: Default
+    rev: false
+    sel: true
+    spc: 0
+    sx: 128
+  - id: 1
+    seg_name: Second Floor
+    rev: true
+  transition: 7
+'22':
+  n: Christmas
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - Red
+    - Green
+    - White
+    fx_name: Running 2
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    'on': true
+    pal_name: Default
+    rev: true
+    sel: true
+    spc: 0
+    sx: 122
+  - id: 1
+    seg_name: Second Floor
+    rev: false
+  transition: 7
+'23':
+  n: Twinkle
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - White
+    - '0000BF'
+    - White
+    fx_name: TwinkleUp
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    'on': true
+    pal_name: Default
+    rev: false
+    sel: true
+    spc: 0
+    sx: 122
+  - id: 1
+    seg_name: Second Floor
+    rev: true
+  transition: 7
+'24':
+  n: Candy Cane 2
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - White
+    - '0000BF'
+    - White
+    fx_name: Candy Cane
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: Garage
+    'on': true
+    pal_name: Default
+    rev: false
+    sel: true
+    spc: 0
+    sx: 122
+  - bri: 128
+    col:
+    - '669900'
+    - Black
+    - Black
+    fx_name: Candy Cane
+    grp: 1
+    id: 1
+    ix: 128
+    mi: false
+    seg_name: Porch
+    'on': true
+    pal_name: Default
+    rev: true
+    sel: false
+    spc: 0
+    sx: 128
+  - bri: 128
+    col:
+    - White
+    - '0000BF'
+    - White
+    fx_name: Candy Cane
+    grp: 1
+    id: 2
+    ix: 128
+    mi: false
+    seg_name: Over Porch
+    'on': true
+    pal_name: Default
+    rev: false
+    sel: true
+    spc: 0
+    sx: 122
+  - bri: 128
+    col:
+    - White
+    - '0000BF'
+    - White
+    fx_name: Candy Cane
+    grp: 1
+    id: 3
+    ix: 128
+    mi: false
+    seg_name: Peak
+    'on': true
+    pal_name: Default
+    rev: true
+    sel: true
+    spc: 0
+    sx: 122
+  transition: 7
+'25':
+  n: XmasColorTwinkles
+  'on': true
+  seg:
+  - bri: 192
+    col:
+    - Red
+    - Green
+    - White
+    fx_name: Colortwinkles
+    grp: 1
+    id: 0
+    ix: 192
+    mi: false
+    seg_name: Whole Roof
+    'on': true
+    pal_name: Colors Only
+    rev: false
+    sel: true
+    spc: 0
+    sx: 123
+'26':
+  n: CandleMulti
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - 'FF9900'
+    - Black
+    - Black
+    fx_name: Candle Multi
+    grp: 1
+    id: 0
+    ix: 255
+    mi: false
+    seg_name: Whole Roof
+    'on': true
+    pal_name: Default
+    rev: false
+    sel: true
+    spc: 0
+    sx: 125
+  transition: 7
+'27':
+  n: TwinkleFoxRainbow
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - 'FF9900'
+    - Black
+    - Black
+    fx_name: Twinklefox
+    grp: 1
+    id: 0
+    ix: 255
+    mi: false
+    seg_name: Whole Roof
+    'on': true
+    pal_name: Rainbow
+    rev: false
+    sel: true
+    spc: 0
+    sx: 125
+  transition: 7
+'28':
+  n: TriChaseXmas
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - Red
+    - Green
+    - White
+    fx_name: Tri Chase
+    grp: 1
+    id: 0
+    ix: 130
+    mi: false
+    seg_name: First Floor
+    'on': true
+    pal_name: Default
+    rev: false
+    sel: true
+    spc: 0
+    sx: 255
+  - id: 1
+    seg_name: Second Floor
+    rev: true
+  transition: 7
+'29':
+  n: ChunChunXmas
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - Red
+    - Green
+    - White
+    fx_name: Chunchun
+    grp: 1
+    id: 0
+    ix: 12
+    mi: false
+    seg_name: First Floor
+    'on': true
+    pal_name: Default
+    rev: false
+    sel: true
+    spc: 0
+    sx: 128
+  - id: 1
+    seg_name: Second Floor
+    rev: true
+  transition: 7
+'30':
+  n: Tetrix
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - Red
+    - Black
+    - White
+    fx_name: Tetrix
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: Garage
+    'on': true
+    pal_name: Rainbow
+    rev: true
+    sel: true
+    spc: 0
+    sx: 255
+  - id: 1
+    seg_name: Porch
+    rev: false
+  - id: 2
+    seg_name: Over Porch
+    rev: true
+  - id: 3
+    seg_name: Peak
+    rev: false
+  transition: 7

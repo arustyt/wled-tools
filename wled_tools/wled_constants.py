@@ -1,3 +1,4 @@
+
 STOP_TAG = 'stop'
 PRESET_KEY = 'seg'
 ID_TAG = 'id'
@@ -17,3 +18,42 @@ DESCRIPTION_TAG = 'desc'
 NAME_TAG = 'name'
 ALIASES_TAG = 'aliases'
 PALETTES_TAG = 'palettes'
+
+
+YAML_EXTENSION = '.yaml'
+INDENT = '  '
+DEFAULT_DATA_DIR = '.'
+DEFAULT_OUTPUT_DIR = "generated"
+DEFAULT_DEFINITIONS_DIR = "etc"
+DEFAULT_WLED_DIR = "presets"
+DEFAULT_PRESETS_FILE_BASE = "presets"
+DEFAULT_PRESETS_FILE = "{base}.yaml".format(base=DEFAULT_PRESETS_FILE_BASE)
+DEFAULT_CFG_FILE_BASE = "cfg"
+DEFAULT_CFG_FILE = "{base}.yaml".format(base=DEFAULT_CFG_FILE_BASE)
+DEFAULT_SEGMENTS_FILE_BASE = "segments"
+DEFAULT_SEGMENTS_FILE = "{base}.yaml".format(base=DEFAULT_SEGMENTS_FILE_BASE)
+DEFAULT_PROPERTIES_FILE_BASE = "properties"
+DEFAULT_PROPERTIES_FILE = "{base}.yaml".format(base=DEFAULT_PROPERTIES_FILE_BASE)
+DEFAULT_COLORS_FILE = "colors.yaml"
+DEFAULT_PALETTES_FILE = "palettes.yaml"
+DEFAULT_EFFECTS_FILE = "effects.yaml"
+DEFAULT_ENVIRONMENT = None
+
+HOST_KEY = "host"
+WLED_HOLIDAY_KEY = "wled_holiday"
+WLED_YAML2JSON_KEY = "wled_yaml2json"
+WLED_UPLOAD_KEY = "wled_upload"
+WLED_DIR_KEY = "wled_dir"
+DEFINITIONS_DIR_KEY = "definitions_dir"
+LIGHTS_FILE_KEY = "lights_file"
+DEFAULT_LIGHTS_NAME_KEY = "default_lights_name"
+HOLIDAYS_FILE_KEY = "holidays_file"
+
+HOLIDAYS_KEY = 'holidays'
+NORMALIZED_HOLIDAYS_KEY = 'normalized_holidays'
+DEFAULT_HOLIDAYS_FILE = "holidays.yaml"
+DEFAULT_LIGHTS_FILE = "holiday_lights.yaml"
+DEFAULT_HOLIDAY_NAME = "normal"
+DATE_KEY = 'date'
+RRULE_KEY = 'rrule'
+DAY_OF_YEAR_KEY = 'day_of_year'

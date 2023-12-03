@@ -2,6 +2,8 @@ import argparse
 import os
 import sys
 
+from wled_constants import WLED_HOLIDAY_KEY, DEFINITIONS_DIR_KEY, HOLIDAYS_FILE_KEY, LIGHTS_FILE_KEY, \
+    DEFAULT_LIGHTS_NAME_KEY, HOST_KEY, WLED_DIR_KEY
 from wled_holiday import WledHoliday
 from wled_upload import upload
 from wled_utils.date_utils import get_todays_date_str, parse_date_str
@@ -15,17 +17,6 @@ QUIET_MODE = True
 
 PROPERTIES_FILE_KEY = "properties"
 
-HOST_KEY = "host"
-WLED_HOLIDAY_KEY = "wled_holiday"
-WLED_YAML2JSON_KEY = "wled_yaml2json"
-WLED_UPLOAD_KEY = "wled_upload"
-WLED_DIR_KEY = "wled_dir"
-DEFINITIONS_DIR_KEY = "definitions_dir"
-LIGHTS_FILE_KEY = "lights_file"
-DEFAULT_LIGHTS_NAME_KEY = "default_lights_name"
-HOLIDAYS_FILE_KEY = "holidays_file"
-
-
 # wled_f_ha.py job_file env [date_str]
 
 
@@ -33,7 +24,7 @@ def main(name, args):
     arg_parser = argparse.ArgumentParser(
         description="Determines and uploads appropriate lights based on env and date_str",
     )
-    arg_parser.add_argument("job", type=str,
+    arg_parser.add_argument("job_file", type=str,
                             help="Job YAML file defining details of job to be executed.",
                             action="store")
     arg_parser.add_argument("env", type=str,
@@ -46,17 +37,17 @@ def main(name, args):
                             action='store_true')
 
     args = arg_parser.parse_args()
-    job = args.job
+    job_file = args.job_file
     env = args.env
     date_str = args.date_str
     verbose = args.verbose
 
-    process_successful = wled_4_ha(job=job, env=env, date_str=date_str, verbose=verbose)
+    process_successful = wled_4_ha(job_file=job_file, env=env, date_str=date_str, verbose=verbose)
 
     return 0 if process_successful else 1
 
 
-def wled_4_ha(*, job, env, date_str=None, verbose=False):
+def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
     process_successful = False
     try:
         if date_str is None:
@@ -64,32 +55,41 @@ def wled_4_ha(*, job, env, date_str=None, verbose=False):
 
         if verbose:
             print()
-            print("job: " + job)
+            print("job_file: " + job_file)
             print("env: " + env)
             print("date_str: " + date_str)
 
-        job_data = load_yaml_file(job)
+        data_dir = os.path.dirname(job_file)
+        if data_dir is None or len(data_dir) == 0:
+            data_dir = '.'
+        job_data = load_yaml_file(job_file)
         property_evaluator = PropertyEvaluator(job_data, False)
         section = WLED_HOLIDAY_KEY
-        definitions_dir = property_evaluator.get_property(env, section, DEFINITIONS_DIR_KEY)
+        definitions_rel_dir = property_evaluator.get_property(env, section, DEFINITIONS_DIR_KEY)
         holidays_file = property_evaluator.get_property(env, section, HOLIDAYS_FILE_KEY)
         lights_file = property_evaluator.get_property(env, section, LIGHTS_FILE_KEY)
         default_lights_name = property_evaluator.get_property(env, section, DEFAULT_LIGHTS_NAME_KEY)
         host = property_evaluator.get_property(env, section, HOST_KEY)
-        wled_dir = property_evaluator.get_property(env, section, WLED_DIR_KEY)
+        wled_rel_dir = property_evaluator.get_property(env, section, WLED_DIR_KEY)
+
+#        wled_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=wled_rel_dir)
+#        definitions_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=definitions_rel_dir)
+
 
         if verbose:
-            print()
-            print("definitions_dir: " + str(definitions_dir))
+            print("\ndata_dir: " + str(data_dir))
+            print("definitions_rel_dir: " + str(definitions_rel_dir))
             print("holidays_file: " + str(holidays_file))
             print("lights_file: " + str(lights_file))
             print("default_lights_name: " + str(default_lights_name))
-            print("wled_dir: " + str(wled_dir))
+            print("wled_rel_dir: " + str(wled_rel_dir))
             print("host: " + str(host))
+#            print("definitions_dir: " + str(definitions_dir))
+#            print("wled_dir: " + str(wled_dir))
 
         evaluation_date = parse_date_str(date_str)
 
-        wled_lights = WledHoliday(definitions_dir=definitions_dir, holidays_file=holidays_file,
+        wled_lights = WledHoliday(data_dir=data_dir, definitions_rel_dir=definitions_rel_dir, holidays_file=holidays_file,
                                   lights_file=lights_file, evaluation_date=evaluation_date,
                                   default_lights_name=default_lights_name, verbose_mode=verbose)
         matched_holiday = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
@@ -100,12 +100,17 @@ def wled_4_ha(*, job, env, date_str=None, verbose=False):
         properties_file = property_evaluator.get_property(env, section, PROPERTIES_FILE_KEY)
         presets_file = build_presets_option(matched_holiday)
 
-        presets_json_path = test_presets(definitions_dir, env, matched_holiday, presets_file, properties_file, wled_dir,
-                                         verbose)
+        if verbose:
+            print("\nTesting presets generation to determine JSON file name.")
 
-        if need_to_generate_presets(wled_dir, matched_holiday, presets_json_path):
-            presets_json_path = generate_presets(definitions_dir, env, matched_holiday, presets_file, properties_file,
-                                                 wled_dir, verbose)
+        presets_json_path = test_presets(data_dir, definitions_rel_dir, env, matched_holiday, presets_file,
+                                         properties_file, wled_rel_dir, False)
+
+        if need_to_generate_presets(data_dir, wled_rel_dir, matched_holiday, presets_json_path):
+            if verbose:
+                print("\nGenerating presets file: {file}".format(file=presets_json_path))
+            presets_json_path = generate_presets(data_dir, definitions_rel_dir, env, matched_holiday, presets_file,
+                                                 properties_file, wled_rel_dir, verbose)
         else:
             if verbose:
                 print("\n{file} is up-to-date.".format(file=presets_json_path))
@@ -117,12 +122,14 @@ def wled_4_ha(*, job, env, date_str=None, verbose=False):
     return process_successful
 
 
-def test_presets(definitions_dir, env, matched_holiday, presets_file, properties_file, wled_dir, verbose: bool):
-    presets_json_path, cfg_json_path = wled_yaml2json(wled_dir=wled_dir,
+def test_presets(data_dir, definitions_rel_dir, env, matched_holiday, presets_file, properties_file, wled_rel_dir,
+                 verbose: bool):
+    presets_json_path, cfg_json_path = wled_yaml2json(data_dir=data_dir,
+                                                      wled_rel_dir=wled_rel_dir,
                                                       environment=env,
                                                       properties=properties_file,
                                                       presets=presets_file,
-                                                      definitions_dir=definitions_dir,
+                                                      definitions_rel_dir=definitions_rel_dir,
                                                       suffix="-{holiday}".format(holiday=matched_holiday),
                                                       test_mode=TEST_MODE,
                                                       quiet_mode=not verbose)
@@ -130,22 +137,25 @@ def test_presets(definitions_dir, env, matched_holiday, presets_file, properties
 
 
 def upload_presets(host, presets_json_path, verbose):
+    print("\nUploading presets file ... ", end="")
     upload_successful = upload(host=host, presets_file=presets_json_path)
     if verbose:
         if upload_successful:
-            print("\nFile upload successful.")
+            print("SUCCESSFUL")
         else:
-            print("\nFile upload failed.")
+            print("FAILED")
 
     return upload_successful
 
 
-def generate_presets(definitions_dir, env, matched_holiday, presets_file, properties_file, wled_dir, verbose):
-    presets_json_path, cfg_json_path = wled_yaml2json(wled_dir=wled_dir,
+def generate_presets(data_dir, definitions_rel_dir, env, matched_holiday, presets_file, properties_file, wled_rel_dir,
+                     verbose):
+    presets_json_path, cfg_json_path = wled_yaml2json(data_dir=data_dir,
+                                                      wled_rel_dir=wled_rel_dir,
                                                       environment=env,
                                                       properties=properties_file,
                                                       presets=presets_file,
-                                                      definitions_dir=definitions_dir,
+                                                      definitions_rel_dir=definitions_rel_dir,
                                                       suffix="-{holiday}".format(holiday=matched_holiday),
                                                       test_mode=PROD_MODE,
                                                       quiet_mode=not verbose)
@@ -165,9 +175,11 @@ def get_presets_files(holiday):
     return ["presets-sunset.yaml", "presets-{holiday}.yaml".format(holiday=holiday)]
 
 
-def need_to_generate_presets(wled_dir, holiday, presets_json):
+def need_to_generate_presets(data_dir, wled_rel_dir, holiday, presets_json):
     presets_files = get_presets_files(holiday)
     presets_paths = []
+
+    wled_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=wled_rel_dir)
 
     for presets_yaml in presets_files:
         presets_path = "{dir}/{file}".format(dir=wled_dir, file=presets_yaml)

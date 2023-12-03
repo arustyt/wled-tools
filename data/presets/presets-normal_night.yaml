@@ -1,0 +1,100 @@
+'10':
+  n: Playlist Du Jour
+  'on': true
+  playlist:
+    dur:
+    - 30
+    - 300
+    - 3000
+    end: 0
+    ps:
+    - Normal Night Dark
+    - Normal Night Clear
+    - Playlist Normal Night
+    r: false
+    repeat: 1
+    transition:
+    - 0
+    - 300
+    - 0
+'11':
+  n: Playlist Normal Night
+  'on': true
+  playlist:
+    dur:
+    - 18000
+    end: 0
+    ps:
+    - Normal Night Twinkle
+    r: false
+    repeat: 0
+    transition:
+    - 0
+'12':
+  n: Normal Night Dark
+  'on': true
+  seg:
+  - bri: 1
+    col:
+    - '0000BF'
+    - '0000BF'
+    - '0000BF'
+    fx_name: Solid
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: Whole Roof
+    'on': true
+    pal_name: Color 1
+    rev: false
+    sel: true
+    spc: 0
+    sx: 122
+  - id: 1
+  transition: 0
+'13':
+  n: Normal Night Clear
+  'on': true
+  seg:
+  - bri: 32
+    col:
+    - '0000BF'
+    - '0000BF'
+    - '0000BF'
+    fx_name: Solid
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: Whole Roof
+    'on': true
+    pal_name: Color 1
+    rev: false
+    sel: true
+    spc: 0
+    sx: 122
+  - id: 1
+  transition: 0
+'14':
+  n: Normal Night Twinkle
+  'on': true
+  seg:
+  - bri: 32
+    col:
+    - White
+    - '0000BF'
+    - White
+    fx_name: TwinkleUp
+    grp: 1
+    id: 0
+    ix: 100
+    mi: false
+    seg_name: Whole Roof
+    'on': true
+    pal_name: Default
+    rev: false
+    sel: true
+    spc: 0
+    sx: 122
+  transition: 0

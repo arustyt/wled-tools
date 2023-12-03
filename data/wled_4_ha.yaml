@@ -1,5 +1,5 @@
-definitions_dir: ../../wled-config/etc
-wled_dir: ../../wled-config/presets
+definitions_dir: etc
+wled_dir: presets
 wled_holiday:
     holidays_file: holidays.yaml
     lights_file: holiday_lights.yaml

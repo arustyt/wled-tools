@@ -6,24 +6,10 @@ from pathlib import Path
 from data_files.cfg_file_processor import CfgFileProcessor
 from data_files.presets_file_processor import PresetsFileProcessor
 from data_files.wled_placeholder_replacer import WledPlaceholderReplacer
+from wled_constants import DEFAULT_WLED_DIR, DEFAULT_ENVIRONMENT, DEFAULT_SEGMENTS_FILE_BASE, DEFAULT_PROPERTIES_FILE, \
+    DEFAULT_OUTPUT_DIR, DEFAULT_DEFINITIONS_DIR, DEFAULT_EFFECTS_FILE, DEFAULT_PALETTES_FILE, DEFAULT_COLORS_FILE, \
+    DEFAULT_PROPERTIES_FILE_BASE, DEFAULT_PRESETS_FILE_BASE, DEFAULT_CFG_FILE_BASE, YAML_EXTENSION, DEFAULT_DATA_DIR
 from wled_utils.yaml_multi_file_loader import load_yaml_file
-
-YAML_EXTENSION = '.yaml'
-
-INDENT = '  '
-
-DEFAULT_OUTPUT_DIR = "generated"
-DEFAULT_DEFINITIONS_DIR = "../../wled_config/etc"
-DEFAULT_WLED_DIR = "../../wled_config/presets"
-DEFAULT_COLORS_FILE = "colors.yaml"
-DEFAULT_PALETTES_FILE = "palettes.yaml"
-DEFAULT_EFFECTS_FILE = "effects.yaml"
-DEFAULT_SEGMENTS_FILE_BASE = "segments"
-DEFAULT_PRESETS_FILE_BASE = "presets"
-DEFAULT_PROPERTIES_FILE_BASE = "properties"
-DEFAULT_ENVIRONMENT = None
-DEFAULT_CFG_FILE = "cfg"
-ENVIRONMENTS = ['lab_300', 'lab_50', 'roof', 'trailer']
 
 FILE_NAME_OPTIONS = ("   env     file     file\n"
                      "  option   option   option ends\n"
@@ -45,6 +31,10 @@ def main(name, args):
         # formatter_class=argparse.RawTextHelpFormatter
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
+    parser.add_argument("--data_dir", type=str,
+                        help="Directory from which wled_dir and definitions_dir are relative.  If not specified, "
+                             "'" + DEFAULT_DATA_DIR + "' is used.",
+                        action="store", default=DEFAULT_WLED_DIR)
     parser.add_argument("--wled_dir", type=str,
                         help="WLED data file location. Applies to presets, cfg, and segments files. If not specified, "
                              "'" + DEFAULT_WLED_DIR + "' is used.",
@@ -52,15 +42,14 @@ def main(name, args):
     parser.add_argument("--env", type=str, help="The name of the environment for this execution.  Currently recognized "
                                                 "environments are: {environments}. The environment name is used to "
                                                 "construct file names for properties, presets, segments, and cfg "
-                                                "files per the rules above in the description."
-                                                "".format(environments=ENVIRONMENTS),
+                                                "files per the rules above in the description.",
                         action="store", default=DEFAULT_ENVIRONMENT)
     parser.add_argument("--properties", type=str, help="A file (YAML) defining properties for placeholder replacement "
                                                        "within config and preset files.  The file name is relative to "
                                                        "the --wled_dir directory. The properties file name will be "
                                                        "determined as described above where the default file base is "
                                                        "'properties'.",
-                        action="store", default=None)
+                        action="store", default=DEFAULT_PROPERTIES_FILE)
 
     parser.add_argument("--presets", type=str, help="A comma-separated list of WLED preset file names (YAML). The "
                                                     "file names are relative to the --wled_dir directory. Note that "
@@ -130,13 +119,14 @@ def main(name, args):
                         action='store_true')
 
     args = parser.parse_args()
-    wled_dir = str(args.wled_dir)
+    data_dir = str(args.data_dir)
+    wled_rel_dir = str(args.wled_dir)
     environment = str(args.env) if args.env is not None else None
     properties_option = str(args.properties) if args.properties is not None else None
     presets_option = str(args.presets) if args.presets is not None else None
     segments_option = str(args.segments) if args.segments is not None else None
     cfg_option = str(args.cfg) if args.cfg is not None else None
-    definitions_dir = str(args.definitions_dir)
+    definitions_rel_dir = str(args.definitions_dir)
     output_dir = str(args.output_dir)
     effects_file = str(args.effects)
     palettes_file = str(args.palettes)
@@ -150,8 +140,9 @@ def main(name, args):
 
     if not quiet_mode:
         print("\nOPTION VALUES ...")
-        print("  wled_dir: " + wled_dir)
-        print("  definitions_dir: " + definitions_dir)
+        print("  data_dir: " + data_dir)
+        print("  wled_dir: " + wled_rel_dir)
+        print("  definitions_dir: " + definitions_rel_dir)
         print("  output_dir: " + output_dir)
         print("  environment: " + str(environment))
         print("  suffix: '{suffix}'".format(suffix=suffix))
@@ -160,14 +151,15 @@ def main(name, args):
         print("  deep: " + str(deep))
         print("  test: " + str(test_mode))
 
-    wled_yaml2json(wled_dir=wled_dir,
+    wled_yaml2json(data_dir=data_dir,
+                   wled_rel_dir=wled_rel_dir,
                    environment=environment,
                    properties=properties_option,
                    presets=presets_option,
                    segments=segments_option,
                    cfg=cfg_option,
                    output_dir=output_dir,
-                   definitions_dir=definitions_dir,
+                   definitions_rel_dir=definitions_rel_dir,
                    effects=effects_file,
                    palettes=palettes_file,
                    colors=colors_file,
@@ -180,8 +172,9 @@ def main(name, args):
 
 
 def wled_yaml2json(*,
-                   wled_dir=DEFAULT_WLED_DIR,
-                   definitions_dir=DEFAULT_DEFINITIONS_DIR,
+                   data_dir=DEFAULT_DATA_DIR,
+                   wled_rel_dir=DEFAULT_WLED_DIR,
+                   definitions_rel_dir=DEFAULT_DEFINITIONS_DIR,
                    environment=DEFAULT_ENVIRONMENT,
                    properties=None,
                    presets=None,
@@ -197,6 +190,9 @@ def wled_yaml2json(*,
                    deep=False,
                    test_mode=False,
                    quiet_mode=False):
+
+    wled_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=wled_rel_dir)
+    definitions_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=definitions_rel_dir)
 
     if include_list is not None and exclude_list is not None:
         raise ValueError("The --include and --exclude options are mutually exclusive and cannot both be provided.")
@@ -215,7 +211,7 @@ def wled_yaml2json(*,
     properties_path = build_path(wled_dir, environment, properties, DEFAULT_PROPERTIES_FILE_BASE)
     presets_paths = build_path_list(wled_dir, environment, presets,
                                     DEFAULT_PRESETS_FILE_BASE) if presets is not None else None
-    cfg_paths = build_path_list(wled_dir, environment, cfg, DEFAULT_CFG_FILE) if cfg is not None else None
+    cfg_paths = build_path_list(wled_dir, environment, cfg, DEFAULT_CFG_FILE_BASE) if cfg is not None else None
 
     if not quiet_mode:
         print("\nINPUT FILE PATHS ...")

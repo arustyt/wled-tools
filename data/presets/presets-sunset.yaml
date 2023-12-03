@@ -1,0 +1,115 @@
+defaults:
+  preset:
+    mainseg: 0
+    bri: 128
+    transition: 7
+'0': {}
+'1':
+  n: 'Off'
+  win: T=0
+'2':
+  n: 'On'
+  win: T=1
+'3':
+  n: Sunset Playlist
+  'on': true
+  playlist:
+    dur:
+    - ${sunset.begin_dark_duration}
+    - ${sunset.sun_duration}
+    - ${sunset.sunset_duration}
+    - ${sunset.end_dark_duration}
+    - 10
+    end: 0
+    ps:
+    - Dark
+    - Bright Sun
+    - Sunset
+    - Dark
+    - Playlist Du Jour
+    r: false
+    repeat: 1
+    transition:
+    - ${sunset.begin_dark_transition}
+    - ${sunset.sun_transition}
+    - ${sunset.sunset_transition}
+    - ${sunset.end_dark_transition}
+    - 0
+'4':
+  bri: 0
+  mainseg: 0
+  n: Dark
+  'on': true
+  seg:
+  - bri: 0
+    cct: 127
+    col:
+    - Black
+    - Black
+    - Black
+    fx_name: Solid
+    grp: 1
+    id: 0
+    ix: 132
+    mi: false
+    seg_name: Whole Roof
+    of: 0
+    'on': true
+    pal_name: Default
+    rev: true
+    sel: true
+    spc: 0
+    sx: 131
+  transition: 0
+'5':
+  bri: 128
+  mainseg: 0
+  n: Bright Sun
+  'on': true
+  seg:
+  - bri: 255
+    cct: 127
+    col:
+    - Goldenrod
+    - Goldenrod
+    - Goldenrod
+    fx_name: Solid
+    grp: 1
+    id: 0
+    ix: 132
+    mi: false
+    seg_name: Whole Roof
+    of: 0
+    'on': true
+    pal_name: Default
+    rev: true
+    sel: true
+    spc: 0
+    sx: 131
+  transition: 100
+'6':
+  bri: 255
+  mainseg: 0
+  n: Sunset
+  'on': true
+  seg:
+  - bri: 255
+    cct: 127
+    col:
+    - Red
+    - White
+    - Blue
+    fx_name: Sunrise
+    grp: 1
+    id: 0
+    ix: 132
+    mi: false
+    seg_name: Whole Roof
+    of: 0
+    'on': true
+    pal_name: Default
+    rev: true
+    sel: true
+    spc: 0
+    sx: ${sunset.sunset_sx}
+  transition: 10

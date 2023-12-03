@@ -1,4 +1,5 @@
 import json
+import os
 from os.path import exists
 
 import yaml
@@ -53,6 +54,8 @@ class PresetsFileProcessor(WledFileProcessor):
                 if not self.test_mode:
                     if not self.quiet_mode:
                         print("  Saving merged YAML to {file}".format(file=yaml_file_path))
+                    dir_name = os.path.dirname(yaml_file_path)
+                    os.makedirs(dir_name, mode=0o777, exist_ok=True)
                     with open(yaml_file_path, "w", newline='\n') as out_file:
                         yaml.dump(self.presets_data, out_file, indent=2)
                 else:
