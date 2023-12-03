@@ -60,6 +60,8 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
             print("date_str: " + date_str)
 
         data_dir = os.path.dirname(job_file)
+        if data_dir is None or len(data_dir) == 0:
+            data_dir = '.'
         job_data = load_yaml_file(job_file)
         property_evaluator = PropertyEvaluator(job_data, False)
         section = WLED_HOLIDAY_KEY
@@ -72,6 +74,7 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
 
 #        wled_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=wled_rel_dir)
 #        definitions_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=definitions_rel_dir)
+
 
         if verbose:
             print("\ndata_dir: " + str(data_dir))
