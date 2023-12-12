@@ -8,7 +8,7 @@ from datetime import *
 from dateutil.rrule import *
 
 from wled_constants import DEFAULT_DEFINITIONS_DIR, DEFAULT_HOLIDAYS_FILE, DEFAULT_LIGHTS_FILE, DEFAULT_HOLIDAY_NAME, \
-    HOLIDAYS_KEY, DATE_KEY, RRULE_KEY, DAY_OF_YEAR_KEY
+    HOLIDAYS_KEY, DATE_KEY, RRULE_KEY, DAY_OF_YEAR_KEY, DEFAULT_DATA_DIR
 from wled_utils.date_utils import get_date_str, get_todays_date_str, parse_date_str
 from wled_utils.path_utils import build_path
 from wled_utils.rrule_utils import get_frequency, get_byweekday
@@ -30,6 +30,10 @@ def main(name, args):
     arg_parser = argparse.ArgumentParser(
         description="Returns suffix for wled lights corresponding to provided date or today if none provided",
     )
+    arg_parser.add_argument("--data_dir", type=str,
+                            help="Directory from which --definitions_dir is relative. If not "
+                                 "specified, '" + DEFAULT_DATA_DIR + "' is used.",
+                            action="store", default=DEFAULT_DEFINITIONS_DIR)
     arg_parser.add_argument("--definitions_dir", type=str,
                             help="Definition file location. Applies to --holidays and --lights files. If not "
                                  "specified, '" + DEFAULT_DEFINITIONS_DIR + "' is used.",
@@ -57,6 +61,7 @@ def main(name, args):
                             action="store", nargs='?', default=None)
 
     args = arg_parser.parse_args()
+    data_dir = args.data_dir
     definitions_dir = args.definitions_dir
     holidays_file = args.holidays
     lights_file = args.lights
@@ -67,6 +72,7 @@ def main(name, args):
 
     if verbose_mode:
         print("\nOPTION VALUES ...")
+        print("  data_dir: " + data_dir)
         print("  definitions_dir: " + definitions_dir)
         print("  holidays_file: " + holidays_file)
         print("  lights_file: " + lights_file)
@@ -76,12 +82,12 @@ def main(name, args):
         date_str = get_todays_date_str()
 
     if not all_dates:
-        process_one_date(date_str, default_lights_name, definitions_dir, holidays_file, lights_file, verbose_mode)
+        process_one_date(date_str, default_lights_name, data_dir, definitions_dir, holidays_file, lights_file, verbose_mode)
     else:
-        process_all_dates(date_str, default_lights_name, definitions_dir, holidays_file, lights_file)
+        process_all_dates(date_str, default_lights_name, data_dir, definitions_dir, holidays_file, lights_file)
 
 
-def process_one_date(date_str, default_lights_name, definitions_dir, holidays_file, lights_file, verbose_mode):
+def process_one_date(date_str, default_lights_name, data_dir, definitions_dir, holidays_file, lights_file, verbose_mode):
     try:
         evaluation_date = parse_date_str(date_str)
     except ValueError:
@@ -89,7 +95,7 @@ def process_one_date(date_str, default_lights_name, definitions_dir, holidays_fi
     if verbose_mode:
         print("  date to process: " + str(evaluation_date))
 
-    wled_lights = WledHoliday(definitions_dir=definitions_dir, holidays_file=holidays_file,
+    wled_lights = WledHoliday(data_dir=data_dir, definitions_rel_dir=definitions_dir, holidays_file=holidays_file,
                               lights_file=lights_file, evaluation_date=evaluation_date,
                               default_lights_name=default_lights_name, verbose_mode=verbose_mode)
     matched_holiday = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
@@ -98,7 +104,7 @@ def process_one_date(date_str, default_lights_name, definitions_dir, holidays_fi
         print("\n  Matched Holiday: " + str(matched_holiday))
 
 
-def process_all_dates(date_str, default_lights_name, definitions_dir, holidays_file, lights_file):
+def process_all_dates(date_str, default_lights_name, data_dir, definitions_dir, holidays_file, lights_file):
     try:
         evaluation_date = parse_date_str(date_str)
     except ValueError:
@@ -111,7 +117,7 @@ def process_all_dates(date_str, default_lights_name, definitions_dir, holidays_f
 
     dates = list(rrule(DAILY, dtstart=first_day_of_year, count=count))
 
-    wled_lights = WledHoliday(definitions_dir=definitions_dir, holidays_file=holidays_file,
+    wled_lights = WledHoliday(data_dir=data_dir, definitions_rel_dir=definitions_dir, holidays_file=holidays_file,
                               lights_file=lights_file, evaluation_date=evaluation_date,
                               default_lights_name=default_lights_name, verbose_mode=False)
 
