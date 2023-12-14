@@ -13,8 +13,8 @@ VERBOSE = "verbose"
 # Declare Class
 class WledLightsLoader(hass.Hass):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args):
+        super().__init__(*args)
         if RUN_TIME in self.args:
             self.run_time = self.args[RUN_TIME]
         else:
