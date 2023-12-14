@@ -15,7 +15,7 @@ TEST_INTERVAL = "test_interval"
 
 
 # Declare Class
-class WledLightsLoader(hass.Hass):
+class Wled4Appdaemon(hass.Hass):
 
     def __init__(self, *args):
         super().__init__(*args)
