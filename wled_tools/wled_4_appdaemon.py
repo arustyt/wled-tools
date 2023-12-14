@@ -1,3 +1,5 @@
+import os
+
 import hassapi as hass
 import datetime
 
@@ -46,6 +48,7 @@ class WledLightsLoader(hass.Hass):
         self.env = self.args[ENV]
 
     def initialize(self):
+        self.log("In initialize(): CWD: {cwd}".format(cwd=os.getcwd()))
 
         if self.test_start is None or self.test_interval is None:
             self.log("Initializing daily mode @ {run_time}".format(run_time=self.run_time))
@@ -61,6 +64,7 @@ class WledLightsLoader(hass.Hass):
             self.run_every(self.install_lights_de_jour, self.test_start, int(self.test_interval))
 
     def install_lights_de_jour(self, cb_args):
+        self.log("In install_lights_de_jour(): CWD: {cwd}".format(cwd=os.getcwd()))
         self.log("Calling wled_4_ha({job_file}, {env}, {date_str}, {verbose})".format(job_file=self.job, env=self.env,
                                                                                       date_str=self.date_str,
                                                                                       verbose=self.verbose))
