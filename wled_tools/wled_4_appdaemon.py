@@ -90,7 +90,8 @@ class Wled4Appdaemon(hass.Hass):
         offset_value = groups[2]
 
         if len(offset_sign) > 0 and len(offset_value) > 0:
-            offset = int('{sign}{value]'.format(sign=offset_sign, value=offset_value))
+            offset = int('{sign}{value}'.format(sign=offset_sign, value=offset_value))
+
         else:
             offset = 0
 
