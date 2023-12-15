@@ -1,4 +1,5 @@
 import os
+import re
 
 import hassapi as hass
 import datetime
@@ -12,6 +13,9 @@ DATE_STR = "date_str"
 VERBOSE = "verbose"
 TEST_START = "test_start"
 TEST_INTERVAL = "test_interval"
+DEFAULT_RUN_TIME = "sunset-3600"
+TIME_RE_STR = '^([0-2][0-9]):([0-5][0-9]):([0-5][0-9])$'
+SUN_RE_STR = '^(sunset|sunrise)([+-]*)([0-9]*)$'
 
 
 # Declare Class
@@ -22,7 +26,7 @@ class Wled4Appdaemon(hass.Hass):
         if RUN_TIME in self.args:
             self.run_time = self.args[RUN_TIME]
         else:
-            self.run_time = "12:00:00"
+            self.run_time = DEFAULT_RUN_TIME
 
         if DATE_STR in self.args:
             self.date_str = self.args[DATE_STR]
@@ -47,26 +51,66 @@ class Wled4Appdaemon(hass.Hass):
         self.job = self.args[JOB]
         self.env = self.args[ENV]
 
-    def initialize(self):
-        self.log("In initialize(): CWD: {cwd}".format(cwd=os.getcwd()))
+        self.time_re = re.compile(TIME_RE_STR)
+        self.sun_re = re.compile(SUN_RE_STR)
 
+    def initialize(self):
+        self.init_mode()
+
+    def init_mode(self, run_time):
         if self.test_start is None or self.test_interval is None:
-            self.log("Initializing daily mode @ {run_time}".format(run_time=self.run_time))
-            run_time_parts = self.run_time.split(':')
-            run_hour = int(run_time_parts[0])
-            run_min = int(run_time_parts[1])
-            run_sec = int(run_time_parts[2])
-            time = datetime.time(run_hour, run_min, run_sec)
-            self.run_daily(self.install_lights_de_jour, time)
+            match = self.time_re.match(run_time)
+            if match is not None:
+                self.init_daily_mode(match.groups())
+            else:
+                match = self.sun_re.match(run_time.lower())
+                if match is not None:
+                    self.init_sun_mode(match.groups())
+                else:
+                    self.init_mode(DEFAULT_RUN_TIME)
         else:
-            self.log("Initializing test mode @ {start} every {interval} seconds.".format(start=self.test_start,
-                                                                                         interval=self.test_interval))
-            self.run_every(self.install_lights_de_jour, self.test_start, int(self.test_interval))
+            self.init_test_mode()
+
+    def init_test_mode(self):
+        self.log("Initializing test mode @ {start} every {interval} seconds.".format(start=self.test_start,
+                                                                                     interval=self.test_interval))
+        self.run_every(self.install_lights_de_jour, self.test_start, int(self.test_interval))
+
+    def init_daily_mode(self, groups):
+        self.log("Initializing daily mode @ {run_time}".format(run_time=self.run_time))
+        run_hour = int(groups[0])
+        run_min = int(groups[1])
+        run_sec = int(groups[2])
+        time = datetime.time(run_hour, run_min, run_sec)
+        self.run_daily(self.install_lights_de_jour, time)
+
+    def init_sun_mode(self, groups):
+        sun_event = groups[0]
+        offset_sign = groups[1]
+        offset_value = groups[2]
+
+        if len(offset_sign) > 0 and len(offset_value) > 0:
+            offset = int('{sign}{value]'.format(sign=offset_sign, value=offset_value))
+        else:
+            offset = 0
+
+        if sun_event == 'sunset':
+            self.init_sunset_mode(offset)
+        else:
+            self.init_sunrise_mode(offset)
+
+    def init_sunset_mode(self, offset):
+        self.log("Initializing sunset mode with offset: {offset}".format(offset=offset))
+        self.run_at_sunset(self.install_lights_de_jour, offset=offset)
+
+    def init_sunrise_mode(self, offset):
+        self.log("Initializing sunrise mode with offset: {offset}".format(offset=offset))
+        self.run_at_rise(self.install_lights_de_jour, offset=offset)
 
     def install_lights_de_jour(self, cb_args):
-        self.log("In install_lights_de_jour(): CWD: {cwd}".format(cwd=os.getcwd()))
         self.log("Calling wled_4_ha({job_file}, {env}, {date_str}, {verbose})".format(job_file=self.job, env=self.env,
                                                                                       date_str=self.date_str,
                                                                                       verbose=self.verbose))
         process_successful = wled_4_ha(job_file=self.job, env=self.env, date_str=self.date_str, verbose=self.verbose)
         return 0 if process_successful else 1
+
