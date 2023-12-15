@@ -3,6 +3,7 @@ import re
 
 import hassapi as hass
 import datetime
+import git_tools
 
 from wled_4_ha import wled_4_ha
 
@@ -13,6 +14,7 @@ DATE_STR_ARG = "date_str"
 VERBOSE_ARG = "verbose"
 TEST_START_ARG = "test_start"
 TEST_INTERVAL_ARG = "test_interval"
+CONFIG_REPO_ARG = "config_repo"
 DEFAULT_RUN_TIME = "sunset-3600"
 TIME_RE_STR = '^([0-2][0-9]):([0-5][0-9]):([0-5][0-9])$'
 SUN_RE_STR = '^(sunset|sunrise)([+-]*)([0-9]*)$'
@@ -47,6 +49,11 @@ class Wled4Appdaemon(hass.Hass):
             self.verbose = self.args[VERBOSE_ARG]
         else:
             self.verbose = False
+
+        if CONFIG_REPO_ARG in self.args:
+            self.config_repo = self.args[CONFIG_REPO_ARG]
+        else:
+            self.config_repo = None
 
         self.job = self.args[JOB_ARG]
         self.env = self.args[ENV_ARG]
@@ -109,6 +116,10 @@ class Wled4Appdaemon(hass.Hass):
         self.run_at_rise(self.install_lights_de_jour, offset=offset)
 
     def install_lights_de_jour(self, cb_args):
+        if self.config_repo is not None:
+            self.log("Pulling config repo @ {repo}".format(repo=self.config_repo))
+            git_tools.git_pull(self.config_repo)
+
         self.log("Calling wled_4_ha({job_file}, {env}, {date_str}, {verbose})".format(job_file=self.job, env=self.env,
                                                                                       date_str=self.date_str,
                                                                                       verbose=self.verbose))
