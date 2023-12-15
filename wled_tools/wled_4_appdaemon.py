@@ -6,13 +6,13 @@ import datetime
 
 from wled_4_ha import wled_4_ha
 
-RUN_TIME = "run_time"
-ENV = "env"
-JOB = "job"
-DATE_STR = "date_str"
-VERBOSE = "verbose"
-TEST_START = "test_start"
-TEST_INTERVAL = "test_interval"
+RUN_TIME_ARG = "run_time"
+ENV_ARG = "env"
+JOB_ARG = "job"
+DATE_STR_ARG = "date_str"
+VERBOSE_ARG = "verbose"
+TEST_START_ARG = "test_start"
+TEST_INTERVAL_ARG = "test_interval"
 DEFAULT_RUN_TIME = "sunset-3600"
 TIME_RE_STR = '^([0-2][0-9]):([0-5][0-9]):([0-5][0-9])$'
 SUN_RE_STR = '^(sunset|sunrise)([+-]*)([0-9]*)$'
@@ -23,33 +23,33 @@ class Wled4Appdaemon(hass.Hass):
 
     def __init__(self, *args):
         super().__init__(*args)
-        if RUN_TIME in self.args:
-            self.run_time = self.args[RUN_TIME]
+        if RUN_TIME_ARG in self.args:
+            self.run_time = self.args[RUN_TIME_ARG]
         else:
             self.run_time = DEFAULT_RUN_TIME
 
-        if DATE_STR in self.args:
-            self.date_str = self.args[DATE_STR]
+        if DATE_STR_ARG in self.args:
+            self.date_str = self.args[DATE_STR_ARG]
         else:
             self.date_str = None
 
-        if TEST_START in self.args:
-            self.test_start = self.args[TEST_START]
+        if TEST_START_ARG in self.args:
+            self.test_start = self.args[TEST_START_ARG]
         else:
             self.test_start = None
 
-        if TEST_INTERVAL in self.args:
-            self.test_interval = self.args[TEST_INTERVAL]
+        if TEST_INTERVAL_ARG in self.args:
+            self.test_interval = self.args[TEST_INTERVAL_ARG]
         else:
             self.test_interval = None
 
-        if VERBOSE in self.args:
-            self.verbose = self.args[VERBOSE]
+        if VERBOSE_ARG in self.args:
+            self.verbose = self.args[VERBOSE_ARG]
         else:
             self.verbose = False
 
-        self.job = self.args[JOB]
-        self.env = self.args[ENV]
+        self.job = self.args[JOB_ARG]
+        self.env = self.args[ENV_ARG]
 
         self.time_re = re.compile(TIME_RE_STR)
         self.sun_re = re.compile(SUN_RE_STR)
