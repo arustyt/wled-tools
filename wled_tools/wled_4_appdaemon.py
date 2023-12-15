@@ -55,7 +55,7 @@ class Wled4Appdaemon(hass.Hass):
         self.sun_re = re.compile(SUN_RE_STR)
 
     def initialize(self):
-        self.init_mode()
+        self.init_mode(self.run_time)
 
     def init_mode(self, run_time):
         if self.test_start is None or self.test_interval is None:
