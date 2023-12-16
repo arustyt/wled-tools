@@ -137,7 +137,8 @@ def test_presets(data_dir, definitions_rel_dir, env, matched_holiday, presets_fi
 
 
 def upload_presets(host, presets_json_path, verbose):
-    print("\nUploading presets file ... ", end="")
+    if verbose:
+        print("\nUploading presets file ... ", end="")
     upload_successful = upload(host=host, presets_file=presets_json_path)
     if verbose:
         if upload_successful:
