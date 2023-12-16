@@ -15,6 +15,9 @@ VERBOSE_ARG = "verbose"
 TEST_START_ARG = "test_start"
 TEST_INTERVAL_ARG = "test_interval"
 CONFIG_REPO_ARG = "config_repo"
+CONFIG_REMOTE_ARG = "config_remote"
+GIT_USERNAME = 'git_username'
+GIT_PASSWORD = 'git_password'
 DEFAULT_RUN_TIME = "sunset-3600"
 TIME_RE_STR = '^([0-2][0-9]):([0-5][0-9]):([0-5][0-9])$'
 SUN_RE_STR = '^(sunset|sunrise)([+-]*)([0-9]*)$'
@@ -25,41 +28,38 @@ class Wled4Appdaemon(hass.Hass):
 
     def __init__(self, *args):
         super().__init__(*args)
-        if RUN_TIME_ARG in self.args:
-            self.run_time = self.args[RUN_TIME_ARG]
-        else:
-            self.run_time = DEFAULT_RUN_TIME
 
-        if DATE_STR_ARG in self.args:
-            self.date_str = self.args[DATE_STR_ARG]
-        else:
-            self.date_str = None
+        self.job = self.get_required_arg_value(JOB_ARG)
+        self.env = self.get_required_arg_value(ENV_ARG)
 
-        if TEST_START_ARG in self.args:
-            self.test_start = self.args[TEST_START_ARG]
-        else:
-            self.test_start = None
-
-        if TEST_INTERVAL_ARG in self.args:
-            self.test_interval = self.args[TEST_INTERVAL_ARG]
-        else:
-            self.test_interval = None
-
-        if VERBOSE_ARG in self.args:
-            self.verbose = self.args[VERBOSE_ARG]
-        else:
-            self.verbose = False
-
-        if CONFIG_REPO_ARG in self.args:
-            self.config_repo = self.args[CONFIG_REPO_ARG]
-        else:
-            self.config_repo = None
-
-        self.job = self.args[JOB_ARG]
-        self.env = self.args[ENV_ARG]
+        self.run_time = self.get_optional_arg_value(RUN_TIME_ARG, DEFAULT_RUN_TIME)
+        self.date_str = self.get_optional_arg_value(DATE_STR_ARG, None)
+        self.test_start = self.get_optional_arg_value(TEST_START_ARG, None)
+        self.test_interval = self.get_optional_arg_value(TEST_INTERVAL_ARG, None)
+        self.verbose = self.get_optional_arg_value(VERBOSE_ARG, False)
+        self.config_repo = self.get_optional_arg_value(CONFIG_REPO_ARG, None)
+        self.config_remote = self.get_optional_arg_value(CONFIG_REMOTE_ARG, None)
+        self.git_username = self.get_optional_arg_value(GIT_USERNAME, None)
+        self.git_password = self.get_optional_arg_value(GIT_PASSWORD, None)
 
         self.time_re = re.compile(TIME_RE_STR)
         self.sun_re = re.compile(SUN_RE_STR)
+
+    def get_optional_arg_value(self, arg_name, arg_default):
+        if arg_name in self.args:
+            arg_value = self.args[arg_name]
+        else:
+            arg_value = arg_default
+
+        return arg_value
+
+    def get_required_arg_value(self, arg_name):
+        if arg_name in self.args:
+            arg_value = self.args[arg_name]
+        else:
+            raise ValueError("Missing required arg: {arg}".format(arg=arg_name))
+
+        return arg_value
 
     def initialize(self):
         self.init_mode(self.run_time)
@@ -118,7 +118,7 @@ class Wled4Appdaemon(hass.Hass):
     def install_lights_de_jour(self, cb_args):
         if self.config_repo is not None:
             self.log("Pulling config repo @ {repo}".format(repo=self.config_repo))
-            git_tools.git_pull(self.config_repo)
+            git_tools.git_pull(self.config_repo, self.config_remote, self.git_username, self.git_password)
 
         self.log("Calling wled_4_ha({job_file}, {env}, {date_str}, {verbose})".format(job_file=self.job, env=self.env,
                                                                                       date_str=self.date_str,
