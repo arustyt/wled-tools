@@ -4,7 +4,7 @@ wled_holiday:
     holidays_file: holidays.yaml
     lights_file: holiday_lights.yaml
     default_lights_name: normal_night
-properties: properties-all.yaml
+properties: properties.yaml
 lab_300:
     host: 192.168.196.11
 roof:
