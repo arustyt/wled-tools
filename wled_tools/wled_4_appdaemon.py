@@ -6,6 +6,7 @@ import datetime
 import git_tools
 
 from wled_4_ha import wled_4_ha
+from wled_utils.logger_utils import init_logger, get_logger
 
 RUN_TIME_ARG = "run_time"
 ENV_ARG = "env"
@@ -45,6 +46,8 @@ class Wled4Appdaemon(hass.Hass):
         self.time_re = re.compile(TIME_RE_STR)
         self.sun_re = re.compile(SUN_RE_STR)
 
+        init_logger('wled_4_appdaemon', '/conf/apps/logs')
+
     def get_optional_arg_value(self, arg_name, arg_default):
         if arg_name in self.args:
             arg_value = self.args[arg_name]
@@ -79,12 +82,12 @@ class Wled4Appdaemon(hass.Hass):
             self.init_test_mode()
 
     def init_test_mode(self):
-        self.log("Initializing test mode @ {start} every {interval} seconds.".format(start=self.test_start,
+        self.log_info("Initializing test mode @ {start} every {interval} seconds.".format(start=self.test_start,
                                                                                      interval=self.test_interval))
         self.run_every(self.install_lights_de_jour, self.test_start, int(self.test_interval))
 
     def init_daily_mode(self, groups):
-        self.log("Initializing daily mode @ {run_time}".format(run_time=self.run_time))
+        self.log_info("Initializing daily mode @ {run_time}".format(run_time=self.run_time))
         run_hour = int(groups[0])
         run_min = int(groups[1])
         run_sec = int(groups[2])
@@ -108,21 +111,23 @@ class Wled4Appdaemon(hass.Hass):
             self.init_sunrise_mode(offset)
 
     def init_sunset_mode(self, offset):
-        self.log("Initializing sunset mode with offset: {offset}".format(offset=offset))
+        self.log_info("Initializing sunset mode with offset: {offset}".format(offset=offset))
         self.run_at_sunset(self.install_lights_de_jour, offset=offset)
 
     def init_sunrise_mode(self, offset):
-        self.log("Initializing sunrise mode with offset: {offset}".format(offset=offset))
+        self.log_info("Initializing sunrise mode with offset: {offset}".format(offset=offset))
         self.run_at_rise(self.install_lights_de_jour, offset=offset)
 
     def install_lights_de_jour(self, cb_args):
         if self.config_repo is not None:
-            self.log("Pulling config repo @ {repo}".format(repo=self.config_repo))
+            self.log_info("Pulling config repo @ {repo}".format(repo=self.config_repo))
             git_tools.git_pull(self.config_repo, self.config_remote, self.git_username, self.git_password)
 
-        self.log("Calling wled_4_ha({job_file}, {env}, {date_str}, {verbose})".format(job_file=self.job, env=self.env,
+        self.log_info("Calling wled_4_ha({job_file}, {env}, {date_str}, {verbose})".format(job_file=self.job, env=self.env,
                                                                                       date_str=self.date_str,
                                                                                       verbose=self.verbose))
         process_successful = wled_4_ha(job_file=self.job, env=self.env, date_str=self.date_str, verbose=self.verbose)
         return 0 if process_successful else 1
 
+    def log_info(self, msg):
+        get_logger().info("[{which}] - {msg}".format(which=self.env, msg=msg))

@@ -1,6 +1,7 @@
 import re
 
 from data_files.wled_data_processor import WledDataProcessor
+from wled_utils.logger_utils import get_logger
 from wled_utils.property_tools import PropertyEvaluator
 
 PLACEHOLDER_PREFIX = '${'
@@ -79,4 +80,4 @@ if __name__ == '__main__':
 
     new_wled_data = wled_presets.process_wled_data(wled_data)
 
-    print(new_wled_data)
+    get_logger().info(new_wled_data)

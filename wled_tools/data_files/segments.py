@@ -2,6 +2,8 @@ import re
 
 import yaml
 
+from wled_utils.logger_utils import get_logger
+
 
 class Segments:
 
@@ -36,21 +38,21 @@ if __name__ == '__main__':
     segments = Segments()
     test_segment_string = 'garage'
     properties = segments.get_segment_by_name(test_segment_string)
-    print(test_segment_string, flush=True)
-    print(properties, flush=True)
+    get_logger().info(test_segment_string, flush=True)
+    get_logger().info(properties, flush=True)
 
     test_segment_string = 'First Floor'
     properties = segments.get_segment_by_name(test_segment_string)
-    print(test_segment_string, flush=True)
-    print(properties, flush=True)
+    get_logger().info(test_segment_string, flush=True)
+    get_logger().info(properties, flush=True)
 
     test_segment_string = 'second_floor'
     properties = segments.get_segment_by_name(test_segment_string)
-    print(test_segment_string, flush=True)
-    print(properties, flush=True)
+    get_logger().info(test_segment_string, flush=True)
+    get_logger().info(properties, flush=True)
 
     test_segment_string = 'Third Floor'
     properties = segments.get_segment_by_name(test_segment_string)
-    print(test_segment_string, flush=True)
-    print(properties, flush=True)
+    get_logger().info(test_segment_string, flush=True)
+    get_logger().info(properties, flush=True)
 

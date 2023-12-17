@@ -2,6 +2,8 @@ import os
 from abc import abstractmethod
 from os.path import exists
 
+from wled_utils.logger_utils import get_logger
+
 
 class WledFileProcessor:
 
@@ -45,11 +47,11 @@ class WledFileProcessor:
         backup_file_path = "{file_path}.backup".format(file_path=file_path)
         if exists(backup_file_path):
             if not self.quiet_mode:
-                print("  Removing existing backup file: {file}".format(file=backup_file_path))
+                get_logger().info("  Removing existing backup file: {file}".format(file=backup_file_path))
             os.remove(backup_file_path)
 
         if not self.quiet_mode:
-            print("  Renaming existing file from {file}\n                           to {backup_file}".
+            get_logger().info("  Renaming existing file from {file}\n                           to {backup_file}".
                   format(file=file_path, backup_file=backup_file_path))
         os.rename(file_path, backup_file_path)
 

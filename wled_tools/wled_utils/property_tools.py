@@ -1,10 +1,11 @@
 import sys
 
+from wled_utils.logger_utils import get_logger
 from wled_utils.trace_tools import Tracer
 
 
 class PropertyEvaluator:
-    
+
     def __init__(self, dict_data: dict, verbose=False):
         self.dict_data = dict_data
         self.verbose = verbose
@@ -19,12 +20,13 @@ class PropertyEvaluator:
         parts_count = len(key_parts)
         var_parts = list(key_parts[0:parts_count - 1])
         fixed_parts = list(key_parts[parts_count - 1].split('.'))
-    
+
         if self.verbose:
-            print("\nEvaluating variable: '{var}', fixed: '{fixed}'".format(var=".".join(var_parts), fixed=".".join(fixed_parts)))
-    
+            get_logger().info("Evaluating variable: '{var}', fixed: '{fixed}'".format(var=".".join(var_parts),
+                                                                                      fixed=".".join(fixed_parts)))
+
         property_value, property_name = self.evaluate_with_all_var_parts(var_parts, fixed_parts)
-    
+
         if property_value is None:
             property_value, property_name = self.evaluate_eliminating_var_parts(var_parts, fixed_parts)
 
@@ -41,7 +43,7 @@ class PropertyEvaluator:
         except ValueError:
             property_value = None
             property_name = None
-    
+
         if self.verbose:
             self.tracer.exiting()
         return property_value, property_name
@@ -60,10 +62,10 @@ class PropertyEvaluator:
                     break
             except ValueError:
                 continue
-    
+
         if self.verbose:
             self.tracer.exiting()
-    
+
         return property_value, property_name
 
     def evaluate_fixed_parts(self, fixed_parts: list):
@@ -77,15 +79,15 @@ class PropertyEvaluator:
             candidate_property = "{candidate}.{level}".format(candidate=candidate_property,
                                                               level=key_level) if candidate_property is not None else key_level
             if self.verbose:
-                print("{indent}   Trying {property} ... ".format(indent=self.tracer.get_indent(),
-                                                                 property=candidate_property), end="")
+                get_logger().info("{indent}   Trying {property} ... ".format(indent=self.tracer.get_indent(),
+                                                                             property=candidate_property))
             if key_level in current_level:
                 current_level = current_level[key_level]
                 if self.verbose:
-                    print("FOUND")
+                    get_logger().info("FOUND")
             else:
                 if self.verbose:
-                    print("NOT FOUND")
+                    get_logger().info("NOT FOUND")
 
         if self.verbose:
             self.tracer.exiting()
@@ -101,13 +103,13 @@ class PropertyEvaluator:
         start_value = list_data[start_idx]
         for i in range(start_idx, 0, -1):
             list_data[i] = list_data[i - 1]
-    
+
         list_data[0] = start_value
 
     def evaluate_by_order(self, start_idx: int, var_parts: list, fixed_parts: list):
         if self.verbose:
             self.tracer.entering("evaluate_by_order")
-    
+
         local_var_parts = list(var_parts)
         if start_idx != 0:
             self.reorder_list(start_idx, local_var_parts)
@@ -118,17 +120,19 @@ class PropertyEvaluator:
         for key_level in key_levels:
             if key_level is None:
                 continue
-            candidate_property = "{candidate}.{level}".format(candidate=candidate_property, level=key_level) if candidate_property is not None else key_level
+            candidate_property = "{candidate}.{level}".format(candidate=candidate_property,
+                                                              level=key_level) if candidate_property is not None else key_level
             if self.verbose:
-                print("{indent}   Trying {property} ... ".format(indent=self.tracer.get_indent(), property=candidate_property), end="")
+                get_logger().info("{indent}   Trying {property} ... ".format(indent=self.tracer.get_indent(),
+                                                                             property=candidate_property), end="")
             if key_level in current_level:
                 current_level = current_level[key_level]
                 if self.verbose:
-                    print("FOUND")
+                    get_logger().info("FOUND")
             else:
                 if start_idx + 1 < len(var_parts):
                     if self.verbose:
-                        print("NOT FOUND")
+                        get_logger().info("NOT FOUND")
                     try:
                         property_value, property_name = self.evaluate_by_order(start_idx + 1, var_parts, fixed_parts)
                         current_level = property_value
@@ -139,20 +143,20 @@ class PropertyEvaluator:
                         break
                 else:
                     if self.verbose:
-                        print("NOT FOUND")
+                        get_logger().info("NOT FOUND")
                         self.tracer.exiting()
                     raise ValueError("Property not defined: '{property}'".format(property='.'.join(key_levels)))
-    
+
         if self.verbose:
             self.tracer.exiting()
-    
+
         if isinstance(current_level, dict):
             raise ValueError("Property resolves to a dict: '{placeholder}'".format(placeholder='.'.join(key_levels)))
         if isinstance(current_level, list):
             raise ValueError("Property resolves to a list: '{placeholder}'".format(placeholder='.'.join(key_levels)))
-    
+
         return current_level, candidate_property
-    
+
 
 def print_result(property_tuple):
     property_value = property_tuple[0]

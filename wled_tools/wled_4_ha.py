@@ -7,6 +7,7 @@ from wled_constants import WLED_HOLIDAY_KEY, DEFINITIONS_DIR_KEY, HOLIDAYS_FILE_
 from wled_holiday import WledHoliday
 from wled_upload import upload
 from wled_utils.date_utils import get_todays_date_str, parse_date_str
+from wled_utils.logger_utils import get_logger, init_logger
 from wled_utils.property_tools import PropertyEvaluator
 from wled_utils.yaml_multi_file_loader import load_yaml_file
 from wled_yaml2json import wled_yaml2json
@@ -35,12 +36,16 @@ def main(name, args):
                             action="store", default=None, nargs='?')
     arg_parser.add_argument('--verbose', help="Intermediate output will be generated in addition to result output.",
                             action='store_true')
+    arg_parser.add_argument('--log_dir', help="Directory where log file will be located.",
+                            action='store_true')
 
     args = arg_parser.parse_args()
     job_file = args.job_file
     env = args.env
     date_str = args.date_str
     verbose = args.verbose
+
+    init_logger()
 
     process_successful = wled_4_ha(job_file=job_file, env=env, date_str=date_str, verbose=verbose)
 
@@ -54,10 +59,9 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
             date_str = get_todays_date_str()
 
         if verbose:
-            print()
-            print("job_file: " + job_file)
-            print("env: " + env)
-            print("date_str: " + date_str)
+            get_logger().info("job_file: " + job_file)
+            get_logger().info("env: " + env)
+            get_logger().info("date_str: " + date_str)
 
         data_dir = os.path.dirname(job_file)
         if data_dir is None or len(data_dir) == 0:
@@ -77,15 +81,13 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
 
 
         if verbose:
-            print("\ndata_dir: " + str(data_dir))
-            print("definitions_rel_dir: " + str(definitions_rel_dir))
-            print("holidays_file: " + str(holidays_file))
-            print("lights_file: " + str(lights_file))
-            print("default_lights_name: " + str(default_lights_name))
-            print("wled_rel_dir: " + str(wled_rel_dir))
-            print("host: " + str(host))
-#            print("definitions_dir: " + str(definitions_dir))
-#            print("wled_dir: " + str(wled_dir))
+            get_logger().info("data_dir: " + str(data_dir))
+            get_logger().info("definitions_rel_dir: " + str(definitions_rel_dir))
+            get_logger().info("holidays_file: " + str(holidays_file))
+            get_logger().info("lights_file: " + str(lights_file))
+            get_logger().info("default_lights_name: " + str(default_lights_name))
+            get_logger().info("wled_rel_dir: " + str(wled_rel_dir))
+            get_logger().info("host: " + str(host))
 
         evaluation_date = parse_date_str(date_str)
 
@@ -95,30 +97,30 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
         matched_holiday = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
 
         if verbose:
-            print("\nmatched_holiday: " + str(matched_holiday))
+            get_logger().info("matched_holiday: " + str(matched_holiday))
 
         properties_file = property_evaluator.get_property(env, section, PROPERTIES_FILE_KEY)
         presets_file = build_presets_option(matched_holiday)
 
         if verbose:
-            print("\nTesting presets generation to determine JSON file name.")
+            get_logger().info("Testing presets generation to determine JSON file name.")
 
         presets_json_path = test_presets(data_dir, definitions_rel_dir, env, matched_holiday, presets_file,
                                          properties_file, wled_rel_dir, False)
 
         if need_to_generate_presets(data_dir, wled_rel_dir, matched_holiday, presets_json_path):
             if verbose:
-                print("\nGenerating presets file: {file}".format(file=presets_json_path))
+                get_logger().info("Generating presets file: {file}".format(file=presets_json_path))
             presets_json_path = generate_presets(data_dir, definitions_rel_dir, env, matched_holiday, presets_file,
                                                  properties_file, wled_rel_dir, verbose)
         else:
             if verbose:
-                print("\n{file} is up-to-date.".format(file=presets_json_path))
+                get_logger().info("{file} is up-to-date.".format(file=presets_json_path))
 
         process_successful = upload_presets(host, presets_json_path, verbose)
     except Exception as ex:
         if verbose:
-            print(ex)
+            get_logger().error(ex)
     return process_successful
 
 
@@ -138,13 +140,13 @@ def test_presets(data_dir, definitions_rel_dir, env, matched_holiday, presets_fi
 
 def upload_presets(host, presets_json_path, verbose):
     if verbose:
-        print("\nUploading presets file ... ", end="")
+        get_logger().info("Uploading presets file ... ")
     upload_successful = upload(host=host, presets_file=presets_json_path)
     if verbose:
         if upload_successful:
-            print("SUCCESSFUL")
+            get_logger().info("SUCCESSFUL")
         else:
-            print("FAILED")
+            get_logger().info("FAILED")
 
     return upload_successful
 
@@ -161,8 +163,8 @@ def generate_presets(data_dir, definitions_rel_dir, env, matched_holiday, preset
                                                       test_mode=PROD_MODE,
                                                       quiet_mode=not verbose)
     if verbose:
-        print("\npresets_json_path: " + str(presets_json_path))
-        print("cfg_json_path: " + str(cfg_json_path))
+        get_logger().info("presets_json_path: " + str(presets_json_path))
+        get_logger().info("cfg_json_path: " + str(cfg_json_path))
 
     return presets_json_path
 

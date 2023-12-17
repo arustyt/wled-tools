@@ -9,6 +9,8 @@ from data_files.wled_placeholder_replacer import WledPlaceholderReplacer
 from wled_constants import DEFAULT_WLED_DIR, DEFAULT_ENVIRONMENT, DEFAULT_SEGMENTS_FILE_BASE, DEFAULT_PROPERTIES_FILE, \
     DEFAULT_OUTPUT_DIR, DEFAULT_DEFINITIONS_DIR, DEFAULT_EFFECTS_FILE, DEFAULT_PALETTES_FILE, DEFAULT_COLORS_FILE, \
     DEFAULT_PROPERTIES_FILE_BASE, DEFAULT_PRESETS_FILE_BASE, DEFAULT_CFG_FILE_BASE, YAML_EXTENSION, DEFAULT_DATA_DIR
+from wled_utils.logger_utils import get_logger, init_logger
+
 from wled_utils.yaml_multi_file_loader import load_yaml_file
 
 FILE_NAME_OPTIONS = ("   env     file     file\n"
@@ -138,18 +140,20 @@ def main(name, args):
     test_mode = args.test
     quiet_mode = args.quiet
 
+    init_logger()
+
     if not quiet_mode:
-        print("\nOPTION VALUES ...")
-        print("  data_dir: " + data_dir)
-        print("  wled_dir: " + wled_rel_dir)
-        print("  definitions_dir: " + definitions_rel_dir)
-        print("  output_dir: " + output_dir)
-        print("  environment: " + str(environment))
-        print("  suffix: '{suffix}'".format(suffix=suffix))
-        print("  include_list: " + str(include_list))
-        print("  exclude_list: " + str(exclude_list))
-        print("  deep: " + str(deep))
-        print("  test: " + str(test_mode))
+        get_logger().info("OPTION VALUES ...")
+        get_logger().info("  data_dir: " + data_dir)
+        get_logger().info("  wled_dir: " + wled_rel_dir)
+        get_logger().info("  definitions_dir: " + definitions_rel_dir)
+        get_logger().info("  output_dir: " + output_dir)
+        get_logger().info("  environment: " + str(environment))
+        get_logger().info("  suffix: '{suffix}'".format(suffix=suffix))
+        get_logger().info("  include_list: " + str(include_list))
+        get_logger().info("  exclude_list: " + str(exclude_list))
+        get_logger().info("  deep: " + str(deep))
+        get_logger().info("  test: " + str(test_mode))
 
     wled_yaml2json(data_dir=data_dir,
                    wled_rel_dir=wled_rel_dir,
@@ -214,17 +218,17 @@ def wled_yaml2json(*,
     cfg_paths = build_path_list(wled_dir, environment, cfg, DEFAULT_CFG_FILE_BASE) if cfg is not None else None
 
     if not quiet_mode:
-        print("\nINPUT FILE PATHS ...")
-        print("  effects_path: {path}".format(path=effects_path))
-        print("  palettes_path: {path}".format(path=palettes_path))
-        print("  colors_path: {path}".format(path=colors_path))
-        print("  segments_path: {path}".format(path=segments_path))
-        print("  properties_path: {path}".format(path=properties_path))
-        print("  presets_paths: {path}".format(path=presets_paths))
-        print("  cfg_paths: {path}".format(path=cfg_paths))
+        get_logger().info("INPUT FILE PATHS ...")
+        get_logger().info("  effects_path: {path}".format(path=effects_path))
+        get_logger().info("  palettes_path: {path}".format(path=palettes_path))
+        get_logger().info("  colors_path: {path}".format(path=colors_path))
+        get_logger().info("  segments_path: {path}".format(path=segments_path))
+        get_logger().info("  properties_path: {path}".format(path=properties_path))
+        get_logger().info("  presets_paths: {path}".format(path=presets_paths))
+        get_logger().info("  cfg_paths: {path}".format(path=cfg_paths))
 
-        print("\nLOADING PROPERTIES ...")
-        print("  From: {file}".format(file=properties_path))
+        get_logger().info("LOADING PROPERTIES ...")
+        get_logger().info("  From: {file}".format(file=properties_path))
     placeholder_replacer = load_placeholder_replacer(properties_path, environment)
 
     presets_processor = PresetsFileProcessor(presets_paths, segments_path, environment, palettes_path, effects_path,

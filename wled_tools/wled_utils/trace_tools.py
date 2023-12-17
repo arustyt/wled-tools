@@ -13,14 +13,14 @@ class Tracer:
         self.indent()
 
         if self.verbose:
-            print("{indent}{prefix} Entering {function}".format(indent=self.get_indent(), prefix="{", function=".".join(self.function_stack)))
+            get_logger().info("{indent}{prefix} Entering {function}".format(indent=self.get_indent(), prefix="{", function=".".join(self.function_stack)))
 
     def indent(self):
         self.indent_stack.append("    ")
 
     def exiting(self):
         if self.verbose:
-            print("{indent}{prefix} Exiting {function}".format(indent=self.get_indent(), prefix="}", function=".".join(self.function_stack)))
+            get_logger().info("{indent}{prefix} Exiting {function}".format(indent=self.get_indent(), prefix="}", function=".".join(self.function_stack)))
 
         self.function_stack.pop()
         self.unindent()
