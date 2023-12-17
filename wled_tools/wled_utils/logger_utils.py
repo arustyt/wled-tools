@@ -22,11 +22,6 @@ def init_logger(log_name: str = STDOUT, log_dir: str = DEFAULT_LOG_DIR, level=lo
         root = logging.getLogger()
         if not root.hasHandlers():
             init_file_logger(log_name, log_dir, level, log_format)
-            get_logger().info("In init_logger({log_name}, {log_dir}, {level}, {log_format})".format(log_name=log_name,
-                                                                                                    log_dir=log_dir,
-                                                                                                    level=level,
-                                                                                                    log_format=log_format))
-            # get_logger().info(''.join(traceback.format_stack()))
 
 
 def init_file_logger(log_name, log_dir, level, log_format):
