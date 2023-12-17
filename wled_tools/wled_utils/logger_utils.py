@@ -17,18 +17,19 @@ STDOUT = "stdout"
 def init_logger(log_name: str = STDOUT, log_dir: str = DEFAULT_LOG_DIR, level=logging.INFO,
                 log_format=DEFAULT_LOG_FORMAT):
     if log_name == STDOUT:
-        log_to_stdout(level, log_format)
+        init_stdout_logger(level, log_format)
     else:
-        log_to_file(log_name, log_dir, level, log_format)
+        root = logging.getLogger()
+        if not root.hasHandlers():
+            init_file_logger(log_name, log_dir, level, log_format)
+            get_logger().info("In init_logger({log_name}, {log_dir}, {level}, {log_format})".format(log_name=log_name,
+                                                                                                    log_dir=log_dir,
+                                                                                                    level=level,
+                                                                                                    log_format=log_format))
+            # get_logger().info(''.join(traceback.format_stack()))
 
-    get_logger().info("In init_logger({log_name}, {log_dir}, {level}, {log_format})".format(log_name=log_name,
-                                                                                            log_dir=log_dir,
-                                                                                            level=level,
-                                                                                            log_format=log_format))
-    get_logger().info(''.join(traceback.format_stack()))
 
-
-def log_to_file(log_name, log_dir, level, log_format):
+def init_file_logger(log_name, log_dir, level, log_format):
     if log_dir.endswith('/'):
         log_file = log_dir
     else:
@@ -48,7 +49,7 @@ def log_to_file(log_name, log_dir, level, log_format):
     logger.addHandler(handler)
 
 
-def log_to_stdout(level, log_format):
+def init_stdout_logger(level, log_format):
     root = logging.getLogger()
     root.setLevel(level)
 
