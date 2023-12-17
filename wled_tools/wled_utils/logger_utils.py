@@ -7,8 +7,6 @@ DEFAULT_LOG_DIR = "/apps_data_01/logs"
 
 STDOUT = "stdout"
 
-global init_count
-
 
 # init_logger() allows that log_name can be __file__ from the calling module.  As a result, any preceding
 # directories will be stripped from the log_name.  If the resulting base name has a '.py' extension it will be
@@ -17,14 +15,12 @@ global init_count
 # log file name.
 def init_logger(log_name: str = STDOUT, log_dir: str = DEFAULT_LOG_DIR, level=logging.INFO,
                 log_format=DEFAULT_LOG_FORMAT):
-    global init_count
     if log_name == STDOUT:
         log_to_stdout(level, log_format)
     else:
         log_to_file(log_name, log_dir, level, log_format)
 
-    get_logger().info("In init_logger({log_name}, {log_dir}, {level}, {log_format})".format(count=init_count,
-                                                                                            log_name=log_name,
+    get_logger().info("In init_logger({log_name}, {log_dir}, {level}, {log_format})".format(log_name=log_name,
                                                                                             log_dir=log_dir,
                                                                                             level=level,
                                                                                             log_format=log_format))
