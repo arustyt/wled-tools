@@ -46,7 +46,7 @@ class Wled4Appdaemon(hass.Hass):
         self.time_re = re.compile(TIME_RE_STR)
         self.sun_re = re.compile(SUN_RE_STR)
 
-        init_logger(self.env, '/conf/apps/logs')
+        init_logger('wled_4_appdaemon', '/conf/apps/logs')
 
     def get_optional_arg_value(self, arg_name, arg_default):
         if arg_name in self.args:
