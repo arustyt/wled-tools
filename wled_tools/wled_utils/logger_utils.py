@@ -1,6 +1,7 @@
 import logging
 import logging.handlers
 import sys
+import traceback
 
 DEFAULT_LOG_FORMAT = '%(asctime)s [%(levelname)s] [%(threadName)s] [%(filename)s.%(funcName)s] - %(message)s'
 DEFAULT_LOG_DIR = "/apps_data_01/logs"
@@ -24,6 +25,7 @@ def init_logger(log_name: str = STDOUT, log_dir: str = DEFAULT_LOG_DIR, level=lo
                                                                                             log_dir=log_dir,
                                                                                             level=level,
                                                                                             log_format=log_format))
+    get_logger().info(''.join(traceback.format_stack()))
 
 
 def log_to_file(log_name, log_dir, level, log_format):
