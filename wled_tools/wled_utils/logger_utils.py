@@ -23,11 +23,11 @@ def init_logger(log_name: str = STDOUT, log_dir: str = DEFAULT_LOG_DIR, level=lo
     else:
         log_to_file(log_name, log_dir, level, log_format)
 
-    get_logger().info("Exit #{count} init_logger({log_name}, {log_dir}, {level}, {log_format})".format(count=init_count,
-                                                                                                       log_name=log_name,
-                                                                                                       log_dir=log_dir,
-                                                                                                       level=level,
-                                                                                                       log_format=log_format))
+    get_logger().info("In init_logger({log_name}, {log_dir}, {level}, {log_format})".format(count=init_count,
+                                                                                            log_name=log_name,
+                                                                                            log_dir=log_dir,
+                                                                                            level=level,
+                                                                                            log_format=log_format))
 
 
 def log_to_file(log_name, log_dir, level, log_format):
