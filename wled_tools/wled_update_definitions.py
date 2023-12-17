@@ -9,6 +9,7 @@ import yaml
 from definition_files.effects import Effects
 from definition_files.palettes import Palettes
 from wled_constants import EFFECTS_TAG, PALETTES_TAG
+from wled_utils.logger_utils import get_logger, init_logger
 from wled_utils.path_utils import build_path
 
 DEFAULT_DEFINITIONS_DIR = "../../../etc"
@@ -41,10 +42,12 @@ def main():
     effects_path = build_path(definitions_dir, effects_file)
     palettes_path = build_path(definitions_dir, palettes_file)
 
-    print("host: " + host)
-    print("definitions_dir: " + definitions_dir)
-    print("effects_path: {path}".format(path=effects_path))
-    print("palettes_path: {path}".format(path=palettes_path))
+    init_logger()
+
+    get_logger().info("host: " + host)
+    get_logger().info("definitions_dir: " + definitions_dir)
+    get_logger().info("effects_path: {path}".format(path=effects_path))
+    get_logger().info("palettes_path: {path}".format(path=palettes_path))
 
     wled_data = download_wled_data(host)
 
@@ -55,7 +58,7 @@ def main():
         backup_existing_file(effects_path)
         with open(effects_path, "w", newline='\n') as out_file:
             out_file.write(yaml.dump(effects_data, sort_keys=False, default_flow_style=False, width=1000))
-#        print("effects: {effects}".format(effects=effects_data))
+#        get_logger().info("effects: {effects}".format(effects=effects_data))
 
     palettes = Palettes(palettes_path)
     palettes.merge(wled_data[PALETTES_TAG])
@@ -64,7 +67,7 @@ def main():
         backup_existing_file(palettes_path)
         with open(palettes_path, "w", newline='\n') as out_file:
             out_file.write(yaml.dump(palettes_data, sort_keys=False, default_flow_style=False, width=1000))
-#        print("palettes: {palettes}".format(palettes=palettes_data))
+#        get_logger().info("palettes: {palettes}".format(palettes=palettes_data))
 
 
 def download_wled_data(host):
@@ -98,11 +101,11 @@ def process_palettes(palettes, device_palettes):
 def backup_existing_file(file_path):
     backup_file_path = "{file_path}.backup".format(file_path=file_path)
     if exists(backup_file_path):
-        print("Removing existing backup file: {file}".format(file=backup_file_path))
+        get_logger().info("Removing existing backup file: {file}".format(file=backup_file_path))
         os.remove(backup_file_path)
 
-    print("Renaming existing file from {file}".format(file=file_path))
-    print("                         to {backup_file}".format(backup_file=backup_file_path))
+    get_logger().info("Renaming existing file from {file}".format(file=file_path))
+    get_logger().info("                         to {backup_file}".format(backup_file=backup_file_path))
     os.rename(file_path, backup_file_path)
 
 

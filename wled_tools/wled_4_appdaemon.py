@@ -6,6 +6,7 @@ import datetime
 import git_tools
 
 from wled_4_ha import wled_4_ha
+from wled_utils.logger_utils import init_logger
 
 RUN_TIME_ARG = "run_time"
 ENV_ARG = "env"
@@ -44,6 +45,8 @@ class Wled4Appdaemon(hass.Hass):
 
         self.time_re = re.compile(TIME_RE_STR)
         self.sun_re = re.compile(SUN_RE_STR)
+
+        init_logger(self.env, '/conf/apps/logs')
 
     def get_optional_arg_value(self, arg_name, arg_default):
         if arg_name in self.args:

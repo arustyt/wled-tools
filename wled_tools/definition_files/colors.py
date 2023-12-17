@@ -2,6 +2,8 @@ import re
 
 import yaml
 
+from wled_utils.logger_utils import get_logger
+
 INVALID_COLOR_STRING = "Input '{value}' is not in #RRGGBB format and is not a recognized color name"
 
 
@@ -20,10 +22,10 @@ class Colors:
                 else:
                     code1 = self.colors_by_name[color_name_normalized]
                     code2 = color['code']
-                    print("Duplicate color definitions for {name}: {code1}, {code2}.".format(name=color['name'],
+                    get_logger().warn("Duplicate color definitions for {name}: {code1}, {code2}.".format(name=color['name'],
                                                                                              code1=code1,
                                                                                              code2=code2))
-                    print("Using first definition, {name}: {code1}.".format(name=color['name'], code1=code1))
+                    get_logger().warn("Using first definition, {name}: {code1}.".format(name=color['name'], code1=code1))
             else:
                 self.colors_by_name[color_name_normalized] = color['code']
 

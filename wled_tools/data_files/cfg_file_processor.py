@@ -3,6 +3,7 @@ from os.path import exists
 
 from data_files.wled_cfg import WledCfg
 from data_files.wled_file_processor import WledFileProcessor
+from wled_utils.logger_utils import get_logger
 from wled_utils.yaml_multi_file_loader import load_yaml_files
 
 
@@ -17,10 +18,10 @@ class CfgFileProcessor(WledFileProcessor):
     def process(self):
         if self.cfg_paths is not None:
             if not self.quiet_mode:
-                print("\nPROCESSING CFG ...")
+                get_logger().info("\nPROCESSING CFG ...")
             wled_cfg = WledCfg(presets_data=self.presets_data)
             if not self.quiet_mode:
-                print("  Processing {file}".format(file=self.cfg_paths))
+                get_logger().info("  Processing {file}".format(file=self.cfg_paths))
 
             raw_cfg_data = load_yaml_files(self.cfg_paths)
 
@@ -35,13 +36,13 @@ class CfgFileProcessor(WledFileProcessor):
                 if exists(json_file_path):
                     self.rename_existing_file(json_file_path)
                 if not self.quiet_mode:
-                    print("  Generating {file}".format(file=json_file_path))
+                    get_logger().info("  Generating {file}".format(file=json_file_path))
                 with open(json_file_path, "w", newline='\n') as out_file:
                     json.dump(self.cfg_data, out_file, indent=2)
                     self.json_file_path = json_file_path
             else:
                 if not self.quiet_mode:
-                    print("  Would have generated {file}".format(file=json_file_path))
+                    get_logger().info("  Would have generated {file}".format(file=json_file_path))
 
     def get_processed_data(self):
         return self.cfg_data
