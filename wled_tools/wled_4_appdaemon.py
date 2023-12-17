@@ -130,4 +130,4 @@ class Wled4Appdaemon(hass.Hass):
         return 0 if process_successful else 1
 
     def log_info(self, msg):
-        get_logger().info("[{which}] - {msg)".format(which=self.env, msg=msg))
+        get_logger().info("[{which}] - {msg}".format(which=self.env, msg=msg))
