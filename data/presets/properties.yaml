@@ -12,6 +12,7 @@ lab_300:
   july4th:
     playlist_duration: 300
   playlist_duration: 300
+  playlist_repeat: 2
 roof:
   sunset:
     begin_dark_duration: 10
@@ -26,3 +27,4 @@ roof:
   july4th:
     playlist_duration: 3000
   playlist_duration: 3000
+  playlist_repeat: 0
