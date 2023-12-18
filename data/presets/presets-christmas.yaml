@@ -172,23 +172,25 @@
   n: XmasColorTwinkles
   'on': true
   seg:
-  - bri: 192
+  - bri: 169
     col:
     - Red
     - Green
     - White
     fx_name: Colortwinkles
-    grp: 1
+    grp: 3
     id: 0
-    ix: 192
+    ix: 128
     mi: false
     seg_name: Whole Roof
+    of: 0
     'on': true
     pal_name: Colors Only
     rev: false
     sel: true
     spc: 0
-    sx: 123
+    sx: 64
+  transition: 0
 '26':
   n: CandleMulti
   'on': true
