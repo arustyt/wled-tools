@@ -3,23 +3,24 @@
   'on': true
   playlist:
     dur:
-    - ${playlist_duration} * 10
+    - ${playlist_duration} * 11
     end: 0
     ps:
     - Candy Cane
     - Christmas
-    - Twinkle
-    - Candy Cane 2
     - XmasColorTwinkles
     - CandleMulti
+    - Tetrix 2
     - TwinkleFoxRainbow
     - TriChaseXmas
     - ChunChunXmas
+    - Candy Cane 2
     - Tetrix
+    - Twinkle
     r: false
-    repeat: 0
+    repeat: ${playlist_repeat}
     transition:
-    - 10 * 10
+    - 10 * 11
 '21':
   n: Candy Cane
   'on': true
@@ -27,9 +28,9 @@
   - bri: 128
     col:
     - Red
-    - Green
     - White
-    fx_name: Candy Cane
+    - White
+    fx_name: Chase 2
     grp: 1
     id: 0
     ix: 128
@@ -99,14 +100,14 @@
   n: Candy Cane 2
   'on': true
   seg:
-  - bri: 128
+  - id: 0
+    bri: 128
     col:
+    - Red
     - White
-    - '0000BF'
     - White
-    fx_name: Candy Cane
+    fx_name: Chase 2
     grp: 1
-    id: 0
     ix: 128
     mi: false
     seg_name: Garage
@@ -116,63 +117,21 @@
     sel: true
     spc: 0
     sx: 122
-  - bri: 128
-    col:
-    - '669900'
-    - Black
-    - Black
-    fx_name: Candy Cane
-    grp: 1
-    id: 1
-    ix: 128
-    mi: false
+  - id: 1
     seg_name: Porch
-    'on': true
-    pal_name: Default
     rev: true
-    sel: false
-    spc: 0
-    sx: 128
-  - bri: 128
-    col:
-    - White
-    - '0000BF'
-    - White
-    fx_name: Candy Cane
-    grp: 1
-    id: 2
-    ix: 128
-    mi: false
+  - id: 2
     seg_name: Over Porch
-    'on': true
-    pal_name: Default
     rev: false
-    sel: true
-    spc: 0
-    sx: 122
-  - bri: 128
-    col:
-    - White
-    - '0000BF'
-    - White
-    fx_name: Candy Cane
-    grp: 1
-    id: 3
-    ix: 128
-    mi: false
+  - id: 3
     seg_name: Peak
-    'on': true
-    pal_name: Default
     rev: true
-    sel: true
-    spc: 0
-    sx: 122
   transition: 7
 '25':
   n: XmasColorTwinkles
   'on': true
   seg:
-  - bri: 169
+  - bri: 128
     col:
     - Red
     - Green
@@ -292,7 +251,7 @@
   - bri: 128
     col:
     - Red
-    - Black
+    - Green
     - White
     fx_name: Tetrix
     grp: 1
@@ -301,11 +260,42 @@
     mi: false
     seg_name: Garage
     'on': true
-    pal_name: Rainbow
+    pal_name: Color 1
     rev: true
     sel: true
     spc: 0
-    sx: 255
+    sx: 160
+  - id: 1
+    seg_name: Porch
+    rev: false
+  - id: 2
+    seg_name: Over Porch
+    rev: true
+  - id: 3
+    seg_name: Peak
+    rev: false
+  transition: 7
+'31':
+  n: Tetrix 2
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - Green
+    - Red
+    - White
+    fx_name: Tetrix
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: Garage
+    'on': true
+    pal_name: Color 1
+    rev: true
+    sel: true
+    spc: 0
+    sx: 160
   - id: 1
     seg_name: Porch
     rev: false
