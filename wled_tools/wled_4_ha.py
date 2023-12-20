@@ -92,8 +92,7 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
         evaluation_date = parse_date_str(date_str)
 
         wled_lights = WledHoliday(data_dir=data_dir, definitions_rel_dir=definitions_rel_dir, holidays_file=holidays_file,
-                                  lights_file=lights_file, evaluation_date=evaluation_date,
-                                  default_lights_name=default_lights_name, verbose_mode=verbose)
+                                  lights_file=lights_file, evaluation_date=evaluation_date, verbose_mode=verbose)
         matched_holiday = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
 
         if verbose:
