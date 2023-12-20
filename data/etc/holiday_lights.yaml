@@ -3,7 +3,7 @@ holidays:
   "new_years_day":
     start_date: '0101'
     end_date: '0101+6'
-    lights: newyears
+    lights: newyearsday
   martin_luther_king_jr_day:
     start_date: martin_luther_king_jr_day
     end_date: martin_luther_king_jr_day
@@ -96,8 +96,16 @@ holidays:
     start_date: '1101'
     end_date: thanksgiving
     lights: thanksgiving
+  christmas_eve:
+    start_date: christmas_eve
+    end_date: christmas_eve
+    lights: christmas
   christmas:
     start_date: thanksgiving+1
+    end_date: new_years_eve-1
+    lights: christmas
+  new_years_eve:
+    start_date: new_years_eve
     end_date: new_years_eve
     lights: christmas
 

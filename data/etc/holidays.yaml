@@ -102,6 +102,8 @@ holidays:
       month: 11
       day_of_week: TH
       occurrence: 4
+  christmas_eve:
+    date: '1224'
   christmas:
     date: '1225'
   new_years_eve:
