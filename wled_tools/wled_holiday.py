@@ -24,6 +24,8 @@ END_DAY_OF_YEAR_KEY = 'end_day_of_year'
 START_DAY_OF_YEAR_KEY = 'start_day_of_year'
 START_DATE_KEY = 'start_date'
 END_DATE_KEY = 'end_date'
+HOLIDAY_LIGHTS_KEY = "lights"
+
 ALL_DATES = '*'
 
 
@@ -172,7 +174,7 @@ class WledHoliday:
                 day_of_year_range = end_day_of_year - start_day_of_year + 1
                 if min_range is None or day_of_year_range < min_range:
                     min_range = day_of_year_range
-                    matched_holiday = holiday
+                    matched_holiday = candidate_holiday[HOLIDAY_LIGHTS_KEY]
 
         return matched_holiday if matched_holiday is not None else self.default_lights_name
 
@@ -181,8 +183,10 @@ class WledHoliday:
         all_holidays = self.lights_data[HOLIDAYS_KEY]
         for holiday in all_holidays:
             holiday_dates[holiday] = dict()
+            holiday_data = all_holidays[holiday]
             holiday_dates[holiday][START_DAY_OF_YEAR_KEY], holiday_dates[holiday][END_DAY_OF_YEAR_KEY] = \
-                self.evaluate_holiday_dates(all_holidays[holiday], evaluation_date)
+                self.evaluate_holiday_dates(holiday_data, evaluation_date)
+            holiday_dates[holiday][HOLIDAY_LIGHTS_KEY] = holiday_data[HOLIDAY_LIGHTS_KEY]
 
         return holiday_dates
 
