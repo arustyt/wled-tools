@@ -31,7 +31,7 @@ class PresetsFileProcessor(WledFileProcessor):
     def process(self):
         if self.presets_paths is not None:
             if not self.quiet_mode:
-                get_logger().info("\nPROCESSING PRESETS ...")
+                get_logger().info("PROCESSING PRESETS ...")
             wled_presets = WledPresets(self.colors_path, self.palettes_path, self.effects_path)
             if not self.quiet_mode:
                 get_logger().info("  Processing {file}".format(file=self.presets_paths))
