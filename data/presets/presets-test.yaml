@@ -1,0 +1,47 @@
+defaults:
+  preset:
+    mainseg: 0
+    bri: 128
+    transition: 7
+'0': {}
+'1':
+  n: 'Off'
+  win: T=0
+'2':
+  n: 'On'
+  win: T=1
+'3':
+  bri: 0
+  mainseg: 0
+  n: TwinkleC9
+  'on': true
+  seg:
+  - id: 0
+    bri: 128
+    cct: 127
+    col: []
+    fx_name: TwinkleFox
+    grp: 1
+    ix: 132
+    mi: false
+    seg_name: Garage
+    of: 0
+    'on': true
+    pal_name: C9 New
+    rev: false
+    sel: true
+    spc: 0
+    sx: 131
+  - id: 1
+    seg_name: Porch
+    fx_name: TwinkleCat
+    grp: 1
+  - id: 2
+    fx_name: TwinkleFox
+    seg_name: Over Porch
+    grp: 3
+  - id: 3
+    fx_name: TwinkleCat
+    seg_name: Peak
+    grp: 3
+  transition: 0
