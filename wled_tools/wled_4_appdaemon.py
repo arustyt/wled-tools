@@ -8,6 +8,8 @@ import git_tools
 from wled_4_ha import wled_4_ha
 from wled_utils.logger_utils import init_logger, get_logger
 
+DEFAULT_LOG_DIR = '/logs'
+LOG_DIR = "log_dir"
 RUN_TIME_ARG = "run_time"
 ENV_ARG = "env"
 JOB_ARG = "job"
@@ -42,11 +44,12 @@ class Wled4Appdaemon(hass.Hass):
         self.config_remote = self.get_optional_arg_value(CONFIG_REMOTE_ARG, None)
         self.git_username = self.get_optional_arg_value(GIT_USERNAME, None)
         self.git_password = self.get_optional_arg_value(GIT_PASSWORD, None)
+        self.log_dir = self.get_optional_arg_value(LOG_DIR, DEFAULT_LOG_DIR)
 
         self.time_re = re.compile(TIME_RE_STR)
         self.sun_re = re.compile(SUN_RE_STR)
 
-        init_logger('wled_4_appdaemon', '/conf/apps/logs')
+        init_logger('wled_4_appdaemon', self.log_dir)
 
     def get_optional_arg_value(self, arg_name, arg_default):
         if arg_name in self.args:
