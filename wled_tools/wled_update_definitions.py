@@ -32,15 +32,28 @@ def main():
     parser.add_argument("--palettes", type=str, help="Name of file to which WLED palette definitions will be written "
                                                      "(YAML).", action="store",
                         default=DEFAULT_PALETTES_FILE)
+    parser.add_argument('--auto_create', help="Automatically create new effects/palettes.", action='store_true')
+    parser.add_argument("--auto_delete", type=str, help="Comma separated list of names of new effects/palettes to be "
+                                                        "automatically deleted (if existing) or not created (if "
+                                                        "new).", action="store", default=None)
 
     args = parser.parse_args()
     host = str(args.host)
     definitions_dir = str(args.definitions_dir)
     effects_file = args.effects
     palettes_file = args.palettes
+    auto_create = args.auto_create
+    auto_delete = args.auto_delete
 
     effects_path = build_path(definitions_dir, effects_file)
     palettes_path = build_path(definitions_dir, palettes_file)
+
+    auto_delete_list = []
+    if auto_delete is not None:
+        for item in auto_delete.split(','):
+            item = str(item).strip()
+            if len(item) > 0:
+                auto_delete_list.append(item)
 
     init_logger()
 
@@ -51,22 +64,37 @@ def main():
 
     wled_data = download_wled_data(host)
 
+    get_logger().info("=====================================")
+    get_logger().info("Processing effects: {path}".format(path=effects_path))
+    get_logger().info("-------------------------------------")
     effects = Effects(effects_path)
-    effects.merge(wled_data[EFFECTS_TAG])
+    effects.merge(wled_data[EFFECTS_TAG], auto_create, auto_delete_list)
     if effects.is_modified():
         effects_data = effects.dump()
         backup_existing_file(effects_path)
         with open(effects_path, "w", newline='\n') as out_file:
             out_file.write(yaml.dump(effects_data, sort_keys=False, default_flow_style=False, width=1000))
-#        get_logger().info("effects: {effects}".format(effects=effects_data))
+    else:
+        get_logger().info("No changes")
 
+    get_logger().info("=====================================")
+
+    get_logger().info("=====================================")
+    get_logger().info("Processing palettes: {path}".format(path=palettes_path))
+    get_logger().info("-------------------------------------")
     palettes = Palettes(palettes_path)
-    palettes.merge(wled_data[PALETTES_TAG])
+    palettes.merge(wled_data[PALETTES_TAG], auto_create, auto_delete_list)
     if palettes.is_modified():
         palettes_data = palettes.dump()
         backup_existing_file(palettes_path)
         with open(palettes_path, "w", newline='\n') as out_file:
             out_file.write(yaml.dump(palettes_data, sort_keys=False, default_flow_style=False, width=1000))
+    else:
+        get_logger().info("No changes")
+
+    get_logger().info("=====================================")
+
+
 #        get_logger().info("palettes: {palettes}".format(palettes=palettes_data))
 
 

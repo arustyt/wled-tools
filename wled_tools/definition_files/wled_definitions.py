@@ -4,7 +4,7 @@ from collections import OrderedDict
 import yaml
 
 from definition_files.decision_maker import DecisionMaker, DECISION_UPDATE, DECISION_REPLACE, DECISION_REPLACE_NAME, \
-    DECISION_REPLACE_NAME_WITH_ALIAS, DECISION_CREATE
+    DECISION_REPLACE_NAME_WITH_ALIAS, DECISION_CREATE, DECISION_DELETE
 from wled_constants import NAME_TAG, ID_TAG, DESCRIPTION_TAG, ALIASES_TAG
 
 
@@ -67,24 +67,34 @@ class WledDefinitions:
     def is_modified(self):
         return self.modified
 
-    def merge(self, new_definitions):
+    def merge(self, new_definitions, auto_create: bool, auto_delete_list: list):
         if isinstance(new_definitions, list):
-            self.merge_list(new_definitions)
+            self.merge_list(new_definitions, auto_create, auto_delete_list)
         else:
             raise ValueError("{type} data structure is not supported.".format(type=str(type(new_definitions))))
 
-    def merge_list(self, new_definitions):
+    def merge_list(self, new_definitions, auto_create: bool, auto_delete_list: list):
         i = 0
         for definition_name in new_definitions:
-            self.merge_definition(i, definition_name)
+            self.merge_definition(i, definition_name, None, auto_create, auto_delete_list)
             i += 1
 
-    def merge_definition(self, definition_id, definition_name, definition_desc=None):
+    def merge_definition(self, definition_id, definition_name, definition_desc, auto_create: bool, auto_delete_list: list):
         try:
             definition = self.get_by_id(definition_id)
-            self.update_definition(definition, definition_name, definition_desc)
+            if definition_name in auto_delete_list:
+                self.delete_definition(definition)
+            else:
+                self.update_definition(definition, definition_name, definition_desc)
         except ValueError:
-            self.create_definition(definition_id, definition_name, definition_desc)
+            if definition_name not in auto_delete_list:
+                self.create_definition(definition_id, definition_name, definition_desc, auto_create, auto_delete_list)
+
+    def delete_definition(self, definition):
+        existing_definition = self.definitions_by_id[definition[ID_TAG]]
+        definition_name_normalized = self.normalize_name(existing_definition[NAME_TAG])
+        self.definitions_by_name.pop(definition_name_normalized)
+        self.definitions_by_id.pop(existing_definition[ID_TAG])
 
     def update_definition(self, definition, new_name, new_desc):
         if self.definition_changed(definition, new_name, new_desc):
@@ -115,6 +125,8 @@ class WledDefinitions:
                 self.add_alias(definition, definition[NAME_TAG])
             definition[NAME_TAG] = new_name
             self.modified = True
+        elif decision == DECISION_DELETE:
+            self.delete_definition(definition)
         # else DECISION_SKIP
 
     def add_alias(self, definition, new_name):
@@ -140,15 +152,16 @@ class WledDefinitions:
 
         return name_is_new or description_is_new
 
-    def create_definition(self, definition_id, definition_name, definition_desc):
-        definition_details = OrderedDict()
-        definition_details[ID_TAG] = definition_id
-        definition_details[NAME_TAG] = definition_name
-        if definition_desc is not None:
-            definition_details[DESCRIPTION_TAG] = definition_desc
+    def create_definition(self, definition_id, definition_name, definition_desc, auto_create: bool, auto_delete_list: list):
+        if definition_name not in auto_delete_list:
+            definition_details = OrderedDict()
+            definition_details[ID_TAG] = definition_id
+            definition_details[NAME_TAG] = definition_name
+            if definition_desc is not None:
+                definition_details[DESCRIPTION_TAG] = definition_desc
 
-        if self.decision_maker.handle_new(definition_details) == DECISION_CREATE:
-            self.handle_definition_creation(definition_details)
+            if auto_create or self.decision_maker.handle_new(definition_details) == DECISION_CREATE:
+                self.handle_definition_creation(definition_details)
 
     def handle_definition_creation(self, definition_details):
         definition_name_normalized = self.normalize_name(definition_details[NAME_TAG])

@@ -2,6 +2,7 @@
 DECISION_UPDATE = 'u'
 DECISION_REPLACE = 'r'
 DECISION_SKIP = 's'
+DECISION_DELETE = 'd'
 DECISION_CREATE = 'c'
 DECISION_REPLACE_NAME = 'n'
 DECISION_REPLACE_NAME_WITH_ALIAS = 'a'
@@ -14,6 +15,7 @@ decisions = {DECISION_UPDATE: DECISION_UPDATE,
              DECISION_REPLACE: DECISION_REPLACE,
              DECISION_CREATE: DECISION_CREATE,
              DECISION_SKIP: DECISION_SKIP,
+             DECISION_DELETE: DECISION_DELETE,
              DECISION_REPLACE_NAME: DECISION_REPLACE_NAME,
              DECISION_REPLACE_NAME_WITH_ALIAS: DECISION_REPLACE_NAME_WITH_ALIAS}
 
@@ -24,7 +26,7 @@ class DecisionMaker:
         print("Current Value: {value}".format(value=str(old_value)))
         print("New Value:     {value}".format(value=str(new_value)))
         while True:
-            user_input = input("[U]pdate, [R]eplace, replace [N]ame, or [S]kip [U|R|N|S]? ").lower()
+            user_input = input("[U]pdate, [R]eplace, replace [N]ame, [S]kip or [D]elete [U|R|N|S|D]? ").lower()
             if user_input in decisions:
                 decision = decisions[user_input]
                 break
