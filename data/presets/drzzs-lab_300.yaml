@@ -1,0 +1,314 @@
+'0': {}
+'1':
+  n: 'Off'
+  win: T=0
+'10':
+  bri: 60
+  id: 0
+  n: Sport Team 2
+  seg:
+  - col:
+    - - 0
+      - 8
+      - 255
+    - - 255
+      - 255
+      - 0
+    - - 0
+      - 0
+      - 0
+    fx: 16
+    ix: 10
+    n: Whole Roof
+    pal: 0
+    start: 0
+    stop: 300
+    sx: 211
+'11':
+  bri: 60
+  id: 0
+  n: Red White Blue
+  seg:
+  - col:
+    - - 255
+      - 0
+      - 0
+    - - 255
+      - 255
+      - 255
+    - - 0
+      - 0
+      - 255
+    fx: 54
+    ix: 216
+    n: Whole Roof
+    pal: 0
+    start: 0
+    stop: 300
+    sx: 230
+'12':
+  bri: 128
+  id: 0
+  n: St. Patricks Day
+  seg:
+  - col:
+    - - 8
+      - 255
+      - 0
+    - - 0
+      - 140
+      - 65
+    - - 0
+      - 74
+      - 35
+    fx: 86
+    ix: 113
+    n: Whole Roof
+    pal: 0
+    start: 0
+    stop: 300
+    sx: 207
+'13':
+  bri: 85
+  id: 0
+  n: Christmas
+  seg:
+  - col:
+    - - 8
+      - 255
+      - 0
+    - - 255
+      - 0
+      - 0
+    - - 0
+      - 0
+      - 0
+    fx: 105
+    ix: 196
+    n: Whole Roof
+    pal: 0
+    start: 0
+    stop: 300
+    sx: 70
+'14':
+  bri: 60
+  id: 0
+  n: Valentines
+  seg:
+  - col:
+    - - 255
+      - 0
+      - 0
+    - - 255
+      - 0
+      - 255
+    - - 0
+      - 0
+      - 0
+    fx: 46
+    ix: 246
+    n: Whole Roof
+    pal: 0
+    start: 0
+    stop: 300
+    sx: 201
+'2':
+  n: 'On'
+  win: T=1
+'3':
+  n: Sunset Playlist
+  'on': true
+  playlist:
+    dur:
+    - 300
+    - 300
+    - 300
+    - 300
+    - 300
+    - 300
+    - 300
+    - 300
+    - 300
+    - 300
+    - 300
+    end: 0
+    ps:
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    - 11
+    - 12
+    - 13
+    - 14
+    r: false
+    repeat: 1
+    transition:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+'4':
+  bri: 60
+  n: Colorwinkle
+  seg:
+  - col:
+    - - 255
+      - 160
+      - 0
+    - - 0
+      - 0
+      - 0
+    - - 0
+      - 0
+      - 0
+    fx: 74
+    id: 0
+    ix: 170
+    n: Whole Roof
+    pal: 0
+    start: 0
+    stop: 300
+    sx: 139
+'5':
+  bri: 99
+  id: 0
+  n: Fall Colors
+  seg:
+  - col:
+    - - 255
+      - 160
+      - 0
+    - - 0
+      - 0
+      - 0
+    - - 0
+      - 0
+      - 0
+    fx: 73
+    ix: 117
+    n: Whole Roof
+    pal: 31
+    start: 0
+    stop: 300
+    sx: 18
+'6':
+  bri: 85
+  id: 0
+  n: Thanksgiving
+  seg:
+  - col:
+    - - 255
+      - 208
+      - 0
+    - - 255
+      - 104
+      - 23
+    - - 4
+      - 177
+      - 0
+    fx: 81
+    ix: 198
+    n: Whole Roof
+    pal: 0
+    start: 0
+    stop: 300
+    sx: 137
+'7':
+  id: 0
+  mainseg: 0
+  n: Easter Stubs
+  seg:
+  - bri: 255
+    c1: 128
+    c2: 128
+    c3: 16
+    cct: 127
+    col:
+    - - 254
+      - 255
+      - 245
+      - 0
+    - - 0
+      - 0
+      - 0
+      - 0
+    - - 0
+      - 0
+      - 0
+      - 0
+    frz: false
+    fx: 115
+    grp: 1
+    id: 0
+    ix: 212
+    m12: 1
+    mi: false
+    n: Whole Roof
+    o1: false
+    o2: false
+    o3: false
+    of: 0
+    'on': true
+    pal: 37
+    rev: false
+    sel: true
+    si: 0
+    spc: 0
+    start: 0
+    stop: 300
+    sx: 205
+'8':
+  bri: 60
+  id: 0
+  n: Fireworks
+  seg:
+  - col:
+    - - 255
+      - 160
+      - 0
+    - - 0
+      - 0
+      - 0
+    - - 0
+      - 0
+      - 0
+    fx: 90
+    ix: 184
+    n: Whole Roof
+    pal: 11
+    start: 0
+    stop: 300
+    sx: 144
+'9':
+  bri: 60
+  id: 0
+  n: Sport Team
+  seg:
+  - col:
+    - - 0
+      - 8
+      - 255
+    - - 255
+      - 255
+      - 0
+    - - 0
+      - 0
+      - 0
+    fx: 37
+    ix: 255
+    n: Whole Roof
+    pal: 0
+    start: 0
+    stop: 300
+    sx: 188
