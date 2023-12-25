@@ -1,9 +1,8 @@
-import os
 import re
 
 import hassapi as hass
 import datetime
-import git_tools
+from git import Repo
 
 from wled_4_ha import wled_4_ha
 from wled_utils.logger_utils import init_logger, get_logger
@@ -124,8 +123,10 @@ class Wled4Appdaemon(hass.Hass):
     def install_lights_de_jour(self, cb_args):
         if self.config_repo is not None:
             self.log_info("Pulling config repo @ {repo}".format(repo=self.config_repo))
-            git_tools.git_pull(self.config_repo, self.config_remote, self.git_username, self.git_password)
-
+            repo = Repo(self.config_repo)
+            # repo.username = self.git_username
+            origin = repo.remotes.origin
+            origin.pull()
         self.log_info("Calling wled_4_ha({job_file}, {env}, {date_str}, {verbose})".format(job_file=self.job, env=self.env,
                                                                                       date_str=self.date_str,
                                                                                       verbose=self.verbose))
