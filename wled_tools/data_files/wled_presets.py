@@ -13,9 +13,9 @@ from wled_constants import SEGMENTS_FILE_TAG, SEGMENT_TAG, COLOR_TAG, SEGMENT_NA
 
 class WledPresets(WledDataProcessor):
 
-    def __init__(self, color_names_file='colors.yaml', palette_names_file='palettes.yaml',
+    def __init__(self, environment, color_names_file='colors.yaml', palette_names_file='palettes.yaml',
                  effect_names_file='effects.yaml'):
-        super().__init__()
+        super().__init__(environment)
         self.colors = Colors(color_names_file)
         self.palettes = Palettes(palette_names_file)
         self.effects = Effects(effect_names_file)
@@ -29,9 +29,9 @@ class WledPresets(WledDataProcessor):
         self.max_segments = 0
 
     def process_other_args(self, raw_preset_data, other_args):
-        self.presets = Presets(presets_data=raw_preset_data)
+        self.presets = Presets(self.environment, presets_data=raw_preset_data)
         if SEGMENTS_FILE_TAG in other_args:
-            self.segments = Segments(other_args[SEGMENTS_FILE_TAG])
+            self.segments = Segments(self.environment, other_args[SEGMENTS_FILE_TAG])
         else:
             raise AttributeError("Missing keyword argument, '{name}'".format(name=SEGMENTS_FILE_TAG))
 

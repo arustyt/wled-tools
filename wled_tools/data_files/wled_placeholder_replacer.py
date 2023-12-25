@@ -14,9 +14,8 @@ PLACEHOLDER_CHARS_RE = '[^}]'
 class WledPlaceholderReplacer(WledDataProcessor):
 
     def __init__(self, placeholder_data: dict, environment=None):
-        super().__init__()
+        super().__init__(environment)
         self.placeholder_data = placeholder_data
-        self.environment = environment
         placeholder_re_str = '^.*{prefix}({chars}*){suffix}.*$'.format(prefix=PLACEHOLDER_PREFIX_RE,
                                                                        chars=PLACEHOLDER_CHARS_RE,
                                                                        suffix=PLACEHOLDER_SUFFIX_RE)

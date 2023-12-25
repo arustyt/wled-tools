@@ -50,6 +50,7 @@ DEFAULT_LIGHTS_NAME_KEY = "default_lights_name"
 HOLIDAYS_FILE_KEY = "holidays_file"
 
 HOLIDAYS_KEY = 'holidays'
+SEGMENTS_KEY = 'segments'
 NORMALIZED_HOLIDAYS_KEY = 'normalized_holidays'
 DEFAULT_HOLIDAYS_FILE = "holidays.yaml"
 DEFAULT_LIGHTS_FILE = "holiday_lights.yaml"
