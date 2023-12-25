@@ -93,6 +93,7 @@ class PropertyEvaluator:
             else:
                 if self.verbose:
                     get_logger().info("NOT FOUND")
+                current_level = None
 
         if self.verbose:
             self.tracer.exiting()
