@@ -46,9 +46,7 @@ trash
 .idea
 *.backup
 save*/
-src/main/python/data/
-src/main/python/*.json
-src/main/python/*.yaml
 __pycache__
 
+spike/
 generated/
