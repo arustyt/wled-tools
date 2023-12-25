@@ -6,10 +6,11 @@ from wled_utils.trace_tools import Tracer
 
 class PropertyEvaluator:
 
-    def __init__(self, dict_data: dict, verbose=False):
+    def __init__(self, dict_data: dict, *, verbose=False, strings_only=True):
         self.dict_data = dict_data
         self.verbose = verbose
         self.tracer = Tracer(verbose)
+        self.strings_only = strings_only
 
     def get_property(self, *key_parts: str, ):
         property_value, property_name = self.get_property_tuple(*key_parts)
@@ -18,11 +19,15 @@ class PropertyEvaluator:
 
     def get_property_tuple(self, *key_parts: str, ):
         parts_count = len(key_parts)
-        var_parts = list(key_parts[0:parts_count - 1])
+        if parts_count > 1:
+            var_parts = list(key_parts[0:parts_count - 1])
+            var_parts = self.remove_empty_values(var_parts)
+        else:
+            var_parts = []
         fixed_parts = list(key_parts[parts_count - 1].split('.'))
 
         if self.verbose:
-            get_logger().info("Evaluating variable: '{var}', fixed: '{fixed}'".format(var=".".join(var_parts),
+            get_logger().info("Evaluating property: '{var}', fixed: '{fixed}'".format(var=".".join(var_parts),
                                                                                       fixed=".".join(fixed_parts)))
 
         property_value, property_name = self.evaluate_with_all_var_parts(var_parts, fixed_parts)
@@ -92,10 +97,11 @@ class PropertyEvaluator:
         if self.verbose:
             self.tracer.exiting()
 
-        if isinstance(current_level, dict):
-            raise ValueError("Property resolves to a dict: {placeholder}".format(placeholder='.'.join(key_levels)))
-        if isinstance(current_level, list):
-            raise ValueError("Property resolves to a list: {placeholder}".format(placeholder='.'.join(key_levels)))
+        if self.strings_only:
+            if isinstance(current_level, dict):
+                raise ValueError("Property resolves to a dict: {placeholder}".format(placeholder='.'.join(key_levels)))
+            if isinstance(current_level, list):
+                raise ValueError("Property resolves to a list: {placeholder}".format(placeholder='.'.join(key_levels)))
 
         return current_level, candidate_property
 
@@ -150,12 +156,20 @@ class PropertyEvaluator:
         if self.verbose:
             self.tracer.exiting()
 
-        if isinstance(current_level, dict):
-            raise ValueError("Property resolves to a dict: '{placeholder}'".format(placeholder='.'.join(key_levels)))
-        if isinstance(current_level, list):
-            raise ValueError("Property resolves to a list: '{placeholder}'".format(placeholder='.'.join(key_levels)))
+        if self.strings_only:
+            if isinstance(current_level, dict):
+                raise ValueError("Property resolves to a dict: '{placeholder}'".format(placeholder='.'.join(key_levels)))
+            if isinstance(current_level, list):
+                raise ValueError("Property resolves to a list: '{placeholder}'".format(placeholder='.'.join(key_levels)))
 
         return current_level, candidate_property
+
+    def remove_empty_values(self, var_parts):
+        new_var_parts = []
+        for part in var_parts:
+            if part is not None and len(part) > 0:
+                new_var_parts.append(part)
+        return new_var_parts
 
 
 def print_result(property_tuple):

@@ -198,6 +198,9 @@ def wled_yaml2json(*,
     wled_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=wled_rel_dir)
     definitions_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=definitions_rel_dir)
 
+    if segments is None:
+        segments = DEFAULT_SEGMENTS_FILE_BASE
+
     if include_list is not None and exclude_list is not None:
         raise ValueError("The --include and --exclude options are mutually exclusive and cannot both be provided.")
 

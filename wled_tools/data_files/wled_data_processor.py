@@ -5,7 +5,8 @@ from wled_constants import DEFAULTS
 
 class WledDataProcessor:
 
-    def __init__(self):
+    def __init__(self, environment: str):
+        self.environment = environment
         self.raw_wled_data = None
 
     @abstractmethod

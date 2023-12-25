@@ -2,17 +2,24 @@ import re
 
 import yaml
 
+from wled_constants import SEGMENTS_KEY
 from wled_utils.logger_utils import get_logger
+from wled_utils.property_tools import PropertyEvaluator
 
 
 class Segments:
 
-    def __init__(self, segment_names_file='segments.yaml'):
+    def __init__(self, env, segment_names_file='segments.yaml'):
+        self.env = env
+
         with open(segment_names_file) as f:
             segment_data = yaml.safe_load(f)
 
+        property_evaluator = PropertyEvaluator(segment_data, verbose=False, strings_only=False)
+
         self.segments_by_name = {}
-        for segment in segment_data['segments']:
+        segments_list = property_evaluator.get_property(self.env, SEGMENTS_KEY)
+        for segment in segments_list:
             segment_name_normalized = self.normalize_segment_name(segment['n'])
             self.segments_by_name[segment_name_normalized] = (('n', segment['n']), ('start', segment['start']),
                                                               ('stop', segment['stop']))

@@ -19,6 +19,7 @@ TEST_MODE = True
 QUIET_MODE = True
 
 PROPERTIES_FILE_KEY = "properties"
+SEGMENTS_FILE_KEY = "segments"
 
 # wled_f_ha.py job_file env [date_str]
 
@@ -69,7 +70,7 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
         if data_dir is None or len(data_dir) == 0:
             data_dir = '.'
         job_data = load_yaml_file(job_file)
-        property_evaluator = PropertyEvaluator(job_data, False)
+        property_evaluator = PropertyEvaluator(job_data, verbose=False, strings_only=True)
         section = WLED_HOLIDAY_KEY
         definitions_rel_dir = property_evaluator.get_property(env, section, DEFINITIONS_DIR_KEY)
         holidays_file = property_evaluator.get_property(env, section, HOLIDAYS_FILE_KEY)
@@ -108,19 +109,22 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
             get_logger().info("Lights to be applied: " + str(matched_lights))
 
         properties_file = property_evaluator.get_property(env, section, PROPERTIES_FILE_KEY)
+        segments_file = property_evaluator.get_property(env, section, SEGMENTS_FILE_KEY)
 
         if verbose:
             get_logger().info("Testing presets generation to determine JSON file name.")
 
         presets_file = build_presets_option(matched_lights)
-        presets_json_path = test_presets(data_dir, definitions_rel_dir, env, matched_lights, presets_file,
-                                         properties_file, wled_rel_dir, False)
+        presets_json_path, cfg_json_path = evaluate_presets(data_dir, definitions_rel_dir, env, matched_lights,
+                                                            segments_file, presets_file, properties_file, wled_rel_dir,
+                                                            False, TEST_MODE)
 
         if need_to_generate_presets(data_dir, wled_rel_dir, matched_lights, presets_json_path):
             if verbose:
                 get_logger().info("Generating presets file: {file}".format(file=presets_json_path))
-            presets_json_path = generate_presets(data_dir, definitions_rel_dir, env, matched_lights, presets_file,
-                                                 properties_file, wled_rel_dir, verbose)
+            presets_json_path, cfg_json_path = evaluate_presets(data_dir, definitions_rel_dir, env, matched_lights,
+                                                                segments_file, presets_file, properties_file,
+                                                                wled_rel_dir, verbose, PROD_MODE)
         else:
             if verbose:
                 get_logger().info("{file} is up-to-date.".format(file=presets_json_path))
@@ -129,6 +133,7 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
     except Exception as ex:
         if verbose:
             get_logger().error(ex)
+            raise ex
     return process_successful
 
 
@@ -139,18 +144,24 @@ def holiday_presets_file_exists(data_dir, wled_rel_dir, holiday_lights):
     return path_exists
 
 
-def test_presets(data_dir, definitions_rel_dir, env, matched_holiday, presets_file, properties_file, wled_rel_dir,
-                 verbose: bool):
+def evaluate_presets(data_dir, definitions_rel_dir, env, matched_lights, segments_file, presets_file, properties_file, wled_rel_dir,
+                     verbose: bool, test_mode: bool):
     presets_json_path, cfg_json_path = wled_yaml2json(data_dir=data_dir,
                                                       wled_rel_dir=wled_rel_dir,
                                                       environment=env,
                                                       properties=properties_file,
+                                                      segments=segments_file,
                                                       presets=presets_file,
                                                       definitions_rel_dir=definitions_rel_dir,
-                                                      suffix="-{holiday}".format(holiday=matched_holiday),
-                                                      test_mode=TEST_MODE,
+                                                      suffix="-{holiday}".format(holiday=matched_lights),
+                                                      test_mode=test_mode,
                                                       quiet_mode=not verbose)
-    return presets_json_path
+
+    if verbose and test_mode == PROD_MODE:
+        get_logger().info("presets_json_path: " + str(presets_json_path))
+        get_logger().info("cfg_json_path: " + str(cfg_json_path))
+
+    return presets_json_path, cfg_json_path
 
 
 def upload_presets(host, presets_json_path, verbose):
@@ -164,24 +175,6 @@ def upload_presets(host, presets_json_path, verbose):
             get_logger().info("FAILED")
 
     return upload_successful
-
-
-def generate_presets(data_dir, definitions_rel_dir, env, matched_holiday, presets_file, properties_file, wled_rel_dir,
-                     verbose):
-    presets_json_path, cfg_json_path = wled_yaml2json(data_dir=data_dir,
-                                                      wled_rel_dir=wled_rel_dir,
-                                                      environment=env,
-                                                      properties=properties_file,
-                                                      presets=presets_file,
-                                                      definitions_rel_dir=definitions_rel_dir,
-                                                      suffix="-{holiday}".format(holiday=matched_holiday),
-                                                      test_mode=PROD_MODE,
-                                                      quiet_mode=not verbose)
-    if verbose:
-        get_logger().info("presets_json_path: " + str(presets_json_path))
-        get_logger().info("cfg_json_path: " + str(cfg_json_path))
-
-    return presets_json_path
 
 
 def build_presets_option(holiday):
