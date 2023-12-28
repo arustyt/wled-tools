@@ -6,8 +6,8 @@ from pathlib import Path
 from data_files.cfg_file_processor import CfgFileProcessor
 from data_files.presets_file_processor import PresetsFileProcessor
 from data_files.wled_placeholder_replacer import WledPlaceholderReplacer
-from wled_constants import DEFAULT_WLED_DIR, DEFAULT_ENVIRONMENT, DEFAULT_SEGMENTS_FILE_BASE, DEFAULT_PROPERTIES_FILE, \
-    DEFAULT_OUTPUT_DIR, DEFAULT_DEFINITIONS_DIR, DEFAULT_EFFECTS_FILE, DEFAULT_PALETTES_FILE, DEFAULT_COLORS_FILE, \
+from wled_constants import DEFAULT_WLED_DIR, DEFAULT_ENVIRONMENT, DEFAULT_SEGMENTS_FILE_BASE, DEFAULT_PROPERTIES_FILE_NAME, \
+    DEFAULT_OUTPUT_DIR, DEFAULT_DEFINITIONS_DIR, DEFAULT_EFFECTS_FILE_NAME, DEFAULT_PALETTES_FILE_NAME, DEFAULT_COLORS_FILE_NAME, \
     DEFAULT_PROPERTIES_FILE_BASE, DEFAULT_PRESETS_FILE_BASE, DEFAULT_CFG_FILE_BASE, YAML_EXTENSION, DEFAULT_DATA_DIR
 from wled_utils.logger_utils import get_logger, init_logger
 
@@ -51,7 +51,7 @@ def main(name, args):
                                                        "the --wled_dir directory. The properties file name will be "
                                                        "determined as described above where the default file base is "
                                                        "'properties'.",
-                        action="store", default=DEFAULT_PROPERTIES_FILE)
+                        action="store", default=DEFAULT_PROPERTIES_FILE_NAME)
 
     parser.add_argument("--presets", type=str, help="A comma-separated list of WLED preset file names (YAML). The "
                                                     "file names are relative to the --wled_dir directory. Note that "
@@ -77,16 +77,16 @@ def main(name, args):
                         action="store", default=DEFAULT_DEFINITIONS_DIR)
     parser.add_argument("--effects", type=str, help="WLED effect definition file name (YAML) relative to the "
                                                     "--definitions_dir directory. If not specified, '" +
-                                                    DEFAULT_EFFECTS_FILE + "' is used.",
-                        action="store", default=DEFAULT_EFFECTS_FILE)
+                                                    DEFAULT_EFFECTS_FILE_NAME + "' is used.",
+                        action="store", default=DEFAULT_EFFECTS_FILE_NAME)
     parser.add_argument("--palettes", type=str, help="WLED palette definitions file-name (YAML) relative to the "
                                                      "--definitions_dir directory. If not specified, '" +
-                                                     DEFAULT_PALETTES_FILE + "' is used.",
-                        action="store", default=DEFAULT_PALETTES_FILE)
+                                                     DEFAULT_PALETTES_FILE_NAME + "' is used.",
+                        action="store", default=DEFAULT_PALETTES_FILE_NAME)
     parser.add_argument("--colors", type=str, help="HTML color-name definitions file-name (YAML) relative to the "
                                                    "--definitions_dir directory. If not specified, '" +
-                                                   DEFAULT_COLORS_FILE + "' is used.",
-                        action="store", default=DEFAULT_COLORS_FILE)
+                                                   DEFAULT_COLORS_FILE_NAME + "' is used.",
+                        action="store", default=DEFAULT_COLORS_FILE_NAME)
     parser.add_argument("--suffix", type=str, help=("Suffix to be appended to the output file names, preceded by a "
                                                     "'-',  before the '.json' extension."),
                         action="store", default=None)
@@ -185,9 +185,9 @@ def wled_yaml2json(*,
                    cfg=None,
                    output_dir=DEFAULT_OUTPUT_DIR,
                    segments=None,
-                   effects=DEFAULT_EFFECTS_FILE,
-                   palettes=DEFAULT_PALETTES_FILE,
-                   colors=DEFAULT_COLORS_FILE,
+                   effects=DEFAULT_EFFECTS_FILE_NAME,
+                   palettes=DEFAULT_PALETTES_FILE_NAME,
+                   colors=DEFAULT_COLORS_FILE_NAME,
                    suffix=None,
                    include_list=None,
                    exclude_list=None,
@@ -206,10 +206,10 @@ def wled_yaml2json(*,
 
     os.makedirs(output_dir, exist_ok=True)
 
-    effects_path = build_path(definitions_dir, environment, effects, DEFAULT_EFFECTS_FILE)
+    effects_path = build_path(definitions_dir, environment, effects, DEFAULT_EFFECTS_FILE_NAME)
 
-    palettes_path = build_path(definitions_dir, environment, palettes, DEFAULT_PALETTES_FILE)
-    colors_path = build_path(definitions_dir, environment, colors, DEFAULT_COLORS_FILE)
+    palettes_path = build_path(definitions_dir, environment, palettes, DEFAULT_PALETTES_FILE_NAME)
+    colors_path = build_path(definitions_dir, environment, colors, DEFAULT_COLORS_FILE_NAME)
 
     segments_path = build_path(wled_dir, environment, segments, DEFAULT_SEGMENTS_FILE_BASE)
     properties_path = build_path(wled_dir, environment, properties, DEFAULT_PROPERTIES_FILE_BASE)
