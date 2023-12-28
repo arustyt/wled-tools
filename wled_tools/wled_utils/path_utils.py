@@ -1,3 +1,6 @@
+from pathlib import Path
+
+YAML_EXTENSION = '.yaml'
 
 
 def build_path(directory, file):

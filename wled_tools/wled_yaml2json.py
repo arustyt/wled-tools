@@ -1,14 +1,13 @@
 import argparse
 import os
 import sys
-from pathlib import Path
 
 from data_files.cfg_file_processor import CfgFileProcessor
 from data_files.presets_file_processor import PresetsFileProcessor
 from data_files.wled_placeholder_replacer import WledPlaceholderReplacer
 from wled_constants import DEFAULT_WLED_DIR, DEFAULT_ENVIRONMENT, DEFAULT_SEGMENTS_FILE_BASE, DEFAULT_PROPERTIES_FILE_NAME, \
     DEFAULT_OUTPUT_DIR, DEFAULT_DEFINITIONS_DIR, DEFAULT_EFFECTS_FILE_NAME, DEFAULT_PALETTES_FILE_NAME, DEFAULT_COLORS_FILE_NAME, \
-    DEFAULT_PROPERTIES_FILE_BASE, DEFAULT_PRESETS_FILE_BASE, DEFAULT_CFG_FILE_BASE, YAML_EXTENSION, DEFAULT_DATA_DIR
+    DEFAULT_PROPERTIES_FILE_BASE, DEFAULT_PRESETS_FILE_BASE, DEFAULT_CFG_FILE_BASE, DEFAULT_DATA_DIR
 from wled_utils.logger_utils import get_logger, init_logger
 from wled_utils.path_utils import find_path, find_path_list
 
