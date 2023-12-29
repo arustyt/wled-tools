@@ -26,7 +26,7 @@ TEST_FILE_DIR = '../../data/test_files'
 
 class PathUtilsTests(unittest.TestCase):
     def setUp(self):
-        self.test_files = {}
+        self.test_files = []
 
     def tearDown(self):
         self.delete_test_files()
@@ -59,10 +59,9 @@ class PathUtilsTests(unittest.TestCase):
     # find_path tests ================================================================================
 
     def test_find_path_file_option_yaml(self):
-        self.create_test_file(FILE_OPTION_BASE, FILE_EXTENSION)
-        test_file = self.test_files[FILE_OPTION_BASE]
-        actual_path = find_path(TEST_FILE_DIR, ENVIRONMENT, test_file[FILE_NAME_KEY], test_file[FILE_BASE_KEY])
-        self.assertEqual(test_file[FILE_PATH_KEY], actual_path, "File paths do not match.")
+        expected_path = self.create_test_file(FILE_OPTION_BASE, FILE_EXTENSION)
+        actual_path = find_path(TEST_FILE_DIR, ENVIRONMENT, FILE_OPTION_NAME, DEFAULT_BASE)
+        self.assertEqual(expected_path, actual_path, "File paths do not match.")
 
     def test_find_path_file_option_yaml_not_exist(self):
         with self.assertRaises(ValueError):
@@ -129,26 +128,18 @@ class PathUtilsTests(unittest.TestCase):
     # helper methods ================================================================================
 
     def delete_test_files(self):
-        for key in self.test_files.keys():
-            if self.test_files[key][FILE_CREATED]:
-                os.remove(self.test_files[key][FILE_PATH_KEY])
+        for test_file in self.test_files:
+            os.remove(test_file)
 
-    def get_file_path(self, file_name):
-        return "{dir}/{file}".format(dir=TEST_FILE_DIR, file=file_name)
+    def get_file_path(self, file_base, extension):
+        return "{dir}/{file}.{ext}".format(dir=TEST_FILE_DIR, file=file_base, ext=extension)
 
-    def get_file_name(self, file_base, extension):
-        return "{file}.{ext}".format(file=file_base, ext=extension)
-
-    def create_test_file(self, file_base, extension, *, do_not_create=False):
-        file_name = self.get_file_name(file_base, extension)
-        file_path = self.get_file_path(file_name)
-        test_file_entry = {FILE_BASE_KEY: file_base, FILE_NAME_KEY: file_name, FILE_PATH_KEY: file_path,
-                           FILE_CREATED: not do_not_create}
-        self.test_files[file_base] = test_file_entry
-        if not do_not_create:
-            fp = open(file_path, 'w')
-            fp.write('data: THIS IS A TEST FILE\n')
-            fp.close()
+    def create_test_file(self, file_base, extension):
+        file_path = self.get_file_path(file_base, extension)
+        self.test_files.append(file_path)
+        fp = open(file_path, 'w')
+        fp.write('data: THIS IS A TEST FILE\n')
+        fp.close()
 
         return file_path
 
