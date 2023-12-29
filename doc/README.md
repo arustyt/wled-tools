@@ -1,25 +1,10 @@
-# wled-tools - Usage
+# wled-tools - Outline
 
-## Repository Structure
-### wled-tools
-- **wled-tools**
-  - **/wled_tools** - most top level scripts
-    - **/data_files** - modules to handle WLED presets and config files as well the 
-    file defining LED segments.
-    - **/definition_files** - modules to handle files for WLED palettes and effects, 
-    as well as named colors.  
-    - **/wled_utils** - various utility modules
-    - **/misc** - less commonly used top level scripts
-  - **/data** - config file for wled_4_ha.py and wled_4_appdaemon.py
-    - **/etc** - test palettes, effects, colors and holidays files
-    - **/presets** - test presets, config and segments definition files
-      - **/generated** - default directory where output files  
-  - **/doc** - documentation files
+## Contents
+- [Repository Structure](repository_structure.md)
+- [File Name Conventions](file_name_conventions.md)
+- [Definition Files](definition_files.md)
+- [WLED files](WLED_files.md)
 
-### wled-config    
-- wled-config    
-  - **/etc** - palettes, effects, colors and holidays definition files
-  - **/presets** - presets, config and segments definition files
-    - **/generated** - default directory where output files  
 
 
