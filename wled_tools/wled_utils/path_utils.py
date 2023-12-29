@@ -34,27 +34,26 @@ def find_path(directory: str, environment: str, file_nickname: str, file_base: s
     raise ValueError("None of the candidate files exist: '{candidates}'.".format(candidates=str(candidates)))
 
 
-def get_file_name_candidates(environment: str, file_nickname: str, file_base: str):
+def get_file_name_candidates(environment: str, file_option: str, file_base: str):
     candidates = []
-    if file_nickname is not None and file_nickname.endswith(YAML_EXTENSION):
-        candidates.append(file_nickname)
-        if not file_nickname.startswith(file_base):
-            candidates.append("{base}-{file}".format(base=file_base, file=file_nickname))
+    if file_option is not None and file_option.endswith(YAML_EXTENSION):
+        candidates.append(file_option)
     else:
-        if file_nickname is not None and not file_nickname.startswith(file_base):
-            add_nickname_candidates(candidates, "{base}-{nickname}".format(base=file_base, nickname=file_nickname),
-                                    environment)
-
-        add_nickname_candidates(candidates, file_nickname, environment)
-        add_nickname_candidates(candidates, file_base, environment)
+        if file_option is not None:
+            add_file_option_candidates(candidates, file_option, environment)
+        else:
+            add_file_option_candidates(candidates, file_base, environment)
 
     return candidates
 
 
-def add_nickname_candidates(candidates, file_nickname, environment):
-    if file_nickname is not None:
+def add_file_option_candidates(candidates, file_option, environment):
+    if file_option is not None:
         if environment is not None:
-            candidates.append("{nickname}-{env}.yaml".format(nickname=file_nickname, env=environment))
+            file_name = "{file_option}-{env}.yaml".format(file_option=file_option, env=environment)
+            if file_name not in candidates:
+                candidates.append(file_name)
 
-        candidates.append("{nickname}.yaml".format(nickname=file_nickname))
-
+        file_name = "{file_option}.yaml".format(file_option=file_option)
+        if file_name not in candidates:
+            candidates.append("{file_option}.yaml".format(file_option=file_option))
