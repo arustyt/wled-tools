@@ -1,7 +1,7 @@
 lab_300:
   sunset:
     begin_dark_duration: 10
-    sun_duration: 600
+    sun_duration: 150
     sunset_duration: 600
     end_dark_duration: 10
     begin_dark_transition: 0
@@ -9,8 +9,6 @@ lab_300:
     sunset_transition: 30
     end_dark_transition: 0
     sunset_sx: 61
-  july4th:
-    playlist_duration: 300
   playlist_duration: 300
   playlist_repeat: 2
 roof:
@@ -24,7 +22,5 @@ roof:
     sunset_transition: 300
     end_dark_transition: 0
     sunset_sx: 90
-  july4th:
-    playlist_duration: 3000
   playlist_duration: 3000
   playlist_repeat: 0

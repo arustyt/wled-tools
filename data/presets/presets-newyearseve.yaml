@@ -1,0 +1,174 @@
+'20':
+  n: Playlist Du Jour
+  'on': true
+  playlist:
+    dur:
+    - ${playlist_duration} * 6
+    end: 0
+    ps:
+    - Fireworks Rainbow
+    - Flow Rainbow
+    - Juggle
+    - Flow Temperature
+    - Noise Pal
+    - Plasmoid
+    r: false
+    repeat: ${playlist_repeat}
+    transition:
+    - 10 * 6
+'21':
+  bri: 255
+  mainseg: 0
+  n: Fireworks Rainbow
+  'on': true
+  seg:
+  - bri: 128
+    cct: 127
+    col: []
+    fx_name: Fireworks 1D
+    grp: 1
+    id: 0
+    ix: 132
+    mi: false
+    seg_name: First Floor
+    of: 0
+    'on': true
+    pal_name: Rainbow
+    rev: true
+    sel: true
+    spc: 0
+    sx: 131
+  - id: 1
+    seg_name: Second Floor
+    rev: false
+  transition: 7
+'22':
+  bri: 255
+  mainseg: 0
+  n: Flow Rainbow
+  'on': true
+  seg:
+  - bri: 128
+    cct: 127
+    col: []
+    fx_name: Flow
+    grp: 1
+    id: 0
+    ix: 132
+    mi: false
+    seg_name: First Floor
+    of: 0
+    'on': true
+    pal_name: Rainbow
+    rev: true
+    sel: true
+    spc: 0
+    sx: 131
+  - id: 1
+    seg_name: Second Floor
+    rev: false
+  transition: 7
+'23':
+  bri: 255
+  mainseg: 0
+  n: Juggle
+  'on': true
+  seg:
+  - bri: 128
+    cct: 127
+    col: []
+    fx_name: Juggle
+    grp: 1
+    id: 0
+    ix: 132
+    mi: false
+    seg_name: First Floor
+    of: 0
+    'on': true
+    pal_name: Rainbow
+    rev: true
+    sel: true
+    spc: 0
+    sx: 131
+  - id: 1
+    seg_name: Second Floor
+    rev: false
+  transition: 7
+'24':
+  bri: 255
+  mainseg: 0
+  n: Flow Temperature
+  'on': true
+  seg:
+  - bri: 128
+    cct: 127
+    col: []
+    fx_name: Flow
+    grp: 1
+    id: 0
+    ix: 132
+    mi: false
+    seg_name: First Floor
+    of: 0
+    'on': true
+    pal_name: Temperature
+    rev: true
+    sel: true
+    spc: 0
+    sx: 131
+  - id: 1
+    seg_name: Second Floor
+    rev: false
+  transition: 7
+'25':
+  bri: 255
+  mainseg: 0
+  n: Noise Pal
+  'on': true
+  seg:
+  - bri: 128
+    cct: 127
+    col: []
+    fx_name: Noise Pal
+    grp: 1
+    id: 0
+    ix: 132
+    mi: false
+    seg_name: First Floor
+    of: 0
+    'on': true
+    pal_name: Party
+    rev: true
+    sel: true
+    spc: 0
+    sx: 131
+  - id: 1
+    seg_name: Second Floor
+    rev: false
+  transition: 7
+'26':
+  bri: 255
+  mainseg: 0
+  n: Plasmoid
+  'on': true
+  seg:
+  - bri: 128
+    cct: 127
+    col: []
+    fx_name: Plasmoid
+    grp: 1
+    id: 0
+    ix: 132
+    mi: false
+    seg_name: First Floor
+    of: 0
+    'on': true
+    pal_name: Tiamat
+    rev: true
+    sel: true
+    spc: 0
+    sx: 131
+  - id: 1
+    seg_name: Second Floor
+    rev: false
+  transition: 7
