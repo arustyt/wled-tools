@@ -5,7 +5,7 @@ These files fall into three different categories:
 that understands English. However, they may need to be updated for new WLED 
 releases. Files in this category include palettes.yaml, effects.yaml.
 2. Files that are WLED independent.  This category includes only colors.yaml.
-3. Files that are likely dependent on your preferences and/or locale, and 
+3. Files that are likely dependent on individual preferences and/or locale, and 
 potentially on WLED version.
 
 ## WLED Version Dependent Files

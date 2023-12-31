@@ -20,7 +20,6 @@ ALIASES_TAG = 'aliases'
 PALETTES_TAG = 'palettes'
 
 
-YAML_EXTENSION = '.yaml'
 INDENT = '  '
 DEFAULT_DATA_DIR = '.'
 DEFAULT_OUTPUT_DIR = "generated"

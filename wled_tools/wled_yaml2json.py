@@ -1,15 +1,15 @@
 import argparse
 import os
 import sys
-from pathlib import Path
 
 from data_files.cfg_file_processor import CfgFileProcessor
 from data_files.presets_file_processor import PresetsFileProcessor
 from data_files.wled_placeholder_replacer import WledPlaceholderReplacer
 from wled_constants import DEFAULT_WLED_DIR, DEFAULT_ENVIRONMENT, DEFAULT_SEGMENTS_FILE_BASE, DEFAULT_PROPERTIES_FILE_NAME, \
     DEFAULT_OUTPUT_DIR, DEFAULT_DEFINITIONS_DIR, DEFAULT_EFFECTS_FILE_NAME, DEFAULT_PALETTES_FILE_NAME, DEFAULT_COLORS_FILE_NAME, \
-    DEFAULT_PROPERTIES_FILE_BASE, DEFAULT_PRESETS_FILE_BASE, DEFAULT_CFG_FILE_BASE, YAML_EXTENSION, DEFAULT_DATA_DIR
+    DEFAULT_PROPERTIES_FILE_BASE, DEFAULT_PRESETS_FILE_BASE, DEFAULT_CFG_FILE_BASE, DEFAULT_DATA_DIR
 from wled_utils.logger_utils import get_logger, init_logger
+from wled_utils.path_utils import find_path, find_path_list
 
 from wled_utils.yaml_multi_file_loader import load_yaml_file
 
@@ -206,16 +206,16 @@ def wled_yaml2json(*,
 
     os.makedirs(output_dir, exist_ok=True)
 
-    effects_path = build_path(definitions_dir, environment, effects, DEFAULT_EFFECTS_FILE_NAME)
+    effects_path = find_path(definitions_dir, environment, effects, DEFAULT_EFFECTS_FILE_NAME)
 
-    palettes_path = build_path(definitions_dir, environment, palettes, DEFAULT_PALETTES_FILE_NAME)
-    colors_path = build_path(definitions_dir, environment, colors, DEFAULT_COLORS_FILE_NAME)
+    palettes_path = find_path(definitions_dir, environment, palettes, DEFAULT_PALETTES_FILE_NAME)
+    colors_path = find_path(definitions_dir, environment, colors, DEFAULT_COLORS_FILE_NAME)
 
-    segments_path = build_path(wled_dir, environment, segments, DEFAULT_SEGMENTS_FILE_BASE)
-    properties_path = build_path(wled_dir, environment, properties, DEFAULT_PROPERTIES_FILE_BASE)
-    presets_paths = build_path_list(wled_dir, environment, presets,
-                                    DEFAULT_PRESETS_FILE_BASE) if presets is not None else None
-    cfg_paths = build_path_list(wled_dir, environment, cfg, DEFAULT_CFG_FILE_BASE) if cfg is not None else None
+    segments_path = find_path(wled_dir, environment, segments, DEFAULT_SEGMENTS_FILE_BASE)
+    properties_path = find_path(wled_dir, environment, properties, DEFAULT_PROPERTIES_FILE_BASE)
+    presets_paths = find_path_list(wled_dir, environment, presets,
+                                   DEFAULT_PRESETS_FILE_BASE) if presets is not None else None
+    cfg_paths = find_path_list(wled_dir, environment, cfg, DEFAULT_CFG_FILE_BASE) if cfg is not None else None
 
     if not quiet_mode:
         get_logger().info("INPUT FILE PATHS ...")
@@ -254,57 +254,6 @@ def load_placeholder_replacer(properties_path: str, environment: str):
 
     return placeholder_replacer
 
-
-def build_path_list(directory: str, environment: str, files_str: str, file_base: str):
-    paths = []
-    if files_str is not None and len(files_str) > 0:
-        for file_nickname in files_str.split(','):
-            path = build_path(directory, environment, file_nickname, file_base)
-            if path is not None:
-                paths.append(path)
-
-    return paths
-
-
-def build_path(directory: str, environment: str, file_nickname: str, file_base: str):
-    candidates = get_file_name_candidates(environment, file_nickname, file_base)
-
-    if len(candidates) == 0:
-        raise ValueError("No candidates found for '{base}' file.".format(base=file_base))
-
-    for candidate in candidates:
-        file_path = "{dir}/{file}".format(dir=directory, file=candidate) if len(candidate) > 0 else None
-        if file_path is not None:
-            path = Path(file_path)
-            if path.is_file():
-                return file_path
-
-    raise ValueError("None of the candidate files exist: '{candidates}'.".format(candidates=str(candidates)))
-
-
-def get_file_name_candidates(environment: str, file_nickname: str, file_base: str):
-    candidates = []
-    if file_nickname is not None and file_nickname.endswith(YAML_EXTENSION):
-        candidates.append(file_nickname)
-        if not file_nickname.startswith(file_base):
-            candidates.append("{base}-{file}".format(base=file_base, file=file_nickname))
-    else:
-        if file_nickname is not None and not file_nickname.startswith(file_base):
-            add_nickname_candidates(candidates, "{base}-{nickname}".format(base=file_base, nickname=file_nickname),
-                                    environment)
-
-        add_nickname_candidates(candidates, file_nickname, environment)
-        add_nickname_candidates(candidates, file_base, environment)
-
-    return candidates
-
-
-def add_nickname_candidates(candidates, file_nickname, environment):
-    if file_nickname is not None:
-        if environment is not None:
-            candidates.append("{nickname}-{env}.yaml".format(nickname=file_nickname, env=environment))
-
-        candidates.append("{nickname}.yaml".format(nickname=file_nickname))
 
 
 if __name__ == '__main__':
