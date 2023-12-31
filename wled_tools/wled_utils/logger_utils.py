@@ -37,7 +37,7 @@ def init_file_logger(log_name, log_dir, level, log_format):
         log_file += file_name
     else:
         log_file += file_name + '.log'
-    handler = logging.handlers.TimedRotatingFileHandler(log_file, when='D')
+    handler = logging.handlers.RotatingFileHandler(log_file, backupCount=4, maxBytes=1000000)
     handler.setFormatter(logging.Formatter(log_format))
     logger = logging.getLogger()
     logger.setLevel(level)
