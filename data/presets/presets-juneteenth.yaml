@@ -1,0 +1,36 @@
+# Colors - Red, Black, Green
+'10':
+  n: Playlist Du Jour
+  'on': true
+  playlist:
+    dur:
+    - 18000
+    end: 0
+    ps:
+    - Normal Night Twinkle
+    r: false
+    repeat: ${playlist_repeat}
+    transition:
+    - 0
+'14':
+  n: Normal Night Twinkle
+  'on': true
+  seg:
+  - bri: 32
+    col:
+    - White
+    - '0000BF'
+    - White
+    fx_name: TwinkleUp
+    grp: 1
+    id: 0
+    ix: 100
+    mi: false
+    seg_name: Whole Roof
+    'on': true
+    pal_name: Default
+    rev: false
+    sel: true
+    spc: 0
+    sx: 122
+  transition: 0

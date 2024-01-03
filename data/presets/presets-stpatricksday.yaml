@@ -1,0 +1,293 @@
+# Colors - Light blue, Green, Orange, White, Gold
+'10':
+  n: Playlist Du Jour
+  'on': true
+  playlist:
+    dur:
+    - 18000
+    end: 0
+    ps:
+    - St. Pats - Blends
+    - St. Pats - Chase2
+    - St. Pats - Chunchun
+    - St. Pats - Colorwaves
+    - St. Pats - Twinkle Cat
+    - St. Pats - Fireworks 1D
+    - St. Pats - Flow
+    - St. Pats - Popcorn
+    - St. Pats - Scanner Dual
+    - St. Pats - Washing Machine
+    r: false
+    repeat: ${playlist_repeat}
+    transition:
+    - 0
+'20':
+  n: St. Pats - Blends
+  'on': true
+  seg:
+  - bri: 128
+    cct: 127
+    col:
+    - Green
+    - White
+    - 'FFC800'
+    fx_name: Blends
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    of: 0
+    'on': true
+    pal_name: Colors 1 & 2
+    rev: false
+    sel: true
+    spc: 0
+    sx: 128
+  - id: 1
+    seg_name: Second Floor
+    rev: true
+  transition: 7
+'21':
+  n: St. Pats - Chase2
+  'on': true
+  seg:
+  - bri: 128
+    cct: 127
+    col:
+    - Green
+    - White
+    - 'FFC800'
+    fx_name: Running 2
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    of: 0
+    'on': true
+    pal_name: Colors 1 & 2
+    rev: false
+    sel: true
+    spc: 0
+    sx: 128
+  - id: 1
+    seg_name: Second Floor
+    rev: true
+  transition: 7
+'22':
+  n: St. Pats - Chunchun
+  'on': true
+  seg:
+  - bri: 128
+    cct: 127
+    col:
+    - Green
+    - White
+    - 'FFC800'
+    fx_name: Chunchun
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    of: 0
+    'on': true
+    pal_name: Colors 1 & 2
+    rev: false
+    sel: true
+    spc: 0
+    sx: 128
+  - id: 1
+    seg_name: Second Floor
+    rev: true
+  transition: 7
+'23':
+  n: St. Pats - Colorwaves
+  'on': true
+  seg:
+  - bri: 128
+    cct: 127
+    col:
+    - Green
+    - White
+    - 'FFC800'
+    fx_name: Colorwaves
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    of: 0
+    'on': true
+    pal_name: Colors 1 & 2
+    rev: false
+    sel: true
+    spc: 0
+    sx: 128
+  - id: 1
+    seg_name: Second Floor
+    rev: true
+  transition: 7
+'24':
+  n: St. Pats - Twinkle Cat
+  'on': true
+  seg:
+  - bri: 128
+    cct: 127
+    col:
+    - Green
+    - White
+    - 'FFC800'
+    fx_name: Twinklecat
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    of: 0
+    'on': true
+    pal_name: Rainbow
+    rev: false
+    sel: true
+    spc: 0
+    sx: 128
+  - id: 1
+    seg_name: Second Floor
+    rev: true
+  transition: 7
+'25':
+  n: St. Pats - Fireworks 1D
+  'on': true
+  seg:
+  - bri: 128
+    cct: 127
+    col:
+    - Green
+    - White
+    - 'FFC800'
+    fx_name: Fireworks 1D
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    of: 0
+    'on': true
+    pal_name: Colors 1 & 2
+    rev: false
+    sel: true
+    spc: 0
+    sx: 128
+  - id: 1
+    seg_name: Second Floor
+    rev: true
+  transition: 7
+'26':
+  n: St. Pats - Flow
+  'on': true
+  seg:
+  - bri: 128
+    cct: 127
+    col:
+    - Green
+    - White
+    - 'FFC800'
+    fx_name: Fireworks 1D
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    of: 0
+    'on': true
+    pal_name: Colors 1 & 2
+    rev: false
+    sel: true
+    spc: 0
+    sx: 128
+  - id: 1
+    seg_name: Second Floor
+    rev: true
+  transition: 7
+'27':
+  n: St. Pats - Popcorn
+  'on': true
+  seg:
+  - bri: 128
+    cct: 127
+    col:
+    - Green
+    - White
+    - 'FFC800'
+    fx_name: Popcorn
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    of: 0
+    'on': true
+    pal_name: Colors Only
+    rev: false
+    sel: true
+    spc: 0
+    sx: 128
+  - id: 1
+    seg_name: Second Floor
+    rev: true
+  transition: 7
+'28':
+  n: St. Pats - Scanner Dual
+  'on': true
+  seg:
+  - bri: 128
+    cct: 127
+    col:
+    - Green
+    - White
+    - 'FFC800'
+    fx_name: Scanner Dual
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    of: 0
+    'on': true
+    pal_name: Colors Only
+    rev: false
+    sel: true
+    spc: 0
+    sx: 128
+  - id: 1
+    seg_name: Second Floor
+    rev: true
+  transition: 7
+'29':
+  n: St. Pats - Washing Machine
+  'on': true
+  seg:
+  - bri: 128
+    cct: 127
+    col:
+    - Green
+    - White
+    - 'FFC800'
+    fx_name: Washing machine
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    of: 0
+    'on': true
+    pal_name: Rainbow
+    rev: false
+    sel: true
+    spc: 0
+    sx: 128
+  - id: 1
+    seg_name: Second Floor
+    rev: true
+  transition: 7
