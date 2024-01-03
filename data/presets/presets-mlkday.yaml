@@ -1,0 +1,207 @@
+# Colors - Red, White, Black, Blue, Green
+'10':
+  n: Playlist Du Jour
+  'on': true
+  playlist:
+    dur:
+    -  ${playlist_duration} * 6
+    end: 0
+    ps:
+    - Lake - WGB
+    - Saw - RBW
+    - Wipe - BBG
+    - Meteor - BBR
+    - Twinkleup - BBG
+    - Breathe - RBW
+    - Lighthouse - WGB
+    r: false
+    repeat: ${playlist_repeat}
+    transition:
+    - 10 * 6
+'11':
+  n: Lake - WGB
+  'on': true
+  seg:
+  - bri: 32
+    col:
+    - White
+    - Green
+    - Blue
+    fx_name: Lake
+    grp: 1
+    id: 0
+    ix: 127
+    mi: false
+    seg_name: Whole Roof
+    'on': true
+    pal_name: Colors Only
+    rev: false
+    sel: true
+    spc: 0
+    sx: 64
+  transition: 0
+'12':
+  n: Wipe - BBG
+  'on': true
+  seg:
+  - bri: 32
+    col:
+    - Blue
+    - Black
+    - Green
+    fx_name: Wipe
+    grp: 1
+    id: 0
+    ix: 192
+    mi: false
+    seg_name: Garage
+    'on': true
+    pal_name: Colors Only
+    rev: true
+    sel: true
+    spc: 0
+    sx: 128
+  - id: 1
+    seg_name: Porch
+    rev: false
+  - id: 2
+    seg_name: Over Porch
+    rev: true
+  - id: 3
+    seg_name: Peak
+    rev: false
+  transition: 0
+'13':
+  n: Saw - RBW
+  'on': true
+  seg:
+  - bri: 32
+    col:
+    - Red
+    - Black
+    - White
+    fx_name: Saw
+    grp: 1
+    id: 0
+    ix: 64
+    mi: false
+    seg_name: Garage
+    'on': true
+    pal_name: Colors Only
+    rev: false
+    sel: true
+    spc: 0
+    sx: 128
+  - id: 1
+    seg_name: Whole Roof
+    rev: false
+  transition: 0
+'14':
+  n: Twinkleup - BBG
+  'on': true
+  seg:
+  - bri: 32
+    col:
+    - Blue
+    - Black
+    - Green
+    fx_name: Twinkleup
+    grp: 1
+    id: 0
+    ix: 255
+    mi: false
+    seg_name: Whole Roof
+    'on': true
+    pal_name: Colors Only
+    rev: false
+    sel: true
+    spc: 0
+    sx: 128
+  transition: 0
+'15':
+  n: Lighthouse - WGB
+  'on': true
+  seg:
+  - bri: 32
+    col:
+    - White
+    - Green
+    - Blue
+    fx_name: Lighthouse
+    grp: 1
+    id: 0
+    ix: 160
+    mi: false
+    seg_name: Garage
+    'on': true
+    pal_name: Colors Only
+    rev: false
+    sel: true
+    spc: 0
+    sx: 80
+  - id: 1
+    seg_name: Porch
+    rev: false
+  - id: 2
+    seg_name: Over Porch
+    rev: true
+  - id: 3
+    seg_name: Peak
+    rev: false
+  transition: 0
+'16':
+  n: Meteor - BBR
+  'on': true
+  seg:
+  - bri: 32
+    col:
+    - Blue
+    - Green
+    - Red
+    fx_name: Meteor
+    grp: 1
+    id: 0
+    ix: 192
+    mi: false
+    seg_name: First Floor
+    'on': true
+    pal_name: Colors Only
+    rev: false
+    sel: true
+    spc: 0
+    sx: 64
+  - id: 1
+    seg_name: Second Floor
+    rev: false
+  transition: 0
+'17':
+  n: Breathe - RBW
+  'on': true
+  seg:
+  - bri: 32
+    col:
+    - Red
+    - Black
+    - White
+    fx_name: Breathe
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: Garage
+    'on': true
+    pal_name: Colors Only
+    rev: false
+    sel: true
+    spc: 0
+    sx: 128
+  - id: 1
+    seg_name: Porch
+    rev: false
+  - id: 2
+    seg_name: Over Porch
+    rev: true
+  - id: 3
+    seg_name: Peak
+    rev: false
+  transition: 0
