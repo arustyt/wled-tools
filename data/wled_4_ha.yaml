@@ -4,6 +4,7 @@ wled_holiday:
     holidays_file: holidays.yaml
     lights_file: holiday_lights.yaml
     default_lights_name: normal_night
+starting_presets_file: presets-sunset.yaml
 properties: properties.yaml
 segments: segments.yaml
 lab_300:
