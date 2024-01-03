@@ -3,9 +3,9 @@ holidays:
   "new_years_day":
     start_date: '0101'
     end_date: '0101+6'
-    lights: newyearsday
+    lights: newyears
   martin_luther_king_jr_day:
-    start_date: martin_luther_king_jr_day
+    start_date: martin_luther_king_jr_day-2
     end_date: martin_luther_king_jr_day
     lights: mlkday
   ground_hog_day:
@@ -17,9 +17,9 @@ holidays:
     end_date: valentines_day
     lights: valentinesday
   presidents_day:
-    start_date: presidents_day
+    start_date: presidents_day-2
     end_date: presidents_day
-    lights: presidentsday
+    lights: patriotic
   mardi_gras:
     start_date: mardi_gras
     end_date: mardi_gras
@@ -31,7 +31,7 @@ holidays:
   lent:
     start_date: ash_wednesday
     end_date: holy_saturday
-    lights: ash_wednesday
+    lights: lent
   palm_sunday:
     start_date: palm_sunday
     end_date: palm_sunday
@@ -67,11 +67,11 @@ holidays:
   memorial_day:
     start_date: memorial_day-2
     end_date: memorial_day
-    lights: memorialday
+    lights: patriotic
   flag_day:
     start_date: flag_day
     end_date: flag_day
-    lights: flagday
+    lights: patriotic
   juneteenth:
     start_date: juneteenth
     end_date: juneteenth
@@ -79,11 +79,11 @@ holidays:
   4th_of_july:
     start_date: 4th_of_july-3
     end_date: 4th_of_july
-    lights: july4th
+    lights: patriotic
   labor_day:
     start_date: labor_day-2
     end_date: labor_day
-    lights: laborday
+    lights: patriotic
   halloween:
     start_date: '1001'
     end_date: halloween
@@ -91,7 +91,7 @@ holidays:
   veterans_day:
     start_date: veterans_day
     end_date: veterans_day
-    lights: veteransday
+    lights: patriotic
   thanksgiving:
     start_date: '1101'
     end_date: thanksgiving
@@ -107,5 +107,5 @@ holidays:
   new_years_eve:
     start_date: new_years_eve
     end_date: new_years_eve
-    lights: christmas
+    lights: newyears
 
