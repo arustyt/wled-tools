@@ -12,7 +12,7 @@ from wled_utils.property_tools import PropertyEvaluator
 from wled_utils.yaml_multi_file_loader import load_yaml_file
 from wled_yaml2json import wled_yaml2json
 
-STARTING_PRESETS_FILE = "presets-sunset.yaml"
+DEFAULT_STARTING_PRESETS_FILE = "presets-sunset.yaml"
 
 PROD_MODE = False
 TEST_MODE = True
@@ -20,7 +20,7 @@ QUIET_MODE = True
 
 PROPERTIES_FILE_KEY = "properties"
 SEGMENTS_FILE_KEY = "segments"
-
+STARTING_PRESETS_FILE_KEY = "starting_presets_file"
 # wled_f_ha.py job_file env [date_str]
 
 
@@ -78,9 +78,9 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
         default_lights_name = property_evaluator.get_property(env, section, DEFAULT_LIGHTS_NAME_KEY)
         host = property_evaluator.get_property(env, section, HOST_KEY)
         wled_rel_dir = property_evaluator.get_property(env, section, WLED_DIR_KEY)
-
-#        wled_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=wled_rel_dir)
-#        definitions_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=definitions_rel_dir)
+        starting_presets_file = property_evaluator.get_property(env, section, STARTING_PRESETS_FILE_KEY)
+        if starting_presets_file is None:
+            starting_presets_file = DEFAULT_STARTING_PRESETS_FILE
 
         if verbose:
             get_logger().info("data_dir: " + str(data_dir))
@@ -90,6 +90,7 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
             get_logger().info("default_lights_name: " + str(default_lights_name))
             get_logger().info("wled_rel_dir: " + str(wled_rel_dir))
             get_logger().info("host: " + str(host))
+            get_logger().info("starting_presets_file: " + str(starting_presets_file))
 
         evaluation_date = parse_date_str(date_str)
 
@@ -114,12 +115,12 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
         if verbose:
             get_logger().info("Testing presets generation to determine JSON file name.")
 
-        presets_file = build_presets_option(matched_lights)
+        presets_file = build_presets_option(starting_presets_file, matched_lights)
         presets_json_path, cfg_json_path = evaluate_presets(data_dir, definitions_rel_dir, env, matched_lights,
                                                             segments_file, presets_file, properties_file, wled_rel_dir,
                                                             False, TEST_MODE)
 
-        if need_to_generate_presets(data_dir, wled_rel_dir, matched_lights, presets_json_path):
+        if need_to_generate_presets(data_dir, wled_rel_dir, starting_presets_file, matched_lights, presets_json_path):
             if verbose:
                 get_logger().info("Generating presets file: {file}".format(file=presets_json_path))
             presets_json_path, cfg_json_path = evaluate_presets(data_dir, definitions_rel_dir, env, matched_lights,
@@ -177,13 +178,13 @@ def upload_presets(host, presets_json_path, verbose):
     return upload_successful
 
 
-def build_presets_option(holiday):
-    presets_files = get_presets_files(holiday)
+def build_presets_option(starting_presets_file, holiday):
+    presets_files = get_presets_files(starting_presets_file, holiday)
     return ",".join(presets_files)
 
 
-def get_presets_files(holiday_lights):
-    return [STARTING_PRESETS_FILE, get_holiday_presets_file(holiday_lights)]
+def get_presets_files(starting_presets_file, holiday_lights):
+    return [starting_presets_file, get_holiday_presets_file(holiday_lights)]
 
 
 def get_holiday_presets_file(holiday_lights):
@@ -194,8 +195,8 @@ def get_presets_path(data_dir, wled_rel_dir, presets_yaml):
     return "{base}/{rel_dir}/{file}".format(base=data_dir, rel_dir=wled_rel_dir, file=presets_yaml)
 
 
-def need_to_generate_presets(data_dir, wled_rel_dir, holiday, presets_json):
-    presets_files = get_presets_files(holiday)
+def need_to_generate_presets(data_dir, wled_rel_dir, starting_presets_file, holiday, presets_json):
+    presets_files = get_presets_files(starting_presets_file, holiday)
     presets_paths = []
 
     wled_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=wled_rel_dir)
