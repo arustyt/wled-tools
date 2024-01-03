@@ -1,174 +1,95 @@
-# WLED Files Specifications
-This section covers the WLED Presets and Configuration files used by the wled-tools as well other 
-supporting files. The files covered in this document are:
-- properties YAML file
-- segments YAML file
-- presets YAML file
-- configuration YAML file
- 
-## Properties YAML file
-Properties can be used to substitute values in a WLED presets or configuration file.  
-Property substitution can be used to replace any *value* in a presets or configuration 
-file by wled_yaml2json.py.
-
-Property substitution is specified by enclosing the property name with a leading '${' and closing '}' 
-In a presets or configuration YAML file item this would something like:
-```
-   name: ${property_name}
-```
-
-Here is an example properties file.
-```
-lab_300:
-  sunset:
-    begin_dark_duration: 10
-    sun_duration: 600
-    sunset_duration: 600
-    end_dark_duration: 10
-    begin_dark_transition: 0
-    sun_transition: 30
-    sunset_transition: 30
-    end_dark_transition: 0
-    sunset_sx: 61
-  playlist_duration: 300
-  playlist_repeat: 2
-roof:
-  sunset:
-    begin_dark_duration: 10
-    sun_duration: 6000
-    sunset_duration: 18000
-    end_dark_duration: 10
-    begin_dark_transition: 0
-    sun_transition: 300
-    sunset_transition: 300
-    end_dark_transition: 0
-    sunset_sx: 90
-  playlist_duration: 3000
-  playlist_repeat: 0
-```
-Multiple levels in the properties file can be specified by concatenating consecutive levels, 
-separated by period '.'.  From the example properties file above, the following could be 
-used to vary the speed setting for a preset.
-```
-    .
-    .
-    .
-    sx: ${sunset.sunset_sx}
-    .
-    .
-    .
-```
-Note that [wled_yaml2json.py](wled_yaml2json.py.md) will automatically prepend the environment 
-(specified with the --env option) to the property name and look for that value first. For example,
-if the --env lab_300 is specified on the command line, properties will first be searched for 
-```lab_300.sunset.sunset_sx```. If that property is not found, the property name without environment will be 
-searched, e.g. ```sunset.sunset_sx```.
-
-The example above with ```--env lab_300``` specified would result in the following after substitution 
-
-```
-    .
-    .
-    .
-    sx: 61
-    .
-    .
-    .
-```
-The example above with ```--env roof``` specified would result in the following after substitution: 
-
-```
-    .
-    .
-    .
-    sx: 90
-    .
-    .
-    .
-```
-
-The normal/default name for the properties file is ```properties.yaml```.  You can also define 
-specific properties files for different environments by including the environment in the file name.
-For example with two environments, lab_300 
-and roof wled_yaml2json.py would look for ```properties-lab_300.yaml``` or ```properties-roof.yaml``` 
-depending on the --env option. Thus, there are two ways that properties enable using a 
-single presets file across multiple environments.
-
-## Segments YAML file
-The segments file provides a way to define WLED segments and access them by name in a presets file. Since  
-it is generally only the starting and ending LED indexes that are reusable across presets,  
-these segment definitions only contain the start and stop LED indexes, not effects, palettes or other
-segment parameters.
-
-Here is an example segments file.
-```
-lab_300:
-  segments:
-  - n: First Floor
-    start: 0
-    stop: 150
-  - n: Second Floor
-    start: 150
-    stop: 300
-  - n: Whole Roof
-    start: 0
-    stop: 300
-roof:
-  segments:
-  - n: First Floor
-    start: 0
-    stop: 222
-  - n: Second Floor
-    start: 222
-    stop: 439
-  - n: Whole Roof
-    start: 0
-    stop: 439
-```
-
-Usage of segments definitions is accomplished by using the wled-tools specific element, 
-```
-seg_name: segment_name
-``` 
-instead of the WLED "n", "start", and "stop"
-
-Given the example data above, this entry in a presets YAML segment definition:
-```yaml
-   seg_name: Whole Roof
-```
-Would result in the following in the generated WLED presets JSON file for the ```lab_300``` environment:
-```json lines
-        "n": "Whole Roof",
-        "start": 0,
-        "stop": 439,
-```
-or, for the ```roof``` environment:
-```json lines
-        "n": "Whole Roof",
-        "start": 0,
-        "stop": 300,
-```
-Similar to properties processing, [wled_yaml2json.py](wled_yaml2json.py.md) will automatically look 
-for an environment-specific (specified with the --env option) set of segments when run.
-
-The normal/default name for the segments file is ```segments.yaml```.  You can also define 
-specific properties files for different environments by including the environment in the file name.  
-For example with two environments, lab_300 and roof wled_yaml2json.py would look for 
-```properties-lab_300.yaml``` or ```properties-roof.yaml``` 
-depending on the --env option. Thus, there are two ways that segments can be defined
-across multiple environments.
+# WLED Presets File Specification
+This section covers the WLED Presets YAML files that can be used to generate presets JSON files for 
+uploading to a WLED instance.
 
 ## WLED Preset YAML file
 ```
-segments:
-  .
-  .
-  .
+01 |defaults:
+02 |  preset:
+03 |    mainseg: 0
+04 |    bri: 128
+05 |    transition: 7
+06 |'0': {}
+07 |'1':
+08 |  n: 'Off'
+09 |  win: T=0
+10 |'2':
+11 |  n: 'On'
+12 |  win: T=1
+13 |'3':
+14 |  n: Sunset Playlist
+15 |  'on': true
+16 |  playlist:
+17 |    dur:
+18 |    - ${sunset.sunset_duration}
+19 |    - 10
+20 |    end: 0
+21 |    ps:
+22 |    - Sunset
+23 |    - Playlist Du Jour
+24 |    r: false
+25 |    repeat: 1
+26 |    transition:
+27 |    - ${sunset.sunset_transition}
+28 |    - 0
+29 |'20':
+30 |  n: Playlist Du Jour
+31 |  'on': true
+32 |  playlist:
+33 |    dur:
+34 |    - ${playlist_duration} * 2
+35 |    end: 0
+36 |    ps:
+37 |    - Christmas
+38 |    - TwinkleFoxRainbow
+39 |    r: false
+40 |    repeat: ${playlist_repeat}
+41 |    transition:
+42 |    - 10 * 2
+43 |'22':
+44 |  n: Christmas
+45 |  'on': true
+46 |  seg:
+47 |  - bri: 128
+48 |    col:
+49 |    - Red
+50 |    - Green
+51 |    - White
+52 |    fx_name: Running 2
+53 |    grp: 1
+54 |    id: 0
+55 |    ix: 128
+56 |    mi: false
+57 |    seg_name: First Floor
+58 |    'on': true
+59 |    pal_name: Default
+60 |    rev: true
+61 |    sel: true
+62 |    spc: 0
+63 |    sx: 122
+64 |  - id: 1
+65 |    seg_name: Second Floor
+66 |    rev: false
+67 |  transition: 7
+68 |'27':
+69 |  n: TwinkleFoxRainbow
+70 |  'on': true
+71 |  seg:
+72 |  - bri: 128
+73 |    col: []
+74 |    fx_name: Twinklefox
+75 |    grp: 1
+76 |    id: 0
+77 |    ix: 255
+78 |    mi: false
+79 |    seg_name: Whole Roof
+80 |    'on': true
+81 |    pal_name: Rainbow
+82 |    rev: false
+83 |    sel: true
+84 |    spc: 0
+85 |    sx: 125
+86 |  transition: 7
+
 ```
-## WLED Configuration YAML file
-```
-segments:
-  .
-  .
-  .
-```
+
