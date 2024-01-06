@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 YAML_EXTENSION = '.yaml'
@@ -5,6 +6,21 @@ YAML_EXTENSION = '.yaml'
 
 def build_path(directory, file):
     return "{dir}/{file}".format(dir=directory, file=file) if file is not None and len(file) > 0 else None
+
+
+def get_presets_file_name(day_type):
+    return "presets-{day_type}.yaml".format(day_type=day_type)
+
+
+def get_wled_path(data_dir, wled_rel_dir, presets_yaml):
+    return "{base}/{rel_dir}/{file}".format(base=data_dir, rel_dir=wled_rel_dir, file=presets_yaml)
+
+
+def presets_file_exists(data_dir, wled_rel_dir, day_type):
+    day_presets_file = get_presets_file_name(day_type)
+    day_presets_path = get_wled_path(data_dir, wled_rel_dir, day_presets_file)
+    path_exists = os.path.exists(day_presets_path)
+    return path_exists
 
 
 def find_path_list(directory: str, environment: str, files_str: str, file_base: str):
