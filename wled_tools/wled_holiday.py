@@ -8,10 +8,10 @@ from datetime import *
 from dateutil.rrule import *
 
 from wled_constants import DEFAULT_DEFINITIONS_DIR, DEFAULT_HOLIDAYS_FILE, DEFAULT_LIGHTS_FILE, DEFAULT_HOLIDAY_NAME, \
-    HOLIDAYS_KEY, DATE_KEY, RRULE_KEY, DAY_OF_YEAR_KEY, DEFAULT_DATA_DIR
+    HOLIDAYS_KEY, DATE_KEY, RRULE_KEY, DAY_OF_YEAR_KEY, DEFAULT_DATA_DIR, DEFAULT_WLED_DIR
 from wled_utils.date_utils import get_date_str, get_todays_date_str, parse_date_str
 from wled_utils.logger_utils import get_logger, init_logger
-from wled_utils.path_utils import build_path
+from wled_utils.path_utils import build_path, presets_file_exists
 from wled_utils.rrule_utils import get_frequency, get_byweekday
 from wled_utils.yaml_multi_file_loader import load_yaml_file
 
@@ -41,6 +41,10 @@ def main(name, args):
                             help="Definition file location. Applies to --holidays and --lights files. If not "
                                  "specified, '" + DEFAULT_DEFINITIONS_DIR + "' is used.",
                             action="store", default=DEFAULT_DEFINITIONS_DIR)
+    arg_parser.add_argument("--wled_dir", type=str,
+                            help="WLED data file location. Applies to presets, cfg, and segments files. If not "
+                                 "specified, '" + DEFAULT_WLED_DIR + "' is used.",
+                            action="store", default=DEFAULT_WLED_DIR)
     arg_parser.add_argument("--holidays", type=str, help="Holiday definitions file name (YAML) relative to the "
                                                          "--definitions_dir directory. If not specified, '" +
                                                          DEFAULT_HOLIDAYS_FILE + "' is used.",
@@ -52,6 +56,9 @@ def main(name, args):
                             action="store", default=DEFAULT_LIGHTS_FILE)
     arg_parser.add_argument('--all', help="Display all dates for entire year specified by the 'date' argument.",
                             action='store_true')
+    arg_parser.add_argument('--missing', help="Display only dates with missing_only presets file. Ignored unless "
+                                              "--all is specified.",
+                            action='store_true')
     arg_parser.add_argument('--verbose', help="Intermediate output will be generated in addition to result output.",
                             action='store_true')
 
@@ -62,10 +69,12 @@ def main(name, args):
     args = arg_parser.parse_args()
     data_dir = args.data_dir
     definitions_dir = args.definitions_dir
+    wled_dir = args.wled_dir
     holidays_file = args.holidays
     lights_file = args.lights
     verbose_mode = args.verbose
     all_dates = args.all
+    missing_only = args.missing
     date_str = args.date
 
     init_logger()
@@ -74,6 +83,7 @@ def main(name, args):
         get_logger().info("OPTION VALUES ...")
         get_logger().info("  data_dir: " + data_dir)
         get_logger().info("  definitions_dir: " + definitions_dir)
+        get_logger().info("  wled_dir: " + wled_dir)
         get_logger().info("  holidays_file: " + holidays_file)
         get_logger().info("  lights_file: " + lights_file)
         get_logger().info("  date_str: " + str(date_str))
@@ -84,7 +94,7 @@ def main(name, args):
     if not all_dates:
         process_one_date(date_str, data_dir, definitions_dir, holidays_file, lights_file, verbose_mode)
     else:
-        process_all_dates(date_str, data_dir, definitions_dir, holidays_file, lights_file)
+        process_all_dates(date_str, data_dir, definitions_dir, wled_dir, holidays_file, lights_file, missing_only)
 
 
 def process_one_date(date_str, data_dir, definitions_dir, holidays_file, lights_file, verbose_mode):
@@ -103,7 +113,7 @@ def process_one_date(date_str, data_dir, definitions_dir, holidays_file, lights_
         get_logger().info("  Matched Holiday: " + str(matched_holiday_lights))
 
 
-def process_all_dates(date_str, data_dir, definitions_dir, holidays_file, lights_file):
+def process_all_dates(date_str, data_dir, definitions_dir, wled_dir, holidays_file, lights_file, missing_only):
     try:
         evaluation_date = parse_date_str(date_str)
     except ValueError:
@@ -119,10 +129,24 @@ def process_all_dates(date_str, data_dir, definitions_dir, holidays_file, lights
     wled_lights = WledHoliday(data_dir=data_dir, definitions_rel_dir=definitions_dir, holidays_file=holidays_file,
                               lights_file=lights_file, evaluation_date=evaluation_date, verbose_mode=False)
 
+    holidays_without_presets = set()
     for evaluation_date in dates:
         matched_holiday_lights = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
+        if matched_holiday_lights is not None:
+            exists = presets_file_exists(data_dir, wled_dir, matched_holiday_lights)
+            presets_file_status = "EXISTS" if exists else "DOES NOT EXIST"
+            if not exists:
+                holidays_without_presets.add(matched_holiday_lights)
+        else:
+            presets_file_status = "IS NOT SPECIFIED"
 
-        get_logger().info("{date}: {holiday}".format(date=get_date_str(evaluation_date), holiday=matched_holiday_lights))
+        if not missing_only:
+            get_logger().info(
+                "{date}: {holiday}, presets file {status}".format(date=get_date_str(evaluation_date),
+                                                                  holiday=matched_holiday_lights,
+                                                                  status=presets_file_status))
+    if missing_only:
+        get_logger().info("The following holidays have no presets file: {holidays}".format(holidays=holidays_without_presets))
 
 
 def calculate_date(evaluation_date: datetime, evaluation_day, evaluation_month):
