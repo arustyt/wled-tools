@@ -16,6 +16,14 @@ def get_wled_path(data_dir, wled_rel_dir, presets_yaml):
     return "{base}/{rel_dir}/{file}".format(base=data_dir, rel_dir=wled_rel_dir, file=presets_yaml)
 
 
+def choose_existing_presets(base_dir, sub_dir, candidates):
+    for candidate in candidates:
+        if presets_file_exists(base_dir, sub_dir, candidate):
+            return candidate
+
+    return None
+
+
 def presets_file_exists(data_dir, wled_rel_dir, day_type):
     day_presets_file = get_presets_file_name(day_type)
     day_presets_path = get_wled_path(data_dir, wled_rel_dir, day_presets_file)
