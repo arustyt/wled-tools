@@ -4,6 +4,7 @@ import datetime
 import re
 import sys
 from datetime import *
+from operator import itemgetter
 
 from dateutil.rrule import *
 
@@ -11,7 +12,7 @@ from wled_constants import DEFAULT_DEFINITIONS_DIR, DEFAULT_HOLIDAYS_FILE, DEFAU
     HOLIDAYS_KEY, DATE_KEY, RRULE_KEY, DAY_OF_YEAR_KEY, DEFAULT_DATA_DIR, DEFAULT_WLED_DIR
 from wled_utils.date_utils import get_date_str, get_todays_date_str, parse_date_str
 from wled_utils.logger_utils import get_logger, init_logger
-from wled_utils.path_utils import build_path, presets_file_exists
+from wled_utils.path_utils import build_path, presets_file_exists, choose_existing_presets
 from wled_utils.rrule_utils import get_frequency, get_byweekday
 from wled_utils.yaml_multi_file_loader import load_yaml_file
 
@@ -34,9 +35,8 @@ def main(name, args):
         description="Returns suffix for wled lights corresponding to provided date or today if none provided",
     )
     arg_parser.add_argument("--data_dir", type=str,
-                            help="Directory from which --definitions_dir is relative. If not "
-                                 "specified, '" + DEFAULT_DATA_DIR + "' is used.",
-                            action="store", default=DEFAULT_DEFINITIONS_DIR)
+                            help="Directory from which --definitions_rel_dir is relative.",
+                            action="store")
     arg_parser.add_argument("--definitions_dir", type=str,
                             help="Definition file location. Applies to --holidays and --lights files. If not "
                                  "specified, '" + DEFAULT_DEFINITIONS_DIR + "' is used.",
@@ -46,12 +46,12 @@ def main(name, args):
                                  "specified, '" + DEFAULT_WLED_DIR + "' is used.",
                             action="store", default=DEFAULT_WLED_DIR)
     arg_parser.add_argument("--holidays", type=str, help="Holiday definitions file name (YAML) relative to the "
-                                                         "--definitions_dir directory. If not specified, '" +
+                                                         "--definitions_rel_dir directory. If not specified, '" +
                                                          DEFAULT_HOLIDAYS_FILE + "' is used.",
                             action="store", default=DEFAULT_HOLIDAYS_FILE)
     arg_parser.add_argument("--lights", type=str,
                             help="WLED holiday lights definitions file-name (YAML) relative to the "
-                                 "--definitions_dir directory. If not specified, '" +
+                                 "--definitions_rel_dir directory. If not specified, '" +
                                  DEFAULT_LIGHTS_FILE + "' is used.",
                             action="store", default=DEFAULT_LIGHTS_FILE)
     arg_parser.add_argument('--all', help="Display all dates for entire year specified by the 'date' argument.",
@@ -68,8 +68,8 @@ def main(name, args):
 
     args = arg_parser.parse_args()
     data_dir = args.data_dir
-    definitions_dir = args.definitions_dir
-    wled_dir = args.wled_dir
+    definitions_rel_dir = args.definitions_dir
+    wled_rel_dir = args.wled_dir
     holidays_file = args.holidays
     lights_file = args.lights
     verbose_mode = args.verbose
@@ -82,8 +82,8 @@ def main(name, args):
     if verbose_mode:
         get_logger().info("OPTION VALUES ...")
         get_logger().info("  data_dir: " + data_dir)
-        get_logger().info("  definitions_dir: " + definitions_dir)
-        get_logger().info("  wled_dir: " + wled_dir)
+        get_logger().info("  definitions_rel_dir: " + definitions_rel_dir)
+        get_logger().info("  wled_rel_dir: " + wled_rel_dir)
         get_logger().info("  holidays_file: " + holidays_file)
         get_logger().info("  lights_file: " + lights_file)
         get_logger().info("  date_str: " + str(date_str))
@@ -92,9 +92,9 @@ def main(name, args):
         date_str = get_todays_date_str()
 
     if not all_dates:
-        process_one_date(date_str, data_dir, definitions_dir, holidays_file, lights_file, verbose_mode)
+        process_one_date(date_str, data_dir, definitions_rel_dir, holidays_file, lights_file, verbose_mode)
     else:
-        process_all_dates(date_str, data_dir, definitions_dir, wled_dir, holidays_file, lights_file, missing_only)
+        process_all_dates(date_str, data_dir, definitions_rel_dir, wled_rel_dir, holidays_file, lights_file, missing_only)
 
 
 def process_one_date(date_str, data_dir, definitions_dir, holidays_file, lights_file, verbose_mode):
@@ -107,7 +107,7 @@ def process_one_date(date_str, data_dir, definitions_dir, holidays_file, lights_
 
     wled_lights = WledHoliday(data_dir=data_dir, definitions_rel_dir=definitions_dir, holidays_file=holidays_file,
                               lights_file=lights_file, evaluation_date=evaluation_date, verbose_mode=verbose_mode)
-    matched_holiday_lights = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
+    holiday_name, matched_holiday_lights = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
 
     if verbose_mode:
         get_logger().info("  Matched Holiday: " + str(matched_holiday_lights))
@@ -130,23 +130,35 @@ def process_all_dates(date_str, data_dir, definitions_dir, wled_dir, holidays_fi
                               lights_file=lights_file, evaluation_date=evaluation_date, verbose_mode=False)
 
     holidays_without_presets = set()
+    holidays_without_specific_presets = set()
     for evaluation_date in dates:
-        matched_holiday_lights = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
-        if matched_holiday_lights is not None:
-            exists = presets_file_exists(data_dir, wled_dir, matched_holiday_lights)
-            presets_file_status = "EXISTS" if exists else "DOES NOT EXIST"
-            if not exists:
-                holidays_without_presets.add(matched_holiday_lights)
+        holiday_name, matched_holiday_lights_list = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
+        if len(matched_holiday_lights_list) > 0:
+            matched_holiday_lights = matched_holiday_lights_list[0]
+            existing_holiday_lights = choose_existing_presets(data_dir, wled_dir, matched_holiday_lights_list)
+            if existing_holiday_lights is not None:
+                if not missing_only:
+                    get_logger().info(
+                        "{date}: {holiday}, candidates: {candidates}, {match}: EXISTS".
+                        format(date=get_date_str(evaluation_date), holiday=holiday_name,
+                               candidates=matched_holiday_lights_list, match=existing_holiday_lights))
+                if existing_holiday_lights != matched_holiday_lights:
+                    holidays_without_specific_presets.add(holiday_name)
+            else:
+                if not missing_only:
+                    get_logger().info(
+                        "{date}: {holiday}, candidates: {candidates} DO NOT EXIST".
+                        format(date=get_date_str(evaluation_date), holiday=holiday_name,
+                               candidates=matched_holiday_lights_list))
+                holidays_without_presets.add(holiday_name)
         else:
-            presets_file_status = "IS NOT SPECIFIED"
+            if not missing_only:
+                get_logger().info("{date}: NOT A DEFINED HOLIDAY".format(date=get_date_str(evaluation_date)))
 
-        if not missing_only:
-            get_logger().info(
-                "{date}: {holiday}, presets file {status}".format(date=get_date_str(evaluation_date),
-                                                                  holiday=matched_holiday_lights,
-                                                                  status=presets_file_status))
-    if missing_only:
-        get_logger().info("The following holidays have no presets file: {holidays}".format(holidays=holidays_without_presets))
+    get_logger().info("The following holidays have no presets file: {holidays}".
+                      format(holidays=holidays_without_presets))
+    get_logger().info("The following holidays do not have a holiday-specific presets file: {holidays}".
+                      format(holidays=holidays_without_specific_presets))
 
 
 def calculate_date(evaluation_date: datetime, evaluation_day, evaluation_month):
@@ -180,19 +192,27 @@ class WledHoliday:
     def evaluate_lights_for_date(self, evaluation_date):
 
         evaluation_day_of_year = self.calculate_day_of_year(evaluation_date)
-        matched_holiday = None
-        min_range = None
+        matched_holidays = []
         for holiday in self.holiday_dates:
             candidate_holiday = self.holiday_dates[holiday]
             start_day_of_year = candidate_holiday[START_DAY_OF_YEAR_KEY]
             end_day_of_year = candidate_holiday[END_DAY_OF_YEAR_KEY]
             if start_day_of_year <= evaluation_day_of_year <= end_day_of_year:
                 day_of_year_range = end_day_of_year - start_day_of_year + 1
-                if min_range is None or day_of_year_range < min_range:
-                    min_range = day_of_year_range
-                    matched_holiday = candidate_holiday[HOLIDAY_LIGHTS_KEY]
+                matched_holidays.append((holiday, candidate_holiday[HOLIDAY_LIGHTS_KEY], day_of_year_range))
 
-        return matched_holiday
+        # candidates = []
+        # for item in sorted(matched_holidays, key=itemgetter(1)):
+        #     candidates.append(item[0])
+        sorted_matched_holidays = sorted(matched_holidays, key=itemgetter(2))
+        if len(sorted_matched_holidays) > 0:
+            matched_holiday_name = sorted_matched_holidays[0][0]
+        else:
+            matched_holiday_name = None
+
+        candidates = [item[1] for item in sorted_matched_holidays]
+
+        return matched_holiday_name, candidates
 
     def evaluate_holiday_lights_dates(self, evaluation_date):
         holiday_dates = dict()

@@ -8,7 +8,7 @@ from wled_holiday import WledHoliday
 from wled_upload import upload
 from wled_utils.date_utils import get_todays_date_str, parse_date_str
 from wled_utils.logger_utils import get_logger, init_logger
-from wled_utils.path_utils import presets_file_exists, get_presets_file_name
+from wled_utils.path_utils import presets_file_exists, get_presets_file_name, choose_existing_presets
 from wled_utils.property_tools import PropertyEvaluator
 from wled_utils.yaml_multi_file_loader import load_yaml_file
 from wled_yaml2json import wled_yaml2json
@@ -97,7 +97,8 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
 
         wled_lights = WledHoliday(data_dir=data_dir, definitions_rel_dir=definitions_rel_dir, holidays_file=holidays_file,
                                   lights_file=lights_file, evaluation_date=evaluation_date, verbose_mode=verbose)
-        matched_lights = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
+        holiday_name, matched_lights_list = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
+        matched_lights = choose_existing_presets(data_dir, wled_rel_dir, matched_lights_list)
         if matched_lights is None:
             matched_lights = default_lights_name
             if verbose:
@@ -108,6 +109,7 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
             matched_lights = default_lights_name
 
         if verbose:
+            get_logger().info("Holiday: " + str(holiday_name))
             get_logger().info("Lights to be applied: " + str(matched_lights))
 
         properties_file = property_evaluator.get_property(env, section, PROPERTIES_FILE_KEY)
