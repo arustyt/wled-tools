@@ -99,21 +99,20 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
         wled_lights = WledHoliday(data_dir=data_dir, definitions_rel_dir=definitions_rel_dir,
                                   holidays_file=holidays_file, lights_file=lights_file, evaluation_date=evaluation_date,
                                   verbose_mode=verbose)
+        matched_lights = default_lights_name
+        holiday_name = default_holiday_name
         candidates = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
-        matched_candidate = choose_existing_presets(data_dir, wled_rel_dir, candidates)
-        if matched_candidate is None:
-            matched_lights = default_lights_name
-            holiday_name = default_holiday_name
-            if verbose:
-                get_logger().info("Date is not a recognized holiday.")
-        elif not presets_file_exists(data_dir, wled_rel_dir, matched_candidate[LIGHTS_KEY]):
-            if verbose:
-                get_logger().info('Presets file for "{lights}" does not exist.'.format(lights=matched_candidate[LIGHTS_KEY]))
-            matched_lights = default_lights_name
-            holiday_name = default_holiday_name
-        else:
-            matched_lights = matched_candidate[LIGHTS_KEY]
-            holiday_name = matched_candidate[HOLIDAY_KEY]
+        if len(candidates) > 0:
+            matched_candidate = choose_existing_presets(data_dir, wled_rel_dir, candidates)
+            if matched_candidate is None:
+                if verbose:
+                    get_logger().info("Date is not a recognized holiday.")
+            elif not presets_file_exists(data_dir, wled_rel_dir, matched_candidate[LIGHTS_KEY]):
+                if verbose:
+                    get_logger().info('Presets file for "{lights}" does not exist.'.format(lights=matched_candidate[LIGHTS_KEY]))
+            else:
+                matched_lights = matched_candidate[LIGHTS_KEY]
+                holiday_name = matched_candidate[HOLIDAY_KEY]
 
         if verbose:
             get_logger().info("Holiday: " + str(holiday_name))

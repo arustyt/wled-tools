@@ -136,8 +136,8 @@ def process_all_dates(date_str, data_dir, definitions_dir, wled_dir, holidays_fi
         if len(matched_holiday_lights_list) > 0:
             holiday_name = matched_holiday_lights_list[0][HOLIDAY_KEY]
             matched_holiday_lights = matched_holiday_lights_list[0][LIGHTS_KEY]
-            chosen_holiday, chosen_holiday_lights = choose_existing_presets(data_dir, wled_dir,
-                                                                            matched_holiday_lights_list)
+            chosen_presets = choose_existing_presets(data_dir, wled_dir, matched_holiday_lights_list)
+            chosen_holiday_lights = chosen_presets[LIGHTS_KEY]
             if chosen_holiday_lights is not None:
                 if not missing_only:
                     get_logger().info(
