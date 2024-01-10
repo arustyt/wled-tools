@@ -210,7 +210,7 @@ class WledHoliday:
         else:
             matched_holiday_name = None
 
-        candidates = [item[1] for item in sorted_matched_holidays]
+        candidates = [(item[0], item[1]) for item in sorted_matched_holidays]
 
         return matched_holiday_name, candidates
 

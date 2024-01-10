@@ -3,7 +3,7 @@ import os
 import sys
 
 from wled_constants import WLED_HOLIDAY_KEY, DEFINITIONS_DIR_KEY, HOLIDAYS_FILE_KEY, LIGHTS_FILE_KEY, \
-    DEFAULT_LIGHTS_NAME_KEY, HOST_KEY, WLED_DIR_KEY
+    DEFAULT_LIGHTS_NAME_KEY, HOST_KEY, WLED_DIR_KEY, DEFAULT_HOLIDAY_NAME_KEY
 from wled_holiday import WledHoliday
 from wled_upload import upload
 from wled_utils.date_utils import get_todays_date_str, parse_date_str
@@ -77,6 +77,7 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
         holidays_file = property_evaluator.get_property(env, section, HOLIDAYS_FILE_KEY)
         lights_file = property_evaluator.get_property(env, section, LIGHTS_FILE_KEY)
         default_lights_name = property_evaluator.get_property(env, section, DEFAULT_LIGHTS_NAME_KEY)
+        default_holiday_name = property_evaluator.get_property(env, section, DEFAULT_HOLIDAY_NAME_KEY)
         host = property_evaluator.get_property(env, section, HOST_KEY)
         wled_rel_dir = property_evaluator.get_property(env, section, WLED_DIR_KEY)
         starting_presets_file = property_evaluator.get_property(env, section, STARTING_PRESETS_FILE_KEY)
@@ -95,12 +96,14 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
 
         evaluation_date = parse_date_str(date_str)
 
-        wled_lights = WledHoliday(data_dir=data_dir, definitions_rel_dir=definitions_rel_dir, holidays_file=holidays_file,
-                                  lights_file=lights_file, evaluation_date=evaluation_date, verbose_mode=verbose)
+        wled_lights = WledHoliday(data_dir=data_dir, definitions_rel_dir=definitions_rel_dir,
+                                  holidays_file=holidays_file, lights_file=lights_file, evaluation_date=evaluation_date,
+                                  verbose_mode=verbose)
         holiday_name, matched_lights_list = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
         matched_lights = choose_existing_presets(data_dir, wled_rel_dir, matched_lights_list)
         if matched_lights is None:
             matched_lights = default_lights_name
+            holiday_name = default_holiday_name
             if verbose:
                 get_logger().info("Date is not a recognized holiday.")
         elif not presets_file_exists(data_dir, wled_rel_dir, matched_lights):
@@ -115,20 +118,23 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
         properties_file = property_evaluator.get_property(env, section, PROPERTIES_FILE_KEY)
         segments_file = property_evaluator.get_property(env, section, SEGMENTS_FILE_KEY)
 
+        property_definitions = get_property_definitions(holiday_name, matched_lights)
+
         if verbose:
             get_logger().info("Testing presets generation to determine JSON file name.")
 
         presets_file = build_presets_option(starting_presets_file, matched_lights)
-        presets_json_path, cfg_json_path = evaluate_presets(data_dir, definitions_rel_dir, env, matched_lights,
-                                                            segments_file, presets_file, properties_file, wled_rel_dir,
+        presets_json_path, cfg_json_path = evaluate_presets(data_dir, definitions_rel_dir, env, holiday_name,
+                                                            segments_file, presets_file, properties_file,
+                                                            property_definitions, wled_rel_dir,
                                                             False, TEST_MODE)
 
         if need_to_generate_presets(data_dir, wled_rel_dir, starting_presets_file, matched_lights, presets_json_path):
             if verbose:
                 get_logger().info("Generating presets file: {file}".format(file=presets_json_path))
-            presets_json_path, cfg_json_path = evaluate_presets(data_dir, definitions_rel_dir, env, matched_lights,
+            presets_json_path, cfg_json_path = evaluate_presets(data_dir, definitions_rel_dir, env, holiday_name,
                                                                 segments_file, presets_file, properties_file,
-                                                                wled_rel_dir, verbose, PROD_MODE)
+                                                                property_definitions, wled_rel_dir, verbose, PROD_MODE)
         else:
             if verbose:
                 get_logger().info("{file} is up-to-date.".format(file=presets_json_path))
@@ -141,16 +147,28 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
     return process_successful
 
 
-def evaluate_presets(data_dir, definitions_rel_dir, env, matched_lights, segments_file, presets_file, properties_file, wled_rel_dir,
-                     verbose: bool, test_mode: bool):
+def get_property_definitions(holiday_name: str, matched_lights: str):
+    properties = []
+    if holiday_name is not None:
+        properties.append('holiday=' + holiday_name)
+
+    if matched_lights is not None:
+        properties.append('lights=' + matched_lights)
+
+    return properties
+
+
+def evaluate_presets(data_dir, definitions_rel_dir, env, holiday_name, segments_file, presets_file, properties_file,
+                     property_definitions, wled_rel_dir, verbose: bool, test_mode: bool):
     presets_json_path, cfg_json_path = wled_yaml2json(data_dir=data_dir,
                                                       wled_rel_dir=wled_rel_dir,
                                                       environment=env,
                                                       properties=properties_file,
+                                                      property_definitions=property_definitions,
                                                       segments=segments_file,
                                                       presets=presets_file,
                                                       definitions_rel_dir=definitions_rel_dir,
-                                                      suffix="-{holiday}".format(holiday=matched_lights),
+                                                      suffix="-{holiday}".format(holiday=holiday_name),
                                                       test_mode=test_mode,
                                                       quiet_mode=not verbose)
 

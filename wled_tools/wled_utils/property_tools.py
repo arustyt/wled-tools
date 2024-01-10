@@ -12,6 +12,19 @@ class PropertyEvaluator:
         self.tracer = Tracer(verbose)
         self.strings_only = strings_only
 
+    def add_property(self, name: str, value):
+        name_parts = name.split('.')
+        num_parts = len(name_parts)
+        part_num = 0
+        curr_dict = self.dict_data
+        while part_num < num_parts-1:
+            new_dict = dict()
+            curr_dict[name_parts[part_num]] = new_dict
+            curr_dict = new_dict
+            part_num += 1
+
+        curr_dict[name_parts[num_parts-1]] = value
+
     def get_property(self, *key_parts: str, ):
         property_value, property_name = self.get_property_tuple(*key_parts)
 
@@ -171,6 +184,10 @@ class PropertyEvaluator:
             if part is not None and len(part) > 0:
                 new_var_parts.append(part)
         return new_var_parts
+
+    def add_properties(self, properties):
+        for prop in properties:
+            self.add_property(prop[0], prop[1])
 
 
 def print_result(property_tuple):

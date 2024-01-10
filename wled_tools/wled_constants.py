@@ -46,6 +46,7 @@ WLED_DIR_KEY = "wled_dir"
 DEFINITIONS_DIR_KEY = "definitions_dir"
 LIGHTS_FILE_KEY = "lights_file"
 DEFAULT_LIGHTS_NAME_KEY = "default_lights_name"
+DEFAULT_HOLIDAY_NAME_KEY = "default_holiday_name"
 HOLIDAYS_FILE_KEY = "holidays_file"
 
 HOLIDAYS_KEY = 'holidays'

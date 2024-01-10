@@ -1,4 +1,5 @@
 import re
+from pprint import pprint
 
 from data_files.wled_data_processor import WledDataProcessor
 from wled_utils.logger_utils import get_logger
@@ -60,23 +61,59 @@ class WledPlaceholderReplacer(WledDataProcessor):
 
         return new_data
 
+    def add_properties(self, properties):
+        self.property_evaluator.add_properties(properties)
+
+    def add_property(self, name: str, value):
+        self.property_evaluator.add_property(name, value)
+
 
 if __name__ == '__main__':
     env_data = {'it_worked': 'IT WORKED ',
-                'dict': {
-                    'dict': 'IN A DICT (${dict.nested})',
-                    'nested': 'nested'
-                },
-                'list': {
-                    'list': 'IN A LIST (${list.again})',
-                    'again': 'again'}
+                'dict':
+                    {
+                        'dict': 'IN A DICT (${dict.nested})',
+                        'nested': 'nested'
+                    },
+                'list':
+                    {
+                        'list': 'IN A LIST (${list.again})',
+                        'again': 'again'
+                    },
+                'easter':
+                    {
+                        'bg': 'Black',
+                        'fg': 'White'
+                    },
+                'lent_bg': 'Scarlet',
+                'lent_fg': 'Purple',
                 }
 
-    wled_data = {'1': {'n': 'Hey look, ${it_worked}${dict.dict}!!!', 'h': 'Some other dict value.',
-                       'l': ['1', 'Hey look, ${it_worked}${list.list}!!!', '3']}}
+    wled_data = {
+        '1':
+            {
+                'n': 'Hey look, ${it_worked}${dict.dict}!!!',
+                'h': 'Some other dict value.',
+                'l': ['1', 'Hey look, ${it_worked}${list.list}!!!', '3']
+            },
+        '2':
+            {
+                'bg': '${${holiday}.bg}',
+                'fg': '${${holiday}.fg}'
+            },
+        '3':
+            {
+                'bg': '${${holiday2}_bg}',
+                'fg': '${${holiday2}_fg}'
+            }
 
-    wled_presets = WledPlaceholderReplacer(env_data)
+    }
 
-    new_wled_data = wled_presets.process_wled_data(wled_data)
+    placeholder_replacer = WledPlaceholderReplacer(env_data)
 
-    get_logger().info(new_wled_data)
+    placeholder_replacer.add_property('holiday', 'easter')
+    placeholder_replacer.add_property('holiday2', 'lent')
+
+    new_wled_data = placeholder_replacer.process_wled_data(wled_data)
+
+    pprint(new_wled_data)
