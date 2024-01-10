@@ -3,7 +3,7 @@ import os
 import sys
 
 from wled_constants import WLED_HOLIDAY_KEY, DEFINITIONS_DIR_KEY, HOLIDAYS_FILE_KEY, LIGHTS_FILE_KEY, \
-    DEFAULT_LIGHTS_NAME_KEY, HOST_KEY, WLED_DIR_KEY, DEFAULT_HOLIDAY_NAME_KEY
+    DEFAULT_LIGHTS_NAME_KEY, HOST_KEY, WLED_DIR_KEY, DEFAULT_HOLIDAY_NAME_KEY, LIGHTS_KEY, HOLIDAY_KEY
 from wled_holiday import WledHoliday
 from wled_upload import upload
 from wled_utils.date_utils import get_todays_date_str, parse_date_str
@@ -99,17 +99,21 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
         wled_lights = WledHoliday(data_dir=data_dir, definitions_rel_dir=definitions_rel_dir,
                                   holidays_file=holidays_file, lights_file=lights_file, evaluation_date=evaluation_date,
                                   verbose_mode=verbose)
-        holiday_name, matched_lights_list = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
-        matched_lights = choose_existing_presets(data_dir, wled_rel_dir, matched_lights_list)
-        if matched_lights is None:
+        candidates = wled_lights.evaluate_lights_for_date(evaluation_date=evaluation_date)
+        matched_candidate = choose_existing_presets(data_dir, wled_rel_dir, candidates)
+        if matched_candidate is None:
             matched_lights = default_lights_name
             holiday_name = default_holiday_name
             if verbose:
                 get_logger().info("Date is not a recognized holiday.")
-        elif not presets_file_exists(data_dir, wled_rel_dir, matched_lights):
+        elif not presets_file_exists(data_dir, wled_rel_dir, matched_candidate[LIGHTS_KEY]):
             if verbose:
-                get_logger().info('Presets file for "{lights}" does not exist.'.format(lights=matched_lights))
+                get_logger().info('Presets file for "{lights}" does not exist.'.format(lights=matched_candidate[LIGHTS_KEY]))
             matched_lights = default_lights_name
+            holiday_name = default_holiday_name
+        else:
+            matched_lights = matched_candidate[LIGHTS_KEY]
+            holiday_name = matched_candidate[HOLIDAY_KEY]
 
         if verbose:
             get_logger().info("Holiday: " + str(holiday_name))

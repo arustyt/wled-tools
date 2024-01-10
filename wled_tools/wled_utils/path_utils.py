@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+from wled_constants import LIGHTS_KEY
+
 YAML_EXTENSION = '.yaml'
 
 
@@ -18,10 +20,10 @@ def get_wled_path(data_dir, wled_rel_dir, presets_yaml):
 
 def choose_existing_presets(base_dir, sub_dir, candidates):
     for candidate in candidates:
-        if presets_file_exists(base_dir, sub_dir, candidate):
+        if presets_file_exists(base_dir, sub_dir, candidate[LIGHTS_KEY]):
             return candidate
 
-    return None
+    return None, None
 
 
 def presets_file_exists(data_dir, wled_rel_dir, day_type):

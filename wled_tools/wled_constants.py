@@ -48,6 +48,8 @@ LIGHTS_FILE_KEY = "lights_file"
 DEFAULT_LIGHTS_NAME_KEY = "default_lights_name"
 DEFAULT_HOLIDAY_NAME_KEY = "default_holiday_name"
 HOLIDAYS_FILE_KEY = "holidays_file"
+LIGHTS_KEY = "lights"
+HOLIDAY_KEY = "holiday"
 
 HOLIDAYS_KEY = 'holidays'
 SEGMENTS_KEY = 'segments'
