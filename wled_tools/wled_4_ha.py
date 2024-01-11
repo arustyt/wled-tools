@@ -108,6 +108,9 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
             if matched_candidate is None:
                 if verbose:
                     get_logger().info("Date is not a recognized holiday.")
+            elif matched_candidate[LIGHTS_KEY] is None:
+                if verbose:
+                    get_logger().info('No candidate presets exist for {candidates}.'.format(candidates=[item[HOLIDAY_KEY] for item in candidates]))
             elif not presets_file_exists(data_dir, wled_rel_dir, matched_candidate[LIGHTS_KEY]):
                 if verbose:
                     get_logger().info('Presets file for "{lights}" does not exist.'.format(lights=matched_candidate[LIGHTS_KEY]))
