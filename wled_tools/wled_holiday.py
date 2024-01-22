@@ -7,7 +7,8 @@ from operator import itemgetter
 from dateutil.rrule import *
 
 from wled_constants import DEFAULT_DEFINITIONS_DIR, DEFAULT_HOLIDAYS_FILE, DEFAULT_LIGHTS_FILE, DEFAULT_HOLIDAY_NAME, \
-    HOLIDAYS_KEY, DATE_KEY, RRULE_KEY, DAY_OF_YEAR_KEY, DEFAULT_DATA_DIR, DEFAULT_WLED_DIR, HOLIDAY_KEY, LIGHTS_KEY
+    HOLIDAYS_KEY, DATE_KEY, RRULE_KEY, DAY_OF_YEAR_KEY, DEFAULT_DATA_DIR, DEFAULT_WLED_DIR, HOLIDAY_KEY, LIGHTS_KEY, \
+    ABBREVIATION_KEY
 from wled_utils.date_utils import get_date_str, get_todays_date_str, parse_date_str, calculate_date, \
     calculate_day_of_year_and_week
 from wled_utils.dict_utils import normalize_keys
@@ -94,7 +95,8 @@ def main(name, args):
     if not all_dates:
         process_one_date(date_str, data_dir, definitions_rel_dir, holidays_file, lights_file, verbose_mode)
     else:
-        process_all_dates(date_str, data_dir, definitions_rel_dir, wled_rel_dir, holidays_file, lights_file, missing_only)
+        process_all_dates(date_str, data_dir, definitions_rel_dir, wled_rel_dir, holidays_file, lights_file,
+                          missing_only)
 
 
 def process_one_date(date_str, data_dir, definitions_dir, holidays_file, lights_file, verbose_mode):
@@ -190,7 +192,10 @@ class WledHoliday:
             end_day_of_year = candidate_holiday[END_DAY_OF_YEAR_KEY]
             if start_day_of_year <= evaluation_day_of_year <= end_day_of_year:
                 day_of_year_range = end_day_of_year - start_day_of_year + 1
-                matched_holidays.append((holiday, candidate_holiday[HOLIDAY_LIGHTS_KEY], day_of_year_range))
+                matched_holiday, matched_lights = self.get_holiday_and_lights(candidate_holiday, evaluation_day_of_week,
+                                                                              holiday,
+                                                                              candidate_holiday[HOLIDAY_LIGHTS_KEY])
+                matched_holidays.append((matched_holiday, matched_lights, day_of_year_range))
 
         # candidates = []
         # for item in sorted(matched_holidays, key=itemgetter(1)):
@@ -205,6 +210,18 @@ class WledHoliday:
 
         return candidates
 
+    def get_holiday_and_lights(self, candidate_holiday: dict, day_of_week: dict, holiday, lights):
+        matched_holiday = holiday
+        matched_lights = lights
+        if day_of_week[ABBREVIATION_KEY] in candidate_holiday:
+            dow = candidate_holiday[day_of_week[ABBREVIATION_KEY]]
+            if LIGHTS_KEY in dow:
+                matched_lights = dow[LIGHTS_KEY]
+            if HOLIDAY_KEY in dow:
+                matched_holiday = dow[HOLIDAY_KEY]
+
+        return matched_holiday, matched_lights
+
     def evaluate_holiday_lights_dates(self, evaluation_date):
         holiday_dates = dict()
         all_holidays = self.lights_data[HOLIDAYS_KEY]
@@ -214,6 +231,9 @@ class WledHoliday:
             holiday_dates[holiday][START_DAY_OF_YEAR_KEY], holiday_dates[holiday][END_DAY_OF_YEAR_KEY] = \
                 self.evaluate_holiday_dates(holiday_data, evaluation_date)
             holiday_dates[holiday][HOLIDAY_LIGHTS_KEY] = holiday_data[HOLIDAY_LIGHTS_KEY]
+            for key in holiday_data:
+                if key not in [START_DATE_KEY, END_DATE_KEY]:
+                    holiday_dates[holiday][key] = holiday_data[key]
 
         return holiday_dates
 

@@ -51,6 +51,10 @@ HOLIDAYS_FILE_KEY = "holidays_file"
 LIGHTS_KEY = "lights"
 HOLIDAY_KEY = "holiday"
 
+NAME_KEY = 'name'
+ABBREVIATION_KEY = 'abbr'
+INDEX_KEY = 'index'
+
 HOLIDAYS_KEY = 'holidays'
 SEGMENTS_KEY = 'segments'
 NORMALIZED_HOLIDAYS_KEY = 'normalized_holidays'
