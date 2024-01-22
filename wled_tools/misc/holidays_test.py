@@ -63,3 +63,21 @@ by_easter = -40
 result = rrule(frequency, dtstart=test_date, count=1, byeaster=by_easter)
 easter_date = result[0]
 print("Next Mardi Gras is: %s" % result[0])
+
+
+start_date = date(2024, 1, 1)
+end_date = date(2024, 12, 31)
+
+frequency_str = 'WEEKLY'
+month = None
+day_of_week = 'MO'
+occurrence = 1
+by_easter = None
+
+frequency = get_frequency(frequency_str)
+weekday = get_byweekday(day_of_week, occurrence)
+
+result = list(rrule(WEEKLY, dtstart=start_date, until=end_date, byweekday=weekday))
+
+for monday in result:
+    print("MONDAY: {monday}".format(monday=monday))
