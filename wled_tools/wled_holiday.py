@@ -308,17 +308,17 @@ class WledHoliday:
         if BY_EASTER_KEY in holiday_rrule:
             holiday_date = self.interpret_easter_rrule(frequency, holiday_rrule[BY_EASTER_KEY], first_day_of_year)
         else:
-            month = holiday_rrule['month']
+            by_month = holiday_rrule['month']
             day_of_week = holiday_rrule['day_of_week']
             occurrence = holiday_rrule['occurrence']
-            weekday = get_byweekday(day_of_week, occurrence)
+            by_weekday = get_byweekday(day_of_week, occurrence)
 
-            holiday_date = self.interpret_general_rrule(frequency, month, weekday, first_day_of_year)
+            holiday_date = self.interpret_general_rrule(frequency, by_month, by_weekday, first_day_of_year)
 
         return holiday_date.timetuple().tm_yday
 
-    def interpret_general_rrule(self, frequency, month, weekday, first_day_of_year):
-        holiday_date = rrule(frequency, dtstart=first_day_of_year, count=1, bymonth=month, byweekday=weekday)
+    def interpret_general_rrule(self, frequency, by_month, by_weekday, first_day_of_year):
+        holiday_date = rrule(frequency, dtstart=first_day_of_year, count=1, bymonth=by_month, byweekday=by_weekday)
 
         return holiday_date[0]
 
