@@ -28,3 +28,15 @@ def get_byweekday(dow, occurrence):
         raise ValueError("Invalid day of week.")
 
     return weeday_obj
+
+
+def interpret_general_rrule(frequency, by_month, by_weekday, first_day_of_year):
+    holiday_date = rrule(frequency, dtstart=first_day_of_year, count=1, bymonth=by_month, byweekday=by_weekday)
+
+    return holiday_date[0]
+
+
+def interpret_easter_rrule(frequency, by_easter, first_day_of_year):
+    holiday_date = rrule(frequency, dtstart=first_day_of_year, count=1, byeaster=by_easter)
+
+    return holiday_date[0]
