@@ -1,9 +1,7 @@
 import argparse
 import calendar
-import datetime
 import re
 import sys
-from datetime import *
 from operator import itemgetter
 
 from dateutil.rrule import *
@@ -12,6 +10,7 @@ from wled_constants import DEFAULT_DEFINITIONS_DIR, DEFAULT_HOLIDAYS_FILE, DEFAU
     HOLIDAYS_KEY, DATE_KEY, RRULE_KEY, DAY_OF_YEAR_KEY, DEFAULT_DATA_DIR, DEFAULT_WLED_DIR, HOLIDAY_KEY, LIGHTS_KEY
 from wled_utils.date_utils import get_date_str, get_todays_date_str, parse_date_str, calculate_date, \
     calculate_day_of_year_and_week
+from wled_utils.dict_utils import normalize_keys
 from wled_utils.logger_utils import get_logger, init_logger
 from wled_utils.path_utils import build_path, presets_file_exists, choose_existing_presets
 from wled_utils.rrule_utils import get_frequency, get_byweekday, interpret_general_rrule, interpret_easter_rrule
@@ -173,17 +172,16 @@ class WledHoliday:
         holidays_path = build_path(definitions_dir, holidays_file)
         self.holidays_data = load_yaml_file(holidays_path)
         self.evaluate_holidays(self.holidays_data, evaluation_date)
-        self.normalize_keys(self.holidays_data)
+        normalize_keys(self.holidays_data[HOLIDAYS_KEY])
 
         lights_path = build_path(definitions_dir, lights_file)
         self.lights_data = load_yaml_file(lights_path)
-        self.normalize_keys(self.lights_data)
+        normalize_keys(self.lights_data[HOLIDAYS_KEY])
         self.verbose_mode = verbose_mode
 
         self.holiday_dates = self.evaluate_holiday_lights_dates(evaluation_date)
 
     def evaluate_lights_for_date(self, evaluation_date):
-
         evaluation_day_of_year, evaluation_day_of_week = calculate_day_of_year_and_week(evaluation_date)
         matched_holidays = []
         for holiday in self.holiday_dates:
@@ -302,19 +300,6 @@ class WledHoliday:
             holiday_date = interpret_general_rrule(frequency, by_month, by_weekday, first_day_of_year)
 
         return holiday_date.timetuple().tm_yday
-
-    def normalize_keys(self, lights_data: dict):
-        holidays = lights_data[HOLIDAYS_KEY]
-        new_holidays = dict()
-        for key in holidays:
-            new_key = self.normalize_name(key)
-            if new_key != key:
-                new_holidays[new_key] = holidays[key]
-
-        holidays.update(new_holidays)
-
-    def normalize_name(self, name: str):
-        return re.sub(r"[^a-zA-Z0-9_]", '', name.lower().replace(" ", "_"))
 
 
 if __name__ == '__main__':
