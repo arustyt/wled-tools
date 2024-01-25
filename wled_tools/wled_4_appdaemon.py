@@ -2,7 +2,7 @@ import re
 
 import hassapi as hass
 import datetime
-from git import Repo
+from git import Repo, GitCommandError
 
 from wled_4_ha import wled_4_ha
 from wled_utils.logger_utils import init_logger, get_logger
@@ -123,10 +123,14 @@ class Wled4Appdaemon(hass.Hass):
     def install_lights_de_jour(self, cb_args):
         if self.config_repo is not None:
             self.log_info("Pulling config repo @ {repo}".format(repo=self.config_repo))
-            repo = Repo(self.config_repo)
-            # repo.username = self.git_username
-            origin = repo.remotes.origin
-            origin.pull()
+            try:
+                repo = Repo(self.config_repo)
+                # repo.username = self.git_username
+                origin = repo.remotes.origin
+                origin.pull()
+            except GitCommandError as gce:
+                self.log_error("Pulling config repo @ {repo} FAILED.".format(repo=self.config_repo))
+
         self.log_info("Calling wled_4_ha({job_file}, {env}, {date_str}, {verbose})".format(job_file=self.job, env=self.env,
                                                                                       date_str=self.date_str,
                                                                                       verbose=self.verbose))
@@ -135,3 +139,6 @@ class Wled4Appdaemon(hass.Hass):
 
     def log_info(self, msg):
         get_logger().info("[{which}] - {msg}".format(which=self.env, msg=msg))
+
+    def log_error(self, msg):
+        get_logger().error("[{which}] - {msg}".format(which=self.env, msg=msg))
