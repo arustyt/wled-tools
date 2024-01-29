@@ -2,7 +2,28 @@
 This section covers the WLED Presets YAML files that can be used to generate presets JSON files for 
 uploading to a WLED instance.
 
-## WLED Preset YAML file
+## Example WLED Preset YAML file
+We'll discuss various parts of interest in the file in subsequent subsections.
+
+### Example Conventions
+These are the preset conventions that I have adopted and are used in this example.
+
+```defaults``` will be discussed below.
+
+```Preset 0``` is always present and empty. Its use causes WLED defaults to be applied the the LEDs.
+
+```Preset 1``` turns the LEDs off.  This is the preset to apply at boot in LED Preferences.
+
+```Preset 2``` turns the LEDs on.  I don't use this preset directly but it is included for 
+               completeness.
+
+```Preset 3``` is the preset that scheduled (~30 minutes before sunset) when the LEDs are turned on. 
+               In the example below it is a playlist containing Sunrise effect in sunset mode.  
+               The sunset is followed by a playlist named "Playlist Du Jour" which varies depending on
+               the day of the year.
+
+```Presets >3``` includes the "Playlist Du Jour" preset and its specified presets.
+
 ```
 01 |defaults:
 02 |  preset:
@@ -90,6 +111,15 @@ uploading to a WLED instance.
 84 |    spc: 0
 85 |    sx: 125
 86 |  transition: 7
-
 ```
+
+### defaults:
+```
+01 |defaults:
+02 |  preset:
+03 |    mainseg: 0
+04 |    bri: 128
+05 |    transition: 7
+```
+
 

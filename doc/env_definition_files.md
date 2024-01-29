@@ -3,11 +3,12 @@ This section covers files that can be used to define various WLED environments w
 These files are:
 - properties YAML file
 - segments YAML file
-The following subsections define properties and segments for two environments:
-- lab_300 is a "development" environment. The lab_300 environment consists of a 300-LED strip 
+
+The following subsections use examples of properties and segments files for two environments:
+- ```lab_300``` is a "development" environment. The lab_300 environment consists of a 300-LED strip 
 controlled by a DIY ESP8266-based controller.  It is used for testing preset and configuration 
 files before moving them into production.
-- roof is the "production" environment.  It is made up of two LED pixel strings (439 LEDs) along 
+- ```roof``` is a "production" environment.  It is made up of two LED pixel strings (439 LEDs total) along 
 the roof-line of the house controlled by a QuinLED DigiQuad controller.
  
 ## Properties YAML file
@@ -51,7 +52,7 @@ roof:
   playlist_repeat: 0
 ```
 Multiple levels in the properties file can be specified by concatenating consecutive levels, 
-separated by period '.'.  From the example properties file above, the following could be 
+separated by periods '.'.  From the example properties file above, the following could be 
 used to vary the speed setting for a preset.
 ```
     .
@@ -99,10 +100,10 @@ depending on the --env option. Thus, there are two ways that properties enable u
 single presets file across multiple environments.
 
 ## Segments YAML file
-The segments file provides a way to define WLED segments and access them by name in a presets file. Since  
-it is generally only the starting and ending LED indexes that are reusable across presets,  
-these segment definitions only contain the start and stop LED indexes, not effects, palettes or other
-segment parameters.
+The segments file provides a way to define WLED segments and access them by name in a presets file. 
+Since it is generally only the starting and ending LED indexes that are reusable across presets,  
+these segment definitions only contain the start and stop LED indexes, not effects, palettes or 
+other segment parameters.
 
 Here is an example segments file.
 ```
@@ -114,7 +115,7 @@ lab_300:
   - n: Second Floor
     start: 150
     stop: 300
-  - n: Whole Roofk
+  - n: Whole Roof
     start: 0
     stop: 300
 roof:
@@ -138,20 +139,31 @@ instead of the WLED "n", "start", and "stop"
 
 Given the example data above, this entry in a presets YAML segment definition:
 ```yaml
-   seg_name: Whole Roof
-```
+  seg:
+  - id: 0
+    ...
+    seg_name: Whole Roof
+  ```
 Would result in the following in the generated WLED presets JSON file for the ```lab_300``` 
 environment:
-```json lines
-        "n": "Whole Roof",
-        "start": 0,
-        "stop": 439,
-```
-or, for the ```roof``` environment:
-```json lines
+```json lines:
+    "seg": [
+      {
+        "id": 0,
+        ...
         "n": "Whole Roof",
         "start": 0,
         "stop": 300,
+```
+or, for the ```roof``` environment:
+```json lines
+     "seg": [
+      {
+        "id": 0,
+        ...
+        "n": "Whole Roof",
+        "start": 0,
+        "stop": 439,
 ```
 Similar to properties processing, [wled_yaml2json.py](wled_yaml2json.py.md) will automatically look 
 for an environment-specific (specified with the --env option) set of segments when run.
