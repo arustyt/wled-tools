@@ -59,11 +59,11 @@ class WledPresets(WledDataProcessor):
     def in_normal_preset(self, data):
         return SEGMENT_TAG in data
 
-    def handle_list(self, path: str, name, data: list, new_data: list):
+    def process_list_content(self, path: str, name, data: list, new_data: list):
         if name == COLOR_TAG:
-            return True, self.process_colors(path, COLOR_TAG, data)
+            self.process_colors(path, COLOR_TAG, data, new_data)
         else:
-            return False, new_data
+            super().process_list_content(path, name, data, new_data)
 
     def finalize_list(self, path: str, name, data: list, new_data: list):
         if name == 'seg':
@@ -115,8 +115,7 @@ class WledPresets(WledDataProcessor):
                         segments.append({STOP_TAG: 0})
         return preset_data
 
-    def process_colors(self, path: str, name, color_list: list):
-        new_color_list = []
+    def process_colors(self, path: str, name, color_list: list, new_color_list: list):
         for index in range(len(color_list)):
             value = color_list[index]
             if not isinstance(value, list):
@@ -124,8 +123,6 @@ class WledPresets(WledDataProcessor):
                 if value_is_placeholder:
                     r, g, b = self.colors.html_color_to_rgb(placeholder)
                     new_color_list.append(list((r, g, b)))
-
-        return new_color_list
 
     def is_placeholder(self, value: str):
         return isinstance(value, str), value

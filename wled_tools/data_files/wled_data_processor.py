@@ -46,15 +46,13 @@ class WledDataProcessor:
     def process_dict(self, path: str, name, data: dict):
         new_data = self.init_dict(path, name, data)
 
-        handled, new_data = self.handle_dict(path, name, data, new_data)
-
-        if not handled:
-            self.process_dict_content(path, data, new_data)
+        self.process_dict_content(path, name, data, new_data)
 
         self.finalize_dict(path, name, data, new_data)
         return new_data
 
-    def process_dict_content(self, path, data, new_data):
+    @abstractmethod
+    def process_dict_content(self, path, name, data, new_data):
         for key in data.keys():
             item = data[key]
             new_path = '{name}.{key}'.format(name=path, key=key)
@@ -73,26 +71,20 @@ class WledDataProcessor:
         return {}
 
     @abstractmethod
-    def handle_dict(self, path: str, name, data: dict, new_data: dict):
-        return False, new_data
-
-    @abstractmethod
     def finalize_dict(self, path: str, name, data: dict, new_data: dict):
         pass
 
     def process_list(self, path: str, name, data: list):
         new_data = self.init_list(path, name, data)
 
-        handled, new_data = self.handle_list(path, name, data, new_data)
-
-        if not handled:
-            self.process_list_content(path, data, new_data)
+        self.process_list_content(path, name, data, new_data)
 
         self.finalize_list(path, name, data, new_data)
 
         return new_data
 
-    def process_list_content(self, path, data, new_data):
+    @abstractmethod
+    def process_list_content(self, path, name, data, new_data):
         index = 0
         for item in data:
             new_path = '{name}[{index}]'.format(name=path, index=index)
@@ -107,10 +99,6 @@ class WledDataProcessor:
     @abstractmethod
     def init_list(self, path: str, name, data: list):
         return []
-
-    @abstractmethod
-    def handle_list(self, path: str, name, data: list, new_data: list):
-        return False, new_data
 
     @abstractmethod
     def finalize_list(self, path: str, name, data: list, new_data: list):
