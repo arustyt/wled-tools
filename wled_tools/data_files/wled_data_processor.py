@@ -9,7 +9,6 @@ class WledDataProcessor:
         self.environment = environment
         self.raw_wled_data = None
 
-    @abstractmethod
     def process_wled_data(self, raw_wled_data, **other_args):
         self.process_other_args(raw_wled_data, other_args)
         new_wled_data = {}
@@ -20,22 +19,29 @@ class WledDataProcessor:
 
         for key in self.raw_wled_data.keys():
             if key == DEFAULTS:
-                continue
-            wled_element = self.raw_wled_data[key]
-            self.load_defaults(key, key, wled_element)
-            if isinstance(wled_element, dict):
-                new_wled_data[key] = self.process_dict(key, key, wled_element)
-            elif isinstance(wled_element, list):
-                new_wled_data[key] = self.process_list(key, key, wled_element)
+                defaults = self.handle_defaults(self.raw_wled_data[DEFAULTS])
+                if defaults is not None:
+                    new_wled_data[DEFAULTS] = defaults
             else:
-                replacements = self.process_dict_element(key, key, wled_element)
-                if len(replacements) >= 1:
-                    for replacement in replacements:
-                        new_wled_data[replacement[0]] = replacement[1]
+                wled_element = self.raw_wled_data[key]
+                self.apply_defaults(key, key, wled_element)
+                if isinstance(wled_element, dict):
+                    new_wled_data[key] = self.process_dict(key, key, wled_element)
+                elif isinstance(wled_element, list):
+                    new_wled_data[key] = self.process_list(key, key, wled_element)
+                else:
+                    replacements = self.process_dict_element(key, key, wled_element)
+                    if len(replacements) >= 1:
+                        for replacement in replacements:
+                            new_wled_data[replacement[0]] = replacement[1]
 
         new_wled_data = self.finalize_wled_data(new_wled_data)
 
         return new_wled_data
+
+    @abstractmethod
+    def handle_defaults(self, defaults_dict):
+        return None
 
     def process_dict(self, path: str, name, data: dict):
         new_data = self.init_dict(path, name, data)
@@ -50,8 +56,6 @@ class WledDataProcessor:
 
     def process_dict_keys(self, path, data, new_data):
         for key in data.keys():
-            if key == DEFAULTS:
-                continue
             item = data[key]
             new_path = '{name}.{key}'.format(name=path, key=key)
             if isinstance(item, dict):
@@ -124,7 +128,7 @@ class WledDataProcessor:
     def load_global_defaults(self):
         pass
 
-    def load_defaults(self, path, name, defaults):
+    def apply_defaults(self, path, name, defaults):
         pass
 
     @abstractmethod

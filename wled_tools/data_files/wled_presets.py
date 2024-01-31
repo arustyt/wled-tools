@@ -9,6 +9,7 @@ from definition_files.effects import Effects
 from definition_files.palettes import Palettes
 from wled_constants import SEGMENTS_FILE_TAG, SEGMENT_TAG, COLOR_TAG, SEGMENT_NAME_TAG, PALETTE_NAME_TAG, \
     EFFECT_NAME_TAG, PALETTE_TAG, EFFECT_TAG, ID_TAG, PRESET_KEY, STOP_TAG, DEFAULTS, PRESET_DEFAULTS, SEGMENT_DEFAULTS
+from wled_utils.dict_utils import get_dict_path
 
 
 class WledPresets(WledDataProcessor):
@@ -23,7 +24,6 @@ class WledPresets(WledDataProcessor):
         self.presets = None
         self.global_preset_defaults = {}
         self.global_segment_defaults = {}
-        self.preset_segment_defaults = {}
         self.current_preset_defaults = {}
         self.current_segment_defaults = {}
         self.max_segments = 0
@@ -139,29 +139,20 @@ class WledPresets(WledDataProcessor):
             if SEGMENT_DEFAULTS in defaults:
                 self.load_global_segment_defaults(defaults[SEGMENT_DEFAULTS])
 
-    def load_defaults(self, path, preset_id, preset):
-        if DEFAULTS in preset:
-            defaults = preset[DEFAULTS]
-            if SEGMENT_DEFAULTS in defaults:
-                self.load_preset_segment_defaults(preset_id, defaults[SEGMENT_DEFAULTS])
-        self.load_current_defaults()
-
-    def load_current_defaults(self):
-        self.current_preset_defaults = self.global_preset_defaults
-        self.current_segment_defaults = {**self.global_segment_defaults, **self.preset_segment_defaults}
-
     def load_global_preset_defaults(self, global_preset_defaults):
-        self.global_preset_defaults = self.process_dict(self.get_new_path(DEFAULTS, PRESET_DEFAULTS), PRESET_DEFAULTS, global_preset_defaults)
-
-    def get_new_path(self, path, name):
-        return '{path}.{name}'.format(path=path, name=name)
+        self.global_preset_defaults = self.process_dict(get_dict_path(DEFAULTS, PRESET_DEFAULTS),
+                                                        PRESET_DEFAULTS, global_preset_defaults)
 
     def load_global_segment_defaults(self, global_segment_defaults):
-        self.global_segment_defaults = self.process_dict(self.get_new_path(DEFAULTS, SEGMENT_DEFAULTS), SEGMENT_DEFAULTS, global_segment_defaults)
+        self.global_segment_defaults = self.process_dict(get_dict_path(DEFAULTS, SEGMENT_DEFAULTS),
+                                                         SEGMENT_DEFAULTS, global_segment_defaults)
 
-    def load_preset_segment_defaults(self, preset_id, preset_segment_defaults):
-        new_path = '{preset_id}.{path}.{name}'.format(preset_id=preset_id, path=DEFAULTS, name=SEGMENT_DEFAULTS)
-        self.preset_segment_defaults = self.process_dict(new_path, SEGMENT_DEFAULTS, preset_segment_defaults)
+    def apply_defaults(self, path, preset_id, preset):
+        self.apply_current_defaults()
+
+    def apply_current_defaults(self):
+        self.current_preset_defaults = self.global_preset_defaults
+        self.current_segment_defaults = self.global_segment_defaults
 
 
 if __name__ == '__main__':

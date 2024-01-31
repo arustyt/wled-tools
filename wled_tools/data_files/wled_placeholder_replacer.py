@@ -2,6 +2,7 @@ import re
 from pprint import pprint
 
 from data_files.wled_data_processor import WledDataProcessor
+from wled_constants import DEFAULTS
 from wled_utils.logger_utils import get_logger
 from wled_utils.property_tools import PropertyEvaluator
 
@@ -22,6 +23,9 @@ class WledPlaceholderReplacer(WledDataProcessor):
                                                                        suffix=PLACEHOLDER_SUFFIX_RE)
         self.placeholder_re = re.compile(placeholder_re_str)
         self.property_evaluator = PropertyEvaluator(placeholder_data)
+
+    def handle_defaults(self, defaults_dict):
+        return self.process_dict( DEFAULTS, DEFAULTS, defaults_dict)
 
     def process_dict_element(self, path: str, name, data):
         return (name, self.replace_placeholders(data)),
