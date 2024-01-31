@@ -49,12 +49,12 @@ class WledDataProcessor:
         handled, new_data = self.handle_dict(path, name, data, new_data)
 
         if not handled:
-            self.process_dict_keys(path, data, new_data)
+            self.process_dict_content(path, data, new_data)
 
         self.finalize_dict(path, name, data, new_data)
         return new_data
 
-    def process_dict_keys(self, path, data, new_data):
+    def process_dict_content(self, path, data, new_data):
         for key in data.keys():
             item = data[key]
             new_path = '{name}.{key}'.format(name=path, key=key)
@@ -86,13 +86,13 @@ class WledDataProcessor:
         handled, new_data = self.handle_list(path, name, data, new_data)
 
         if not handled:
-            self.process_list_elements(path, data, new_data)
+            self.process_list_content(path, data, new_data)
 
         self.finalize_list(path, name, data, new_data)
 
         return new_data
 
-    def process_list_elements(self, path, data, new_data):
+    def process_list_content(self, path, data, new_data):
         index = 0
         for item in data:
             new_path = '{name}[{index}]'.format(name=path, index=index)
