@@ -59,18 +59,18 @@ class WledPresets(WledDataProcessor):
     def in_normal_preset(self, data):
         return SEGMENT_TAG in data
 
-    def process_list_content(self, path: str, name, data: list, new_data: list):
+    def process_list(self, path: str, name, data: list, new_data: list):
         if name == COLOR_TAG:
             self.process_colors(path, COLOR_TAG, data, new_data)
         else:
-            super().process_list_content(path, name, data, new_data)
+            super().process_list(path, name, data, new_data)
 
     def finalize_list(self, path: str, name, data: list, new_data: list):
         if name == 'seg':
             if len(new_data) > self.max_segments:
                 self.max_segments = len(new_data)
 
-    def process_dict_element(self, path: str, name, data):
+    def handle_dict_element(self, path: str, name, data):
         if SEGMENT_TAG in path:
             if name == SEGMENT_NAME_TAG:
                 return self.process_segment_name(path, name, data)
@@ -91,7 +91,7 @@ class WledPresets(WledDataProcessor):
     def process_effect_name(self, path, name, data):
         return self.effects.get_by_name(data)
 
-    def process_list_element(self, path: str, name, data):
+    def handle_list_element(self, path: str, name, data):
         data_str = str(data)
         if '*' in data_str:
             parts = data_str.split('*', 1)
@@ -137,12 +137,12 @@ class WledPresets(WledDataProcessor):
                 self.load_global_segment_defaults(defaults[SEGMENT_DEFAULTS])
 
     def load_global_preset_defaults(self, global_preset_defaults):
-        self.global_preset_defaults = self.process_dict(get_dict_path(DEFAULTS, PRESET_DEFAULTS),
-                                                        PRESET_DEFAULTS, global_preset_defaults)
+        self.global_preset_defaults = self.handle_dict(get_dict_path(DEFAULTS, PRESET_DEFAULTS),
+                                                       PRESET_DEFAULTS, global_preset_defaults)
 
     def load_global_segment_defaults(self, global_segment_defaults):
-        self.global_segment_defaults = self.process_dict(get_dict_path(DEFAULTS, SEGMENT_DEFAULTS),
-                                                         SEGMENT_DEFAULTS, global_segment_defaults)
+        self.global_segment_defaults = self.handle_dict(get_dict_path(DEFAULTS, SEGMENT_DEFAULTS),
+                                                        SEGMENT_DEFAULTS, global_segment_defaults)
 
     def apply_defaults(self, path, preset_id, preset):
         self.apply_current_defaults()

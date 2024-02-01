@@ -25,12 +25,12 @@ class WledPlaceholderReplacer(WledDataProcessor):
         self.property_evaluator = PropertyEvaluator(placeholder_data)
 
     def handle_defaults(self, defaults_dict):
-        return self.process_dict( DEFAULTS, DEFAULTS, defaults_dict)
+        return self.handle_dict(DEFAULTS, DEFAULTS, defaults_dict)
 
-    def process_dict_element(self, path: str, name, data):
+    def handle_dict_element(self, path: str, name, data):
         return (name, self.replace_placeholders(data)),
 
-    def process_list_element(self, path: str, name, data):
+    def handle_list_element(self, path: str, name, data):
         return [self.replace_placeholders(data)]
 
     def replace_placeholders(self, data):
