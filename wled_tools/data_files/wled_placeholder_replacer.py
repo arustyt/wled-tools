@@ -57,6 +57,9 @@ class WledPlaceholderReplacer(WledDataProcessor):
 
         replacement_value = self.property_evaluator.get_property(self.environment, placeholder)
 
+        if replacement_value is None:
+            raise LookupError('Property not found: {prop}'.format(prop=placeholder))
+
         text_to_replace = PLACEHOLDER_PREFIX + placeholder + PLACEHOLDER_SUFFIX
         if data != text_to_replace:
             new_data = data.replace(text_to_replace, str(replacement_value))
