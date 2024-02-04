@@ -2,7 +2,8 @@ import re
 
 import yaml
 
-from wled_constants import SEGMENTS_KEY
+from wled_constants import SEGMENTS_KEY, DEFAULT_SEGMENT_OFFSET, DEFAULT_SEGMENT_GROUPING, DEFAULT_SEGMENT_SPACING, \
+    SEGMENT_OFFSET_KEY, SEGMENT_GROUPING_KEY, SEGMENT_SPACING_KEY, WLED_NAME_KEY, SEGMENT_START_KEY, SEGMENT_STOP_KEY
 from wled_utils.logger_utils import get_logger
 from wled_utils.property_tools import PropertyEvaluator
 
@@ -20,9 +21,23 @@ class Segments:
         self.segments_by_name = {}
         segments_list = property_evaluator.get_property(self.env, SEGMENTS_KEY)
         for segment in segments_list:
-            segment_name_normalized = self.normalize_segment_name(segment['n'])
-            self.segments_by_name[segment_name_normalized] = (('n', segment['n']), ('start', segment['start']),
-                                                              ('stop', segment['stop']))
+            segment_name_normalized = self.normalize_segment_name(segment[WLED_NAME_KEY])
+            self.segments_by_name[segment_name_normalized] = ((WLED_NAME_KEY, segment[WLED_NAME_KEY]),
+                                                              (SEGMENT_START_KEY, segment[SEGMENT_START_KEY]),
+                                                              (SEGMENT_STOP_KEY, segment[SEGMENT_STOP_KEY]),
+                                                              (SEGMENT_OFFSET_KEY,
+                                                               segment[SEGMENT_OFFSET_KEY]
+                                                               if SEGMENT_OFFSET_KEY in segment
+                                                               else DEFAULT_SEGMENT_OFFSET),
+                                                              (SEGMENT_GROUPING_KEY,
+                                                               segment[SEGMENT_GROUPING_KEY]
+                                                               if SEGMENT_GROUPING_KEY in segment
+                                                               else DEFAULT_SEGMENT_GROUPING),
+                                                              (SEGMENT_SPACING_KEY,
+                                                               segment[SEGMENT_SPACING_KEY]
+                                                               if SEGMENT_SPACING_KEY in segment
+                                                               else DEFAULT_SEGMENT_SPACING)
+                                                              )
 
     def normalize_segment_name(self, segment_name):
         segment_name_normalized = str(segment_name).lower()
@@ -62,4 +77,3 @@ if __name__ == '__main__':
     properties = segments.get_segment_by_name(test_segment_string)
     get_logger().info(test_segment_string, flush=True)
     get_logger().info(properties, flush=True)
-
