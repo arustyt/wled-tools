@@ -39,6 +39,15 @@ class WledPresets(WledDataProcessor):
         if len(data) > 0:
             if self.in_preset_segment(path):
                 new_data = self.current_segment_defaults.copy()
+                if SEGMENT_NAME_TAG in data:
+                    segment = self.segments.get_segment_by_name(data[SEGMENT_NAME_TAG])
+                    new_data.update(segment)
+                if PALETTE_NAME_TAG in data:
+                    palette = self.palettes.get_by_name(data[PALETTE_NAME_TAG])
+                    new_data[PALETTE_TAG] = palette[ID_TAG]
+                if EFFECT_NAME_TAG in data:
+                    effect = self.effects.get_by_name(data[EFFECT_NAME_TAG])
+                    new_data[EFFECT_TAG] = effect[ID_TAG]
             elif self.in_normal_preset(data):
                 new_data = self.current_preset_defaults.copy()
             else:
@@ -72,24 +81,9 @@ class WledPresets(WledDataProcessor):
 
     def handle_dict_element(self, path: str, name, data):
         if SEGMENT_TAG in path:
-            if name == SEGMENT_NAME_TAG:
-                return self.process_segment_name(path, name, data)
-            elif name == PALETTE_NAME_TAG:
-                palette = self.process_palette_name(path, name, data)
-                return (PALETTE_TAG, palette[ID_TAG]),
-            elif name == EFFECT_NAME_TAG:
-                effect = self.process_effect_name(path, name, data)
-                return (EFFECT_TAG, effect[ID_TAG]),
+            if name in [SEGMENT_NAME_TAG, PALETTE_NAME_TAG, EFFECT_NAME_TAG]:
+                return ()  # Name tags were applied in init_dict()
         return (name, data),
-
-    def process_segment_name(self, path, name, data):
-        return self.segments.get_segment_by_name(data)
-
-    def process_palette_name(self, path, name, data):
-        return self.palettes.get_by_name(data)
-
-    def process_effect_name(self, path, name, data):
-        return self.effects.get_by_name(data)
 
     def handle_list_element(self, path: str, name, data):
         data_str = str(data)
