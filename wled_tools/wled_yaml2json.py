@@ -5,11 +5,13 @@ import sys
 from data_files.cfg_file_processor import CfgFileProcessor
 from data_files.presets_file_processor import PresetsFileProcessor
 from data_files.wled_placeholder_replacer import WledPlaceholderReplacer
+from wled_configuration import WledConfiguration
 from wled_constants import DEFAULT_WLED_DIR, DEFAULT_ENVIRONMENT, DEFAULT_SEGMENTS_FILE_BASE, \
     DEFAULT_PROPERTIES_FILE_NAME, \
     DEFAULT_OUTPUT_DIR, DEFAULT_DEFINITIONS_DIR, DEFAULT_EFFECTS_FILE_NAME, DEFAULT_PALETTES_FILE_NAME, \
     DEFAULT_COLORS_FILE_NAME, \
-    DEFAULT_PROPERTIES_FILE_BASE, DEFAULT_PRESETS_FILE_BASE, DEFAULT_CFG_FILE_BASE, DEFAULT_DATA_DIR
+    DEFAULT_PROPERTIES_FILE_BASE, DEFAULT_PRESETS_FILE_BASE, DEFAULT_CFG_FILE_BASE, DEFAULT_DATA_DIR, \
+    DEFAULT_EFFECTS_FILE_BASE, DEFAULT_PALETTES_FILE_BASE, DEFAULT_COLORS_FILE_BASE
 from wled_utils.logger_utils import get_logger, init_logger
 from wled_utils.path_utils import find_path, find_path_list
 
@@ -204,9 +206,6 @@ def wled_yaml2json(*,
                    deep=False,
                    test_mode=False,
                    quiet_mode=False):
-    wled_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=wled_rel_dir)
-    definitions_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=definitions_rel_dir)
-
     if include_list is not None and exclude_list is not None:
         raise ValueError("The --include and --exclude options are mutually exclusive and cannot both be provided.")
 
@@ -215,13 +214,16 @@ def wled_yaml2json(*,
 
     os.makedirs(output_dir, exist_ok=True)
 
-    effects_path = find_path(definitions_dir, environment, effects, DEFAULT_EFFECTS_FILE_NAME)
+    configuration = WledConfiguration(data_dir, wled_rel_dir, definitions_rel_dir, environment, properties, segments,
+                                      effects, palettes, colors)
 
-    palettes_path = find_path(definitions_dir, environment, palettes, DEFAULT_PALETTES_FILE_NAME)
-    colors_path = find_path(definitions_dir, environment, colors, DEFAULT_COLORS_FILE_NAME)
+    wled_dir = configuration.wled_dir
+    effects_path = configuration.effects_path
+    palettes_path = configuration.palettes_path
+    colors_path = configuration.colors_path
+    segments_path = configuration.segments_path
+    properties_path = configuration.properties_path
 
-    segments_path = find_path(wled_dir, environment, segments, DEFAULT_SEGMENTS_FILE_BASE)
-    properties_path = find_path(wled_dir, environment, properties, DEFAULT_PROPERTIES_FILE_BASE)
     presets_paths = find_path_list(wled_dir, environment, presets,
                                    DEFAULT_PRESETS_FILE_BASE) if presets is not None else None
     cfg_paths = find_path_list(wled_dir, environment, cfg, DEFAULT_CFG_FILE_BASE) if cfg is not None else None

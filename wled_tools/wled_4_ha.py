@@ -2,6 +2,8 @@ import argparse
 import os
 import sys
 
+from definition_files import effects
+from wled_configuration import WledConfiguration
 from wled_constants import WLED_HOLIDAY_KEY, DEFINITIONS_DIR_KEY, HOLIDAYS_FILE_KEY, LIGHTS_FILE_KEY, \
     DEFAULT_LIGHTS_NAME_KEY, HOST_KEY, WLED_DIR_KEY, DEFAULT_HOLIDAY_NAME_KEY, LIGHTS_KEY, HOLIDAY_KEY, \
     DEFAULT_PROPERTIES_FILE_BASE
@@ -23,6 +25,8 @@ QUIET_MODE = True
 PROPERTIES_FILE_KEY = "properties"
 SEGMENTS_FILE_KEY = "segments"
 STARTING_PRESETS_FILE_KEY = "starting_presets_file"
+
+
 # wled_f_ha.py job_file env [date_str]
 
 
@@ -110,10 +114,12 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
                     get_logger().info("Date is not a recognized holiday.")
             elif LIGHTS_KEY not in matched_candidate or matched_candidate[LIGHTS_KEY] is None:
                 if verbose:
-                    get_logger().info('No candidate presets exist for {candidates}.'.format(candidates=[item[HOLIDAY_KEY] for item in candidates]))
+                    get_logger().info('No candidate presets exist for {candidates}.'.format(
+                        candidates=[item[HOLIDAY_KEY] for item in candidates]))
             elif not presets_file_exists(data_dir, wled_rel_dir, matched_candidate[LIGHTS_KEY]):
                 if verbose:
-                    get_logger().info('Presets file for "{lights}" does not exist.'.format(lights=matched_candidate[LIGHTS_KEY]))
+                    get_logger().info(
+                        'Presets file for "{lights}" does not exist.'.format(lights=matched_candidate[LIGHTS_KEY]))
             else:
                 matched_lights = matched_candidate[LIGHTS_KEY]
                 holiday_name = matched_candidate[HOLIDAY_KEY]
@@ -130,25 +136,18 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
         if verbose:
             get_logger().info("Testing presets generation to determine JSON file name.")
 
+        configuration = WledConfiguration(data_dir, wled_rel_dir, definitions_rel_dir, env,
+                                          properties_file, segments_file)
+
         presets_file = build_presets_option(starting_presets_file, matched_lights)
-        presets_json_path, cfg_json_path = evaluate_presets(data_dir, definitions_rel_dir, env, holiday_name,
-                                                            segments_file, presets_file, properties_file,
-                                                            property_definitions, wled_rel_dir,
-                                                            False, TEST_MODE)
+        presets_json_path, cfg_json_path = evaluate_presets(configuration, holiday_name, presets_file,
+                                                            property_definitions, False, TEST_MODE)
 
-        #  Don't like this because it duplicates determining the properties path in wled_yaml2json()
-        #  May need/want to encapsulate wled_yaml2json() functionality in a class, making properties_path etc.
-        #  a data member.
-        properties_path = find_path("{base_dir}/{sub_dir}".format(base_dir=data_dir, sub_dir=wled_rel_dir), env,
-                                    properties_file, DEFAULT_PROPERTIES_FILE_BASE)
-
-        if need_to_generate_presets(data_dir, wled_rel_dir, starting_presets_file, matched_lights, properties_path,
-                                    presets_json_path):
+        if need_to_generate_presets(configuration, starting_presets_file, matched_lights, presets_json_path):
             if verbose:
                 get_logger().info("Generating presets file: {file}".format(file=presets_json_path))
-            presets_json_path, cfg_json_path = evaluate_presets(data_dir, definitions_rel_dir, env, holiday_name,
-                                                                segments_file, presets_file, properties_file,
-                                                                property_definitions, wled_rel_dir, verbose, PROD_MODE)
+            presets_json_path, cfg_json_path = evaluate_presets(configuration, holiday_name, presets_file,
+                                                                property_definitions, verbose, PROD_MODE)
         else:
             if verbose:
                 get_logger().info("{file} is up-to-date.".format(file=presets_json_path))
@@ -172,16 +171,15 @@ def get_property_definitions(holiday_name: str, matched_lights: str):
     return properties
 
 
-def evaluate_presets(data_dir, definitions_rel_dir, env, holiday_name, segments_file, presets_file, properties_file,
-                     property_definitions, wled_rel_dir, verbose: bool, test_mode: bool):
-    presets_json_path, cfg_json_path = wled_yaml2json(data_dir=data_dir,
-                                                      wled_rel_dir=wled_rel_dir,
-                                                      environment=env,
-                                                      properties=properties_file,
-                                                      property_definitions=property_definitions,
-                                                      segments=segments_file,
+def evaluate_presets(configuration, holiday_name, presets_file, property_definitions, verbose: bool, test_mode: bool):
+    presets_json_path, cfg_json_path = wled_yaml2json(data_dir=configuration.data_dir,
+                                                      wled_rel_dir=configuration.wled_rel_dir,
+                                                      environment=configuration.environment,
+                                                      properties=configuration.properties_file,
+                                                      segments=configuration.segments_file,
+                                                      definitions_rel_dir=configuration.definitions_rel_dir,
                                                       presets=presets_file,
-                                                      definitions_rel_dir=definitions_rel_dir,
+                                                      property_definitions=property_definitions,
                                                       suffix="-{holiday}".format(holiday=holiday_name),
                                                       test_mode=test_mode,
                                                       quiet_mode=not verbose)
@@ -215,13 +213,17 @@ def get_presets_files(starting_presets_file, holiday_lights):
     return [starting_presets_file, get_presets_file_name(holiday_lights)]
 
 
-def need_to_generate_presets(data_dir, wled_rel_dir, starting_presets_file, holiday, properties_path, presets_json):
+def need_to_generate_presets(configuration: WledConfiguration, starting_presets_file, holiday, presets_json):
     presets_files = get_presets_files(starting_presets_file, holiday)
     presets_paths = []
 
-    add_path_to_list(presets_paths, properties_path)
+    add_path_to_list(presets_paths, configuration.properties_path)
+    add_path_to_list(presets_paths, configuration.segments_path)
+    add_path_to_list(presets_paths, configuration.effects_path)
+    add_path_to_list(presets_paths, configuration.palettes_path)
+    add_path_to_list(presets_paths, configuration.colors_path)
 
-    wled_dir = "{base}/{rel_dir}".format(base=data_dir, rel_dir=wled_rel_dir)
+    wled_dir = configuration.wled_dir
 
     for presets_yaml in presets_files:
         presets_path = "{dir}/{file}".format(dir=wled_dir, file=presets_yaml)
