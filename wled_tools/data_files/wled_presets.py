@@ -85,8 +85,7 @@ class WledPresets(WledDataProcessor):
             if name in [SEGMENT_NAME_TAG, PALETTE_NAME_TAG, EFFECT_NAME_TAG]:
                 return ()  # Name tags were applied in init_dict()
         elif PLAYLIST_END_PATH_TAG in path:
-            if not data.isnumeric():
-                return (name, self.presets.get_preset_by_name(str(data))[ID_TAG]),
+            return (name, self.presets.get_preset_by_name(str(data))[ID_TAG]),
         return (name, data),
 
     def handle_list_element(self, path: str, name, data):
