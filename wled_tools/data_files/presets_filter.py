@@ -1,9 +1,7 @@
 from abc import abstractmethod
 
 from data_files.presets import Presets
-
-PLAYLIST_TAG = 'playlist'
-PLAYLIST_PRESETS_TAG = 'ps'
+from wled_constants import PLAYLIST_TAG, PLAYLIST_PRESETS_TAG
 
 
 class PresetsFilter:

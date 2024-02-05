@@ -38,8 +38,7 @@ class Presets:
         return preset_name_normalized
 
     #  Returns dict containing preset data: {'name': name, 'id': id}
-    def get_preset_by_name(self, preset_string):
-        preset_data = None
+    def get_preset_by_name(self, preset_string: str):
         preset_string_normalized = self.normalize_preset_name(preset_string)
         if preset_string_normalized in self.presets_by_name:
             preset_data = self.presets_by_name[preset_string_normalized]

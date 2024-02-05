@@ -77,3 +77,10 @@ DEFAULT_HOLIDAY_NAME = "normal"
 DATE_KEY = 'date'
 RRULE_KEY = 'rrule'
 DAY_OF_YEAR_KEY = 'day_of_year'
+
+PLAYLIST_TAG = 'playlist'
+PLAYLIST_PRESETS_TAG = 'ps'
+PLAYLIST_PRESETS_PATH_TAG = "{playlist}.{end}".format(playlist=PLAYLIST_TAG, end=PLAYLIST_PRESETS_TAG)
+PLAYLIST_END_TAG = 'end'
+PLAYLIST_END_PATH_TAG = "{playlist}.{end}".format(playlist=PLAYLIST_TAG, end=PLAYLIST_END_TAG)
+
