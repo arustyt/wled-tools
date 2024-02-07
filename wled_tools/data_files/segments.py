@@ -8,6 +8,7 @@ from wled_utils.logger_utils import get_logger
 from wled_utils.property_tools import PropertyEvaluator
 
 SEGMENT_NAME_VAR_RE = re.compile(r'[^(0-9]?([(]?\d+[)]?)*')
+SEGMENT_NAME_PARM_RE = re.compile(r'([^(]+)[(]([^)]+)[)]')
 
 
 class Segments:
@@ -51,11 +52,56 @@ class Segments:
     #  Returns tuple containing segment data: (n, start, stop, of, grp, spc)
     def get_segment_by_name(self, segment_string):
         if '+' in segment_string:
-            return self.get_generated_segment_by_name(segment_string)
+            result = self.get_pattern_segment_by_name(segment_string)
         else:
-            return self.get_simple_segment_by_name(segment_string)
+            try:
+                result = self.get_simple_segment_by_name(segment_string)
+            except LookupError:
+                result = self.get_parameterized_segment_by_name(segment_string)
 
-    def get_generated_segment_by_name(self, segment_string):
+        return result
+
+    def get_parameterized_segment_by_name(self, segment_string):
+        matches = re.match(SEGMENT_NAME_PARM_RE, segment_string)
+        if matches is None:
+            raise ValueError("Invalid segment variant string: {var_str}".format(var_str=segment_string))
+        segment_name = matches[1]
+        segment_parm_str = matches[2]
+        segment_base = self.get_simple_segment_by_name_as_dict(segment_name)
+
+        start = segment_base[SEGMENT_START_KEY]
+        stop = segment_base[SEGMENT_STOP_KEY]
+        offset = segment_base[SEGMENT_OFFSET_KEY]
+        grouping = segment_base[SEGMENT_GROUPING_KEY]
+        spacing = segment_base[SEGMENT_SPACING_KEY]
+
+        parms = segment_parm_str.strip().split(',')
+
+        for parm in parms:
+            parm_parts = parm.split('=')
+            parm_name = parm_parts[0].strip().lower()
+            parm_value = int(parm_parts[1].strip())
+            if parm_name == 'of':
+                offset = parm_value
+            elif parm_name == 'start':
+                start = parm_value
+            elif parm_name == 'stop':
+                stop = parm_value
+            if parm_name == 'spc':
+                spacing = parm_value
+            if parm_name == 'grp':
+                grouping = parm_value
+
+        segment = ((WLED_NAME_KEY, segment_string),
+                   (SEGMENT_START_KEY, start),
+                   (SEGMENT_STOP_KEY, stop),
+                   (SEGMENT_OFFSET_KEY, offset),
+                   (SEGMENT_GROUPING_KEY, grouping),
+                   (SEGMENT_SPACING_KEY, spacing))
+
+        return segment
+
+    def get_pattern_segment_by_name(self, segment_string):
         segment_parts = segment_string.split('+')
         segment_name = segment_parts[0].strip()
         segment_var = segment_parts[1].strip()
@@ -69,12 +115,11 @@ class Segments:
 
         sub_segment_lengths, cur_sub_segment, pattern_length = self.get_sub_segment_lengths(segment_var)
 
-        name = segment_string
         start = sum([x for x in sub_segment_lengths[0:cur_sub_segment]])
         grouping = sub_segment_lengths[cur_sub_segment]
         spacing = pattern_length - sub_segment_lengths[cur_sub_segment]
 
-        segment = ((WLED_NAME_KEY, name),
+        segment = ((WLED_NAME_KEY, segment_string),
                    (SEGMENT_START_KEY, start),
                    (SEGMENT_STOP_KEY, stop),
                    (SEGMENT_OFFSET_KEY, offset),
@@ -111,7 +156,7 @@ class Segments:
         if segment_string_normalized in self.segments_by_name_as_dicts:
             segment_data = self.segments_by_name_as_dicts[segment_string_normalized]
         else:
-            raise ValueError("Input '{name}' is not a recognized segment name".format(name=segment_string))
+            raise LookupError("Input '{name}' is not a recognized segment name".format(name=segment_string))
 
         return segment_data
 
@@ -120,7 +165,7 @@ class Segments:
         if segment_string_normalized in self.segments_by_name_as_tuples:
             segment_data = self.segments_by_name_as_tuples[segment_string_normalized]
         else:
-            raise ValueError("Input '{name}' is not a recognized segment name".format(name=segment_string))
+            raise LookupError("Input '{name}' is not a recognized segment name".format(name=segment_string))
 
         return segment_data
 
