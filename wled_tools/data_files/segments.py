@@ -24,8 +24,6 @@ class Segments:
 
         property_evaluator = PropertyEvaluator(segment_data, verbose=False, strings_only=False)
 
-#        self.segments_by_name_as_tuples = {}
-#        self.segments_by_name_as_dicts = {}
         self.segments_by_name = {}
         segments_list = property_evaluator.get_property(self.env, SEGMENTS_KEY)
         for segment in segments_list:
@@ -37,7 +35,6 @@ class Segments:
         segment_name_normalized = re.sub('[ _]', '', segment_name_normalized)
         return segment_name_normalized
 
-    #  Returns Segment instance containing segment data
     def get_segment_by_name(self, segment_string: str) -> Segment:
         if '(' in segment_string:
             return self.get_variant_segment_by_name(segment_string)

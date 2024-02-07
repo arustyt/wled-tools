@@ -3,7 +3,7 @@ from wled_constants import WLED_NAME_KEY, SEGMENT_START_KEY, SEGMENT_OFFSET_KEY,
 
 
 class Segment:
-    def __init__(self, segment):
+    def __init__(self, segment: dict):
         self.name = segment[WLED_NAME_KEY]
         self.name_key = WLED_NAME_KEY
         self.start = int(segment[SEGMENT_START_KEY])
@@ -18,6 +18,12 @@ class Segment:
         self.spacing = int(segment[SEGMENT_SPACING_KEY]) if SEGMENT_SPACING_KEY in segment else DEFAULT_SEGMENT_SPACING
         self.spacing_key = SEGMENT_SPACING_KEY
 
-
-
-
+    def as_dict(self):
+        return {
+            self.name_key: self.name,
+            self.start_key: self.start,
+            self.stop_key: self.stop,
+            self.offset_key: self.offset,
+            self.grouping_key: self.grouping,
+            self.spacing_key: self.spacing
+        }
