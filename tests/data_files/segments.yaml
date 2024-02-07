@@ -1,0 +1,7 @@
+segments:
+  - n: Whole Roof
+    start: 0
+    stop: 300
+    of: 0
+    spc: 0
+    grp: 1
