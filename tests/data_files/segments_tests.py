@@ -1,6 +1,7 @@
 import re
 import unittest
 
+from data_files.segment import Segment
 from data_files.segments import Segments
 from wled_constants import (WLED_NAME_KEY, SEGMENT_START_KEY, SEGMENT_STOP_KEY, SEGMENT_OFFSET_KEY,
                             SEGMENT_GROUPING_KEY, SEGMENT_SPACING_KEY)
@@ -20,98 +21,66 @@ class SegmentsTests(unittest.TestCase):
 
     def test_get_segment_by_name_simple(self):
         segment_name = 'Whole Roof'
-        segment = self.segments.get_segment_by_name(segment_name)
-        self.assertTrue(isinstance(segment, tuple))
-        expected_segment = ((WLED_NAME_KEY, segment_name),
-                            (SEGMENT_START_KEY, 0),
-                            (SEGMENT_STOP_KEY, 300),
-                            (SEGMENT_OFFSET_KEY, 0),
-                            (SEGMENT_GROUPING_KEY, 1),
-                            (SEGMENT_SPACING_KEY, 0))
-        self.validate_segment(expected_segment, segment)
+        actual_segment = self.segments.get_segment_by_name(segment_name)
+        self.assertIsNotNone(actual_segment, "Segment not found.")
+        self.assertIsInstance(actual_segment, Segment, "Result is not a Segment")
+        self.validate_segment(actual_segment, segment_name, 0, 300, 0, 1, 0)
 
     def test_get_segment_by_name_2_121(self):
-        segment_name = 'Whole Roof + (2)/1/2/1'
-        segment = self.segments.get_segment_by_name(segment_name)
-        self.assertIsNotNone(segment, "Segment not found.")
-        self.assertIsInstance(segment, tuple, "Segment is not a tuple")
-        expected_segment = ((WLED_NAME_KEY, segment_name),
-                            (SEGMENT_START_KEY, 0),
-                            (SEGMENT_STOP_KEY, 300),
-                            (SEGMENT_OFFSET_KEY, 0),
-                            (SEGMENT_GROUPING_KEY, 2),
-                            (SEGMENT_SPACING_KEY, 4))
-        self.validate_segment(expected_segment, segment)
+        segment_name = 'Whole Roof(pat=(2)/1/2/1)'
+        actual_segment = self.segments.get_segment_by_name(segment_name)
+        self.assertIsNotNone(actual_segment, "Segment not found.")
+        self.assertIsInstance(actual_segment, Segment, "Result is not a Segment")
+        self.validate_segment(actual_segment, segment_name, 0, 300, 0, 2, 4)
 
     def test_get_segment_by_name_2_1_21(self):
-        segment_name = 'Whole Roof + 2/(1)/2/1'
-        segment = self.segments.get_segment_by_name(segment_name)
-        self.assertIsNotNone(segment, "Segment not found.")
-        self.assertIsInstance(segment, tuple, "Segment is not a tuple")
+        segment_name = 'Whole Roof(pat=2/(1)/2/1)'
+        actual_segment = self.segments.get_segment_by_name(segment_name)
+        self.assertIsNotNone(actual_segment, "Segment not found.")
+        self.assertIsInstance(actual_segment, Segment, "Result is not a Segment")
         expected_segment = ((WLED_NAME_KEY, segment_name),
                             (SEGMENT_START_KEY, 2),
                             (SEGMENT_STOP_KEY, 300),
                             (SEGMENT_OFFSET_KEY, 0),
                             (SEGMENT_GROUPING_KEY, 1),
                             (SEGMENT_SPACING_KEY, 5))
-        self.validate_segment(expected_segment, segment)
+        self.validate_segment(actual_segment, segment_name, 2, 300, 0, 1, 5)
 
     def test_get_segment_by_name_21_2_1(self):
-        segment_name = 'Whole Roof + 2/1/(2)/1'
-        segment = self.segments.get_segment_by_name(segment_name)
-        self.assertIsNotNone(segment, "Segment not found.")
-        self.assertIsInstance(segment, tuple, "Segment is not a tuple")
-        expected_segment = ((WLED_NAME_KEY, segment_name),
-                            (SEGMENT_START_KEY, 3),
-                            (SEGMENT_STOP_KEY, 300),
-                            (SEGMENT_OFFSET_KEY, 0),
-                            (SEGMENT_GROUPING_KEY, 2),
-                            (SEGMENT_SPACING_KEY, 4))
-        self.validate_segment(expected_segment, segment)
+        segment_name = 'Whole Roof(pat=2/1/(2)/1)'
+        actual_segment = self.segments.get_segment_by_name(segment_name)
+        self.assertIsNotNone(actual_segment, "Segment not found.")
+        self.assertIsInstance(actual_segment, Segment, "Result is not a Segment")
+        self.validate_segment(actual_segment, segment_name, 3, 300, 0, 2, 4)
 
     def test_get_segment_by_name_212_1_(self):
-        segment_name = 'Whole Roof + 2/1/2/(1)'
-        segment = self.segments.get_segment_by_name(segment_name)
-        self.assertIsNotNone(segment, "Segment not found.")
-        self.assertIsInstance(segment, tuple, "Segment is not a tuple")
-        expected_segment = ((WLED_NAME_KEY, segment_name),
-                            (SEGMENT_START_KEY, 5),
-                            (SEGMENT_STOP_KEY, 300),
-                            (SEGMENT_OFFSET_KEY, 0),
-                            (SEGMENT_GROUPING_KEY, 1),
-                            (SEGMENT_SPACING_KEY, 5))
-        self.validate_segment(expected_segment, segment)
+        segment_name = 'Whole Roof(pat=2/1/2/(1))'
+        actual_segment = self.segments.get_segment_by_name(segment_name)
+        self.assertIsNotNone(actual_segment, "Segment not found.")
+        self.assertIsInstance(actual_segment, Segment, "Result is not a Segment")
+        self.validate_segment(actual_segment, segment_name, 5, 300, 0, 1, 5)
 
     def test_get_segment_by_name_start_3_grp_2_spc_4(self):
         segment_name = 'Whole Roof(start=3, grp=2, spc=4)'
         actual_segment = self.segments.get_segment_by_name(segment_name)
         self.assertIsNotNone(actual_segment, "Segment not found.")
-        self.assertIsInstance(actual_segment, tuple, "Segment is not a tuple")
-        expected_segment = ((WLED_NAME_KEY, segment_name),
-                            (SEGMENT_START_KEY, 3),
-                            (SEGMENT_STOP_KEY, 300),
-                            (SEGMENT_OFFSET_KEY, 0),
-                            (SEGMENT_GROUPING_KEY, 2),
-                            (SEGMENT_SPACING_KEY, 4))
-        self.validate_segment(expected_segment, actual_segment)
+        self.assertIsInstance(actual_segment, Segment, "Result is not a Segment")
+        self.validate_segment(actual_segment, segment_name, 3, 300, 0, 2, 4)
 
     def test_get_segment_by_name_start_3_grp_2_spc_4_spaced(self):
         segment_name = 'Whole Roof( START = 3 , GrP = 2 , sPc = 4 )'
         actual_segment = self.segments.get_segment_by_name(segment_name)
         self.assertIsNotNone(actual_segment, "Segment not found.")
-        self.assertIsInstance(actual_segment, tuple, "Segment is not a tuple")
-        expected_segment = ((WLED_NAME_KEY, segment_name),
-                            (SEGMENT_START_KEY, 3),
-                            (SEGMENT_STOP_KEY, 300),
-                            (SEGMENT_OFFSET_KEY, 0),
-                            (SEGMENT_GROUPING_KEY, 2),
-                            (SEGMENT_SPACING_KEY, 4))
-        self.validate_segment(expected_segment, actual_segment)
+        self.assertIsInstance(actual_segment, Segment, "Result is not a Segment")
+        self.validate_segment(actual_segment, segment_name, 3, 300, 0, 2, 4)
 
-    def validate_segment(self, expected_segment, actual_segment):
-        self.assertEqual(len(expected_segment), len(actual_segment), "Segment attr count incorrect.")
-        for idx in range(0, len(expected_segment)):
-            self.validate_segment_attr(expected_segment[idx], actual_segment[idx])
+    def validate_segment(self, segment: Segment, name, start, stop, offset, grouping, spacing):
+        self.assertEqual(name, segment.name, "Segment name is incorrect.")
+        self.assertEqual(start, segment.start, "Segment start is incorrect.")
+        self.assertEqual(stop, segment.stop, "Segment stop is incorrect.")
+        self.assertEqual(offset, segment.offset, "Segment offset is incorrect.")
+        self.assertEqual(grouping, segment.grouping, "Segment grouping is incorrect.")
+        self.assertEqual(spacing, segment.spacing, "Segment spacing is incorrect.")
 
     def validate_segment_attr(self, expected_attr, actual_attr):
         self.assertEqual(expected_attr[0], actual_attr[0], "Name in N/V pair is incorrect.")

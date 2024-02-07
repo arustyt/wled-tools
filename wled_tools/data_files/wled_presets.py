@@ -42,7 +42,7 @@ class WledPresets(WledDataProcessor):
                 new_data = self.current_segment_defaults.copy()
                 if SEGMENT_NAME_TAG in data:
                     segment = self.segments.get_segment_by_name(data[SEGMENT_NAME_TAG])
-                    new_data.update(segment)
+                    new_data.update(segment.as_dict())
                 if PALETTE_NAME_TAG in data:
                     palette = self.palettes.get_by_name(data[PALETTE_NAME_TAG])
                     new_data[PALETTE_TAG] = palette[ID_TAG]
