@@ -7,8 +7,8 @@ from wled_constants import SEGMENTS_KEY, DEFAULT_SEGMENT_OFFSET, DEFAULT_SEGMENT
 from wled_utils.logger_utils import get_logger
 from wled_utils.property_tools import PropertyEvaluator
 
-SEGMENT_NAME_VAR_RE = re.compile(r'[^(0-9]?([(]?\d+[)]?)*')
-SEGMENT_NAME_PARM_RE = re.compile(r'([^(]+)[(]([^)]+)[)]')
+SEGMENT_NAME_PATTERN_RE = re.compile(r'[^(0-9]?([(]?\d+[)]?)*')
+SEGMENT_NAME_PARAMETER_RE = re.compile(r'([^(]+)[(]([^)]+)[)]')
 
 
 class Segments:
@@ -62,7 +62,7 @@ class Segments:
         return result
 
     def get_parameterized_segment_by_name(self, segment_string):
-        matches = re.match(SEGMENT_NAME_PARM_RE, segment_string)
+        matches = re.match(SEGMENT_NAME_PARAMETER_RE, segment_string)
         if matches is None:
             raise ValueError("Invalid segment variant string: {var_str}".format(var_str=segment_string))
         segment_name = matches[1]
@@ -129,7 +129,7 @@ class Segments:
         return segment
 
     def get_sub_segment_lengths(self, segment_var_str):
-        matches = re.findall(SEGMENT_NAME_VAR_RE, segment_var_str)
+        matches = re.findall(SEGMENT_NAME_PATTERN_RE, segment_var_str)
         if matches is None:
             raise ValueError("Invalid segment variant string: {var_str}".format(var_str=segment_var_str))
 
