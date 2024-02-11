@@ -8,8 +8,8 @@ from definition_files.colors import Colors
 from definition_files.effects import Effects
 from definition_files.palettes import Palettes
 from wled_constants import SEGMENTS_FILE_TAG, SEGMENT_TAG, COLOR_TAG, SEGMENT_NAME_TAG, PALETTE_NAME_TAG, \
-    EFFECT_NAME_TAG, PALETTE_TAG, EFFECT_TAG, ID_TAG, PRESET_KEY, STOP_TAG, DEFAULTS, PRESET_DEFAULTS, SEGMENT_DEFAULTS, \
-    PLAYLIST_PRESETS_PATH_TAG, PLAYLIST_END_PATH_TAG
+    EFFECT_NAME_TAG, PALETTE_TAG, EFFECT_TAG, ID_TAG, PRESET_KEY, STOP_TAG, DEFAULTS_TAG, PRESET_DEFAULTS, \
+    SEGMENT_DEFAULTS, PLAYLIST_PRESETS_PATH_TAG, PLAYLIST_END_PATH_TAG
 from wled_utils.dict_utils import get_dict_path
 
 
@@ -126,19 +126,19 @@ class WledPresets(WledDataProcessor):
 
     def load_global_defaults(self):
         preset_data = self.raw_wled_data
-        if DEFAULTS in preset_data:
-            defaults = preset_data[DEFAULTS]
+        if DEFAULTS_TAG in preset_data:
+            defaults = preset_data[DEFAULTS_TAG]
             if PRESET_DEFAULTS in defaults:
                 self.load_global_preset_defaults(defaults[PRESET_DEFAULTS])
             if SEGMENT_DEFAULTS in defaults:
                 self.load_global_segment_defaults(defaults[SEGMENT_DEFAULTS])
 
     def load_global_preset_defaults(self, global_preset_defaults):
-        self.global_preset_defaults = self.handle_dict(get_dict_path(DEFAULTS, PRESET_DEFAULTS),
+        self.global_preset_defaults = self.handle_dict(get_dict_path(DEFAULTS_TAG, PRESET_DEFAULTS),
                                                        PRESET_DEFAULTS, global_preset_defaults)
 
     def load_global_segment_defaults(self, global_segment_defaults):
-        self.global_segment_defaults = self.handle_dict(get_dict_path(DEFAULTS, SEGMENT_DEFAULTS),
+        self.global_segment_defaults = self.handle_dict(get_dict_path(DEFAULTS_TAG, SEGMENT_DEFAULTS),
                                                         SEGMENT_DEFAULTS, global_segment_defaults)
 
     def apply_defaults(self, path, preset_id, preset):

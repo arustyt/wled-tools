@@ -1,6 +1,6 @@
 from abc import abstractmethod
 
-from wled_constants import DEFAULTS
+from wled_constants import DEFAULTS_TAG
 
 
 class WledDataProcessor:
@@ -18,10 +18,10 @@ class WledDataProcessor:
         self.load_global_defaults()
 
         for key in self.raw_wled_data.keys():
-            if key == DEFAULTS:
-                defaults = self.handle_defaults(self.raw_wled_data[DEFAULTS])
+            if key == DEFAULTS_TAG:
+                defaults = self.handle_defaults(self.raw_wled_data[DEFAULTS_TAG])
                 if defaults is not None:
-                    new_wled_data[DEFAULTS] = defaults
+                    new_wled_data[DEFAULTS_TAG] = defaults
             else:
                 wled_element = self.raw_wled_data[key]
                 self.apply_defaults(key, key, wled_element)
