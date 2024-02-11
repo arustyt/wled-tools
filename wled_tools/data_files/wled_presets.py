@@ -30,8 +30,8 @@ class WledPresets(WledDataProcessor):
         self.current_segment_defaults = {}
         self.max_segments = 0
 
-    def normalize_wled_data(self, wled_data):
-        normalizer = PresetDataNormalizer(wled_data)
+    def normalize_wled_data(self, raw_wled_data):
+        normalizer = PresetDataNormalizer(raw_wled_data)
         normalizer.normalize()
         return normalizer.get_normalized_data()
 
