@@ -1,6 +1,7 @@
 import json
 import sys
 
+from data_files.preset_data_normalizer import PresetDataNormalizer
 from data_files.presets import Presets
 from data_files.segments import Segments
 from data_files.wled_data_processor import WledDataProcessor
@@ -8,8 +9,8 @@ from definition_files.colors import Colors
 from definition_files.effects import Effects
 from definition_files.palettes import Palettes
 from wled_constants import SEGMENTS_FILE_TAG, SEGMENT_TAG, COLOR_TAG, SEGMENT_NAME_TAG, PALETTE_NAME_TAG, \
-    EFFECT_NAME_TAG, PALETTE_TAG, EFFECT_TAG, ID_TAG, PRESET_KEY, STOP_TAG, DEFAULTS, PRESET_DEFAULTS, SEGMENT_DEFAULTS, \
-    PLAYLIST_PRESETS_PATH_TAG, PLAYLIST_END_PATH_TAG
+    EFFECT_NAME_TAG, PALETTE_TAG, EFFECT_TAG, ID_TAG, PRESET_KEY, STOP_TAG, DEFAULTS_TAG, PRESET_DEFAULTS, \
+    SEGMENT_DEFAULTS, PLAYLIST_PRESETS_PATH_TAG, PLAYLIST_END_PATH_TAG
 from wled_utils.dict_utils import get_dict_path
 
 
@@ -29,8 +30,13 @@ class WledPresets(WledDataProcessor):
         self.current_segment_defaults = {}
         self.max_segments = 0
 
-    def process_other_args(self, raw_preset_data, other_args):
-        self.presets = Presets(self.environment, presets_data=raw_preset_data)
+    def normalize_wled_data(self, wled_data):
+        normalizer = PresetDataNormalizer(wled_data)
+        normalizer.normalize()
+        return normalizer.get_normalized_data()
+
+    def initialize(self, other_args):
+        self.presets = Presets(self.environment, presets_data=self.wled_data)
         if SEGMENTS_FILE_TAG in other_args:
             self.segments = Segments(self.environment, other_args[SEGMENTS_FILE_TAG])
         else:
@@ -102,7 +108,7 @@ class WledPresets(WledDataProcessor):
 
         return result
 
-    def finalize_wled_data(self, preset_data: dict):
+    def finalize(self, preset_data: dict):
         for preset in preset_data.values():
             if PRESET_KEY in preset:
                 segments: list = preset[PRESET_KEY]
@@ -125,20 +131,20 @@ class WledPresets(WledDataProcessor):
         return isinstance(value, str), value
 
     def load_global_defaults(self):
-        preset_data = self.raw_wled_data
-        if DEFAULTS in preset_data:
-            defaults = preset_data[DEFAULTS]
+        preset_data = self.wled_data
+        if DEFAULTS_TAG in preset_data:
+            defaults = preset_data[DEFAULTS_TAG]
             if PRESET_DEFAULTS in defaults:
                 self.load_global_preset_defaults(defaults[PRESET_DEFAULTS])
             if SEGMENT_DEFAULTS in defaults:
                 self.load_global_segment_defaults(defaults[SEGMENT_DEFAULTS])
 
     def load_global_preset_defaults(self, global_preset_defaults):
-        self.global_preset_defaults = self.handle_dict(get_dict_path(DEFAULTS, PRESET_DEFAULTS),
+        self.global_preset_defaults = self.handle_dict(get_dict_path(DEFAULTS_TAG, PRESET_DEFAULTS),
                                                        PRESET_DEFAULTS, global_preset_defaults)
 
     def load_global_segment_defaults(self, global_segment_defaults):
-        self.global_segment_defaults = self.handle_dict(get_dict_path(DEFAULTS, SEGMENT_DEFAULTS),
+        self.global_segment_defaults = self.handle_dict(get_dict_path(DEFAULTS_TAG, SEGMENT_DEFAULTS),
                                                         SEGMENT_DEFAULTS, global_segment_defaults)
 
     def apply_defaults(self, path, preset_id, preset):

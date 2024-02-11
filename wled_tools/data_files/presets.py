@@ -1,6 +1,6 @@
 import re
 
-from wled_constants import DEFAULTS
+from wled_constants import DEFAULTS_TAG
 from wled_utils.logger_utils import get_logger
 
 PRESETS_DATA_ARG = 'presets_data'
@@ -20,7 +20,7 @@ class Presets:
 
         self.presets_by_name = {}
         for key in presets_data.keys():
-            if key == DEFAULTS:
+            if key == DEFAULTS_TAG:
                 continue
 
             preset = presets_data[key]

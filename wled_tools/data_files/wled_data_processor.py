@@ -1,29 +1,29 @@
 from abc import abstractmethod
 
-from wled_constants import DEFAULTS
+from wled_constants import DEFAULTS_TAG
 
 
 class WledDataProcessor:
 
     def __init__(self, environment: str):
         self.environment = environment
-        self.raw_wled_data = None
+        self.wled_data = None
 
-    def process_wled_data(self, raw_wled_data, **other_args):
-        self.process_other_args(raw_wled_data, other_args)
+    def process_wled_data(self, wled_data, **other_args):
+        self.wled_data = self.normalize_wled_data(wled_data)
+        self.initialize(other_args)
+
         new_wled_data = {}
-
-        self.raw_wled_data = raw_wled_data
 
         self.load_global_defaults()
 
-        for key in self.raw_wled_data.keys():
-            if key == DEFAULTS:
-                defaults = self.handle_defaults(self.raw_wled_data[DEFAULTS])
+        for key in self.wled_data.keys():
+            if key == DEFAULTS_TAG:
+                defaults = self.handle_defaults(self.wled_data[DEFAULTS_TAG])
                 if defaults is not None:
-                    new_wled_data[DEFAULTS] = defaults
+                    new_wled_data[DEFAULTS_TAG] = defaults
             else:
-                wled_element = self.raw_wled_data[key]
+                wled_element = self.wled_data[key]
                 self.apply_defaults(key, key, wled_element)
                 if isinstance(wled_element, dict):
                     new_wled_data[key] = self.handle_dict(key, key, wled_element)
@@ -35,7 +35,7 @@ class WledDataProcessor:
                         for replacement in replacements:
                             new_wled_data[replacement[0]] = replacement[1]
 
-        new_wled_data = self.finalize_wled_data(new_wled_data)
+        new_wled_data = self.finalize(new_wled_data)
 
         return new_wled_data
 
@@ -120,9 +120,13 @@ class WledDataProcessor:
         pass
 
     @abstractmethod
-    def process_other_args(self, raw_wled_data, other_args):
+    def initialize(self, other_args):
         pass
 
     @abstractmethod
-    def finalize_wled_data(self, wled_data):
+    def finalize(self, wled_data):
+        return wled_data
+
+    @abstractmethod
+    def normalize_wled_data(self, wled_data):
         return wled_data

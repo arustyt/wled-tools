@@ -60,7 +60,7 @@ def main(name, args):
                                                          "loaded via --properties. Format is <prop_name>=<prop_value>. "
                                                          "Multiple properties can be defined by including multiple "
                                                          "occurrences of the -D option.",
-                        action="append", nargs="*")
+                        action="append")
     parser.add_argument("--presets", type=str, help="A comma-separated list of WLED preset file names (YAML). The "
                                                     "file names are relative to the --wled_dir directory. Note that "
                                                     "preset IDs must be unique across all preset files. The "
