@@ -9,8 +9,8 @@ class WledDataProcessor:
         self.environment = environment
         self.wled_data = None
 
-    def process_wled_data(self, raw_wled_data, **other_args):
-        self.wled_data = self.normalize_wled_data(raw_wled_data)
+    def process_wled_data(self, wled_data, **other_args):
+        self.wled_data = self.normalize_wled_data(wled_data)
         self.initialize(other_args)
 
         new_wled_data = {}

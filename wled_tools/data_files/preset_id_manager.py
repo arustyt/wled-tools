@@ -35,5 +35,5 @@ class PresetIdManager:
         self.max_preset_id += 1
         preset_id = self.max_preset_id
         self.preset_ids.add(preset_id)
-        return preset_id
+        return str(preset_id)
 

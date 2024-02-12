@@ -1,6 +1,7 @@
 import json
 import sys
 
+from data_files.playlists import Playlists
 from data_files.preset_data_normalizer import PresetDataNormalizer
 from data_files.presets import Presets
 from data_files.segments import Segments
@@ -9,8 +10,8 @@ from definition_files.colors import Colors
 from definition_files.effects import Effects
 from definition_files.palettes import Palettes
 from wled_constants import SEGMENTS_FILE_TAG, SEGMENT_TAG, COLOR_TAG, SEGMENT_NAME_TAG, PALETTE_NAME_TAG, \
-    EFFECT_NAME_TAG, PALETTE_TAG, EFFECT_TAG, ID_TAG, PRESET_KEY, STOP_TAG, DEFAULTS_TAG, PRESET_DEFAULTS, \
-    SEGMENT_DEFAULTS, PLAYLIST_PRESETS_PATH_TAG, PLAYLIST_END_PATH_TAG
+    EFFECT_NAME_TAG, PALETTE_TAG, EFFECT_TAG, ID_TAG, PRESET_SEGMENTS_TAG, STOP_TAG, DEFAULTS_TAG, PRESET_DEFAULTS, \
+    SEGMENT_DEFAULTS, PLAYLIST_PRESETS_PATH_TAG, PLAYLIST_END_PATH_TAG, PLAYLIST_TAG
 from wled_utils.dict_utils import get_dict_path
 
 
@@ -30,8 +31,8 @@ class WledPresets(WledDataProcessor):
         self.current_segment_defaults = {}
         self.max_segments = 0
 
-    def normalize_wled_data(self, raw_wled_data):
-        normalizer = PresetDataNormalizer(raw_wled_data)
+    def normalize_wled_data(self, raw_wled_data, merge_duplicate_playlists):
+        normalizer = PresetDataNormalizer(raw_wled_data, merge_duplicate_playlists)
         normalizer.normalize()
         return normalizer.get_normalized_data()
 
@@ -110,8 +111,8 @@ class WledPresets(WledDataProcessor):
 
     def finalize(self, preset_data: dict):
         for preset in preset_data.values():
-            if PRESET_KEY in preset:
-                segments: list = preset[PRESET_KEY]
+            if PRESET_SEGMENTS_TAG in preset:
+                segments: list = preset[PRESET_SEGMENTS_TAG]
                 num_segments = len(segments)
                 if self.max_segments > num_segments:
                     for i in range(num_segments, self.max_segments):
