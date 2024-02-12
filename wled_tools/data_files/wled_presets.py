@@ -1,6 +1,7 @@
 import json
 import sys
 
+from data_files.playlists import Playlists
 from data_files.preset_data_normalizer import PresetDataNormalizer
 from data_files.presets import Presets
 from data_files.segments import Segments
@@ -8,9 +9,9 @@ from data_files.wled_data_processor import WledDataProcessor
 from definition_files.colors import Colors
 from definition_files.effects import Effects
 from definition_files.palettes import Palettes
-from wled_constants import SEGMENTS_FILE_TAG, SEGMENT_TAG, COLOR_TAG, SEGMENT_NAME_TAG, PALETTE_NAME_TAG, \
-    EFFECT_NAME_TAG, PALETTE_TAG, EFFECT_TAG, ID_TAG, PRESET_KEY, STOP_TAG, DEFAULTS_TAG, PRESET_DEFAULTS, \
-    SEGMENT_DEFAULTS, PLAYLIST_PRESETS_PATH_TAG, PLAYLIST_END_PATH_TAG
+from wled_constants import SEGMENTS_FILE_VAR, SEGMENT_TAG, COLOR_TAG, SEGMENT_NAME_TAG, PALETTE_NAME_TAG, \
+    EFFECT_NAME_TAG, PALETTE_TAG, EFFECT_TAG, ID_TAG, PRESET_SEGMENTS_TAG, STOP_TAG, DEFAULTS_TAG, PRESET_DEFAULTS, \
+    SEGMENT_DEFAULTS, PLAYLIST_PRESETS_PATH_TAG, PLAYLIST_END_PATH_TAG, PLAYLIST_TAG, MERGE_PLAYLISTS_VAR
 from wled_utils.dict_utils import get_dict_path
 
 
@@ -30,17 +31,24 @@ class WledPresets(WledDataProcessor):
         self.current_segment_defaults = {}
         self.max_segments = 0
 
-    def normalize_wled_data(self, wled_data):
-        normalizer = PresetDataNormalizer(wled_data)
+    def normalize_wled_data(self, raw_wled_data, merge_playlists):
+        normalizer = PresetDataNormalizer(raw_wled_data, merge_playlists)
         normalizer.normalize()
         return normalizer.get_normalized_data()
 
-    def initialize(self, other_args):
-        self.presets = Presets(self.environment, presets_data=self.wled_data)
-        if SEGMENTS_FILE_TAG in other_args:
-            self.segments = Segments(self.environment, other_args[SEGMENTS_FILE_TAG])
+    def initialize(self, wled_data, other_args):
+        if SEGMENTS_FILE_VAR in other_args:
+            self.segments = Segments(self.environment, other_args[SEGMENTS_FILE_VAR])
         else:
-            raise AttributeError("Missing keyword argument, '{name}'".format(name=SEGMENTS_FILE_TAG))
+            raise AttributeError("Missing keyword argument, '{name}'".format(name=SEGMENTS_FILE_VAR))
+
+        if MERGE_PLAYLISTS_VAR in other_args:
+            merge_playlists = other_args[MERGE_PLAYLISTS_VAR]
+        else:
+            raise AttributeError("Missing keyword argument, '{name}'".format(name=MERGE_PLAYLISTS_VAR))
+
+        self.wled_data = self.normalize_wled_data(wled_data, merge_playlists)
+        self.presets = Presets(presets_data=self.wled_data)
 
     def init_dict(self, path: str, name, data: dict):
         if len(data) > 0:
@@ -110,8 +118,8 @@ class WledPresets(WledDataProcessor):
 
     def finalize(self, preset_data: dict):
         for preset in preset_data.values():
-            if PRESET_KEY in preset:
-                segments: list = preset[PRESET_KEY]
+            if PRESET_SEGMENTS_TAG in preset:
+                segments: list = preset[PRESET_SEGMENTS_TAG]
                 num_segments = len(segments)
                 if self.max_segments > num_segments:
                     for i in range(num_segments, self.max_segments):

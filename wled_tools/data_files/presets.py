@@ -9,9 +9,7 @@ KWDICT_ARG = 'kwdict'
 
 class Presets:
 
-    def __init__(self, env, **kwargs):
-
-        self.env = env
+    def __init__(self, **kwargs):
 
         if KWDICT_ARG in kwargs:
             kwargs = kwargs[KWDICT_ARG]

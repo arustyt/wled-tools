@@ -15,7 +15,8 @@ from wled_utils.yaml_multi_file_loader import load_yaml_files
 class PresetsFileProcessor(WledFileProcessor):
 
     def __init__(self, presets_paths, segments_path, environment, palettes_path, effects_path, colors_path,
-                 include_list, exclude_list, deep, output_dir, placeholder_replacer, suffix, test_mode, quiet_mode):
+                 include_list, exclude_list, deep, output_dir, placeholder_replacer, suffix, test_mode, quiet_mode,
+                 merge_playlists: bool):
         super().__init__(output_dir, placeholder_replacer, suffix, test_mode, quiet_mode)
         self.presets_paths = presets_paths
         self.segments_path = segments_path
@@ -26,6 +27,7 @@ class PresetsFileProcessor(WledFileProcessor):
         self.include_list = include_list
         self.exclude_list = exclude_list
         self.deep = deep
+        self.merge_playlists = merge_playlists
         self.presets_data = None
 
     def process(self):
@@ -43,7 +45,8 @@ class PresetsFileProcessor(WledFileProcessor):
             else:
                 prepped_presets_data = raw_presets_data
 
-            self.presets_data = wled_presets.process_wled_data(prepped_presets_data, segments_file=self.segments_path)
+            self.presets_data = wled_presets.process_wled_data(prepped_presets_data, segments_file=self.segments_path,
+                                                               merge_playlists=self.merge_playlists)
 
             if len(self.presets_paths) > 1:
                 yaml_file_path = self.get_output_file_name(self.presets_paths[0],

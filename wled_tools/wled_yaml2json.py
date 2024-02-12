@@ -127,6 +127,8 @@ def main(name, args):
                         action='store_true')
     parser.add_argument('--quiet', help="Suppresses all non-error output.",
                         action='store_true')
+    parser.add_argument('--merge_playlists', help="Causes like-named playlists to be merged.",
+                        action='store_true')
 
     args = parser.parse_args()
     data_dir = str(args.data_dir)
@@ -148,6 +150,7 @@ def main(name, args):
     deep = args.deep
     test_mode = args.test
     quiet_mode = args.quiet
+    merge_playlists = args.merge_playlists
 
     init_logger()
 
@@ -164,6 +167,7 @@ def main(name, args):
         get_logger().info("  exclude_list: " + str(exclude_list))
         get_logger().info("  deep: " + str(deep))
         get_logger().info("  test: " + str(test_mode))
+        get_logger().info("  merge_playlists: " + str(merge_playlists))
 
     wled_yaml2json(data_dir=data_dir,
                    wled_rel_dir=wled_rel_dir,
@@ -183,7 +187,8 @@ def main(name, args):
                    exclude_list=exclude_list,
                    deep=deep,
                    test_mode=test_mode,
-                   quiet_mode=quiet_mode)
+                   quiet_mode=quiet_mode,
+                   merge_playlists=merge_playlists)
 
 
 def wled_yaml2json(*,
@@ -205,7 +210,8 @@ def wled_yaml2json(*,
                    exclude_list=None,
                    deep=False,
                    test_mode=False,
-                   quiet_mode=False):
+                   quiet_mode=False,
+                   merge_playlists=False):
     if include_list is not None and exclude_list is not None:
         raise ValueError("The --include and --exclude options are mutually exclusive and cannot both be provided.")
 
@@ -244,7 +250,7 @@ def wled_yaml2json(*,
 
     presets_processor = PresetsFileProcessor(presets_paths, segments_path, environment, palettes_path, effects_path,
                                              colors_path, include_list, exclude_list, deep, output_dir,
-                                             placeholder_replacer, suffix, test_mode, quiet_mode)
+                                             placeholder_replacer, suffix, test_mode, quiet_mode, merge_playlists)
     presets_processor.process()
     presets_data = presets_processor.get_processed_data()
     presets_json_path = presets_processor.get_json_file_path()

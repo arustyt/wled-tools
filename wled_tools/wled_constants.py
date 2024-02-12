@@ -1,8 +1,10 @@
 
 STOP_TAG = 'stop'
-PRESET_KEY = 'seg'
+PRESET_SEGMENTS_TAG = 'seg'
+PRESET_NAME_TAG = 'n'
 ID_TAG = 'id'
-SEGMENTS_FILE_TAG = 'segments_file'
+SEGMENTS_FILE_VAR = 'segments_file'
+MERGE_PLAYLISTS_VAR = "merge_playlists"
 COLOR_TAG = 'col'
 EFFECT_TAG = 'fx'
 EFFECT_NAME_TAG = 'fx_name'
@@ -85,4 +87,7 @@ PLAYLIST_PRESETS_TAG = 'ps'
 PLAYLIST_PRESETS_PATH_TAG = "{playlist}.{end}".format(playlist=PLAYLIST_TAG, end=PLAYLIST_PRESETS_TAG)
 PLAYLIST_END_TAG = 'end'
 PLAYLIST_END_PATH_TAG = "{playlist}.{end}".format(playlist=PLAYLIST_TAG, end=PLAYLIST_END_TAG)
+PLAYLIST_DURATION_TAG = 'dur'
+PLAYLIST_TRANSITION_TAG = 'transition'
+
 
