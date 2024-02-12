@@ -10,8 +10,7 @@ class WledDataProcessor:
         self.wled_data = None
 
     def process_wled_data(self, wled_data, **other_args):
-        self.wled_data = self.normalize_wled_data(wled_data)
-        self.initialize(other_args)
+        self.initialize(wled_data, other_args)
 
         new_wled_data = {}
 
@@ -120,13 +119,9 @@ class WledDataProcessor:
         pass
 
     @abstractmethod
-    def initialize(self, other_args):
-        pass
+    def initialize(self, wled_data, other_args):
+        self.wled_data = wled_data
 
     @abstractmethod
     def finalize(self, wled_data):
-        return wled_data
-
-    @abstractmethod
-    def normalize_wled_data(self, wled_data):
         return wled_data

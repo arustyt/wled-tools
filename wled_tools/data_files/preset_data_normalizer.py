@@ -11,6 +11,7 @@ class PresetDataNormalizer:
         self.normalized_preset_data = {}
         self.preset_id_manager = PresetIdManager(preset_data)
         self.playlists = Playlists(merge_duplicate_playlists)
+        self.presets = None
 
     def normalize(self):
         for key in self.original_preset_data.keys():
@@ -21,7 +22,7 @@ class PresetDataNormalizer:
             else:
                 self.process_preset(key, self.original_preset_data[key])
 
-        self.presets = Presets(self.environment, presets_data=self.normalized_preset_data)
+        self.presets = Presets(presets_data=self.normalized_preset_data)
 
         return self.normalized_preset_data
 
