@@ -3,10 +3,11 @@ This section covers the various definition files used by the wled-tools.
 These files fall into three different categories:
 1. WLED Version Dependent Files - Files that are WLED version dependent.  These files should work for anyone 
 that understands English. However, they may need to be updated for new WLED 
-releases. Files in this category include: [palettes.yaml](#palettes), effects.yaml.
-2. Files that are WLED independent.  This category includes only colors.yaml.
+releases. Files in this category include: [palettes.yaml](#palettes), [effects.yaml](#effects).
+2. Files that are WLED independent.  This category includes only [colors.yaml](#colors).
 3. Files that are likely dependent on individual preferences and/or locale, and 
-potentially on WLED version.
+potentially on WLED version. These files include [holidays.yaml](#holidays) and 
+[holiday_lights.yaml](#holiday_lights).
 
 ## WLED Version Dependent Files
 
@@ -34,7 +35,7 @@ palettes:
   .
   .
 ```
-### /etc/effects.yaml
+### /etc/effects.yaml  {#effects}
 This file contains a single top-level "effects" entry that contains a list
 of effect definitions with structure that is analogous to palettes.yaml.
 
@@ -63,7 +64,7 @@ effects:
 
 ## WLED Independent Files
 
-### /etc/colors.yaml
+### /etc/colors.yaml {#colors}
 This file contains a single top-level "colors" entry that contains a list
 of color definitions. The data in this file was originally source from 
 https://htmlcolors.com/color-names. 
@@ -95,19 +96,26 @@ These files contain the data to be used to determine which set of WLED presets
 (and possibly which WLED config file) to be used on a given day. You may want 
 to modify these files based on your personal preferences and/or locale. 
 
-### /etc/holidays.yaml
-Holidays.yaml contains a single top-level "holidays" entry that contains a set of
+### /etc/holidays.yaml {#holidays}
+This functionality was initially envisioned to enable defining WLED presets 
+for specific public holidays.  However, the concept has evolved to include 
+defining WLED presets for any day (or days) that are "special" for a given 
+locale or individual. In the discussion below, the word "holiday" refers to any 
+"special" day (or days).
+
+Holidays.yaml contains a single top-level "holidays" entry that contains a list of
 objects, one for each holiday. Holidays can be defined as a specific day of the year 
-which is appropriate for holidays such as New Years Day and Valentines Day.  
+which is appropriate for holidays such as New Years Day and Valentine's Day. 
 The day of the year is formatted as 'MMDD'
 and must appear in quotes to be interpreted as a string. 
-Alternatively, a holiday can be defined in a rule (see dateutil.rrule). A rule
-is needed to define variable holidays such as Easter or in US, Memorial Day.
+Alternatively, a holiday can be defined in a rule 
+(see [dateutil.rrule](https://dateutil.readthedocs.io/en/stable/rrule.html)). A rule
+is needed to define variable holidays such as Easter or in the US, Memorial Day.
 
 A fixed-date holiday entry includes:
 - **The Holiday Name**
   - **date** is the date of the holiday as 'MMDD'. The date
-  value must be enclosed in quotes so it is interpreted as a string, not a
+  value must be enclosed in quotes to force interpretation as a string, not a
   number.
 
 Variable-date holiday entries have two variations. 
@@ -159,7 +167,7 @@ holidays:
       by_easter: -47
 ```
 
-### /etc/holiday_lights.yaml
+### /etc/holiday_lights.yaml {#holiday_lights}
 
 Holiday_lights.yaml defines what WLED presets to use on a given day based 
 a single date or a range of days.  Although "holiday" is in the name, 
@@ -170,26 +178,54 @@ on your birthday based on the date (MMDD), alone.
 Variable-date holiday entries have two variations. 
 The first variation is for holidays **not** based on the date of Easter and 
 include:
+```yaml
+holidays:
+  "holiday name": # This name is arbitrary but will usually be the name of the associated holiday.
+    start_date:   # Is the first date on which the associated holiday presets 
+                  # will be used&#8226.
+    end_date:     # Is the last date on which the associated holiday presets 
+                  # will be used[^1].
+    lights:       # The date-specific part of the presets file name&#8224;.
+      # The following elements are optional and allow tailoring presets for specific 
+      # days of the week within the holiday date range. The above holiday name and/or 
+      # lights values will be used for days of the week not specified or for 
+      # lights/holiday values not specified for a given day of the week. This
+      # group can be repeated to specify multiple days of the week. 
+    "day of week":  # Must be one of ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']      
+      holiday:      # (Optional) Holiday name to be used for this day of the week.
+                    # If not present, the above holiday will be used.
+      lights:       # (Optional) Lights to be used for this day of the week
+                    # If not present, the above lights value will be used.
+```
+
 - **The Holiday Name** - This name is arbitrary but will usually be the name 
 of the associated holiday.
   - **start_date** is the first date on which the associated holiday presets 
   will be used (see NOTE below).
   - **end_date** - is the last date on which the associated holiday presets 
   will be used (see NOTE below).
-  - **lights** - the day-specific part of the presets file name 
+  - **lights** - the date-specific part of the presets file name 
   (see [File Name Conventions](file_name_conventions.md)).
 
-> NOTE: Start_date and end_date can be either a specific date (MMDD) or the
-> name of a holiday in holidays.yaml. In addition, the date or holiday name
-> can be followed by -N or +N where N is the number of days before or after
-> the date or holiday.
+[^1] Start_date and end_date can be either a specific date (MMDD) or the
+name of a holiday in holidays.yaml. In addition, the date or holiday name
+can be followed by -N or +N where N is the number of days before or after
+the date or holiday.
+
+&#8226 Start_date and end_date can be either a specific date (MMDD) or the
+
+> NOTES:
+> &#8226 Start_date and end_date can be either a specific date (MMDD) or the
+>   name of a holiday in holidays.yaml. In addition, the date or holiday name
+>   can be followed by -N or +N where N is the number of days before or after
+>   the date or holiday.
 
 Here is a snippet from holiday_lights.yaml.
 
 ```yaml
 # Date format is MMDD
 holidays:
-  "new_years_day":
+  new_years_day:
     start_date: '0101'
     end_date: '0101+6'
     lights: newyearsday
