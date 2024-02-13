@@ -12,16 +12,16 @@ for automation but, in the end, automation was implemented via AppDaemon.
 Sub-goals were to be able to:
  - Keep the preset/configuration data separate from code.
  - Reference WLED palettes and effects by name,
- - Specify palette colors by name or in #nnnnnn format,
+ - Specify palette colors by name or in HTML format, e.g. RRGGBB,
  - Reuse segment definitions across presets and refer to them by name, 
- - Define playlists by referencing playlist names,
+ - Define playlists by referencing preset names,
  - Support property definition and replacement to allow a single presets 
    file to be used in multiple environments, e.g. development vs. production,
  - Enable combining multiple sets of preset definitions into a coherent set
    of presets for a WLED controller.
 
 This project uses YAML as the configuration language. YAML was chosen because
-it is compatible with JSON but is more human-readable. 
+it is compatible with JSON but is syntactically simpler and is more human-readable. 
 
 ### Primary tools:
 - **[wled_tools/wled_yaml2json.py](doc/wled_yaml2json.md)** - converts YAML files into 

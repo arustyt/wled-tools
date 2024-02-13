@@ -3,14 +3,14 @@ This section covers the various definition files used by the wled-tools.
 These files fall into three different categories:
 1. WLED Version Dependent Files - Files that are WLED version dependent.  These files should work for anyone 
 that understands English. However, they may need to be updated for new WLED 
-releases. Files in this category include palettes.yaml, effects.yaml.
+releases. Files in this category include: [palettes.yaml](#palettes), effects.yaml.
 2. Files that are WLED independent.  This category includes only colors.yaml.
 3. Files that are likely dependent on individual preferences and/or locale, and 
 potentially on WLED version.
 
 ## WLED Version Dependent Files
 
-### /etc/palettes.yaml
+### /etc/palettes.yaml {#palettes}
 This file contains a single top-level "palettes" entry that contains a list
 of palette definitions. Each definition includes:
 - **id** is the WLED assigned ID integer for the palette,
@@ -132,7 +132,7 @@ on the date of Easter:
 
 
 Here is a snippet from holidays.yaml containing all three variations.
-```
+```yaml
 # Date format is MMDD
 holidays:
   "new_years_day":
@@ -186,7 +186,7 @@ of the associated holiday.
 
 Here is a snippet from holiday_lights.yaml.
 
-```
+```yaml
 # Date format is MMDD
 holidays:
   "new_years_day":
@@ -197,6 +197,10 @@ holidays:
     start_date: martin_luther_king_jr_day
     end_date: martin_luther_king_jr_day
     lights: mlkday
+  black_history_month:
+    start_date: '0201'
+    end_date: '0301-1'
+    lights: black_history_month
   ground_hog_day:
     start_date: ground_hog_day
     end_date: ground_hog_day
