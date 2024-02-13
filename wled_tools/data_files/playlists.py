@@ -35,6 +35,15 @@ class Playlists:
         return False
 
     def merge_playlist(self, existing_playlist, new_playlist):
+        self.merge_lists(existing_playlist, new_playlist)
+        self.add_new_items(existing_playlist, new_playlist)
+
+    def add_new_items(self, existing_playlist, new_playlist):
+        for key in new_playlist:
+            if key not in existing_playlist:
+                existing_playlist[key] = new_playlist[key]
+
+    def merge_lists(self, existing_playlist, new_playlist):
         for key in existing_playlist:
             if key == PLAYLIST_DURATION_TAG:
                 existing_playlist[PLAYLIST_DURATION_TAG].extend(new_playlist[PLAYLIST_DURATION_TAG])
