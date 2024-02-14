@@ -14,10 +14,14 @@ potentially on WLED version. These files include [holidays.yaml](#holidays) and
 ### /etc/palettes.yaml {#palettes}
 This file contains a single top-level "palettes" entry that contains a list
 of palette definitions. Each definition includes:
-- **id** is the WLED assigned ID integer for the palette,
-- **name** is the name of the palette. Normally these would be the WLED
-assigned names but you can change them if you like.
-- **desc** is an optional description of the palette.
+
+| YAML key               | Type/Value Range | Description                                                                                                                                                                 |
+|------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| palettes[]             | Object           | Each item in the list represents a WLED palette.                                                                                                                            |
+| palettes[].id          | Integer          | The WLED assigned ID integer for the palette.                                                                                                                               |
+| palettes[].name        | String           | The name of the palette that will be used in presets YAML files to reference this palette. Normally this would be the WLED assigned name but you can change it if you like. |
+| palettes[].description | String           | Is an optional description of the palette.                                                                                                                                  |
+
 
 Here is a snippet from palettes.yaml.
 ```
@@ -37,13 +41,15 @@ palettes:
 ```
 ### /etc/effects.yaml  {#effects}
 This file contains a single top-level "effects" entry that contains a list
-of effect definitions with structure that is analogous to palettes.yaml.
+of effect definitions with structure that is analogous to palettes.yaml. Each definition includes:
 
-Each definition includes:
-- **id** is the WLED assigned ID integer for the effect,
-- **name** is the name of the effect. Normally these would be the WLED
-assigned names but you can change them if you like.
-- **desc** is an optional description of the effect.
+| YAML key              | Type/Value Range | Description                                                                                                                                                               |
+|-----------------------|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| effects[]             | Object           | Each item in the list represents a WLED effect.                                                                                                                           |
+| effects[].id          | Integer          | The WLED assigned ID integer for the effect.                                                                                                                              |
+| effects[].name        | String           | The name of the effect that will be used in presets YAML files to reference this effect. Normally this would be the WLED assigned name but you can change it if you like. |
+| effects[].description | String           | Is an optional description of the effect.                                                                                                                                 |
+
 
 Here is a snippet from effects.yaml.
 ```
@@ -67,13 +73,14 @@ effects:
 ### /etc/colors.yaml {#colors}
 This file contains a single top-level "colors" entry that contains a list
 of color definitions. The data in this file was originally source from 
-https://htmlcolors.com/color-names. 
+https://htmlcolors.com/color-names. Each definition includes: 
 
-Each definition includes: 
-- **code** is the hexadecimal RGB code, without the leading # sign. The code
-value must be enclosed in quotes so it is interpreted as a string, not a
-number.
-- **name** is the name of the color.
+| YAML key      | Type/Value Range | Description                                                                                                                                     |
+|---------------|------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| colors[]      | Object           | Each item in the list defines a color name/code pair.                                                                                           |
+| colors[].name | String           | The name of the color.                                                                                                                          |
+| colors[].code | String           | The hexadecimal RGB code, without the leading # sign. The code value must be enclosed in quotes so it is interpreted as a string, not a number. |
+
 
 Here is a snippet from colors.yaml.
 
@@ -112,38 +119,29 @@ Alternatively, a holiday can be defined in a rule
 (see [dateutil.rrule](https://dateutil.readthedocs.io/en/stable/rrule.html)). A rule
 is needed to define variable holidays such as Easter or in the US, Memorial Day.
 
-A fixed-date holiday entry includes:
-- **The Holiday Name**
-  - **date** is the date of the holiday as 'MMDD'. The date
-  value must be enclosed in quotes to force interpretation as a string, not a
-  number.
 
-Variable-date holiday entries have two variations. 
-The first variation is for holidays **not** based on the date of Easter and 
-include:
-- **The Holiday Name**
-  - **rrule** object containing the holiday rule
-    - **frequency** - is the frequency a which this holiday occurs. Typically
-    this will be YEARLY, but it must be one of YEARLY, MONTHLY, WEEKLY, or DAILY.
-    - **month** - is the month of the year as an integer 1 through 12
-    - **day_of_week** - is the day of the week.  Must be one of 
-    (MO, TU, WE, TH, FR, SA, SU).
-    - **occurrence** - which occurrence of the day of the week for the holiday 
-
-The second variation for a variable-date holiday is for holidays that are based
-on the date of Easter:
-- **The Holiday Name**
-  - **rrule** object containing the holiday rule
-    - **frequency** - is the frequency a which this holiday occurs. Typically
-    this will be YEARLY, but it must be one of YEARLY, MONTHLY, WEEKLY, or DAILY.
-    - **by_easter** - is the number of days before (-int) or after (+int) easter 
+| YAML key                                | Type/Value Range | Description                                                                                                                        |
+|-----------------------------------------|------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| holidays."name"                         | Object           | A holiday object where "name" is the holiday name.                                                                                 |
+| ***FIXED DATE HOLIDAY***                |                  | *Defines a holiday with a fixed date.*                                                                                             |
+| holidays."name".date                    | String           | The date of the holiday as 'MMDD'. The date value must be enclosed in quotes to force interpretation as a string, not a number.    |
+| ***VARIABLE NON-EASTER BASED HOLIDAY*** |                  | *Defines a variable-date holiday that is **not** based on the date of Easter.*                                                     |
+| holidays."name".rrule                   | Object           | An object containing the holiday rule                                                                                              |
+| holidays."name".rrule.frequency         | String           | The frequency a which this holiday occurs. Typically this will be YEARLY, but it must be one of YEARLY, MONTHLY, WEEKLY, or DAILY. |
+| holidays."name".rrule.month             | Integer [1-12]   | The month of the year.                                                                                                             |
+| holidays."name".rrule.day_of_week       | String           | The day of the week.  Must be one of (MO, TU, WE, TH, FR, SA, SU).                                                                 |
+| holidays."name".rrule.occurrence        | Integer [1-5]    | Which occurrence of the day of the week for the holiday.                                                                           |
+| ***VARIABLE EASTER BASED HOLIDAY***     |                  | *Defines a variable-date holiday that is based on the date of Easter.*                                                             |
+| holidays."name".rrule                   | Object           | An object containing the holiday rule                                                                                              |
+| holidays."name".rrule.frequency         | String           | The frequency a which this holiday occurs. Typically this will be YEARLY, but it must be one of YEARLY, MONTHLY, WEEKLY, or DAILY. |
+| holidays."name".rrule.by_easter         | Integer          | The number of days before (-negative integer) or after (positive integer) easter.                                                  |
 
 
 Here is a snippet from holidays.yaml containing all three variations.
 ```yaml
 # Date format is MMDD
 holidays:
-  "new_years_day":
+  new_years_day:
     date: '0101'
   martin_luther_king_jr_day:
     rrule: 
