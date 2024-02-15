@@ -220,11 +220,11 @@ holidays:
     fri:
       holiday: normal_friday
   new_years_day:
-    start_date: '0101'
-    end_date: '0101+6'
-    presets: newyearsday
+    start_date: new_years_day
+    end_date: new_years_day+6
+    presets: newyears
   martin_luther_king_jr_day:
-    start_date: martin_luther_king_jr_day
+    start_date: martin_luther_king_jr_day-2
     end_date: martin_luther_king_jr_day
     presets: mlkday
   black_history_month:
@@ -235,14 +235,18 @@ holidays:
     start_date: ground_hog_day
     end_date: ground_hog_day
     presets: groundhogday
+  superbowl_sunday:
+    start_date: '0211'
+    end_date: '0211'
+    presets: superbowl
   valentines_day:
     start_date: valentines_day
     end_date: valentines_day
     presets: valentinesday
   presidents_day:
-    start_date: presidents_day
+    start_date: presidents_day-2
     end_date: presidents_day
-    presets: presidentsday
+    presets: patriotic
   mardi_gras:
     start_date: mardi_gras
     end_date: mardi_gras
@@ -251,12 +255,16 @@ holidays:
     start_date: st_patricks_day-7
     end_date: st_patricks_day
     presets: stpatricksday
+  ash_wednesday:
+    start_date: ash_wednesday
+    end_date: ash_wednesday
+    presets: twinkle
   lent:
     start_date: ash_wednesday
     end_date: holy_saturday
-    presets: lent
+    presets: twinkle
   palm_sunday:
     start_date: palm_sunday
     end_date: palm_sunday
-    presets: palm_sunday
+    presets: easter
 ```
