@@ -1,6 +1,19 @@
 # File Name Conventions
 
-## Default Definition File Names
+This document covers file naming conventions applied in this software.
+While it is not required to follow these conventions doing so will reduce 
+the number options that need to be supplied to many of the scripts.
+Furthermore, the automation scripts in this package are based on these
+conventions and may require modification to function if they are not followed.
+
+File conventions covered in this document are:
+- [Definition File Names](#definition_file_names)
+- [WLED Presets File Names](#preset_file_names)
+- [WLED Config File Names](#config_file_names)
+
+## Definition File Names {#definition_file_names}
+
+### Default Definition File Names
 The major scripts in this repository implement these default file base-names and these expected locations:
 
 | Purpose              | File Option Flag | Default File Base-name | Location                 |
@@ -36,4 +49,8 @@ This convention provides a way to maintain separate files for each environment, 
 Typically, environment specific files should not be required for effects, palettes, or colors. 
 However, they may be appropriate for segments and properties files. Alternatively, segments and
 properties files can be divided into sections for each environment.  This will be covered in the
-individual sections for each file.    
+individual sections for each file.   
+
+## WLED Presets File Names {#preset_file_names}
+
+## WLED Config File Names {#config_file_names}
