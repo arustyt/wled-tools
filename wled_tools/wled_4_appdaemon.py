@@ -86,7 +86,7 @@ class Wled4Appdaemon(hass.Hass):
     def init_test_mode(self):
         self.log_info("Initializing test mode @ {start} every {interval} seconds.".format(start=self.test_start,
                                                                                      interval=self.test_interval))
-        self.run_every(self.install_lights_de_jour, self.test_start, int(self.test_interval))
+        self.run_every(self.install_presets_de_jour, self.test_start, int(self.test_interval))
 
     def init_daily_mode(self, groups):
         self.log_info("Initializing daily mode @ {run_time}".format(run_time=self.run_time))
@@ -94,7 +94,7 @@ class Wled4Appdaemon(hass.Hass):
         run_min = int(groups[1])
         run_sec = int(groups[2])
         time = datetime.time(run_hour, run_min, run_sec)
-        self.run_daily(self.install_lights_de_jour, time)
+        self.run_daily(self.install_presets_de_jour, time)
 
     def init_sun_mode(self, groups):
         sun_event = groups[0]
@@ -114,13 +114,13 @@ class Wled4Appdaemon(hass.Hass):
 
     def init_sunset_mode(self, offset):
         self.log_info("Initializing sunset mode with offset: {offset}".format(offset=offset))
-        self.run_at_sunset(self.install_lights_de_jour, offset=offset)
+        self.run_at_sunset(self.install_presets_de_jour, offset=offset)
 
     def init_sunrise_mode(self, offset):
         self.log_info("Initializing sunrise mode with offset: {offset}".format(offset=offset))
-        self.run_at_rise(self.install_lights_de_jour, offset=offset)
+        self.run_at_rise(self.install_presets_de_jour, offset=offset)
 
-    def install_lights_de_jour(self, cb_args):
+    def install_presets_de_jour(self, cb_args):
         if self.config_repo is not None:
             self.log_info("Pulling config repo @ {repo}".format(repo=self.config_repo))
             try:
