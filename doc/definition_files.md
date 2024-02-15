@@ -7,7 +7,7 @@ releases. Files in this category include: [palettes.yaml](#palettes), [effects.y
 2. Files that are WLED independent.  This category includes only [colors.yaml](#colors).
 3. Files that are likely dependent on individual preferences and/or locale, and 
 potentially on WLED version. These files include [holidays.yaml](#holidays) and 
-[holiday_lights.yaml](#holiday_lights).
+[holiday_presets.yaml](#holiday_presets).
 
 ## WLED Version Dependent Files
 
@@ -122,19 +122,19 @@ is needed to define variable holidays such as Easter or in the US, Memorial Day.
 
 | YAML key                                | Type/Value Range | Description                                                                                                                        |
 |-----------------------------------------|------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| holidays."name"                         | Object           | A holiday object where "name" is the holiday name.                                                                                 |
+| holidays.<*name*>                       | Object           | A holiday object where <*name*> is the holiday name.                                                                               |
 | ***FIXED DATE HOLIDAY***                |                  | *Defines a holiday with a fixed date.*                                                                                             |
-| holidays."name".date                    | String           | The date of the holiday as 'MMDD'. The date value must be enclosed in quotes to force interpretation as a string, not a number.    |
+| holidays.<*name*>.date                  | String           | The date of the holiday as 'MMDD'. The date value must be enclosed in quotes to force interpretation as a string, not a number.    |
 | ***VARIABLE NON-EASTER BASED HOLIDAY*** |                  | *Defines a variable-date holiday that is **not** based on the date of Easter.*                                                     |
-| holidays."name".rrule                   | Object           | An object containing the holiday rule                                                                                              |
-| holidays."name".rrule.frequency         | String           | The frequency a which this holiday occurs. Typically this will be YEARLY, but it must be one of YEARLY, MONTHLY, WEEKLY, or DAILY. |
-| holidays."name".rrule.month             | Integer [1-12]   | The month of the year.                                                                                                             |
-| holidays."name".rrule.day_of_week       | String           | The day of the week.  Must be one of (MO, TU, WE, TH, FR, SA, SU).                                                                 |
-| holidays."name".rrule.occurrence        | Integer [1-5]    | Which occurrence of the day of the week for the holiday.                                                                           |
+| holidays.<*name*>.rrule                 | Object           | An object containing the holiday rule                                                                                              |
+| holidays.<*name*>.rrule.frequency       | String           | The frequency a which this holiday occurs. Typically this will be YEARLY, but it must be one of YEARLY, MONTHLY, WEEKLY, or DAILY. |
+| holidays.<*name*>.rrule.month           | Integer [1-12]   | The month of the year.                                                                                                             |
+| holidays.<*name*>.rrule.day_of_week     | String           | The day of the week.  Must be one of (MO, TU, WE, TH, FR, SA, SU).                                                                 |
+| holidays.<*name*>.rrule.occurrence      | Integer [1-5]    | Which occurrence of the day of the week for the holiday.                                                                           |
 | ***VARIABLE EASTER BASED HOLIDAY***     |                  | *Defines a variable-date holiday that is based on the date of Easter.*                                                             |
-| holidays."name".rrule                   | Object           | An object containing the holiday rule                                                                                              |
-| holidays."name".rrule.frequency         | String           | The frequency a which this holiday occurs. Typically this will be YEARLY, but it must be one of YEARLY, MONTHLY, WEEKLY, or DAILY. |
-| holidays."name".rrule.by_easter         | Integer          | The number of days before (-negative integer) or after (positive integer) easter.                                                  |
+| holidays.<*name*>.rrule                 | Object           | An object containing the holiday rule                                                                                              |
+| holidays.<*name*>.rrule.frequency       | String           | The frequency a which this holiday occurs. Typically this will be YEARLY, but it must be one of YEARLY, MONTHLY, WEEKLY, or DAILY. |
+| holidays.<*name*>.rrule.by_easter       | Integer          | The number of days before (-negative integer) or after (positive integer) easter.                                                  |
 
 
 Here is a snippet from holidays.yaml containing all three variations.
@@ -165,9 +165,9 @@ holidays:
       by_easter: -47
 ```
 
-### /etc/holiday_lights.yaml {#holiday_lights}
+### /etc/holiday_presets.yaml {#holiday_presets}
 
-Holiday_lights.yaml defines what WLED presets to use on a given day based 
+Holiday_presets.yaml defines what WLED presets to use on a given day based 
 a single date or a range of days.  Although "holiday" is in the name, 
 definitions in this file do not necessarily have to correspond to holidays 
 defined in holidays.yaml.  For example, you could define a preset to use
@@ -176,91 +176,87 @@ on your birthday based on the date (MMDD), alone.
 Variable-date holiday entries have two variations. 
 The first variation is for holidays **not** based on the date of Easter and 
 include:
-```yaml
-holidays:
-  "holiday name": # This name is arbitrary but will usually be the name of the associated holiday.
-    start_date:   # Is the first date on which the associated holiday presets 
-                  # will be used&#8226.
-    end_date:     # Is the last date on which the associated holiday presets 
-                  # will be used[^1].
-    lights:       # The date-specific part of the presets file name&#8224;.
-      # The following elements are optional and allow tailoring presets for specific 
-      # days of the week within the holiday date range. The above holiday name and/or 
-      # lights values will be used for days of the week not specified or for 
-      # lights/holiday values not specified for a given day of the week. This
-      # group can be repeated to specify multiple days of the week. 
-    "day of week":  # Must be one of ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']      
-      holiday:      # (Optional) Holiday name to be used for this day of the week.
-                    # If not present, the above holiday will be used.
-      lights:       # (Optional) Lights to be used for this day of the week
-                    # If not present, the above lights value will be used.
-```
 
-- **The Holiday Name** - This name is arbitrary but will usually be the name 
-of the associated holiday.
-  - **start_date** is the first date on which the associated holiday presets 
-  will be used (see NOTE below).
-  - **end_date** - is the last date on which the associated holiday presets 
-  will be used (see NOTE below).
-  - **lights** - the date-specific part of the presets file name 
-  (see [File Name Conventions](file_name_conventions.md)).
+| YAML key                          | Type/Value Range | Description                                                                                                                                                               |
+|-----------------------------------|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| holidays.<*name*>                 | Object           | A holiday object where <*name*> is arbitrary but will usually be the name of the associated holiday.                                                                      |
+| holidays.<*name*>.start_date      | **See note 1**   | The first date on which the associated holiday presets will be used.                                                                                                      |
+| holidays.<*name*>.end_date        | **See note 1**   | The last date on which the associated holiday presets will be used.                                                                                                       |
+| holidays.<*name*>.presets         | **See note 2**   | The date-specific part of the presets file name.                                                                                                                          |
+|                                   |                  | **See note 3**                                                                                                                                                            |
+| holidays.<*name*>.<*dow*>         | Object           | A day-of-the-week object to override settings from the main group. <*dow*> must be one of ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].                              |
+| holidays.<*name*>.<*dow*>.holiday | String           | (Optional) Holiday name to be used for this day of the week. If not present, the holiday from the enclosing object will be used.                                          |
+| holidays.<*name*>.<*dow*>.presets | String           | (Optional) The date-specific part of the presets file name to be used for this day of the week. If not present, the above presets from the enclosing object will be used. |
 
-[^1] Start_date and end_date can be either a specific date (MMDD) or the
-name of a holiday in holidays.yaml. In addition, the date or holiday name
-can be followed by -N or +N where N is the number of days before or after
-the date or holiday.
-
-&#8226 Start_date and end_date can be either a specific date (MMDD) or the
 
 > NOTES:
-> &#8226 Start_date and end_date can be either a specific date (MMDD) or the
+> 1. Start_date and end_date can be either a specific date (MMDD) or the
 >   name of a holiday in holidays.yaml. In addition, the date or holiday name
 >   can be followed by -N or +N where N is the number of days before or after
 >   the date or holiday.
+> 2. The date-specific part of the presets file name is described in [File Name Conventions](file_name_conventions.md).
+> 3. The day-of-the-week elements are optional and allow tailoring presets for specific 
+>  days of the week within the holiday date range. The above holiday name and/or 
+>  presets values will be used for days of the week not specified or for 
+>  presets/holiday values not specified for a given day of the week. This
+>  group can be repeated to specify multiple days of the week. 
 
-Here is a snippet from holiday_lights.yaml.
+Here is a snippet from holiday_presets.yaml.
 
 ```yaml
-# Date format is MMDD
 holidays:
+  normal_night:
+    start_date: new_years_day
+    end_date: new_years_eve
+    presets: twinkle
+    mon:
+      holiday: normal_monday
+    tue:
+      holiday: normal_tuesday
+    wed:
+      holiday: normal_wednesday
+    thu:
+      holiday: normal_thursday
+    fri:
+      holiday: normal_friday
   new_years_day:
     start_date: '0101'
     end_date: '0101+6'
-    lights: newyearsday
+    presets: newyearsday
   martin_luther_king_jr_day:
     start_date: martin_luther_king_jr_day
     end_date: martin_luther_king_jr_day
-    lights: mlkday
+    presets: mlkday
   black_history_month:
     start_date: '0201'
     end_date: '0301-1'
-    lights: black_history_month
+    presets: black_history_month
   ground_hog_day:
     start_date: ground_hog_day
     end_date: ground_hog_day
-    lights: groundhogday
+    presets: groundhogday
   valentines_day:
     start_date: valentines_day
     end_date: valentines_day
-    lights: valentinesday
+    presets: valentinesday
   presidents_day:
     start_date: presidents_day
     end_date: presidents_day
-    lights: presidentsday
+    presets: presidentsday
   mardi_gras:
     start_date: mardi_gras
     end_date: mardi_gras
-    lights: mardigras
+    presets: mardigras
   st_patricks_day:
     start_date: st_patricks_day-7
     end_date: st_patricks_day
-    lights: stpatricksday
+    presets: stpatricksday
   lent:
     start_date: ash_wednesday
     end_date: holy_saturday
-    lights: lent
+    presets: lent
   palm_sunday:
     start_date: palm_sunday
     end_date: palm_sunday
-    lights: palm_sunday
+    presets: palm_sunday
 ```
