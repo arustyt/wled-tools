@@ -1,6 +1,59 @@
 # WLED Presets File Specification
-This section covers the WLED Presets YAML files that can be used to generate presets JSON files for 
-uploading to a WLED instance.
+This section covers the WLED Presets YAML files that can be used as inputs to wled_yaml2json.py to generate presets 
+JSON files for uploading to a WLED instance. If you are not familiar with YAML, have a look at 
+[YAML Ain’t Markup Language (YAML™)](YAML.md).
+
+## Properties (#properties)
+
+Property substitution, as discussed in [Environment Definition Files Specifications](env_definition_files.md), 
+can be used anywhere in the WLED Presets YAML file. Typically, property substitution would be used to set YAML values. 
+Theoretically, it should also work for replacing YAML keys, although I have never had need for that and have not 
+tested it.
+
+## Defaults (#defaults)
+
+Wled_yaml2json.py supports a non-WLED data section identified with the top level key, **defaults**. If present, 
+**defaults** can contain one or both a **preset** and a **segment** key. As the name suggests, keys and values under 
+these define default values for presets and segments, respectively. These defaults are applied at the beginning of 
+processing each preset in the YAML file.  The default values can be overridden in a preset or segment if the 
+corresponding key/value is present. If multiple **defaults** keys are present, all entries but the last one  
+will be silently ignored.
+
+Here is a sample of defaults usage:
+
+```YAML
+defaults:
+  preset:
+    mainseg: 0
+    bri: 128
+  segment:
+    ix: 128
+    sx: 128
+```
+
+## Preset Settings (#presets)
+
+Most key/value pairs are copied directly to the JSON file after any required property substitution.
+Exceptions to this direct-copying include effects, palettes, colors, segment settings and one non-WLED key, id.
+
+### Effects
+Effects can be specified in one of two ways. First is using the standard WLED **fx** key and specifying an effect by id.
+
+This package introduces the ability to specify an effect by name. This is done by using the **fx_name** key with an 
+effect name from the [effects.yaml](definition_files.md#effects) file
+   - fx/fx_name
+### Colors
+   - colors
+### Palettes
+   - pal/pal_name
+### Segment settings
+   - seg.n/seg.seg_name
+### Preset Identifier (id)
+- id
+7. \* expansion
+
+And finally, wled_yaml2json.py supports two YAML file structure variations for WLED presets which will be covered in 
+[YAML Structure Variations](# variations).
 
 ## Example WLED Preset YAML file
 We'll discuss various parts of interest in the file in subsequent subsections.
@@ -113,13 +166,4 @@ These are the preset conventions that I have adopted and are used in this exampl
 86 |  transition: 7
 ```
 
-### defaults:
-```
-01 |defaults:
-02 |  preset:
-03 |    mainseg: 0
-04 |    bri: 128
-05 |    transition: 7
-```
-
-
+## YAML Structure Variations (# variations)
