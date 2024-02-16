@@ -143,7 +143,7 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
         presets_json_path, cfg_json_path = evaluate_presets(configuration, holiday_name, presets_file,
                                                             property_definitions, False, TEST_MODE)
 
-        if need_to_generate_presets(configuration, starting_presets_file, presets, presets_json_path):
+        if need_to_generate_presets(job_file, configuration, starting_presets_file, presets, presets_json_path):
             if verbose:
                 get_logger().info("Generating presets file: {file}".format(file=presets_json_path))
             presets_json_path, cfg_json_path = evaluate_presets(configuration, holiday_name, presets_file,
@@ -213,10 +213,11 @@ def get_presets_files(starting_presets_file, holiday_presets):
     return [starting_presets_file, get_presets_file_name(holiday_presets)]
 
 
-def need_to_generate_presets(configuration: WledConfiguration, starting_presets_file, holiday, presets_json):
+def need_to_generate_presets(job_file, configuration: WledConfiguration, starting_presets_file, holiday, presets_json):
     presets_files = get_presets_files(starting_presets_file, holiday)
     presets_paths = []
 
+    add_path_to_list(presets_paths, job_file)
     add_path_to_list(presets_paths, configuration.properties_path)
     add_path_to_list(presets_paths, configuration.segments_path)
     add_path_to_list(presets_paths, configuration.effects_path)
