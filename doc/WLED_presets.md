@@ -3,14 +3,14 @@ This section covers the WLED Presets YAML files that can be used as inputs to wl
 JSON files for uploading to a WLED instance. If you are not familiar with YAML, have a look at 
 [YAML Ain’t Markup Language (YAML™)](YAML.md).
 
-## Properties (#properties)
+## Properties {#properties}
 
 Property substitution, as discussed in [Environment Definition Files Specifications](env_definition_files.md), 
 can be used anywhere in the WLED Presets YAML file. Typically, property substitution would be used to set YAML values. 
 Theoretically, it should also work for replacing YAML keys, although I have never had need for that and have not 
 tested it.
 
-## Defaults (#defaults)
+## Defaults {#defaults}
 
 Wled_yaml2json.py supports a non-WLED data section identified with the top level key, **defaults**. If present, 
 **defaults** can contain one or both a **preset** and a **segment** key. As the name suggests, keys and values under 
@@ -31,12 +31,12 @@ defaults:
     sx: 128
 ```
 
-## Preset Settings (#presets)
+## Preset Settings {#presets}
 
 Most key/value pairs are copied directly to the JSON file after any required property substitution.
 Exceptions to this direct-copying include effects, palettes, colors, segment settings and one non-WLED key, id.
 
-### Effects
+### Effects {#effects}
 Effects can be specified in one of two ways. First is using the standard WLED **fx** key and specifying an effect by id.
 
 This package introduces the ability to specify an effect by name. This is done by using the **fx_name** key with an 
@@ -55,7 +55,7 @@ all refer to WLED effect #89 and will result in
 ```
 in the generated WLED presets JSON file.
 
-### Palettes
+### Palettes {#palettes}
 Palettes can be specified in one of two ways. First is using the standard WLED **pal** key and specifying an effect by id.
 
 This package introduces the ability to specify a palette by name. This is done by using the **pal_name** key with a 
@@ -74,7 +74,7 @@ all refer to WLED palette #44 and will result in
 ```
 in the generated WLED presets JSON file.
 
-### Colors
+### Colors {#colors}
 Palettes can be specified in multiple ways. First is using the standard WLED **col** key and specifying a list of lists.
 In YAML, specifying red, green, blue would look like this:
 ```yaml
@@ -112,7 +112,7 @@ Using this notation, the above color list would look like this in YAML:
 As with effects and palettes, The color names are case-insensitive and can have embedded spaces and/or underscores.
 ### Segment settings
    - seg.n/seg.seg_name
-### Preset Identifier (id)
+### Preset Identifier {#id}
 - id
 7. \* expansion
 
