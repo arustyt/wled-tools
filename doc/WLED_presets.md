@@ -58,7 +58,7 @@ in the generated WLED presets JSON file.
 ### Palettes {#palettes}
 Palettes can be specified in one of two ways. First is using the standard WLED **pal** key and specifying an effect by id.
 
-This package introduces the ability to specify a palette by name. This is done by using the **pal_name** key with a 
+This package allows you to specify a palette by name. This is done by using the **pal_name** key with a 
 palette name from [palettes.yaml](definition_files.md#palettes).  The value of **pal_name** is case-insensitive and can 
 have embedded spaces and/or underscores. For example,
 ```yaml
@@ -75,8 +75,8 @@ all refer to WLED palette #44 and will result in
 in the generated WLED presets JSON file.
 
 ### Colors {#colors}
-Palettes can be specified in multiple ways. First is using the standard WLED **col** key and specifying a list of lists.
-In YAML, specifying red, green, blue would look like this:
+Colors can be specified in multiple ways. First is using the standard WLED **col** key and specifying a list of 
+individual RGB colors. In YAML, specifying red, green, blue would look like this:
 ```yaml
     col:
     - - 255
@@ -89,14 +89,21 @@ In YAML, specifying red, green, blue would look like this:
       - 0
       - 255 
 ```
-This package introduces alternative methods to specify colors. First you can use hex codes without the leading # sign. 
-Using this notation, the above color list would look like this in YAML:
+This package supports two alternative methods to specify colors. First you can use hex codes with or without a 
+leading # sign. Using this notation, the above color list would look like this in YAML:
 
 ```yaml
     col:
     - 'FF0000'
     - '00FF00'
     - '0000FF'
+```
+or
+```yaml
+    col:
+    - '#FF0000'
+    - '#00FF00'
+    - '#0000FF'
 ```
 The quotes are required to force interpretation as strings.
 
@@ -110,11 +117,96 @@ Using this notation, the above color list would look like this in YAML:
     - Blue
 ```
 As with effects and palettes, The color names are case-insensitive and can have embedded spaces and/or underscores.
-### Segment settings
-   - seg.n/seg.seg_name
+
+In all cases above it is also allowed to express lists in the form of a comma separated list enclosed in square brackets
+([item, item, ...]).
+
+Using this syntax, the above examples reduce to:
+
+```yaml
+    col:
+    - [255, 0, 0]
+    - [0, 255, 0]
+    - [0, 0, 255] 
+```
+or
+```yaml
+    col: [[255, 0, 0], [0, 255, 0], [0, 0, 255]] 
+```
+or
+```yaml
+    col: ['FF0000', '00FF00', '0000FF']
+```
+or
+```yaml
+    col: [Red, Green, Blue]
+```
+
+As a convenience, you can use this shorthand to specify an empty list of colors when using a palette that does not use the 
+primary, secondary, and tertiary colors.
+```yaml
+    col: []
+```
+
+### Segments and Settings {#segments}
+Segments within the **seg** list can be specified in multiple ways. First is using the standard WLED key/value pairs
+to specify individual keys such as **n**, **grp**, **of**, **spc**, etc. 
+
+A more succinct and reusable mechanism is to utilize segment names to refer to segment definitions. 
+This is done by using the **seg_name** key with a name from [segments.yaml](env_definition_files.md#segments).
+The value of **seg_name** is case-insensitive and can have embedded spaces and/or underscores. For example,
+```yaml
+    seg_name: Whole Roof
+    seg_name: whole roof
+    seg_name: whole_roof
+    seg_name: WholeRoof
+    seg_name: WhOlE RoOf
+```
+all refer to the same segment definition in segments.yaml.
+
+It is also possible to specify variations to a segment definition in segments.yaml with the following syntax:
+
+```yaml
+    seg_name: <segment name>(parm=value,...)
+```
+There can be zero or more spaces between the <segment name> and the open parenthesis, '('. The parentheses enclose
+a list of one or more comma-separated parameter/value pairs. Currently supported segment parameters are:
+**start**, **stop**, **spc**, **grp**, and **of**. Setting these values via parameters will override corresponding
+values in segments.yaml.
+
+I got the idea for the following from [HandyDadTV](https://www.youtube.com/@handydadtv), specifically from
+this [YouTube video](https://www.youtube.com/watch?v=i_OtZHUFpG0).
+
+Another supported parameterized variant uses the parm value of **pat**. This parameter allows you to specify a pattern
+for the LEDs in the string/strip. The value is a sequence of numbers representing the pattern separated by delimiters.
+The delimiters can be any single character other than a left parenthesis or a number. In addition, exactly 
+one of the numbers must be enclosed in parentheses to indicate which number in the pattern belongs is associated with 
+segment. Here is an example using '/' as the delimiter.
+
+```yaml
+    seg:
+    - seg_name: Whole Roof(pat=(2)/1/2/1) # This segment is the 1st in the pattern and consists of 2 LEDs.
+      ...
+    - seg_name: Whole Roof(pat=2/(1)/2/1) # This segment is the 2nd in the pattern and consists of 1 LED.
+      ...
+    - seg_name: Whole Roof(pat=2/1/(2)/1) # This segment is the 3rd in the pattern and consists of 2 LEDs.
+      ...
+    - seg_name: Whole Roof(pat=2/1/2/(1)) # This segment is the 4th in the pattern and consists of 1 LED.
+      ...
+```
+
+The numbers in the pattern are used to compute the **start**, **grp** and **spc** values for each segment. 
+
+> NOTES:
+> 1. If the numbers in the patterns for all associated segments are not identical, the results are undefined.
+> 2. The **pat** parameter should not be mixed with **start**, **stop**, **spc**, **grp**, and **of**. Doing so will
+>    result in an error or unexpected behavior.
+
+
+### Playlist settings {#playlist}
+\* expansion
 ### Preset Identifier {#id}
 - id
-7. \* expansion
 
 And finally, wled_yaml2json.py supports two YAML file structure variations for WLED presets which will be covered in 
 [YAML Structure Variations](# variations).
