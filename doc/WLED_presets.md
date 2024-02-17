@@ -43,15 +43,15 @@ This package introduces the ability to specify an effect by name. This is done b
 effect name from [effects.yaml](definition_files.md#effects).  The value of **fx_name** is case-insensitive and can 
 have embedded spaces and/or underscores. For example,
 ```yaml
-    fx_name: Fireworks Starburst
-    fx_name: fireworks starburst
-    fx_name: fireworks_starburst
-    fx_name: FireworksStarburst
-    fx_name: FiReWoRkS sTaRbUrSt
+      fx_name: Fireworks Starburst
+      fx_name: fireworks starburst
+      fx_name: fireworks_starburst
+      fx_name: FireworksStarburst
+      fx_name: FiReWoRkS sTaRbUrSt
 ```
 all refer to WLED effect #89 and will result in 
-```yaml
-    fx: 89
+```json
+      "fx": 89,
 ```
 in the generated WLED presets JSON file.
 
@@ -69,8 +69,8 @@ have embedded spaces and/or underscores. For example,
     pal_name: OrAnGe & TeAl
 ```
 all refer to WLED palette #44 and will result in 
-```yaml
-    pal: 44
+```json
+    "pal": 44,
 ```
 in the generated WLED presets JSON file.
 
@@ -116,12 +116,10 @@ Using this notation, the above color list would look like this in YAML:
     - Green
     - Blue
 ```
-As with effects and palettes, The color names are case-insensitive and can have embedded spaces and/or underscores.
+As with effects and palettes, the color names are case-insensitive and can have embedded spaces and/or underscores.
 
-In all cases above it is also allowed to express lists in the form of a comma separated list enclosed in square brackets
-([item, item, ...]).
-
-Using this syntax, the above examples reduce to:
+In all cases above YAML allow expressing lists in the form of a comma separated list enclosed in square brackets
+([item, item, ...]). Using this syntax, the above examples reduce to:
 
 ```yaml
     col:
@@ -164,22 +162,35 @@ The value of **seg_name** is case-insensitive and can have embedded spaces and/o
 ```
 all refer to the same segment definition in segments.yaml.
 
-It is also possible to specify variations to a segment definition in segments.yaml with the following syntax:
+#### Segment Parameters {#parameters} 
 
+It is possible to specify variations to a segment definition in segments.yaml with the following syntax:
 ```yaml
     seg_name: <segment name>(parm=value,...)
 ```
-There can be zero or more spaces between the <segment name> and the open parenthesis, '('. The parentheses enclose
-a list of one or more comma-separated parameter/value pairs. Currently supported segment parameters are:
+Zero or more spaces are allowed between the <segment name> and the open parenthesis, '(' of the parameter list.
+The parentheses enclose a list of one or more comma-separated parameter=value pairs. Currently supported segment parameters are:
 **start**, **stop**, **spc**, **grp**, and **of**. Setting these values via parameters will override corresponding
-values in segments.yaml.
+values in segments.yaml. Here is an example:
 
-I got the idea for the following from [HandyDadTV](https://www.youtube.com/@handydadtv), specifically from
-this [YouTube video](https://www.youtube.com/watch?v=i_OtZHUFpG0).
+```yaml
+    seg:
+    - seg_name: Whole Roof(start=0,spc=4,grp=2)
+      ...
+    - seg_name: Whole Roof(start=2,spc=2,grp=1)
+      ...
+    - seg_name: Whole Roof(start=3,spc=4,grp=2)
+```
+This set of parameterized segments could be used to create a LED pattern of
+>    Red - Red - White - Green - Green - White ...
+#### Segment Patterns {#patterns} 
+
+I got the idea for the following from [HandyDadTV](https://www.youtube.com/@handydadtv), 
+specifically from this [video](https://www.youtube.com/watch?v=i_OtZHUFpG0).
 
 Another supported parameterized variant uses the parm value of **pat**. This parameter allows you to specify a pattern
-for the LEDs in the string/strip. The value is a sequence of numbers representing the pattern separated by delimiters.
-The delimiters can be any single character other than a left parenthesis or a number. In addition, exactly 
+for the LEDs in the string/strip instead. The value is a sequence of numbers representing the pattern separated by delimiters.
+The delimiter can be any single character other than a left parenthesis or a number. In addition, exactly 
 one of the numbers must be enclosed in parentheses to indicate which number in the pattern belongs is associated with 
 segment. Here is an example using '/' as the delimiter.
 
