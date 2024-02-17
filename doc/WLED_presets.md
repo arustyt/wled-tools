@@ -213,6 +213,70 @@ The numbers in the pattern are used to compute the **start**, **grp** and **spc*
 > 2. The **pat** parameter should not be mixed with **start**, **stop**, **spc**, **grp**, and **of**. Doing so will
 >    result in an error or unexpected behavior.
 
+###  Segments and Defaults
+Values for segment keys can be defaulted and overridden at several levels. At the beginning of processing of
+each preset, preset and segment defaults are set to the values in the **defaults.preset** and **defaults.segment** 
+portion of the presets YAML file.
+
+Within the first segment of a preset, if **seg_name** is present the segment values are determined and 
+possibly overridden in the following order:
+1. Values in **defaults.segment**.
+2. Values in segments.yaml for the segment specified in **seg_name**.
+3. If **seg_name** value includes parameters, those are applied next.
+4. Any values explicitly specified via the preset segment keys.
+
+For subsequent segments in the same preset, settings from the previous segment become the starting point
+for this segment and are possibly overridden in the following order:
+1. Values in from the previous segment.
+2. Values in segments.yaml for the segment specified in **seg_name**.
+3. If **seg_name** value includes parameters, those are applied next.
+4. Any values explicitly specified via the preset segment keys.
+
+As a result, after the first segment it is only necessary to specify settings that are different from the
+previous segment, potentially reducing the duplicated YAML content. Here is an example showing an entire preset:
+```text
+01  |   - n: Valentines - Dissolve Pink White Red White
+02  |     'on': true
+03  |     seg:
+04  |     - id: 0
+05  |       seg_name: Whole Roof(pat=(2)/1/2/1)
+06  |       bri: 128
+07  |       cct: 127
+08  |       col:
+09  |       - Neon Pink
+10  |       - Black
+11  |       - Black
+12  |       fx_name: Dissolve
+13  |       ix: 80
+14  |       mi: false
+15  |       'on': true
+16  |       pal_name: Default
+17  |       rev: false
+18  |       sel: true
+19  |       sx: 128
+20  |     - id: 1 
+21  |       seg_name: Whole Roof(pat=2/(1)/2/1)
+22  |       col:
+23  |       - White
+24  |       - Black
+25  |       - Black
+26  |     - id: 2 
+27  |       seg_name: Whole Roof(pat=2/1/(2)/1)
+28  |       col:
+29  |       - Red
+30  |       - Black
+31  |       - Black
+32  |     - id: 3 
+33  |       seg_name: Whole Roof(pat=2/1/2/(1))
+34  |       col:
+35  |       - White
+36  |       - Black
+37  |       - Black
+38  |     transition: 7
+```
+The first segment covers line numbers 4-19 (16 lines). Subsequent segments on include the **id**, **seg_name**, 
+and **col** requiring 9 fewer lines and no duplication.  Note that this entire preset requires 38 lines but expands 
+to 154 lines in pretty-print JSON.
 
 ### Playlist settings {#playlist}
 \* expansion
