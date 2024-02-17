@@ -40,12 +40,76 @@ Exceptions to this direct-copying include effects, palettes, colors, segment set
 Effects can be specified in one of two ways. First is using the standard WLED **fx** key and specifying an effect by id.
 
 This package introduces the ability to specify an effect by name. This is done by using the **fx_name** key with an 
-effect name from the [effects.yaml](definition_files.md#effects) file
-   - fx/fx_name
-### Colors
-   - colors
+effect name from [effects.yaml](definition_files.md#effects).  The value of **fx_name** is case-insensitive and can 
+have embedded spaces and/or underscores. For example,
+```yaml
+    fx_name: Fireworks Starburst
+    fx_name: fireworks starburst
+    fx_name: fireworks_starburst
+    fx_name: FireworksStarburst
+    fx_name: FiReWoRkS sTaRbUrSt
+```
+all refer to WLED effect #89 and will result in 
+```yaml
+    fx: 89
+```
+in the generated WLED presets JSON file.
+
 ### Palettes
-   - pal/pal_name
+Palettes can be specified in one of two ways. First is using the standard WLED **pal** key and specifying an effect by id.
+
+This package introduces the ability to specify a palette by name. This is done by using the **pal_name** key with a 
+palette name from [palettes.yaml](definition_files.md#palettes).  The value of **pal_name** is case-insensitive and can 
+have embedded spaces and/or underscores. For example,
+```yaml
+    pal_name: Orange & Teal
+    pal_name: orange & teal
+    pal_name: orange_&_teal
+    pal_name: Orange&Teal
+    pal_name: OrAnGe & TeAl
+```
+all refer to WLED palette #44 and will result in 
+```yaml
+    pal: 44
+```
+in the generated WLED presets JSON file.
+
+### Colors
+Palettes can be specified in multiple ways. First is using the standard WLED **col** key and specifying a list of lists.
+In YAML, specifying red, green, blue would look like this:
+```yaml
+    col:
+    - - 255
+      - 0
+      - 0
+    - - 0
+      - 255
+      - 0
+    - - 0
+      - 0
+      - 255 
+```
+This package introduces alternative methods to specify colors. First you can use hex codes without the leading # sign. 
+Using this notation, the above color list would look like this in YAML:
+
+```yaml
+    col:
+    - 'FF0000'
+    - '00FF00'
+    - '0000FF'
+```
+The quotes are required to force interpretation as strings.
+
+The second alternative to specifying colors is by a name in [colors.yaml](definition_files.md#colors). 
+Using this notation, the above color list would look like this in YAML:
+
+```yaml
+    col:
+    - Red
+    - Green
+    - Blue
+```
+As with effects and palettes, The color names are case-insensitive and can have embedded spaces and/or underscores.
 ### Segment settings
    - seg.n/seg.seg_name
 ### Preset Identifier (id)
