@@ -223,14 +223,14 @@ possibly overridden in the following order:
 1. Values in **defaults.segment**.
 2. Values in segments.yaml for the segment specified in **seg_name**.
 3. If **seg_name** value includes parameters, those are applied next.
-4. Any values explicitly specified via the preset segment keys.
+4. Any values explicitly specified via the preset segment keys are applied last.
 
 For subsequent segments in the same preset, settings from the previous segment become the starting point
-for this segment and are possibly overridden in the following order:
-1. Values in from the previous segment.
+for the next segment and are possibly overridden in the following order:
+1. Values from the previous segment.
 2. Values in segments.yaml for the segment specified in **seg_name**.
 3. If **seg_name** value includes parameters, those are applied next.
-4. Any values explicitly specified via the preset segment keys.
+4. Any values explicitly specified via the preset segment keys are applied last.
 
 As a result, after the first segment it is only necessary to specify settings that are different from the
 previous segment, potentially reducing the duplicated YAML content. Here is an example showing an entire preset:
@@ -274,9 +274,9 @@ previous segment, potentially reducing the duplicated YAML content. Here is an e
 37  |       - Black
 38  |     transition: 7
 ```
-The first segment covers line numbers 4-19 (16 lines). Subsequent segments on include the **id**, **seg_name**, 
-and **col** requiring 9 fewer lines and no duplication.  Note that this entire preset requires 38 lines but expands 
-to 154 lines in pretty-print JSON.
+The first segment covers line numbers 4-19 (16 lines). Subsequent segments only include the **id**, **seg_name**, 
+and **col** requiring 9 fewer lines and no duplication.  Note that this entire preset requires 38 lines in YAML but 
+expands to 154 lines in pretty-print JSON.
 
 ### Playlist settings {#playlist}
 \* expansion
