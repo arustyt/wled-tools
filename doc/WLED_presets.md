@@ -181,7 +181,7 @@ values in segments.yaml. Here is an example:
       ...
     - seg_name: Whole Roof(start=3,spc=4,grp=2)
 ```
-This set of parameterized segments could be used to create a LED pattern of
+As an example, this set of parameterized segments could be used to create a LED pattern of
 >    Red - Red - White - Green - Green - White ...
 #### Segment Patterns {#patterns} 
 
@@ -279,15 +279,362 @@ and **col** requiring 9 fewer lines and no duplication.  Note that this entire p
 expands to 154 lines in pretty-print JSON.
 
 ### Playlist settings {#playlist}
-\* expansion
-### Preset Identifier {#id}
-- id
+There are two features for use in playlists, both shown in this example:
 
-And finally, wled_yaml2json.py supports two YAML file structure variations for WLED presets which will be covered in 
-[YAML Structure Variations](# variations).
+```yaml
+  - n: Playlist Du Jour
+    'on': true
+    playlist:
+      dur:
+      - ${playlist_duration} * 5
+      end: 'Off'
+      ps:
+      - Blends
+      - Fireworks Starburst
+      - Dissolve Red White Blue White
+      - Chunchun
+      - Colorwaves
+      r: false
+      repeat: ${playlist_repeat}
+      transition:
+      - 0 * 5
+```
 
-## Example WLED Preset YAML file
-We'll discuss various parts of interest in the file in subsequent subsections.
+First, preset references can be made by preset names or ids.  This applies to the preset list in **ps** and to
+the **end** preset.  Playlist names are case-insensitive and can have embedded spaces and/or underscores.
+
+The second feature is a shorthand for the **dur** and **transition** lists. Places where the list has multiple 
+elements with same values can be combined into a single list element with the value, followed by an asterisk (*) and 
+then the number of repetitions.  In the example above:
+
+```yaml
+      dur:
+      - ${playlist_duration} * 5
+      ...
+      transition:
+      - 0 * 5
+
+```
+produces the same result as:
+```yaml
+      dur:
+      - ${playlist_duration}
+      - ${playlist_duration}
+      - ${playlist_duration}
+      - ${playlist_duration}
+      - ${playlist_duration}
+      ...
+      transition:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+```
+
+### Presets YAML File Structure {#structure}
+All of the above information can be combined into two supported YAML file structure variations.
+The first structure most closely mimics the WLED presets JSON structure. Aside from the defaults settings the 
+remainder of the file structure is basically a YAML version of the JSON file with the additional features discussed 
+above. Here is an example of this structure:
+
+```
+defaults:
+  preset:
+    mainseg: 0
+    bri: 128
+    transition: 7
+'0': {}
+'1':
+  n: 'Off'
+  win: T=0
+'2':
+  n: 'On'
+  win: T=1
+'3':
+  n: Sunset Playlist
+  'on': true
+  playlist:
+    dur:
+    - ${sunset.sunset_duration}
+    - 10
+    end: 0
+    ps:
+    - Sunset
+    - Playlist Du Jour
+    r: false
+    repeat: 1
+    transition:
+    - ${sunset.sunset_transition}
+    - 0
+'20':
+  n: Playlist Du Jour
+  'on': true
+  playlist:
+    dur:
+    - ${playlist_duration} * 2
+    end: 0
+    ps:
+    - Christmas
+    - TwinkleFoxRainbow
+    r: false
+    repeat: ${playlist_repeat}
+    transition:
+    - 10 * 2
+'22':
+  n: Christmas
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - Red
+    - Green
+    - White
+    fx_name: Running 2
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    'on': true
+    pal_name: Default
+    rev: true
+    sel: true
+    spc: 0
+    sx: 122
+  - id: 1
+    seg_name: Second Floor
+    rev: false
+  transition: 7
+'27':
+  n: TwinkleFoxRainbow
+  'on': true
+  seg:
+  - bri: 128
+    col: []
+    fx_name: Twinklefox
+    grp: 1
+    id: 0
+    ix: 255
+    mi: false
+    seg_name: Whole Roof
+    'on': true
+    pal_name: Rainbow
+    rev: false
+    sel: true
+    spc: 0
+    sx: 125
+  transition: 7
+```
+The downside of this structure is that you are forced to hardcode the preset IDs. This is not ideal, especially when
+you start merging multiple YAML Preset files to generate a single WLED Preset JSON file, which is a supported feature.
+
+**wled_yaml2json.py** supports an alternate preset file structure to remove the need for hard-coding. To be sure, 
+it may be desirable to hard-code some preset ids so that known values can be configured for the default boot preset 
+id and when scheduling presets. Initially, config file processing was designed to allow specifying presets by name, 
+where needed. I got as far as implementing assigning the default boot preset by name. Soon thereafter I came to 
+the conclusion that it would be better to choose a static configuration convention. 
+This convention allows me to use a few hard-coded preset ids (2 in my case) and avoid the complexity of modifying the
+WLED configuration for each set of presets. A for other preset ids like playlists and the associated presets, their
+ids don't matter to me.
+
+In its pure form the alternate structure has two top-level keys.
+```yaml
+defaults:
+  ...
+presets:
+  ...
+```
+**presets** is a list of preset objects. The presets objects themselves are the same as described above 
+with the addition of an
+optional new key, **id**.  If the **id** key is present, its associated value is the hard-coded preset id. 
+If **id** is not present, **wled_yaml2json.py** will supply an unused preset id to the preset.
+
+The above example in this alternate structure looks like this:
+```yaml
+defaults:
+  preset:
+    mainseg: 0
+    bri: 128
+    transition: 7
+presets:
+- id: 0
+- id: 1
+  n: 'Off'
+  win: T=0
+- id: 2
+  n: 'On'
+  win: T=1
+- id: 3
+  n: Sunset Playlist
+  'on': true
+  playlist:
+    dur:
+    - ${sunset.sunset_duration}
+    - 10
+    end: 0
+    ps:
+    - Sunset
+    - Playlist Du Jour
+    r: false
+    repeat: 1
+    transition:
+    - ${sunset.sunset_transition}
+    - 0
+- n: Playlist Du Jour
+  'on': true
+  playlist:
+    dur:
+    - ${playlist_duration} * 2
+    end: 0
+    ps:
+    - Christmas
+    - TwinkleFoxRainbow
+    r: false
+    repeat: ${playlist_repeat}
+    transition:
+    - 10 * 2
+- n: Christmas
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - Red
+    - Green
+    - White
+    fx_name: Running 2
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    'on': true
+    pal_name: Default
+    rev: true
+    sel: true
+    spc: 0
+    sx: 122
+  - id: 1
+    seg_name: Second Floor
+    rev: false
+  transition: 7
+- n: TwinkleFoxRainbow
+  'on': true
+  seg:
+  - bri: 128
+    col: []
+    fx_name: Twinklefox
+    grp: 1
+    id: 0
+    ix: 255
+    mi: false
+    seg_name: Whole Roof
+    'on': true
+    pal_name: Rainbow
+    rev: false
+    sel: true
+    spc: 0
+    sx: 125
+  transition: 7
+```
+In this case preset ids 0, 1, 2 and 3 are hard-coded.  The remainder will be assigned during processing.
+
+It is also possible to combine the two structures. The following combines the previous examples, using the original 
+structure for the hard-coded presets and the alternate structure for the presets without assigned ids. 
+
+```yaml
+defaults:
+  preset:
+    mainseg: 0
+    bri: 128
+    transition: 7
+'0': {}
+'1':
+  n: 'Off'
+  win: T=0
+'2':
+  n: 'On'
+  win: T=1
+'3':
+  n: Sunset Playlist
+  'on': true
+  playlist:
+    dur:
+    - ${sunset.sunset_duration}
+    - 10
+    end: 0
+    ps:
+    - Sunset
+    - Playlist Du Jour
+    r: false
+    repeat: 1
+    transition:
+    - ${sunset.sunset_transition}
+    - 0
+presets:
+- n: Playlist Du Jour
+  'on': true
+  playlist:
+    dur:
+    - ${playlist_duration} * 2
+    end: 0
+    ps:
+    - Christmas
+    - TwinkleFoxRainbow
+    r: false
+    repeat: ${playlist_repeat}
+    transition:
+    - 10 * 2
+- n: Christmas
+  'on': true
+  seg:
+  - bri: 128
+    col:
+    - Red
+    - Green
+    - White
+    fx_name: Running 2
+    grp: 1
+    id: 0
+    ix: 128
+    mi: false
+    seg_name: First Floor
+    'on': true
+    pal_name: Default
+    rev: true
+    sel: true
+    spc: 0
+    sx: 122
+  - id: 1
+    seg_name: Second Floor
+    rev: false
+  transition: 7
+- n: TwinkleFoxRainbow
+  'on': true
+  seg:
+  - bri: 128
+    col: []
+    fx_name: Twinklefox
+    grp: 1
+    id: 0
+    ix: 255
+    mi: false
+    seg_name: Whole Roof
+    'on': true
+    pal_name: Rainbow
+    rev: false
+    sel: true
+    spc: 0
+    sx: 125
+  transition: 7
+```
+While mixing these formats in a single file may not make sense, the ability to merge multiple preset YAML files 
+into a single WLED preset JSON file is supported.
+Supporting a mix of structures allows merging files containing the both structures.
+
+Support for the original structure will continue for this reason: If a WLED presets JSON file is converted to
+YAML (using **json2yaml.py**) the resulting YAML file will be in the original structure. This makes it an 
+easy way to get a starting YAML file to use with this package to generate WLED presets JSON files.
 
 ### Example Conventions
 These are the preset conventions that I have adopted and are used in this example.
@@ -308,93 +655,6 @@ These are the preset conventions that I have adopted and are used in this exampl
 
 ```Presets >3``` includes the "Playlist Du Jour" preset and its specified presets.
 
-```
-01 |defaults:
-02 |  preset:
-03 |    mainseg: 0
-04 |    bri: 128
-05 |    transition: 7
-06 |'0': {}
-07 |'1':
-08 |  n: 'Off'
-09 |  win: T=0
-10 |'2':
-11 |  n: 'On'
-12 |  win: T=1
-13 |'3':
-14 |  n: Sunset Playlist
-15 |  'on': true
-16 |  playlist:
-17 |    dur:
-18 |    - ${sunset.sunset_duration}
-19 |    - 10
-20 |    end: 0
-21 |    ps:
-22 |    - Sunset
-23 |    - Playlist Du Jour
-24 |    r: false
-25 |    repeat: 1
-26 |    transition:
-27 |    - ${sunset.sunset_transition}
-28 |    - 0
-29 |'20':
-30 |  n: Playlist Du Jour
-31 |  'on': true
-32 |  playlist:
-33 |    dur:
-34 |    - ${playlist_duration} * 2
-35 |    end: 0
-36 |    ps:
-37 |    - Christmas
-38 |    - TwinkleFoxRainbow
-39 |    r: false
-40 |    repeat: ${playlist_repeat}
-41 |    transition:
-42 |    - 10 * 2
-43 |'22':
-44 |  n: Christmas
-45 |  'on': true
-46 |  seg:
-47 |  - bri: 128
-48 |    col:
-49 |    - Red
-50 |    - Green
-51 |    - White
-52 |    fx_name: Running 2
-53 |    grp: 1
-54 |    id: 0
-55 |    ix: 128
-56 |    mi: false
-57 |    seg_name: First Floor
-58 |    'on': true
-59 |    pal_name: Default
-60 |    rev: true
-61 |    sel: true
-62 |    spc: 0
-63 |    sx: 122
-64 |  - id: 1
-65 |    seg_name: Second Floor
-66 |    rev: false
-67 |  transition: 7
-68 |'27':
-69 |  n: TwinkleFoxRainbow
-70 |  'on': true
-71 |  seg:
-72 |  - bri: 128
-73 |    col: []
-74 |    fx_name: Twinklefox
-75 |    grp: 1
-76 |    id: 0
-77 |    ix: 255
-78 |    mi: false
-79 |    seg_name: Whole Roof
-80 |    'on': true
-81 |    pal_name: Rainbow
-82 |    rev: false
-83 |    sel: true
-84 |    spc: 0
-85 |    sx: 125
-86 |  transition: 7
-```
+
 
 ## YAML Structure Variations (# variations)
