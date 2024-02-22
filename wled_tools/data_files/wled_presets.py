@@ -4,6 +4,7 @@ import sys
 from data_files.playlists import Playlists
 from data_files.preset_data_normalizer import PresetDataNormalizer
 from data_files.presets import Presets
+from data_files.segment_id_manager import SegmentIdManager
 from data_files.segments import Segments
 from data_files.wled_data_processor import WledDataProcessor
 from definition_files.colors import Colors
@@ -30,6 +31,7 @@ class WledPresets(WledDataProcessor):
         self.current_preset_defaults = {}
         self.current_segment_defaults = {}
         self.max_segments = 0
+        self.segment_id_manager = None
 
     def normalize_wled_data(self, raw_wled_data, merge_playlists):
         normalizer = PresetDataNormalizer(raw_wled_data, merge_playlists)
@@ -74,6 +76,10 @@ class WledPresets(WledDataProcessor):
     def finalize_dict(self, path: str, name, data: dict, new_data: dict):
         if self.in_preset_segment(path):
             self.current_segment_defaults = new_data.copy()
+            if ID_TAG in new_data:
+                self.current_segment_defaults.pop(ID_TAG)  # Remove id from segment defaults
+            else:
+                new_data[ID_TAG] = self.segment_id_manager.get_next_segment_id()  # Add id to segment data
 
     # preset segment is one that contains a 'seg' element in the path.
     def in_preset_segment(self, path):
@@ -83,6 +89,11 @@ class WledPresets(WledDataProcessor):
     def in_normal_preset(self, data):
         return SEGMENT_TAG in data
 
+    def init_list(self, path: str, name, data: list):
+        if name == SEGMENT_TAG:
+            self.segment_id_manager = SegmentIdManager(data)
+        return []
+
     def process_list(self, path: str, name, data: list, new_data: list):
         if name == COLOR_TAG:
             self.process_colors(path, COLOR_TAG, data, new_data)
@@ -90,7 +101,8 @@ class WledPresets(WledDataProcessor):
             super().process_list(path, name, data, new_data)
 
     def finalize_list(self, path: str, name, data: list, new_data: list):
-        if name == 'seg':
+        if name == SEGMENT_TAG:
+            self.segment_id_manager = None
             if len(new_data) > self.max_segments:
                 self.max_segments = len(new_data)
 
