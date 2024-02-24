@@ -147,6 +147,13 @@ primary, secondary, and tertiary colors.
 ```
 
 ### Segments and Settings {#segments}
+
+#### Segment IDs
+Within WLED presets JSON must have an associated **id**. The segment **id** can be hard coded into each item in the 
+**seg** list.  If the **id** key is not present for a segment, **wled_yaml2json.py** will auto-generate ids for the 
+segment.
+
+#### seg_name
 Segments within the **seg** list can be specified in multiple ways. First is using the standard WLED key/value pairs
 to specify individual keys such as **n**, **grp**, **of**, **spc**, etc. 
 
@@ -234,45 +241,45 @@ for the next segment and are possibly overridden in the following order:
 
 As a result, after the first segment it is only necessary to specify settings that are different from the
 previous segment, potentially reducing the duplicated YAML content. Here is an example showing an entire preset:
-```text
-01  |   - n: Valentines - Dissolve Pink White Red White
-02  |     'on': true
-03  |     seg:
-04  |     - id: 0
-05  |       seg_name: Whole Roof(pat=(2)/1/2/1)
-06  |       bri: 128
-07  |       cct: 127
-08  |       col:
-09  |       - Neon Pink
-10  |       - Black
-11  |       - Black
-12  |       fx_name: Dissolve
-13  |       ix: 80
-14  |       mi: false
-15  |       'on': true
-16  |       pal_name: Default
-17  |       rev: false
-18  |       sel: true
-19  |       sx: 128
-20  |     - id: 1 
-21  |       seg_name: Whole Roof(pat=2/(1)/2/1)
-22  |       col:
-23  |       - White
-24  |       - Black
-25  |       - Black
-26  |     - id: 2 
-27  |       seg_name: Whole Roof(pat=2/1/(2)/1)
-28  |       col:
-29  |       - Red
-30  |       - Black
-31  |       - Black
-32  |     - id: 3 
-33  |       seg_name: Whole Roof(pat=2/1/2/(1))
-34  |       col:
-35  |       - White
-36  |       - Black
-37  |       - Black
-38  |     transition: 7
+```yaml
+   - n: Valentines - Dissolve Pink White Red White
+     'on': true
+     seg:
+     - id: 0
+       seg_name: Whole Roof(pat=(2)/1/2/1)
+       bri: 128
+       cct: 127
+       col:
+       - Neon Pink
+       - Black
+       - Black
+       fx_name: Dissolve
+       ix: 80
+       mi: false
+       'on': true
+       pal_name: Default
+       rev: false
+       sel: true
+       sx: 128
+     - id: 1 
+       seg_name: Whole Roof(pat=2/(1)/2/1)
+       col:
+       - White
+       - Black
+       - Black
+     - id: 2 
+       seg_name: Whole Roof(pat=2/1/(2)/1)
+       col:
+       - Red
+       - Black
+       - Black
+     - id: 3 
+       seg_name: Whole Roof(pat=2/1/2/(1))
+       col:
+       - White
+       - Black
+       - Black
+     transition: 7
 ```
 The first segment covers line numbers 4-19 (16 lines). Subsequent segments only include the **id**, **seg_name**, 
 and **col** requiring 9 fewer lines and no duplication.  Note that this entire preset requires 38 lines in YAML but 
@@ -333,6 +340,22 @@ produces the same result as:
 ```
 
 ### Presets YAML File Structure {#structure}
+
+> #### Example Conventions
+> These are the preset conventions applied in the examples below.
+> 
+> ```Preset 0:``` is always present and empty. Its use causes WLED defaults to be applied the LEDs.
+> 
+> 
+> ```Preset 1:``` turns the LEDs off.  This is the preset to apply at boot in LED Preferences.
+> 
+> ```Preset 2:``` is the preset that is scheduled (at 35 minutes before sunset) when the LEDs are turned on. 
+>   In these examples it is a playlist containing the Sunrise effect in sunset mode. The sunset is followed 
+>   by a playlist named "Playlist Du Jour" which varies depending on
+>   the day of the year.
+> 
+> ```Presets >3:``` includes the "Playlist Du Jour" preset and its specified presets.
+
 All of the above information can be combined into two supported YAML file structure variations.
 The first structure most closely mimics the WLED presets JSON structure. Aside from the defaults settings the 
 remainder of the file structure is basically a YAML version of the JSON file with the additional features discussed 
@@ -349,9 +372,6 @@ defaults:
   n: 'Off'
   win: T=0
 '2':
-  n: 'On'
-  win: T=1
-'3':
   n: Sunset Playlist
   'on': true
   playlist:
@@ -431,12 +451,15 @@ you start merging multiple YAML Preset files to generate a single WLED Preset JS
 
 **wled_yaml2json.py** supports an alternate preset file structure to remove the need for hard-coding. To be sure, 
 it may be desirable to hard-code some preset ids so that known values can be configured for the default boot preset 
-id and when scheduling presets. Initially, config file processing was designed to allow specifying presets by name, 
+id and when scheduling presets. 
+# NEEDS WORK
+Initially, config file processing was designed to allow specifying presets by name, 
 where needed. I got as far as implementing assigning the default boot preset by name. Soon thereafter I came to 
 the conclusion that it would be better to choose a static configuration convention. 
 This convention allows me to use a few hard-coded preset ids (2 in my case) and avoid the complexity of modifying the
-WLED configuration for each set of presets. A for other preset ids like playlists and the associated presets, their
-ids don't matter to me.
+WLED configuration for each set of presets. 
+
+A for other preset ids like playlists and the associated presets, their ids don't matter to me.
 
 In its pure form the alternate structure has two top-level keys.
 ```yaml
@@ -463,9 +486,6 @@ presets:
   n: 'Off'
   win: T=0
 - id: 2
-  n: 'On'
-  win: T=1
-- id: 3
   n: Sunset Playlist
   'on': true
   playlist:
@@ -553,9 +573,6 @@ defaults:
   n: 'Off'
   win: T=0
 '2':
-  n: 'On'
-  win: T=1
-'3':
   n: Sunset Playlist
   'on': true
   playlist:
@@ -636,25 +653,4 @@ Support for the original structure will continue for this reason: If a WLED pres
 YAML (using **json2yaml.py**) the resulting YAML file will be in the original structure. This makes it an 
 easy way to get a starting YAML file to use with this package to generate WLED presets JSON files.
 
-### Example Conventions
-These are the preset conventions that I have adopted and are used in this example.
 
-```defaults``` will be discussed below.
-
-```Preset 0``` is always present and empty. Its use causes WLED defaults to be applied the the LEDs.
-
-```Preset 1``` turns the LEDs off.  This is the preset to apply at boot in LED Preferences.
-
-```Preset 2``` turns the LEDs on.  I don't use this preset directly but it is included for 
-               completeness.
-
-```Preset 3``` is the preset that scheduled (~30 minutes before sunset) when the LEDs are turned on. 
-               In the example below it is a playlist containing Sunrise effect in sunset mode.  
-               The sunset is followed by a playlist named "Playlist Du Jour" which varies depending on
-               the day of the year.
-
-```Presets >3``` includes the "Playlist Du Jour" preset and its specified presets.
-
-
-
-## YAML Structure Variations (# variations)
