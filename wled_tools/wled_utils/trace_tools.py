@@ -1,4 +1,5 @@
 from collections import deque
+from wled_utils.logger_utils import get_logger
 
 
 class Tracer:
