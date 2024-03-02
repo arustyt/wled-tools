@@ -16,12 +16,13 @@ class SegmentIdManager:
             raise ValueError("Duplicate segment ID: {pid}".format(pid=segment_id))
 
         self.segment_ids.add(segment_id)
-        if segment_id >= self.next_segment_id:
-            self.next_segment_id = segment_id + 1
 
     def get_next_segment_id(self):
-        segment_id = self.next_segment_id
-        self.segment_ids.add(segment_id)
-        self.next_segment_id += 1
-        return segment_id
+        while True:
+            segment_id = self.next_segment_id
+            self.next_segment_id += 1
+            if segment_id not in self.segment_ids:
+                self.segment_ids.add(segment_id)
+                break
 
+        return segment_id
