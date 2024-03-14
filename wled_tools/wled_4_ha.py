@@ -43,6 +43,12 @@ def main(name, args):
     arg_parser.add_argument("date_str", type=str, help="Date (YYYY-MM-DD) for which holiday presets it to "
                                                        "be evaluated. If not specified, today's date is used.",
                             action="store", default=None, nargs='?')
+    arg_parser.add_argument("--presets", type=str,
+                            help="Override of presets to be used for job execution.",
+                            action="store")
+    arg_parser.add_argument("--holiday", type=str,
+                            help="Override of holiday to be used for job execution.",
+                            action="store")
     arg_parser.add_argument('--verbose', help="Intermediate output will be generated in addition to result output.",
                             action='store_true')
     arg_parser.add_argument('--log_dir', help="Directory where log file will be located.",
@@ -51,17 +57,20 @@ def main(name, args):
     args = arg_parser.parse_args()
     job_file = args.job_file
     env = args.env
+    presets_override = args.presets
+    holiday_override = args.holiday
     date_str = args.date_str
     verbose = args.verbose
 
     init_logger()
 
-    process_successful = wled_4_ha(job_file=job_file, env=env, date_str=date_str, verbose=verbose)
+    process_successful = wled_4_ha(job_file=job_file, env=env, date_str=date_str, verbose=verbose,
+                                   presets_override=presets_override, holiday_override=holiday_override)
 
     return 0 if process_successful else 1
 
 
-def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
+def wled_4_ha(*, job_file, env, date_str=None, verbose=False, presets_override=None, holiday_override=None):
     process_successful = False
     try:
         if date_str is None:
@@ -123,6 +132,12 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False):
             else:
                 presets = matched_candidate[PRESETS_KEY]
                 holiday_name = matched_candidate[HOLIDAY_KEY]
+
+        if presets_override is not None:
+            presets = presets_override
+
+        if holiday_override is not None:
+            holiday_name = holiday_override
 
         if verbose:
             get_logger().info("Holiday: " + str(holiday_name))
