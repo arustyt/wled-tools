@@ -111,8 +111,9 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False, presets_override=N
         evaluation_date = parse_date_str(date_str)
 
         wled_presets = WledHoliday(data_dir=data_dir, definitions_rel_dir=definitions_rel_dir,
-                                  holidays_file=holidays_file, holiday_presets_file=holiday_presets_file, evaluation_date=evaluation_date,
-                                  verbose_mode=verbose)
+                                   holidays_file=holidays_file, holiday_presets_file=holiday_presets_file,
+                                   evaluation_date=evaluation_date,
+                                   verbose_mode=verbose)
         presets = default_holiday_presets_name
         holiday_name = default_holiday_name
         candidates = wled_presets.evaluate_presets_for_date(evaluation_date=evaluation_date)
