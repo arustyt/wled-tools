@@ -255,7 +255,7 @@ def wled_yaml2json(*,
     presets_data = presets_processor.get_processed_data()
     presets_json_path = presets_processor.get_json_file_path()
 
-    cfg_processor = CfgFileProcessor(cfg_paths, presets_data, output_dir, placeholder_replacer, suffix, test_mode,
+    cfg_processor = CfgFileProcessor(cfg_paths, environment, presets_data, output_dir, placeholder_replacer, suffix, test_mode,
                                      quiet_mode)
     cfg_processor.process()
     cfg_json_path = cfg_processor.get_json_file_path()

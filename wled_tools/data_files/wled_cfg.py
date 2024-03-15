@@ -9,8 +9,8 @@ DEFAULT_PRESET_PATH = 'def.ps'
 
 class WledCfg(WledDataProcessor):
 
-    def __init__(self, **kwargs):
-        super().__init__()
+    def __init__(self, environment, **kwargs):
+        super().__init__(environment)
 
         self.presets = Presets(kwdict=kwargs)
 

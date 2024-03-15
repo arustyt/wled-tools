@@ -9,9 +9,10 @@ from wled_utils.yaml_multi_file_loader import load_yaml_files
 
 class CfgFileProcessor(WledFileProcessor):
 
-    def __init__(self, cfg_paths, presets_data, output_dir, placeholder_replacer, suffix, test_mode, quiet_mode):
+    def __init__(self, cfg_paths, environment, presets_data, output_dir, placeholder_replacer, suffix, test_mode, quiet_mode):
         super().__init__(output_dir, placeholder_replacer, suffix, test_mode, quiet_mode)
         self.cfg_paths = cfg_paths
+        self.environment = environment
         self.presets_data = presets_data
         self.cfg_data = None
 
@@ -19,7 +20,7 @@ class CfgFileProcessor(WledFileProcessor):
         if self.cfg_paths is not None:
             if not self.quiet_mode:
                 get_logger().info("\nPROCESSING CFG ...")
-            wled_cfg = WledCfg(presets_data=self.presets_data)
+            wled_cfg = WledCfg(self.environment, presets_data=self.presets_data)
             if not self.quiet_mode:
                 get_logger().info("  Processing {file}".format(file=self.cfg_paths))
 
