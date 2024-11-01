@@ -11,7 +11,7 @@ files before moving them into production.
 - ```roof``` is a "production" environment.  It is made up of two LED pixel strings (439 LEDs total) along 
 the roof-line of the house controlled by a QuinLED DigiQuad controller.
  
-## Properties YAML file
+## Properties YAML file {#properties}
 Properties can be used to substitute values in a WLED presets or configuration file.  
 Property substitution can be used to replace any *value* in a presets or configuration 
 file by wled_yaml2json.py.
@@ -99,7 +99,17 @@ and roof wled_yaml2json.py would look for ```properties-lab_300.yaml``` or ```pr
 depending on the --env option. Thus, there are two ways that properties enable using a 
 single presets file across multiple environments.
 
-## Segments YAML file
+## Segments YAML file {#segments}
+# NEED TO EXPAND TO INCLUDE OTHER SEGMENT PARMS
+
+WLED_NAME_KEY = 'n'
+SEGMENT_START_KEY = 'start'
+SEGMENT_STOP_KEY = 'stop'
+SEGMENT_SPACING_KEY = 'spc'
+SEGMENT_GROUPING_KEY = 'grp'
+SEGMENT_OFFSET_KEY: str = 'of'
+
+
 The segments file provides a way to define WLED segments and access them by name in a presets file. 
 Since it is generally only the starting and ending LED indexes that are reusable across presets,  
 these segment definitions only contain the start and stop LED indexes, not effects, palettes or 
