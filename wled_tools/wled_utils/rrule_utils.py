@@ -1,15 +1,37 @@
+import re
+
 from dateutil.rrule import *
 
-FREQUENCIES = {'YEARLY': YEARLY, 'MONTHLY': MONTHLY, 'WEEKLY': WEEKLY, 'DAILY': DAILY, 'HOURLY': HOURLY,
-               'MINUTELY': MINUTELY, 'SECONDLY': SECONDLY}
+
+YEARLY_STR = 'YEARLY'
+MONTHLY_STR = 'MONTHLY'
+WEEKLY_STR = 'WEEKLY'
+DAILY_STR = 'DAILY'
+HOURLY_STR = 'HOURLY'
+MINUTELY_STR = 'MINUTELY'
+SECONDLY_STR = 'SECONDLY'
+
+FREQUENCIES = {YEARLY_STR: YEARLY, MONTHLY_STR: MONTHLY, WEEKLY_STR: WEEKLY, DAILY_STR: DAILY, HOURLY_STR: HOURLY,
+               MINUTELY_STR: MINUTELY, SECONDLY_STR: SECONDLY}
+BY_WEEKDAY_RE_STR = "(MO|TU|WE|TH|FR|SA|SU) *([(](-?[1-5])[)])? *$"
 
 
 def get_frequency(frequency_string: str):
     return FREQUENCIES[frequency_string.upper()] if frequency_string.upper() in FREQUENCIES else None
 
 
-def get_byweekday(dow, occurrence):
-    day_of_week_abbreviation = dow.upper()[0:2]
+def get_dow_and_occurrence(dow):
+    match = re.match(BY_WEEKDAY_RE_STR, dow)
+    if match is None:
+        raise ValueError("Invalid weekday spec: {}".format(dow))
+    else:
+        return match.group(1), match.group(3)
+
+
+def get_byweekday(dow, default_occurrence=None):
+    day_of_week_abbreviation, occurrence = get_dow_and_occurrence(dow)
+    if occurrence is None:
+        occurrence = default_occurrence
     if day_of_week_abbreviation == 'MO':
         weekday_obj = MO(occurrence)
     elif day_of_week_abbreviation == 'TU':
@@ -30,13 +52,13 @@ def get_byweekday(dow, occurrence):
     return weekday_obj
 
 
-def interpret_general_rrule(frequency, by_month, by_weekday, first_day_of_year):
-    holiday_date = rrule(frequency, dtstart=first_day_of_year, count=1, bymonth=by_month, byweekday=by_weekday)
+def interpret_general_rrule(frequency, interval, by_month, by_weekday, by_monthday, start_date):
+    holiday_date = rrule(frequency, dtstart=start_date, interval=interval, count=1, bymonth=by_month, byweekday=by_weekday)
 
     return holiday_date[0]
 
 
-def interpret_easter_rrule(frequency, by_easter, first_day_of_year):
-    holiday_date = rrule(frequency, dtstart=first_day_of_year, count=1, byeaster=by_easter)
+def interpret_easter_rrule(frequency, interval, by_easter, start_date):
+    holiday_date = rrule(frequency, interval=interval, dtstart=start_date, count=1, byeaster=by_easter)
 
     return holiday_date[0]

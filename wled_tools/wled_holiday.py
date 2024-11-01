@@ -6,7 +6,8 @@ from operator import itemgetter
 
 from dateutil.rrule import *
 
-from wled_constants import DEFAULT_DEFINITIONS_DIR, DEFAULT_HOLIDAYS_FILE, DEFAULT_HOLIDAY_PRESETS_FILE, DEFAULT_HOLIDAY_NAME, \
+from wled_constants import DEFAULT_DEFINITIONS_DIR, DEFAULT_HOLIDAYS_FILE, DEFAULT_HOLIDAY_PRESETS_FILE, \
+    DEFAULT_HOLIDAY_NAME, \
     HOLIDAYS_KEY, DATE_KEY, RRULE_KEY, DAY_OF_YEAR_KEY, DEFAULT_DATA_DIR, DEFAULT_WLED_DIR, HOLIDAY_KEY, PRESETS_KEY, \
     ABBREVIATION_KEY
 from wled_utils.date_utils import get_date_str, get_todays_date_str, parse_date_str, calculate_date, \
@@ -16,6 +17,14 @@ from wled_utils.logger_utils import get_logger, init_logger
 from wled_utils.path_utils import build_path, presets_file_exists, choose_existing_presets
 from wled_utils.rrule_utils import get_frequency, get_byweekday, interpret_general_rrule, interpret_easter_rrule
 from wled_utils.yaml_multi_file_loader import load_yaml_file
+
+RRULE_FREQUENCY_KEY = 'frequency'
+RRULE_INTERVAL_KEY = 'interval'
+RRULE_MOD_KEY = 'mod'
+RRULE_BY_MONTH_KEY = 'month'
+RRULE_MONTHDAY_KEY = 'day_of_month'
+RRULE_WEEKDAY_KEY = 'day_of_week'
+RRULE_OCCURRENCE_KEY = 'occurrence'
 
 PLACEHOLDER_RE = re.compile(r'([a-zA-Z0-9_]*)([+-][1-9][0-9]*)')
 DATE_RE = re.compile(r'([0-9][0-9][0-9][0-9])([+-][1-9][0-9]*)*')
@@ -108,7 +117,8 @@ def process_one_date(date_str, data_dir, definitions_dir, holidays_file, holiday
         get_logger().info("  date to process: " + str(evaluation_date))
 
     wled_presets = WledHoliday(data_dir=data_dir, definitions_rel_dir=definitions_dir, holidays_file=holidays_file,
-                              holiday_presets_file=holiday_presets_file, evaluation_date=evaluation_date, verbose_mode=verbose_mode)
+                               holiday_presets_file=holiday_presets_file, evaluation_date=evaluation_date,
+                               verbose_mode=verbose_mode)
     matched_holiday_presets_list = wled_presets.evaluate_presets_for_date(evaluation_date=evaluation_date)
 
     if verbose_mode:
@@ -308,19 +318,57 @@ class WledHoliday:
             holiday[DAY_OF_YEAR_KEY] = holiday_day_of_year
 
     def interpret_rrule(self, holiday_rrule: dict, evaluation_date):
-        first_day_of_year = calculate_date(evaluation_date, 1, 1)
-        frequency = get_frequency(holiday_rrule['frequency'])
-        if BY_EASTER_KEY in holiday_rrule:
-            holiday_date = interpret_easter_rrule(frequency, holiday_rrule[BY_EASTER_KEY], first_day_of_year)
-        else:
-            by_month = holiday_rrule['month']
-            day_of_week = holiday_rrule['day_of_week']
-            occurrence = holiday_rrule['occurrence']
-            by_weekday = get_byweekday(day_of_week, occurrence)
+        frequency_str = holiday_rrule.get(RRULE_FREQUENCY_KEY)
+        if frequency_str is None:
+            raise LookupError("Missing required field: {}.".format(RRULE_FREQUENCY_KEY))
+        frequency = get_frequency(frequency_str)
 
-            holiday_date = interpret_general_rrule(frequency, by_month, by_weekday, first_day_of_year)
+        interval = holiday_rrule.get(RRULE_INTERVAL_KEY, 1)
+        mod = holiday_rrule.get(RRULE_MOD_KEY, 0)
+        start_date = calculate_date(evaluation_date, frequency_str, interval, mod, 1, 1)
+        if BY_EASTER_KEY in holiday_rrule:
+            holiday_date = interpret_easter_rrule(frequency, interval, holiday_rrule.get(BY_EASTER_KEY), start_date)
+        else:
+            by_month = holiday_rrule.get(RRULE_BY_MONTH_KEY)
+            days_of_week = holiday_rrule.get(RRULE_WEEKDAY_KEY)
+            occurrence = holiday_rrule.get(RRULE_OCCURRENCE_KEY)
+            by_weekday = self.get_by_weekday(days_of_week, occurrence)
+            days_of_month = holiday_rrule.get(RRULE_MONTHDAY_KEY)
+            by_monthday = self.get_by_monthday(days_of_month)
+
+            holiday_date = interpret_general_rrule(frequency, interval, by_month, by_weekday, by_monthday, start_date)
 
         return holiday_date.timetuple().tm_yday
+
+    @staticmethod
+    def get_by_monthday(days_of_month):
+        if days_of_month is None:
+            return None
+        if isinstance(days_of_month, str):
+            by_monthday = days_of_month
+        elif isinstance(days_of_month, list):
+            month_days = []
+            for day_of_month in days_of_month:
+                month_days.append(day_of_month)
+            by_monthday = tuple(month_days)
+        else:
+            raise ValueError('Invalid day_of_month: {}'.format(days_of_month))
+        return by_monthday
+
+    def get_by_weekday(self, days_of_week, occurrence):
+        if days_of_week is None:
+            return None
+        if isinstance(days_of_week, str):
+            by_weekday = get_byweekday(days_of_week, occurrence)
+        elif isinstance(days_of_week, list):
+            week_days = []
+            for day_of_week in days_of_week:
+                week_days.append(get_byweekday(day_of_week, occurrence))
+            by_weekday = tuple(week_days)
+        else:
+            raise ValueError('Invalid day_of_week: {}'.format(days_of_week))
+
+        return by_weekday
 
 
 if __name__ == '__main__':
