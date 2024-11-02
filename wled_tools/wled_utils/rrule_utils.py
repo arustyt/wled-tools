@@ -53,7 +53,8 @@ def get_byweekday(dow, default_occurrence=None):
 
 
 def interpret_general_rrule(frequency, interval, by_month, by_weekday, by_monthday, start_date):
-    holiday_date = rrule(frequency, dtstart=start_date, interval=interval, count=1, bymonth=by_month, byweekday=by_weekday)
+    holiday_date = rrule(frequency, dtstart=start_date, interval=interval, count=1, bymonth=by_month,
+                         byweekday=by_weekday, bymonthday=by_monthday)
 
     return holiday_date[0]
 

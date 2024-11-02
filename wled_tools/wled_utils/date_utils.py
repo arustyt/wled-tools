@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from wled_constants import NAME_KEY, ABBREVIATION_KEY, INDEX_KEY
-from wled_utils.rrule_utils import YEARLY_STR, MONTHLY_STR, DAILY_STR
+from wled_utils.rrule_utils import YEARLY_STR, MONTHLY_STR, DAILY_STR, FREQUENCIES
 
 DATE_FORMAT = '%Y-%m-%d'
 
@@ -33,11 +33,16 @@ def calculate_day_of_year_and_week(evaluation_date: datetime, evaluation_month=N
     return time_tuple.tm_yday, DAYS_OF_THE_WEEK[time_tuple.tm_wday]
 
 
-def calculate_date(evaluation_date: datetime, frequency_str, interval=1, mod=0, evaluation_day=None, evaluation_month=None):
+def calculate_date(evaluation_date: datetime, evaluation_day, evaluation_month, frequency_str=None, interval=1, mod=0):
+    if interval is not None and interval > 1 and frequency_str is None:
+        raise ValueError("Frequency cannot be None if interval > 1.")
+    if frequency_str is not None and not frequency_str in FREQUENCIES:
+        raise ValueError("Frequency must be one of {}.".format(FREQUENCIES.keys()))
     if interval is None or interval == 1:
         return calculate_simple_date(evaluation_date, evaluation_day, evaluation_month)
     else:
-        return calculate_interval_based_date(evaluation_date, frequency_str, interval, mod, evaluation_day, evaluation_month)
+        return calculate_interval_based_date(evaluation_date, evaluation_day, evaluation_month, frequency_str, interval,
+                                             mod)
 
 
 def calculate_simple_date(evaluation_date: datetime, evaluation_day, evaluation_month):
@@ -50,7 +55,7 @@ def calculate_simple_date(evaluation_date: datetime, evaluation_day, evaluation_
     return calc_date
 
 
-def calculate_interval_based_date(evaluation_date, frequency_str, interval, mod, evaluation_day, evaluation_month):
+def calculate_interval_based_date(evaluation_date, evaluation_day, evaluation_month, frequency_str, interval, mod):
     evaluation_year = evaluation_date.year
     if frequency_str == YEARLY_STR:
         while evaluation_year % interval != mod:

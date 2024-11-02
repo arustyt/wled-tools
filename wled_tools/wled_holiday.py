@@ -201,6 +201,8 @@ class WledHoliday:
             candidate_holiday = self.holiday_dates[holiday]
             start_day_of_year = candidate_holiday[START_DAY_OF_YEAR_KEY]
             end_day_of_year = candidate_holiday[END_DAY_OF_YEAR_KEY]
+            if start_day_of_year is None or end_day_of_year is None:
+                continue
             if start_day_of_year <= evaluation_day_of_year <= end_day_of_year:
                 day_of_year_range = end_day_of_year - start_day_of_year + 1
                 matched_holiday, matched_presets = self.get_holiday_and_presets(candidate_holiday,
@@ -277,8 +279,10 @@ class WledHoliday:
 
         holiday_date = self.holidays_data[HOLIDAYS_KEY][holiday][DAY_OF_YEAR_KEY]
 
-        day_of_year = holiday_date + sign * delta
+        if holiday_date is None:
+            return None
 
+        day_of_year = holiday_date + sign * delta
         return day_of_year
 
     def interpret_numeric_expr(self, date_expr, evaluation_date):
@@ -325,7 +329,9 @@ class WledHoliday:
 
         interval = holiday_rrule.get(RRULE_INTERVAL_KEY, 1)
         mod = holiday_rrule.get(RRULE_MOD_KEY, 0)
-        start_date = calculate_date(evaluation_date, frequency_str, interval, mod, 1, 1)
+        start_date = calculate_date(evaluation_date, 1, 1, frequency_str, interval, mod)
+        if start_date.year != evaluation_date.year:
+            return None
         if BY_EASTER_KEY in holiday_rrule:
             holiday_date = interpret_easter_rrule(frequency, interval, holiday_rrule.get(BY_EASTER_KEY), start_date)
         else:
@@ -347,10 +353,7 @@ class WledHoliday:
         if isinstance(days_of_month, str):
             by_monthday = days_of_month
         elif isinstance(days_of_month, list):
-            month_days = []
-            for day_of_month in days_of_month:
-                month_days.append(day_of_month)
-            by_monthday = tuple(month_days)
+            by_monthday = tuple(days_of_month)
         else:
             raise ValueError('Invalid day_of_month: {}'.format(days_of_month))
         return by_monthday
