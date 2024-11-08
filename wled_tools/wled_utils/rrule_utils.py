@@ -25,27 +25,27 @@ def get_dow_and_occurrence(dow):
     if match is None:
         raise ValueError("Invalid weekday spec: {}".format(dow))
     else:
-        return match.group(1), match.group(3)
+        dow = match.group(1)
+        occurrence = match.group(3)
+        return dow, int(occurrence) if occurrence is not None else None
 
 
-def get_byweekday(dow, default_occurrence=None):
+def get_byweekday(dow):
     day_of_week_abbreviation, occurrence = get_dow_and_occurrence(dow)
-    if occurrence is None:
-        occurrence = default_occurrence
     if day_of_week_abbreviation == 'MO':
-        weekday_obj = MO(occurrence)
+        weekday_obj = MO(occurrence) if occurrence is not None else MO
     elif day_of_week_abbreviation == 'TU':
-        weekday_obj = TU(occurrence)
+        weekday_obj = TU(occurrence) if occurrence is not None else TU
     elif day_of_week_abbreviation == 'WE':
-        weekday_obj = WE(occurrence)
+        weekday_obj = WE(occurrence) if occurrence is not None else WE
     elif day_of_week_abbreviation == 'TH':
-        weekday_obj = TH(occurrence)
+        weekday_obj = TH(occurrence) if occurrence is not None else TH
     elif day_of_week_abbreviation == 'FR':
-        weekday_obj = FR(occurrence)
+        weekday_obj = FR(occurrence) if occurrence is not None else FR
     elif day_of_week_abbreviation == 'SA':
-        weekday_obj = SA(occurrence)
+        weekday_obj = SA(occurrence) if occurrence is not None else SA
     elif day_of_week_abbreviation == 'SU':
-        weekday_obj = SU(occurrence)
+        weekday_obj = SU(occurrence) if occurrence is not None else SU
     else:
         raise ValueError("Invalid day of week.")
 
