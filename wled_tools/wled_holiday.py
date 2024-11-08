@@ -24,7 +24,6 @@ RRULE_MOD_KEY = 'mod'
 RRULE_BY_MONTH_KEY = 'month'
 RRULE_MONTHDAY_KEY = 'day_of_month'
 RRULE_WEEKDAY_KEY = 'day_of_week'
-RRULE_OCCURRENCE_KEY = 'occurrence'
 
 PLACEHOLDER_RE = re.compile(r'([a-zA-Z0-9_]*)([+-][1-9][0-9]*)')
 DATE_RE = re.compile(r'([0-9][0-9][0-9][0-9])([+-][1-9][0-9]*)*')
@@ -337,8 +336,7 @@ class WledHoliday:
         else:
             by_month = holiday_rrule.get(RRULE_BY_MONTH_KEY)
             days_of_week = holiday_rrule.get(RRULE_WEEKDAY_KEY)
-            occurrence = holiday_rrule.get(RRULE_OCCURRENCE_KEY)
-            by_weekday = self.get_by_weekday(days_of_week, occurrence)
+            by_weekday = self.get_by_weekday(days_of_week)
             days_of_month = holiday_rrule.get(RRULE_MONTHDAY_KEY)
             by_monthday = self.get_by_monthday(days_of_month)
 
@@ -358,15 +356,16 @@ class WledHoliday:
             raise ValueError('Invalid day_of_month: {}'.format(days_of_month))
         return by_monthday
 
-    def get_by_weekday(self, days_of_week, occurrence):
+    @staticmethod
+    def get_by_weekday(days_of_week):
         if days_of_week is None:
             return None
         if isinstance(days_of_week, str):
-            by_weekday = get_byweekday(days_of_week, occurrence)
+            by_weekday = get_byweekday(days_of_week)
         elif isinstance(days_of_week, list):
             week_days = []
             for day_of_week in days_of_week:
-                week_days.append(get_byweekday(day_of_week, occurrence))
+                week_days.append(get_byweekday(day_of_week))
             by_weekday = tuple(week_days)
         else:
             raise ValueError('Invalid day_of_week: {}'.format(days_of_week))
