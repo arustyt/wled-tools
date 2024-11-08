@@ -13,7 +13,7 @@ tested it.
 ## Defaults {#defaults}
 
 Wled_yaml2json.py supports a non-WLED data section identified with the top level key, **defaults**. If present, 
-**defaults** can contain one or both a **preset** and a **segment** key. As the name suggests, keys and values under 
+**defaults** can contain **preset** and/or **segment** keys. As the name suggests, keys and values under 
 these define default values for presets and segments, respectively. These defaults are applied at the beginning of 
 processing each preset in the YAML file.  The default values can be overridden in a preset or segment if the 
 corresponding key/value is present. If multiple **defaults** keys are present, all entries but the last one  
@@ -213,7 +213,8 @@ segment. Here is an example using '/' as the delimiter.
       ...
 ```
 
-The numbers in the pattern are used to compute the **start**, **grp** and **spc** values for each segment. 
+The numbers in the pattern are used to compute the **start**, **grp** and **spc** values for each segment in the 
+generated WLED presets JSON file. 
 
 > NOTES:
 > 1. If the numbers in the patterns for all associated segments are not identical, the results are undefined.
@@ -356,7 +357,7 @@ produces the same result as:
 > 
 > ```Presets >3:``` includes the "Playlist Du Jour" preset and its specified presets.
 
-All of the above information can be combined into two supported YAML file structure variations.
+All of the above information can be combined into one of two supported YAML file structure variations.
 The first structure most closely mimics the WLED presets JSON structure. Aside from the defaults settings the 
 remainder of the file structure is basically a YAML version of the JSON file with the additional features discussed 
 above. Here is an example of this structure:
@@ -459,7 +460,7 @@ the conclusion that it would be better to choose a static configuration conventi
 This convention allows me to use a few hard-coded preset ids (2 in my case) and avoid the complexity of modifying the
 WLED configuration for each set of presets. 
 
-A for other preset ids like playlists and the associated presets, their ids don't matter to me.
+As for other preset ids like playlists and the associated presets, their ids don't matter to me.
 
 In its pure form the alternate structure has two top-level keys.
 ```yaml
@@ -652,5 +653,3 @@ Supporting a mix of structures allows merging files containing the both structur
 Support for the original structure will continue for this reason: If a WLED presets JSON file is converted to
 YAML (using **json2yaml.py**) the resulting YAML file will be in the original structure. This makes it an 
 easy way to get a starting YAML file to use with this package to generate WLED presets JSON files.
-
-
