@@ -52,11 +52,11 @@ properties files can be divided into sections for each environment.  This will b
 individual sections for each file.   
 
 ## WLED Presets File Names {#preset_file_names}
-The preset file naming convention is mainly important when using the automation scripts, 
+The preset file naming convention is important when using the automation scripts, 
 - **wled_4_ha.py** and 
 - **wled_4_appdaemon.py** 
 
-This convention is quite straight forward and consists of the prefix "presets-" followed by 
+This convention is straight forward and consists of the prefix "presets-" followed by 
 a description of the holiday or purpose of the preset file and finally by the .yaml extension.
 ```commandline
     presets-<purpose_or_holiday>.yaml
@@ -78,4 +78,3 @@ configurations don't change unless I add LEDS to my setup. I now have two config
 one for each environment:
 - **cfg-lab_300.yaml** -  which is my WLED development environment, and
 - **cfg-roof.yaml** -  which is my WLED production environment, i.e. exterior LEDs.
- 

@@ -196,10 +196,10 @@ I got the idea for the following from [HandyDadTV](https://www.youtube.com/@hand
 specifically from this [video](https://www.youtube.com/watch?v=i_OtZHUFpG0).
 
 Another supported parameterized variant uses the parm value of **pat**. This parameter allows you to specify a pattern
-for the LEDs in the string/strip instead. The value is a sequence of numbers representing the pattern separated by delimiters.
+for the LEDs in the string/strip. The value is a sequence of numbers representing the pattern separated by delimiters.
 The delimiter can be any single character other than a left parenthesis or a number. In addition, exactly 
 one of the numbers must be enclosed in parentheses to indicate which number in the pattern belongs is associated with 
-segment. Here is an example using '/' as the delimiter.
+segment. Here is an example using '/' as the delimiter that could be used to create the same LED pattern as above. 
 
 ```yaml
     seg:
