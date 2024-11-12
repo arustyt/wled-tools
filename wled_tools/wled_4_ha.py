@@ -178,7 +178,7 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False, presets_override=N
         if process_successful:
             get_logger().info("WLED_4_HA SUCCESSFUL")
         else:
-            get_logger().info("WLED_4_HA FAILED")
+            get_logger().error("WLED_4_HA FAILED")
     return process_successful
 
 
@@ -221,7 +221,7 @@ def upload_presets(host, presets_json_path, verbose):
         if upload_successful:
             get_logger().info("UPLOAD SUCCESSFUL")
         else:
-            get_logger().info("UPLOAD FAILED")
+            get_logger().error("UPLOAD FAILED")
 
     return upload_successful
 
