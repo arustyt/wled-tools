@@ -116,7 +116,7 @@ objects, one for each holiday. Individual holidays can be defined by either a fi
 Fixed-date holidays occur on a specific day of the year, for example, New Years Day and Valentine's Day. 
 The day of the year is formatted as 'MMDD' and must appear in quotes to force interpretation as a string. 
 
-Variable-date holidays are ones that must be defined by rules (see [dateutil.rrule](https://dateutil.readthedocs.io/en/stable/rrule.html)).
+Variable-date holidays are those that must be defined by rules (see [dateutil.rrule](https://dateutil.readthedocs.io/en/stable/rrule.html)).
 Examples include Easter or in the US, Memorial Day and Thanksgiving. Variable-date rule
 definitions have two variations, depending on whether the holiday is based on the date Easter.
 
