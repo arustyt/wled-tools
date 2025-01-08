@@ -142,7 +142,7 @@ This table shows YAML structure used to define each of these holiday variants:
 
 US national election day provides an example when *interval* and *mod* would be applicable. US national elections occur 
 in even years, the first Tuesday after a Monday in November. In this case, *frequency* would be **YEARLY**, *interval* 
-would be 2 (every other year), and *mod* would be 0 (even years). Also, the first Tuesday after a Monday can only occur on days 2-8 of the month.
+would be 2 (every other year), and *mod* would be 0 (even years). Also, the first Tuesday after a Monday can only occur on the 2nd through the 8th day of the month.
 This definition is included in the example below.
 
 Here is a snippet from holidays.yaml containing all three variations.
