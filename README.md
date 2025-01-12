@@ -5,12 +5,12 @@
 This project was created to enable the automation of WLED controllers presets
 and configuration. The end goal was to have presets defined for various 
 holidays throughout the year and for the automation to determine the 
-appropriate holiday (based on the date) and then configura a WLED controller
+appropriate holiday (based on the current date) and then configura a WLED controller
 with the corresponding presets. The initial plan was to use Home Assistant 
 for automation but, in the end, automation was implemented via AppDaemon.
 
 Sub-goals were to be able to:
- - Keep the preset/configuration data separate from code.
+ - Keep the preset/configuration data separate from code,
  - Reference WLED palettes and effects by name,
  - Specify palette colors by name or in HTML format, e.g. RRGGBB,
  - Reuse segment definitions across presets and refer to them by name, 
@@ -21,7 +21,7 @@ Sub-goals were to be able to:
    of presets for a WLED controller.
 
 This project uses YAML as the configuration language. YAML was chosen because
-it is compatible with JSON but is syntactically simpler and is more human-readable. 
+it is compatible with JSON but is more compact, syntactically simpler and more human-readable. 
 
 ### Primary tools:
 - **[wled_tools/wled_yaml2json.py](doc/wled_yaml2json.md)** - converts YAML files into 
@@ -33,7 +33,7 @@ Python function.
 
 ### Secondary tools:
 - **[wled_tools/wled_holiday.py](doc/wled_holiday.md)** - determines the "holiday" based on a date. The 
-functionality is exposed as a callable Python function.
+functionality is exposed as a callable Python class method.
 - **[wled_tools/wled_update_definitions.py](doc/wled_update_definitions.md)** - updates palette and effects 
 definition files from a running WLED controller.
 
@@ -69,11 +69,10 @@ of these packages may function correctly but have not been tested.
 - GitPython == 3.1.40
 
 ### Related Repositories
-Wled-config is a sibling repository that contains examples of the data files used by wled-tools.
+Wled-config is a sibling repository that contains working examples of the data files used by wled-tools.
 
 ## Additional Details
 Additional details can be found [here](doc/README.md).
 
 ## License
 This software is provided under the [MIT License](LICENSE).
-

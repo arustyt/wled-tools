@@ -35,9 +35,7 @@ palettes:
 - id: 2
   name: Color 1
   desc: A palette consisting only of the primary color
-  .
-  .
-  .
+  ...
 ```
 ### /etc/effects.yaml  {#effects}
 This file contains a single top-level "effects" entry that contains a list
@@ -63,9 +61,7 @@ effects:
 - id: 2
   name: Breathe
   desc: Fades between primary and secondary color
-  .
-  .
-  .
+  ...
 ```
 
 ## WLED Independent Files
@@ -96,7 +92,8 @@ colors:
   name: Midnight
 - code: '34282C'
   name: Charcoal
-  ```
+  ...
+```
 ## User Preference/Locale Dependent Files
 
 These files contain the data to be used to determine which set of WLED presets 
@@ -111,7 +108,7 @@ locale or individual. In the discussion below, the word "holiday" refers to any
 "special" day (or days).
 
 Holidays.yaml contains a single top-level "holidays" entry that contains a list of
-objects, one for each holiday. Individual holidays can be defined by either a fixed date or a variable date.
+objects, one for each holiday. Individual holidays can be defined as either a fixed date or a variable date.
 
 Fixed-date holidays occur on a specific day of the year, for example, New Years Day and Valentine's Day. 
 The day of the year is formatted as 'MMDD' and must appear in quotes to force interpretation as a string. 
@@ -122,23 +119,23 @@ definitions have two variations, depending on whether the holiday is based on th
 
 This table shows YAML structure used to define each of these holiday variants:
 
-| YAML key                                | Type/Value Range            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-|-----------------------------------------|-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| holidays.<*name*>                       | Object                      | A holiday object where <*name*> is the holiday name.                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| ***FIXED DATE HOLIDAY***                |                             | *Defines a holiday with a fixed date.*                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| holidays.<*name*>.date                  | String                      | The date of the holiday as 'MMDD'. The date value must be enclosed in quotes to force interpretation as a string, not a number.                                                                                                                                                                                                                                                                                                                                         |
-| ***VARIABLE NON-EASTER BASED HOLIDAY*** |                             | *Defines a variable-date holiday that is **not** based on the date of Easter.*                                                                                                                                                                                                                                                                                                                                                                                          |
-| holidays.<*name*>.rrule                 | Object                      | An object containing the holiday rule                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| holidays.<*name*>.rrule.frequency       | String                      | Must be present and is the frequency at which this holiday occurs. Typically this will be **YEARLY**, but it must be one of **YEARLY**, **MONTHLY**, **WEEKLY**, or **DAILY**.                                                                                                                                                                                                                                                                                          |
-| holidays.<*name*>.rrule.interval        | Integer                     | If present, it is the interval of *frequency* at which this holiday occurs, e.g. if *frequency* is **YEARLY** and *interval* is 2 the holiday will occur once every two years (see example below). Default value is 1.                                                                                                                                                                                                                                                  |
-| holidays.<*name*>.rrule.mod             | Integer                     | If present, the result of *frequency* % *interval* at which this holiday occurs, e.g. if *frequency* is **YEARLY**, *interval* is 2, *mod* is 0 the holiday will occur on even years, or if *mod* is 1 the holiday will occur on odd years (see example below). Default value is 0.                                                                                                                                                                                     |
-| holidays.<*name*>.rrule.month           | Integer [1-12]              | If present, it must be either an integer, meaning the month to apply the recurrence to.                                                                                                                                                                                                                                                                                                                                                                                 |
-| holidays.<*name*>.rrule.day_of_week     | String or list of strings   | If present, must be one of (**MO**, **TU**, **WE**, **TH**, **FR**, **SA**, **SU**) or a list of these values. Each day of the week can, optionally, be followed by an integer argument enclosed in parentheses, e.g. TU(2). The value is the occurrence of this weekday in the period. For example, with **MONTHLY**, or with **YEARLY** and *month* provided, using TU(2) in *day_of_week* will specify the second Tuesday of the month where the recurrence happens. |
-| holidays.<*name*>.rrule.day_of_month    | Integer or list of integers | Day or days of the month on which the holiday can occur.                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ***VARIABLE EASTER BASED HOLIDAY***     |                             | *Defines a variable-date holiday that is based on the date of Easter.*                                                                                                                                                                                                                                                                                                                                                                                                  |
-| holidays.<*name*>.rrule                 | Object                      | An object containing the holiday rule                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| holidays.<*name*>.rrule.frequency       | String                      | The frequency a which this holiday occurs. Typically this will be YEARLY, but it must be one of YEARLY, MONTHLY, WEEKLY, or DAILY.                                                                                                                                                                                                                                                                                                                                      |
-| holidays.<*name*>.rrule.by_easter       | Integer                     | The number of days before (-negative integer) or after (positive integer) easter.                                                                                                                                                                                                                                                                                                                                                                                       |
+| YAML key                                | Type/Value Range            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|-----------------------------------------|-----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| holidays.<*name*>                       | Object                      | A holiday object where <*name*> is the holiday name.                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ***FIXED DATE HOLIDAY***                |                             | *Defines a holiday with a fixed date.*                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| holidays.<*name*>.date                  | String                      | The date of the holiday as 'MMDD'. The date value must be enclosed in quotes to force interpretation as a string, not a number.                                                                                                                                                                                                                                                                                                                                                      |
+| ***VARIABLE NON-EASTER BASED HOLIDAY*** |                             | *Defines a variable-date holiday that is **not** based on the date of Easter.*                                                                                                                                                                                                                                                                                                                                                                                                       |
+| holidays.<*name*>.rrule                 | Object                      | An object containing the holiday rule                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| holidays.<*name*>.rrule.frequency       | String                      | Must be present and is the frequency at which this holiday occurs. Typically this will be **YEARLY**, but it must be one of **YEARLY**, **MONTHLY**, **WEEKLY**, or **DAILY**.                                                                                                                                                                                                                                                                                                       |
+| holidays.<*name*>.rrule.interval        | Integer                     | If present, it is the interval of *frequency* at which this holiday occurs, e.g. if *frequency* is **YEARLY** and *interval* is 2 the holiday will occur once every two years (see example below). Default value is 1.                                                                                                                                                                                                                                                               |
+| holidays.<*name*>.rrule.mod             | Integer                     | If present, the result of *frequency* % *interval* at which this holiday occurs, e.g. if *frequency* is **YEARLY**, *interval* is 2, *mod* is 0 the holiday will occur on even years, or if *mod* is 1 the holiday will occur on odd years (see example below). Default value is 0.                                                                                                                                                                                                  |
+| holidays.<*name*>.rrule.month           | Integer [1-12]              | If present, it must be an integer, indicating the month in which the holiday occurs.                                                                                                                                                                                                                                                                                                                                                                                                 |
+| holidays.<*name*>.rrule.day_of_week     | String or list of strings   | If present, must be one of (**MO**, **TU**, **WE**, **TH**, **FR**, **SA**, **SU**) or a list of these values. Each day of the week can, optionally, be followed by an integer argument enclosed in parentheses, e.g. TU(2). The value defines which on occurrence of this weekday in the period the holiday falls. For example, with **MONTHLY**, or with **YEARLY** and *month* provided, using TU(2) in *day_of_week* will specify the second Tuesday of the month of the holiday. |
+| holidays.<*name*>.rrule.day_of_month    | Integer or list of integers | Day or days of the month on which the holiday can occur.                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ***VARIABLE EASTER BASED HOLIDAY***     |                             | *Defines a variable-date holiday that is based on the date of Easter.*                                                                                                                                                                                                                                                                                                                                                                                                               |
+| holidays.<*name*>.rrule                 | Object                      | An object containing the holiday rule                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| holidays.<*name*>.rrule.frequency       | String                      | The frequency a which this holiday occurs. Typically this will be YEARLY, but it must be one of YEARLY, MONTHLY, WEEKLY, or DAILY.                                                                                                                                                                                                                                                                                                                                                   |
+| holidays.<*name*>.rrule.by_easter       | Integer                     | The number of days before (negative integer) or after (positive integer) easter.                                                                                                                                                                                                                                                                                                                                                                                                     |
 
 US national election day provides an example when *interval* and *mod* would be applicable. US national elections occur 
 in even years, the first Tuesday after a Monday in November. In this case, *frequency* would be **YEARLY**, *interval* 
@@ -152,7 +149,7 @@ holidays:
   new_years_day:
     date: '0101'
   martin_luther_king_jr_day:
-    rrule: 
+    rrule:
       frequency: YEARLY
       month: 1
       day_of_week: MO(3)
@@ -161,7 +158,7 @@ holidays:
   valentines_day:
     date: '0214'
   presidents_day:
-    rrule: 
+    rrule:
       frequency: YEARLY
       month: 2
       day_of_week: MO(3)
@@ -169,7 +166,9 @@ holidays:
     rrule:
       frequency: YEARLY
       by_easter: -47
-...
+  pi_day:
+    date: '0314'
+  ...
   election_day:
     rrule:
       frequency: YEARLY
@@ -178,6 +177,7 @@ holidays:
       month: 11
       day_of_week: TU
       day_of_month: [2, 3, 4, 5, 6, 7, 8]
+  ...
 ```
 
 ### /etc/holiday_presets.yaml {#holiday_presets}
@@ -188,9 +188,7 @@ definitions in this file do not necessarily have to correspond to holidays
 defined in holidays.yaml.  For example, you could define a preset to use
 on your birthday based on the date (MMDD), alone.
 
-Variable-date holiday entries have two variations. 
-The first variation is for holidays **not** based on the date of Easter and 
-include:
+Each holiday in holiday_presets.yaml can be defined as follows:
 
 | YAML key                          | Type/Value Range | Description                                                                                                                                                               |
 |-----------------------------------|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -219,27 +217,28 @@ include:
 Here is a snippet from holiday_presets.yaml.
 
 ```yaml
+# Date format is MMDD
 holidays:
   normal_night:
     start_date: new_years_day
     end_date: new_years_eve
-    presets: twinkle
+    presets: default
     mon:
-      holiday: normal_monday
+      holiday: normal_night
     tue:
-      holiday: normal_tuesday
+      holiday: normal_night
     wed:
-      holiday: normal_wednesday
+      holiday: normal_night
     thu:
-      holiday: normal_thursday
+      holiday: normal_night
     fri:
-      holiday: normal_friday
+      holiday: normal_night
   new_years_day:
     start_date: new_years_day
     end_date: new_years_day+6
     presets: newyears
   martin_luther_king_jr_day:
-    start_date: martin_luther_king_jr_day-2
+    start_date: martin_luther_king_jr_day-3
     end_date: martin_luther_king_jr_day
     presets: mlkday
   black_history_month:
@@ -259,7 +258,7 @@ holidays:
     end_date: valentines_day
     presets: valentinesday
   presidents_day:
-    start_date: presidents_day-2
+    start_date: presidents_day-3
     end_date: presidents_day
     presets: patriotic
   mardi_gras:
@@ -273,13 +272,61 @@ holidays:
   ash_wednesday:
     start_date: ash_wednesday
     end_date: ash_wednesday
-    presets: twinkle
+    presets: default
   lent:
     start_date: ash_wednesday
     end_date: holy_saturday
-    presets: twinkle
+    presets: default
   palm_sunday:
     start_date: palm_sunday
     end_date: palm_sunday
     presets: easter
+  holy_week:
+    start_date: palm_sunday+1
+    end_date: easter-1
+    presets: default
+  holy_monday:
+    start_date: holy_monday
+    end_date: holy_monday
+    presets: holymonday
+  holy_tuesday:
+    start_date: holy_tuesday
+    end_date: holy_tuesday
+    presets: holytuesday
+  holy_wednesday:
+    start_date: holy_wednesday
+    end_date: holy_wednesday
+    presets: holywednesday
+  maundy_thursday:
+    start_date: maundy_thursday
+    end_date: maundy_thursday
+    presets: maundythursday
+  good_friday:
+    start_date: good_fri
+  ...
+  ```
+When multiple holiday definitions overlap a given date the WledHoliday class in wled_holiday.py assigns precedence
+based on the span between *start_date* and *end_date*. For a given date the WledHoliday.evaluate_presets_for_date() 
+method returns a list of candidate holidays (and associated presets) that include that date. The list is ordered from 
+the shortest span between *start_date* and *end_date* to the longest span. If two (or more) holidays have the same 
+date span they will be provided in the order they appear in holiday_presets.yaml file. 
+(This is due to python 3.7+ guaranteeing dict order in the order of insertion.)
+
+Wled_4_ha iterates through the list of candidate holidays, checking the existence of the associated presets file.
+If the presets file does exist, then it is the holiday/presets that is applied. If the presets file does not exist, 
+wled_4_ha continues to the next candidate in the list, repeating the existence check, and so on.
+
+The *normal_night* holiday defined above spans the entire year. Thus dates that do not have an otherwise defined holiday
+will use the presets file *default*.
+
+Here is an example holiday list for 2024-02-14:
+
+```
+candidates = [
+               {'holiday': 'valentines_day', 'presets': 'valentinesday'}, 
+               {'holiday': 'ash_wednesday', 'presets': 'default'}, 
+               {'holiday': 'black_history_month', 'presets': 'black_history_month'}, 
+               {'holiday': 'lent', 'presets': 'default'}, 
+               {'holiday': 'normal_night', 'presets': 'default'}
+             ]
 ```

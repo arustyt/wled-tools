@@ -7,8 +7,6 @@ JSON files for uploading to a WLED instance. If you are not familiar with YAML, 
 
 Property substitution, as discussed in [Environment Definition Files Specifications](env_definition_files.md), 
 can be used anywhere in the WLED Presets YAML file. Typically, property substitution would be used to set YAML values. 
-Theoretically, it should also work for replacing YAML keys, although I have never had need for that and have not 
-tested it.
 
 ## Defaults {#defaults}
 
@@ -19,7 +17,7 @@ processing each preset in the YAML file.  The default values can be overridden i
 corresponding key/value is present. If multiple **defaults** keys are present, all entries but the last one  
 will be silently ignored.
 
-Here is a sample of defaults usage:
+Here is an example of defining defaults:
 
 ```YAML
 defaults:
@@ -37,7 +35,7 @@ Most key/value pairs are copied directly to the JSON file after any required pro
 Exceptions to this direct-copying include effects, palettes, colors, segment settings and one non-WLED key, id.
 
 ### Effects {#effects}
-Effects can be specified in one of two ways. First is using the standard WLED **fx** key and specifying an effect by id.
+Effects can be specified in one of two ways. First is using the standard WLED **fx** key and specifying an effect by numeric id.
 
 This package introduces the ability to specify an effect by name. This is done by using the **fx_name** key with an 
 effect name from [effects.yaml](definition_files.md#effects).  The value of **fx_name** is case-insensitive and can 
@@ -56,7 +54,7 @@ all refer to WLED effect #89 and will result in
 in the generated WLED presets JSON file.
 
 ### Palettes {#palettes}
-Palettes can be specified in one of two ways. First is using the standard WLED **pal** key and specifying an effect by id.
+Palettes can be specified in one of two ways. First is using the standard WLED **pal** key and specifying an effect by numeric id.
 
 This package allows you to specify a palette by name. This is done by using the **pal_name** key with a 
 palette name from [palettes.yaml](definition_files.md#palettes).  The value of **pal_name** is case-insensitive and can 
@@ -150,8 +148,7 @@ primary, secondary, and tertiary colors.
 
 #### Segment IDs
 Within WLED presets JSON must have an associated **id**. The segment **id** can be hard coded into each item in the 
-**seg** list.  If the **id** key is not present for a segment, **wled_yaml2json.py** will auto-generate ids for the 
-segment.
+**seg** list.  If the **id** key is not present for a segment, **wled_yaml2json.py** will auto-generate an id for the segment.
 
 #### seg_name
 Segments within the **seg** list can be specified in multiple ways. First is using the standard WLED key/value pairs
@@ -196,10 +193,10 @@ I got the idea for the following from [HandyDadTV](https://www.youtube.com/@hand
 specifically from this [video](https://www.youtube.com/watch?v=i_OtZHUFpG0).
 
 Another supported parameterized variant uses the parm value of **pat**. This parameter allows you to specify a pattern
-for the LEDs in the string/strip instead. The value is a sequence of numbers representing the pattern separated by delimiters.
+for the LEDs in the string/strip. The value is a sequence of numbers representing the pattern separated by delimiters.
 The delimiter can be any single character other than a left parenthesis or a number. In addition, exactly 
 one of the numbers must be enclosed in parentheses to indicate which number in the pattern belongs is associated with 
-segment. Here is an example using '/' as the delimiter.
+segment. Here is an example using '/' as the delimiter that could be used to create the same LED pattern as above. 
 
 ```yaml
     seg:
@@ -358,6 +355,9 @@ produces the same result as:
 > ```Presets >3:``` includes the "Playlist Du Jour" preset and its specified presets.
 
 All of the above information can be combined into one of two supported YAML file structure variations.
+
+#### Presets YAML File Structure #1 - The Original Structure
+
 The first structure most closely mimics the WLED presets JSON structure. Aside from the defaults settings the 
 remainder of the file structure is basically a YAML version of the JSON file with the additional features discussed 
 above. Here is an example of this structure:
@@ -454,25 +454,31 @@ you start merging multiple YAML Preset files to generate a single WLED Preset JS
 it may be desirable to hard-code some preset ids so that known values can be configured for the default boot preset 
 id and when scheduling presets. 
 # NEEDS WORK
-Initially, config file processing was designed to allow specifying presets by name, 
-where needed. I got as far as implementing assigning the default boot preset by name. Soon thereafter I came to 
+> **Observation:** Initially, config file processing was designed to allow specifying presets by name,
+where needed. I got as far as implementing assigning the default boot preset by name when I came to 
 the conclusion that it would be better to choose a static configuration convention. 
-This convention allows me to use a few hard-coded preset ids (2 in my case) and avoid the complexity of modifying the
-WLED configuration for each set of presets. 
+This convention allows me to use a few hard-coded preset ids (IDs 1 and 2 in my case) and avoid the complexity of 
+modifying the WLED configuration for each set of presets.
+>
+>As for other preset ids like playlists and the associated presets, their ids don't matter to me.
+>
+>This observation led to **Presets YAML File Structure #2**.
 
-As for other preset ids like playlists and the associated presets, their ids don't matter to me.
+#### Presets YAML File Structure #2 - The Alternate Structure
 
-In its pure form the alternate structure has two top-level keys.
+The alternate file structure has two top-level keys:
 ```yaml
 defaults:
   ...
 presets:
   ...
 ```
-**presets** is a list of preset objects. The presets objects themselves are the same as described above 
-with the addition of an
-optional new key, **id**.  If the **id** key is present, its associated value is the hard-coded preset id. 
-If **id** is not present, **wled_yaml2json.py** will supply an unused preset id to the preset.
+The **defaults** section works the same as described above.
+
+The **presets** section is a list of preset objects. The presets objects themselves are the same as described above 
+with the addition of an optional new key, **id**.  If the **id** key is present, its associated value is 
+the hard-coded preset id. If **id** is not present, **wled_yaml2json.py** will supply an unused preset 
+id to the preset.
 
 The above example in this alternate structure looks like this:
 ```yaml
@@ -558,10 +564,13 @@ presets:
     sx: 125
   transition: 7
 ```
-In this case preset ids 0, 1, 2 and 3 are hard-coded.  The remainder will be assigned during processing.
+In this case preset ids 0, 1, and 2 are hard-coded.  The remainder will be assigned during processing.
 
-It is also possible to combine the two structures. The following combines the previous examples, using the original 
-structure for the hard-coded presets and the alternate structure for the presets without assigned ids. 
+#### Presets YAML File Structure #3 - The Hybrid Structure
+
+It is also possible to combine the structures #1 and #2 into a hybrid structure. The following combines the previous 
+examples, using the original structure for the hard-coded presets and the alternate structure for the presets 
+without assigned ids. 
 
 ```yaml
 defaults:
@@ -646,10 +655,11 @@ presets:
     sx: 125
   transition: 7
 ```
-While mixing these formats in a single file may not make sense, the ability to merge multiple preset YAML files 
-into a single WLED preset JSON file is supported.
-Supporting a mix of structures allows merging files containing the both structures.
+While supporting a mix of formats #1 and #2 in a single file may not seem necessary, the ability to merge 
+multiple preset YAML files into a single WLED preset JSON file is supported.
+By supporting a mix of structures it allows merging of files containing the both structures.
 
-Support for the original structure will continue for this reason: If a WLED presets JSON file is converted to
-YAML (using **json2yaml.py**) the resulting YAML file will be in the original structure. This makes it an 
-easy way to get a starting YAML file to use with this package to generate WLED presets JSON files.
+> **Sidebar:** Support for the original structure will continue indefinitely for this reason: 
+If a WLED presets JSON file is converted to YAML (using **json2yaml.py**) the resulting YAML 
+file will be in the original structure. This makes it an easy way to get a starting YAML file 
+to use with this package to generate WLED presets JSON files.
