@@ -95,7 +95,7 @@ The example above with ```--env roof``` specified would result in the following 
 The normal/default name for the properties file is ```properties.yaml```.  You can also define 
 specific properties files for different environments by including the environment in the file name.
 For example with two environments, lab_300 
-and roof wled_yaml2json.py would look for ```properties-lab_300.yaml``` or ```properties-roof.yaml``` 
+and roof, wled_yaml2json.py would look for ```properties-lab_300.yaml``` or ```properties-roof.yaml``` 
 depending on the --env option. Thus, there are two ways that properties enable using a 
 single presets file across multiple environments.
 
