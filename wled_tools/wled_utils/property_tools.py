@@ -60,9 +60,13 @@ class PropertyEvaluator:
         property_value = None
         property_name = None
         for candidate in self.candidates(var_parts):
+            if self.verbose:
+                get_logger().info('TRYING: {}'.format(self.get_property_name(candidate, fixed_parts)))
             property_value = self.evaluate_property(candidate, fixed_parts)
             if property_value is not None:
                 property_name = self.get_property_name(candidate, fixed_parts)
+                if self.verbose:
+                    get_logger().info('FOUND: {}: {}'.format(property_name, property_value))
                 if self.strings_only:
                     if isinstance(property_value, dict):
                         raise ValueError(
