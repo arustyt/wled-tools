@@ -6,7 +6,7 @@ from wled_constants import PRESETS_KEY
 from wled_utils.logger_utils import init_logger
 
 MQTT_PLUGIN_NAMESPACE = "mqtt"  # matches appdeamon.yaml
-WLED_HOLIDAY_TOPIC = 'wled_holiday'
+WLED_HOLIDAY_TOPIC = 'wled/{}/holiday'
 
 
 class WledHoliday4Appdaemon(WledBase4Appdaemon):
@@ -38,6 +38,6 @@ class WledHoliday4Appdaemon(WledBase4Appdaemon):
         payload_data = {CANDIDATES_KEY: candidates, HOLIDAY_KEY: holiday_name, PRESETS_KEY: presets}
         payload = json.dumps(payload_data)
         self._mqtt.mqtt_publish(
-            WLED_HOLIDAY_TOPIC,
+            WLED_HOLIDAY_TOPIC.format(self.env),
             payload=payload,
             namespace=MQTT_PLUGIN_NAMESPACE)
