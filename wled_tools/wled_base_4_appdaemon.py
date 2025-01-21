@@ -76,17 +76,19 @@ class WledBase4Appdaemon(hass.Hass):
     def init_run_in_config(self, run_in_args):
         if run_in_args is None:
             return
-        if isinstance(run_in_args, str):
+        if isinstance(run_in_args, int):
             self.init_run_in(run_in_args)
+        elif isinstance(run_in_args, str):
+            self.init_run_in(int(run_in_args))
         elif isinstance(run_in_args, list):
             for run_in_arg in run_in_args:
-                self.init_run_in(run_in_arg)
+                self.init_run_in(int(run_in_arg))
         else:
             raise ValueError("Unsupported run-in value, {}".format(run_in_args))
 
     def init_run_in(self, run_in_delay):
         self.log_info('Initializing run_in @ {} seconds.'.format(run_in_delay))
-        self.run_in(self.callback, int(run_in_delay))
+        self.run_in(self.callback, run_in_delay)
 
     def init_run_every_config(self, run_every_args):
         if run_every_args is None:
