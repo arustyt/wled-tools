@@ -42,7 +42,7 @@ class WledHoliday4Appdaemon(WledBase4Appdaemon):
         payload_data = {CANDIDATES_KEY: candidates, HOLIDAY_KEY: holiday_name, PRESETS_KEY: presets}
         payload = json.dumps(payload_data)
         self.log_info("type(self.mqtt): {}".format(type(self.mqtt)))
-        self.mqtt.Mqtt.mqtt_publish(
+        self.mqtt.mqtt_publish(
             WLED_HOLIDAY_TOPIC.format(self.env),
             payload=payload,
             namespace=MQTT_PLUGIN_NAMESPACE)
