@@ -90,4 +90,5 @@ PLAYLIST_END_PATH_TAG = "{playlist}.{end}".format(playlist=PLAYLIST_TAG, end=PLA
 PLAYLIST_DURATION_TAG = 'dur'
 PLAYLIST_TRANSITION_TAG = 'transition'
 
-
+CANDIDATES_KEY = 'candidates'
+RESULT_KEY = 'result'
