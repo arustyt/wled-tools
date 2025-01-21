@@ -9,18 +9,16 @@ from wled_utils.logger_utils import init_logger, get_logger
 
 DEFAULT_LOG_DIR = '/logs'
 LOG_DIR = "log_dir"
-RUN_TIME_ARG = "run_time"
 ENV_ARG = "env"
 JOB_ARG = "job"
-DATE_STR_ARG = "date_str"
+RUN_DAILY_ARG = 'run_daily'
+RUN_EVERY_ARG = 'run_every'
+RUN_IN_ARG = 'run_in'
 VERBOSE_ARG = "verbose"
-TEST_START_ARG = "test_start"
-TEST_INTERVAL_ARG = "test_interval"
 CONFIG_REPO_ARG = "config_repo"
 CONFIG_REMOTE_ARG = "config_remote"
 GIT_USERNAME = 'git_username'
 GIT_PASSWORD = 'git_password'
-DEFAULT_RUN_TIME = "sunset-3600"
 TIME_RE_STR = '^([0-2][0-9]):([0-5][0-9]):([0-5][0-9])$'
 SUN_RE_STR = '^(sunset|sunrise)([+-]*)([0-9]*)$'
 
@@ -34,10 +32,9 @@ class Wled4Appdaemon(hass.Hass):
         self.job = self.get_required_arg_value(JOB_ARG)
         self.env = self.get_required_arg_value(ENV_ARG)
 
-        self.run_time = self.get_optional_arg_value(RUN_TIME_ARG, DEFAULT_RUN_TIME)
-        self.date_str = self.get_optional_arg_value(DATE_STR_ARG, None)
-        self.test_start = self.get_optional_arg_value(TEST_START_ARG, None)
-        self.test_interval = self.get_optional_arg_value(TEST_INTERVAL_ARG, None)
+        self.run_in = self.get_optional_arg_value(RUN_IN_ARG, None)
+        self.run_every = self.get_optional_arg_value(RUN_EVERY_ARG, None)
+        self.run_daily = self.get_optional_arg_value(RUN_DAILY_ARG, None)
         self.verbose = self.get_optional_arg_value(VERBOSE_ARG, False)
         self.config_repo = self.get_optional_arg_value(CONFIG_REPO_ARG, None)
         self.config_remote = self.get_optional_arg_value(CONFIG_REMOTE_ARG, None)
@@ -67,32 +64,80 @@ class Wled4Appdaemon(hass.Hass):
         return arg_value
 
     def initialize(self):
-        self.init_mode(self.run_time)
+        if self.run_in is not None:
+            self.init_run_in_config(self.run_in)
 
-    def init_mode(self, run_time):
-        if self.test_start is None or self.test_interval is None:
-            match = self.time_re.match(run_time)
+        if self.run_every is not None:
+            self.init_run_every_config(self.run_every)
+
+        if self.run_daily is not None:
+            self.init_run_daily_config(self.run_daily)
+
+    def init_run_in_config(self, run_in_args):
+        if run_in_args is None:
+            return
+        if isinstance(run_in_args, str):
+            self.init_run_in(run_in_args)
+        elif isinstance(run_in_args, list):
+            for run_in_arg in run_in_args:
+                self.init_run_in(run_in_arg)
+        else:
+            raise ValueError("Unsupported run-in value, {}".format(run_in_args))
+
+    def init_run_in(self, run_in_delay):
+        self.log_info('Initializing run_in @ {} seconds.'.format(run_in_delay))
+        self.run_in(self.callback, int(run_in_delay))
+
+    def init_run_every_config(self, run_every_args):
+        if run_every_args is None:
+            return
+        if isinstance(run_every_args, str):
+            self.init_run_every(run_every_args)
+        elif isinstance(run_every_args, list):
+            for run_every_arg in run_every_args:
+                self.init_run_every(run_every_arg)
+        else:
+            raise ValueError("Unsupported run-every value, {}".format(run_every_args))
+
+    def init_run_every(self, run_every_arg):
+        if ',' in run_every_arg:
+            parts = run_every_arg.split(',')
+            start = parts[0].strip()
+            interval = parts[1].strip()
+        else:
+            start = 'now'
+            interval = run_every_arg
+
+        self.log_info('Initializing run_every @ {}, every {} seconds.'.format(start, interval))
+        self.run_every(self.callback, start, int(interval))
+
+    def init_run_daily_config(self, run_daily_args):
+        if run_daily_args is None:
+            return
+        if isinstance(run_daily_args, str):
+            self.init_run_daily(run_daily_args)
+        elif isinstance(run_daily_args, list):
+            for run_daily_arg in run_daily_args:
+                self.init_run_daily(run_daily_arg)
+        else:
+            raise ValueError("Unsupported run-every args, {}".format(run_daily_args))
+
+    def init_run_daily(self, run_daily_arg):
+        match = self.sun_re.match(run_daily_arg.lower())
+        if match is not None:
+            self.init_sun_mode(match.groups())
+        else:
+            match = self.time_re.match(run_daily_arg)
             if match is not None:
                 self.init_daily_mode(match.groups())
             else:
-                match = self.sun_re.match(run_time.lower())
-                if match is not None:
-                    self.init_sun_mode(match.groups())
-                else:
-                    self.init_mode(DEFAULT_RUN_TIME)
-        else:
-            self.init_test_mode()
-
-    def init_test_mode(self):
-        self.log_info("Initializing test mode @ {start} every {interval} seconds.".format(start=self.test_start,
-                                                                                     interval=self.test_interval))
-        self.run_every(self.callback, self.test_start, int(self.test_interval))
+                raise ValueError("Unsupported run-daily value, {}".format(run_daily_arg))
 
     def init_daily_mode(self, groups):
-        self.log_info("Initializing daily mode @ {run_time}".format(run_time=self.run_time))
         run_hour = int(groups[0])
         run_min = int(groups[1])
         run_sec = int(groups[2])
+        self.log_info("Initializing daily mode @ {}:{}:{}".format(run_hour, run_min, run_sec))
         time = datetime.time(run_hour, run_min, run_sec)
         self.run_daily(self.callback, time)
 
@@ -118,7 +163,7 @@ class Wled4Appdaemon(hass.Hass):
 
     def init_sunrise_mode(self, offset):
         self.log_info("Initializing sunrise mode with offset: {offset}".format(offset=offset))
-        self.run_at_rise(self.callback, offset=offset)
+        self.run_at_sunrise(self.callback, offset=offset)
 
     def callback(self, cb_args):
         self.install_presets_de_jour()
