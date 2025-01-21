@@ -145,7 +145,7 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False, presets_override=N
         if not holidays_only:
             process_successful = install_holiday_lights(data_dir=data_dir, definitions_rel_dir=definitions_rel_dir,
                                                         env=env, holiday_name=holiday_name, host=host,
-                                                        job_file=job_file, presets=job_file,
+                                                        job_file=job_file, presets=presets,
                                                         property_evaluator=property_evaluator,
                                                         section=section, starting_presets_file=starting_presets_file,
                                                         verbose=verbose, wled_rel_dir=wled_rel_dir)
