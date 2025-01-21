@@ -176,7 +176,7 @@ def process_all_dates(date_str, data_dir, definitions_dir, wled_dir, holidays_fi
                       format(holidays=holidays_without_specific_presets))
 
 
-def get_wled_holiday_presets(*, data_dir, definitions_rel_dir=None, holidays_file=None, holiday_presets_file=None,
+def get_wled_holiday_preset_candidates(*, data_dir, definitions_rel_dir=None, holidays_file=None, holiday_presets_file=None,
                              evaluation_date=None, verbose_mode=False):
     definitions_rel_dir = get_optional_arg(definitions_rel_dir, DEFAULT_DEFINITIONS_DIR)
     holidays_file = get_optional_arg(holidays_file, DEFAULT_HOLIDAYS_FILE)
