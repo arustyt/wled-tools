@@ -63,6 +63,7 @@ class WledBase4Appdaemon(hass.Hass):
 
         return arg_value
 
+    @abstractmethod
     def initialize(self):
         if self.run_in_cfg is not None:
             self.init_run_in_config(self.run_in_cfg)

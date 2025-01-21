@@ -13,8 +13,12 @@ class WledHoliday4Appdaemon(WledBase4Appdaemon):
 
     def __init__(self, *args):
         super().__init__(*args)
-        self.mqtt = self.get_plugin_api("MQTT")
+        self.mqtt = None
         init_logger('wled_holiday_4_appdaemon', self.log_dir)
+
+    def initialize(self):
+        super().initialize()
+        self.mqtt = self.get_plugin_api("MQTT")
 
     def callback(self, cb_args):
         self.send_current_holiday_to_ha()
@@ -37,6 +41,7 @@ class WledHoliday4Appdaemon(WledBase4Appdaemon):
     def send_via_mqtt(self, *, candidates, holiday_name, presets):
         payload_data = {CANDIDATES_KEY: candidates, HOLIDAY_KEY: holiday_name, PRESETS_KEY: presets}
         payload = json.dumps(payload_data)
+        self.log_info("type(self.mqtt): {}".format(type(self.mqtt)))
         self.mqtt.Mqtt.mqtt_publish(
             WLED_HOLIDAY_TOPIC.format(self.env),
             payload=payload,
