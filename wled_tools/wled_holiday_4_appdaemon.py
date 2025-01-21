@@ -5,7 +5,6 @@ from wled_base_4_appdaemon import WledBase4Appdaemon
 from wled_constants import PRESETS_KEY
 from wled_utils.logger_utils import init_logger
 
-MQTT_PLUGIN_NAMESPACE = "mqtt"  # matches appdeamon.yaml
 WLED_HOLIDAY_TOPIC = 'wled/{}/holiday'
 
 
@@ -44,5 +43,4 @@ class WledHoliday4Appdaemon(WledBase4Appdaemon):
         self.log_info("type(self.mqtt): {}".format(type(self.mqtt)))
         self.mqtt.mqtt_publish(
             WLED_HOLIDAY_TOPIC.format(self.env),
-            payload=payload,
-            namespace=MQTT_PLUGIN_NAMESPACE)
+            payload=payload)
