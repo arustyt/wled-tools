@@ -86,7 +86,7 @@ class Wled4Appdaemon(hass.Hass):
 
     def init_run_in(self, run_in_delay):
         self.log_info('Initializing run_in @ {} seconds.'.format(run_in_delay))
-        self.run_in(self.callback, int(run_in_delay))
+        self.run_in(self.execute_task, int(run_in_delay))
 
     def init_run_every_config(self, run_every_args):
         if run_every_args is None:
@@ -109,7 +109,7 @@ class Wled4Appdaemon(hass.Hass):
             interval = run_every_arg
 
         self.log_info('Initializing run_every @ {}, every {} seconds.'.format(start, interval))
-        self.run_every(self.callback, start, int(interval))
+        self.run_every(self.execute_task, start, int(interval))
 
     def init_run_daily_config(self, run_daily_args):
         if run_daily_args is None:
@@ -139,7 +139,7 @@ class Wled4Appdaemon(hass.Hass):
         run_sec = int(groups[2])
         self.log_info("Initializing daily mode @ {}:{}:{}".format(run_hour, run_min, run_sec))
         time = datetime.time(run_hour, run_min, run_sec)
-        self.run_daily(self.callback, time)
+        self.run_daily(self.execute_task, time)
 
     def init_sun_mode(self, groups):
         sun_event = groups[0]
@@ -159,13 +159,13 @@ class Wled4Appdaemon(hass.Hass):
 
     def init_sunset_mode(self, offset):
         self.log_info("Initializing sunset mode with offset: {offset}".format(offset=offset))
-        self.run_at_sunset(self.callback, offset=offset)
+        self.run_at_sunset(self.execute_task, offset=offset)
 
     def init_sunrise_mode(self, offset):
         self.log_info("Initializing sunrise mode with offset: {offset}".format(offset=offset))
-        self.run_at_sunrise(self.callback, offset=offset)
+        self.run_at_sunrise(self.execute_task, offset=offset)
 
-    def callback(self, cb_args):
+    def execute_task(self, cb_args):
         self.install_presets_de_jour()
 
     def install_presets_de_jour(self):
