@@ -14,6 +14,7 @@ JOB_ARG = "job"
 RUN_DAILY_ARG = 'run_daily'
 RUN_EVERY_ARG = 'run_every'
 RUN_IN_ARG = 'run_in'
+DATE_STR_ARG = "date_str"
 VERBOSE_ARG = "verbose"
 CONFIG_REPO_ARG = "config_repo"
 CONFIG_REMOTE_ARG = "config_remote"
@@ -35,6 +36,7 @@ class Wled4Appdaemon(hass.Hass):
         self.run_in_cfg = self.get_optional_arg_value(RUN_IN_ARG, None)
         self.run_every_cfg = self.get_optional_arg_value(RUN_EVERY_ARG, None)
         self.run_daily_cfg = self.get_optional_arg_value(RUN_DAILY_ARG, None)
+        self.date_str = self.get_optional_arg_value(DATE_STR_ARG, None)
         self.verbose = self.get_optional_arg_value(VERBOSE_ARG, False)
         self.config_repo = self.get_optional_arg_value(CONFIG_REPO_ARG, None)
         self.config_remote = self.get_optional_arg_value(CONFIG_REMOTE_ARG, None)
