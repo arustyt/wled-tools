@@ -63,15 +63,14 @@ def main(name, args):
 
     init_logger()
 
-    process_successful = wled_4_ha(job_file=job_file, env=env, date_str=date_str, verbose=verbose,
+    wled_4_ha_result = wled_4_ha(job_file=job_file, env=env, date_str=date_str, verbose=verbose,
                                    presets_override=presets_override, holiday_override=holiday_override)
-
+    process_successful = wled_4_ha_result[RESULT_KEY]
     return 0 if process_successful else 1
 
 
 def wled_4_ha(*, job_file, env, date_str=None, verbose=False, presets_override=None, holiday_override=None,
               holidays_only=False):
-    process_successful = False
     candidates = None
     holiday_name = None
     presets = None
