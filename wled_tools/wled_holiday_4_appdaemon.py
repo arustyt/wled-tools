@@ -1,19 +1,17 @@
 import json
 
-from wled_4_ha import wled_4_ha, RESULT_KEY, CANDIDATES_KEY, HOLIDAY_KEY
-from wled_base_4_appdaemon import WledBase4Appdaemon
-from wled_constants import PRESETS_KEY
-from wled_utils.logger_utils import init_logger
+from ha_4_appdaemon import Ha4Appdaemon
+from wled_4_ha import wled_4_ha
+from wled_constants import PRESETS_KEY, RESULT_KEY, CANDIDATES_KEY, HOLIDAY_KEY
 
 WLED_HOLIDAY_TOPIC = 'wled/{}/holiday'
 
 
-class WledHoliday4Appdaemon(WledBase4Appdaemon):
+class WledHoliday4Appdaemon(Ha4Appdaemon):
 
     def __init__(self, *args):
         super().__init__(*args)
         self.mqtt = None
-        init_logger('wled_holiday_4_appdaemon', self.log_dir)
 
     def initialize(self):
         super().initialize()
@@ -24,10 +22,10 @@ class WledHoliday4Appdaemon(WledBase4Appdaemon):
 
     def send_current_holiday_to_ha(self):
         holidays_only = True
-        self.log_info(
-            "Calling wled_4_ha({}, {}, {}, {}, holidays_only={})".format(self.job, self.env, self.date_str,
+        self.helper.log_info(
+            "Calling wled_4_ha({}, {}, {}, {}, holidays_only={})".format(self.job, self.helper.get_env(), self.date_str,
                                                                          self.verbose, holidays_only))
-        result = wled_4_ha(job_file=self.job, env=self.env, date_str=self.date_str, verbose=self.verbose,
+        result = wled_4_ha(job_file=self.job, env=self.helper.get_env(), date_str=self.date_str, verbose=self.verbose,
                            holidays_only=holidays_only)
         process_successful = result[RESULT_KEY]
         if process_successful:
@@ -40,7 +38,7 @@ class WledHoliday4Appdaemon(WledBase4Appdaemon):
     def send_via_mqtt(self, *, candidates, holiday_name, presets):
         payload_data = {CANDIDATES_KEY: candidates, HOLIDAY_KEY: holiday_name, PRESETS_KEY: presets}
         payload = json.dumps(payload_data)
-        self.log_info("type(self.mqtt): {}".format(type(self.mqtt)))
+        self.helper.log_info("type(self.mqtt): {}".format(type(self.mqtt)))
         self.mqtt.mqtt_publish(
-            WLED_HOLIDAY_TOPIC.format(self.env),
+            WLED_HOLIDAY_TOPIC.format(self.helper.get_env()),
             payload=payload)

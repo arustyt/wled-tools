@@ -5,11 +5,9 @@ from abc import abstractmethod
 import hassapi as hass
 from git import Repo, GitCommandError
 
+from helper_4_appdaemon import Helper4Appdaemon
 from wled_utils.logger_utils import get_logger
 
-DEFAULT_LOG_DIR = '/logs'
-LOG_DIR = "log_dir"
-ENV_ARG = "env"
 JOB_ARG = "job"
 RUN_DAILY_ARG = 'run_daily'
 RUN_EVERY_ARG = 'run_every'
@@ -25,43 +23,26 @@ SUN_RE_STR = '^(sunset|sunrise)([+-]*)([0-9]*)$'
 
 
 # Declare Class
-class WledBase4Appdaemon(hass.Hass):
+class Ha4Appdaemon(hass.Hass):
 
     def __init__(self, *args):
         super().__init__(*args)
 
-        self.job = self.get_required_arg_value(JOB_ARG)
-        self.env = self.get_required_arg_value(ENV_ARG)
+        self.helper = Helper4Appdaemon(args)
+        self.job = self.helper.get_required_arg_value(JOB_ARG)
 
-        self.run_in_cfg = self.get_optional_arg_value(RUN_IN_ARG, None)
-        self.run_every_cfg = self.get_optional_arg_value(RUN_EVERY_ARG, None)
-        self.run_daily_cfg = self.get_optional_arg_value(RUN_DAILY_ARG, None)
-        self.date_str = self.get_optional_arg_value(DATE_STR_ARG, None)
-        self.verbose = self.get_optional_arg_value(VERBOSE_ARG, False)
-        self.config_repo = self.get_optional_arg_value(CONFIG_REPO_ARG, None)
-        self.config_remote = self.get_optional_arg_value(CONFIG_REMOTE_ARG, None)
-        self.git_username = self.get_optional_arg_value(GIT_USERNAME, None)
-        self.git_password = self.get_optional_arg_value(GIT_PASSWORD, None)
-        self.log_dir = self.get_optional_arg_value(LOG_DIR, DEFAULT_LOG_DIR)
+        self.run_in_cfg = self.helper.get_optional_arg_value(RUN_IN_ARG, None)
+        self.run_every_cfg = self.helper.get_optional_arg_value(RUN_EVERY_ARG, None)
+        self.run_daily_cfg = self.helper.get_optional_arg_value(RUN_DAILY_ARG, None)
+        self.date_str = self.helper.get_optional_arg_value(DATE_STR_ARG, None)
+        self.verbose = self.helper.get_optional_arg_value(VERBOSE_ARG, False)
+        self.config_repo = self.helper.get_optional_arg_value(CONFIG_REPO_ARG, None)
+        self.config_remote = self.helper.get_optional_arg_value(CONFIG_REMOTE_ARG, None)
+        self.git_username = self.helper.get_optional_arg_value(GIT_USERNAME, None)
+        self.git_password = self.helper.get_optional_arg_value(GIT_PASSWORD, None)
 
         self.time_re = re.compile(TIME_RE_STR)
         self.sun_re = re.compile(SUN_RE_STR)
-
-    def get_optional_arg_value(self, arg_name, arg_default):
-        if arg_name in self.args:
-            arg_value = self.args[arg_name]
-        else:
-            arg_value = arg_default
-
-        return arg_value
-
-    def get_required_arg_value(self, arg_name):
-        if arg_name in self.args:
-            arg_value = self.args[arg_name]
-        else:
-            raise ValueError("Missing required arg: {arg}".format(arg=arg_name))
-
-        return arg_value
 
     @abstractmethod
     def initialize(self):
@@ -88,7 +69,7 @@ class WledBase4Appdaemon(hass.Hass):
             raise ValueError("Unsupported run-in value, {}".format(run_in_args))
 
     def init_run_in(self, run_in_delay):
-        self.log_info('Initializing run_in @ {} seconds.'.format(run_in_delay))
+        self.helper.log_info('Initializing run_in @ {} seconds.'.format(run_in_delay))
         self.run_in(self.callback, run_in_delay)
 
     def init_run_every_config(self, run_every_args):
@@ -111,7 +92,7 @@ class WledBase4Appdaemon(hass.Hass):
             start = 'now'
             interval = run_every_arg
 
-        self.log_info('Initializing run_every @ {}, every {} seconds.'.format(start, interval))
+        self.helper.log_info('Initializing run_every @ {}, every {} seconds.'.format(start, interval))
         self.run_every(self.callback, start, int(interval))
 
     def init_run_daily_config(self, run_daily_args):
@@ -140,7 +121,7 @@ class WledBase4Appdaemon(hass.Hass):
         run_hour = int(groups[0])
         run_min = int(groups[1])
         run_sec = int(groups[2])
-        self.log_info("Initializing daily mode @ {}:{}:{}".format(run_hour, run_min, run_sec))
+        self.helper.log_info("Initializing daily mode @ {}:{}:{}".format(run_hour, run_min, run_sec))
         time = datetime.time(run_hour, run_min, run_sec)
         self.run_daily(self.callback, time)
 
@@ -161,11 +142,11 @@ class WledBase4Appdaemon(hass.Hass):
             self.init_sunrise_mode(offset)
 
     def init_sunset_mode(self, offset):
-        self.log_info("Initializing sunset mode with offset: {offset}".format(offset=offset))
+        self.helper.log_info("Initializing sunset mode with offset: {offset}".format(offset=offset))
         self.run_at_sunset(self.callback, offset=offset)
 
     def init_sunrise_mode(self, offset):
-        self.log_info("Initializing sunrise mode with offset: {offset}".format(offset=offset))
+        self.helper.log_info("Initializing sunrise mode with offset: {offset}".format(offset=offset))
         self.run_at_sunrise(self.callback, offset=offset)
 
     @abstractmethod
@@ -174,17 +155,11 @@ class WledBase4Appdaemon(hass.Hass):
 
     def pull_config_repo(self):
         if self.config_repo is not None:
-            self.log_info("Pulling config repo @ {repo}".format(repo=self.config_repo))
+            self.helper.log_info("Pulling config repo @ {repo}".format(repo=self.config_repo))
             try:
                 repo = Repo(self.config_repo)
                 # repo.username = self.git_username
                 origin = repo.remotes.origin
                 origin.pull()
             except GitCommandError as gce:
-                self.log_error("Pulling config repo @ {repo} FAILED.".format(repo=self.config_repo))
-
-    def log_info(self, msg):
-        get_logger().info("[{which}] - {msg}".format(which=self.env, msg=msg))
-
-    def log_error(self, msg):
-        get_logger().error("[{which}] - {msg}".format(which=self.env, msg=msg))
+                self.helper.log_error("Pulling config repo @ {repo} FAILED.".format(repo=self.config_repo))
