@@ -11,7 +11,6 @@ MODULE_ARG = 'module'
 class Helper4Appdaemon:
 
     def __init__(self, *args):
-        super().__init__(*args)
         self.args = args
         self.env = self.get_required_arg_value(ENV_ARG)
         self.module = self.get_required_arg_value(MODULE_ARG)
