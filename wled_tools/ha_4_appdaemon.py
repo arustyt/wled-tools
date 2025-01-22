@@ -6,7 +6,6 @@ import hassapi as hass
 from git import Repo, GitCommandError
 
 from helper_4_appdaemon import Helper4Appdaemon
-from wled_utils.logger_utils import get_logger
 
 JOB_ARG = "job"
 RUN_DAILY_ARG = 'run_daily'

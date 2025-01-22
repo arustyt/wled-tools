@@ -1,7 +1,6 @@
 from ha_4_appdaemon import Ha4Appdaemon
 from wled_4_ha import wled_4_ha
 from wled_constants import RESULT_KEY
-from wled_utils.logger_utils import init_logger
 
 
 class Wled4Appdaemon(Ha4Appdaemon):
