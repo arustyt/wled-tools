@@ -2,9 +2,9 @@ from wled_utils.logger_utils import get_logger, init_logger
 
 
 DEFAULT_LOG_DIR = '/logs'
-LOG_DIR = "log_dir"
+LOG_DIR_ARG = "log_dir"
 ENV_ARG = "env"
-MODULE = 'module'
+MODULE_ARG = 'module'
 
 
 # Declare Class
@@ -14,8 +14,8 @@ class Helper4Appdaemon:
         super().__init__(*args)
         self.args = args
         self.env = self.get_required_arg_value(ENV_ARG)
-        self.log_dir = self.get_optional_arg_value(LOG_DIR, DEFAULT_LOG_DIR)
-        self.module = self.get_optional_arg_value(MODULE, DEFAULT_LOG_DIR)
+        self.module = self.get_required_arg_value(MODULE_ARG)
+        self.log_dir = self.get_optional_arg_value(LOG_DIR_ARG, DEFAULT_LOG_DIR)
         init_logger(self.module, self.log_dir)
 
     def get_env(self):
@@ -44,7 +44,7 @@ class Helper4Appdaemon:
         return arg_value
 
     def log_info(self, msg):
-        get_logger().info("[{}.{}] - {}".format(self.env, self.module, msg))
+        get_logger().info("[{}.{}] - {}".format(self.module, self.env, msg))
 
     def log_error(self, msg):
-        get_logger().error("[{}.{}] - {}".format(self.env, self.module, msg))
+        get_logger().error("[{}.{}] - {}".format(self.module, self.env, msg))
