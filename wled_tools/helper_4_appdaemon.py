@@ -38,7 +38,8 @@ class Helper4Appdaemon:
         if arg_name in self.args:
             arg_value = self.args[arg_name]
         else:
-            raise ValueError("Missing required arg: {arg}".format(arg=arg_name))
+#            raise ValueError("Missing required arg: {}".format(arg_name))
+            raise ValueError("ARGS: {}".format(self.args))
 
         return arg_value
 
