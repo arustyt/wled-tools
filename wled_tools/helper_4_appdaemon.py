@@ -11,7 +11,8 @@ MODULE_ARG = 'module'
 class Helper4Appdaemon:
 
     def __init__(self, *args):
-        self.args = args
+        self.app_name = args[2]
+        self.args = args[3]
         self.env = self.get_required_arg_value(ENV_ARG)
         self.module = self.get_required_arg_value(MODULE_ARG)
         self.log_dir = self.get_optional_arg_value(LOG_DIR_ARG, DEFAULT_LOG_DIR)
@@ -38,8 +39,7 @@ class Helper4Appdaemon:
         if arg_name in self.args:
             arg_value = self.args[arg_name]
         else:
-#            raise ValueError("Missing required arg: {}".format(arg_name))
-            raise ValueError("ARGS: {}".format(self.args))
+            raise ValueError("Missing required arg: {}".format(arg_name))
 
         return arg_value
 
