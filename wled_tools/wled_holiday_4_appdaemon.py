@@ -1,5 +1,5 @@
-from appdaemon.actions_4_appdaemon import send_current_holiday_to_ha
-from appdaemon.ha_4_appdaemon import Ha4Appdaemon
+from appdaemon_tools.actions_4_appdaemon import send_current_holiday_to_ha
+from appdaemon_tools.ha_4_appdaemon import Ha4Appdaemon
 
 
 class WledHoliday4Appdaemon(Ha4Appdaemon):
