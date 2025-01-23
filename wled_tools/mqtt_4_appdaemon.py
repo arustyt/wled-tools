@@ -25,7 +25,7 @@ class Mqtt4Appdaemon(mqtt.Mqtt):
 
     def __init__(self, *args):
         super().__init__(*args)
-        self.mqtt = None
+        # self.mqtt = None
         self.helper = Helper4Appdaemon(args)
         self.cmd_topic = self.helper.get_required_arg_value(APPDAEMON_CMD_TOPIC_TAG)
         self.namespace = self.helper.get_required_arg_value(APPDAEMON_NAMESPACE_TAG)
@@ -34,7 +34,8 @@ class Mqtt4Appdaemon(mqtt.Mqtt):
     def initialize(self):
         # self.mqtt = self.get_plugin_api("MQTT")
 
-        self.mqtt.set_namespace(self.namespace)
+        # self.mqtt.set_namespace(self.namespace)
+        self.set_namespace(self.namespace)
         try:
             self.helper.log_info("Trying self.mqtt.mqtt_subscribe({}, namespace={})".format(self.cmd_topic, self.namespace))
             self.mqtt.mqtt_subscribe(self.cmd_topic, namespace=self.namespace)
