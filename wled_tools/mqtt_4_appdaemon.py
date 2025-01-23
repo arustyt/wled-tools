@@ -31,7 +31,9 @@ class Mqtt4Appdaemon(mqtt.Mqtt):
 
     @abstractmethod
     def initialize(self):
+        self.set_namespace(self.namespace)
         self.mqtt_subscribe(self.cmd_topic, namespace=self.namespace)
+        # self.call_service("mqtt/subscribe", topic=self.cmd_topic, namespace=self.namespace)
         self.listen_event(self.process_mqtt_event, namespace=self.namespace)
 
     def process_mqtt_event(self, event_name, data, cb_args):
