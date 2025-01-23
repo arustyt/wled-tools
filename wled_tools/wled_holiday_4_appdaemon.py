@@ -1,4 +1,4 @@
-from appdaemon_tools.actions_4_appdaemon import send_current_holiday_to_ha
+from appdaemon_tools.appdaemon_actions import send_current_holiday_to_ha
 from appdaemon_tools.ha_4_appdaemon import Ha4Appdaemon
 
 
