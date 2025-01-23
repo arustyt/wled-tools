@@ -38,7 +38,6 @@ class WledHoliday4Appdaemon(Ha4Appdaemon):
     def send_via_mqtt(self, *, candidates, holiday_name, presets):
         payload_data = {CANDIDATES_KEY: candidates, HOLIDAY_KEY: holiday_name, PRESETS_KEY: presets}
         payload = json.dumps(payload_data)
-        self.helper.log_info("type(self.mqtt): {}".format(type(self.mqtt)))
         self.mqtt.mqtt_publish(
             WLED_HOLIDAY_TOPIC.format(self.helper.get_env()),
             payload=payload)
