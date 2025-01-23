@@ -25,7 +25,7 @@ class Mqtt4Appdaemon(mqtt.Mqtt):
         super().__init__(*args)
 
         self.helper = Helper4Appdaemon(args)
-        self.cmd_topic = self.get_optional_arg_value(APPDAEMON_CMD_TOPIC, DEFAULT_APPDAEMON_CMD_TOPIC)
+        self.cmd_topic = self.helper.get_optional_arg_value(APPDAEMON_CMD_TOPIC, DEFAULT_APPDAEMON_CMD_TOPIC)
 
     @abstractmethod
     def initialize(self):
