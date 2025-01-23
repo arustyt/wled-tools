@@ -42,9 +42,12 @@ class Ha4Appdaemon(hass.Hass):
 
         self.time_re = re.compile(TIME_RE_STR)
         self.sun_re = re.compile(SUN_RE_STR)
+        self.mqtt = None
 
     @abstractmethod
     def initialize(self):
+        self.mqtt = self.get_plugin_api("MQTT")
+
         if self.run_in_cfg is not None:
             self.init_run_in_config(self.run_in_cfg)
 
