@@ -12,11 +12,13 @@ class Wled4Appdaemon(Ha4Appdaemon):
         super().initialize()
 
     def callback(self, cb_args):
-        self.install_presets_de_jour()
+        self.install_presets_de_jour(job=self.job, env=self.helper.get_env(), date_str=self.date_str,
+                                     verbose=self.verbose, helper=self.helper)
 
-    def install_presets_de_jour(self):
-        self.helper.log_info(
-            "Calling wled_4_ha({}, {}, {}, {})".format(self.job, self.helper.get_env(), self.date_str, self.verbose))
-        result = wled_4_ha(job_file=self.job, env=self.helper.get_env(), date_str=self.date_str, verbose=self.verbose)
+    @staticmethod
+    def install_presets_de_jour(job=None, env=None, date_str=None, verbose=False, helper=None):
+        helper.log_info(
+            "Calling wled_4_ha({}, {}, {}, {})".format(job, env, date_str, verbose))
+        result = wled_4_ha(job_file=job, env=env, date_str=date_str, verbose=verbose)
         process_successful = result[RESULT_KEY]
         return 0 if process_successful else 1

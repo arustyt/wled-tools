@@ -18,26 +18,26 @@ class WledHoliday4Appdaemon(Ha4Appdaemon):
         self.mqtt = self.get_plugin_api("MQTT")
 
     def callback(self, cb_args):
-        self.send_current_holiday_to_ha()
+        self.send_current_holiday_to_ha(job=self.job, env=self.helper.get_env(), date_str=self.date_str,
+                                        verbose=self.verbose, helper=self.helper, mqttapi=self.mqtt)
 
-    def send_current_holiday_to_ha(self):
+    @staticmethod
+    def send_current_holiday_to_ha(job=None, env=None, date_str=None, verbose=False, helper=None, mqttapi=None):
         holidays_only = True
-        self.helper.log_info(
-            "Calling wled_4_ha({}, {}, {}, {}, holidays_only={})".format(self.job, self.helper.get_env(), self.date_str,
-                                                                         self.verbose, holidays_only))
-        result = wled_4_ha(job_file=self.job, env=self.helper.get_env(), date_str=self.date_str, verbose=self.verbose,
-                           holidays_only=holidays_only)
+        helper.log_info(
+            "Calling wled_4_ha({}, {}, {}, {}, holidays_only={})".format(job, env, date_str,
+                                                                         verbose, holidays_only))
+        result = wled_4_ha(job_file=job, env=env, date_str=date_str, verbose=verbose, holidays_only=holidays_only)
         process_successful = result[RESULT_KEY]
         if process_successful:
-            self.send_via_mqtt(candidates=result[CANDIDATES_KEY], holiday_name=result[HOLIDAY_KEY],
-                               presets=result[PRESETS_KEY])
+            WledHoliday4Appdaemon.send_via_mqtt(candidates=result[CANDIDATES_KEY], holiday_name=result[HOLIDAY_KEY],
+                                                presets=result[PRESETS_KEY], env=env, mqttapi=mqttapi)
             return 0
         else:
             return 1
 
-    def send_via_mqtt(self, *, candidates, holiday_name, presets):
+    @staticmethod
+    def send_via_mqtt(*, candidates, holiday_name, presets, env, mqttapi):
         payload_data = {CANDIDATES_KEY: candidates, HOLIDAY_KEY: holiday_name, PRESETS_KEY: presets}
         payload = json.dumps(payload_data)
-        self.mqtt.mqtt_publish(
-            WLED_HOLIDAY_TOPIC.format(self.helper.get_env()),
-            payload=payload)
+        mqttapi.mqtt_publish(WLED_HOLIDAY_TOPIC.format(env), payload=payload)
