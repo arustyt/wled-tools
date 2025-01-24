@@ -14,5 +14,3 @@ class Wled4Appdaemon(Ha4Appdaemon):
         super().callback(cb_args)
         install_presets_de_jour(job=self.job, env=self.helper.get_env(), date_str=self.date_str,
                                 verbose=self.verbose, helper=self.helper)
-        send_current_holiday_to_ha(job=self.job, env=self.helper.get_env(), date_str=self.date_str,
-                                   verbose=self.verbose, helper=self.helper, mqttapi=self.mqtt)
