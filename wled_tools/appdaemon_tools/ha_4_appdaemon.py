@@ -121,8 +121,13 @@ class Ha4Appdaemon(hass.Hass):
 
         for run_time in run_times:
             self.helper.log_info('Initializing run_hourly @ {} minutes past the hour.'.format(run_time))
-            hms = run_time.split(':')
-            runtime = datetime.time(0, hms[1], 0)
+            if ':' in run_time:
+                hms = run_time.split(':')
+                minutes = int(hms[1])
+            else:
+                minutes = int(run_time)
+
+            runtime = datetime.time(0, minutes, 0)
             self.run_hourly(self.callback, runtime)
 
     def init_run_daily_config(self, run_daily_args):
