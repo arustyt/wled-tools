@@ -1,3 +1,4 @@
+import json
 from abc import abstractmethod
 
 import mqttapi as mqtt
@@ -38,8 +39,10 @@ class Mqtt4Appdaemon(hass.Hass):
 
     def process_mqtt_event(self, event_name, data, cb_args):
         if event_name == 'MQTT_MESSAGE':
-            app = data['payload'][APPDAEMON_APP_TAG]
-            action = data['payload'][APPDAEMON_ACTION_TAG]
+            payload_str = data['payload']
+            payload = json.loads(payload_str)
+            app = payload[APPDAEMON_APP_TAG]
+            action = payload[APPDAEMON_ACTION_TAG]
             app_data = self.helper.app_config[app]
             job = app_data[JOB_ARG]
             env = app_data[ENV_ARG]
