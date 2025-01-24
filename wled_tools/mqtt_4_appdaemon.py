@@ -32,18 +32,20 @@ class Mqtt4Appdaemon(mqtt.Mqtt):
 
     @abstractmethod
     def initialize(self):
-        # self.mqtt = self.get_plugin_api("MQTT")
-
-        # self.mqtt.set_namespace(self.namespace)
         self.set_namespace(self.namespace)
         try:
             self.helper.log_info("Trying self.mqtt.mqtt_subscribe({}, namespace={})".format(self.cmd_topic, self.namespace))
-            self.mqtt.mqtt_subscribe(self.cmd_topic, namespace=self.namespace)
+            self.mqtt_subscribe(self.cmd_topic, namespace=self.namespace)
         except Exception as ex:
+            self.helper.log_error("Trying self.mqtt.mqtt_subscribe({}, namespace={} - FAILED)".format(self.cmd_topic, self.namespace))
+
+        try:
             self.helper.log_info("Trying self.call_service({}, topic={}, namespace={})".format("mqtt/subscribe", self.cmd_topic, self.namespace))
             self.call_service("mqtt/subscribe", topic=self.cmd_topic, namespace=self.namespace)
-            raise ex
-        self.mqtt.listen_event(self.process_mqtt_event, namespace=self.namespace)
+        except Exception as ex:
+            self.helper.log_error("Trying self.call_service({}, topic={}, namespace={} - FAILED)".format("mqtt/subscribe", self.cmd_topic, self.namespace))
+
+        self.listen_event(self.process_mqtt_event, namespace=self.namespace)
 
     def process_mqtt_event(self, event_name, data, cb_args):
         self.helper.log_info("GOT EVENT: event_name: {}, data: {}".format(event_name, data))
