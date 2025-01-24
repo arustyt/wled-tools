@@ -105,23 +105,23 @@ class Ha4Appdaemon(hass.Hass):
     def init_run_hourly_config(self, run_hourly_args):
         if run_hourly_args is None:
             return
-        if isinstance(run_hourly_args, str):
-            self.init_run_every(run_hourly_args)
+        if isinstance(run_hourly_args, str) or isinstance(run_hourly_args, int):
+            self.init_run_hourly(run_hourly_args)
         elif isinstance(run_hourly_args, list):
             for run_every_arg in run_hourly_args:
-                self.init_run_every(run_every_arg)
+                self.init_run_hourly(run_every_arg)
         else:
-            raise ValueError("Unsupported run-every value, {}".format(run_hourly_args))
+            raise ValueError("Unsupported run-hourly value, {}".format(run_hourly_args))
 
     def init_run_hourly(self, run_hourly_arg):
-        if ',' in run_hourly_arg:
+        if isinstance(run_hourly_arg, str) and ',' in run_hourly_arg:
             run_times = run_hourly_arg.split(',')
         else:
             run_times = [run_hourly_arg]
 
         for run_time in run_times:
             self.helper.log_info('Initializing run_hourly @ {} minutes past the hour.'.format(run_time))
-            if ':' in run_time:
+            if isinstance(run_time, str) and ':' in run_time:
                 hms = run_time.split(':')
                 minutes = int(hms[1])
             else:
