@@ -48,4 +48,5 @@ class Mqtt4Appdaemon(mqtt.Mqtt):
         self.listen_event(self.process_mqtt_event, namespace=self.namespace)
 
     def process_mqtt_event(self, event_name, data, cb_args):
-        self.helper.log_info("GOT EVENT: event_name: {}, data: {}".format(event_name, data))
+        if event_name != 'state_changed':
+            self.helper.log_info("GOT EVENT: event_name: {}, data: {}".format(event_name, data))
