@@ -34,9 +34,9 @@ class Mqtt4Appdaemon(hass.Hass):
     def initialize(self):
         self.mqtt = self.get_plugin_api("MQTT")
         self.set_namespace(self.namespace)
-        self.mqtt_subscribe(self.cmd_topic, namespace=self.namespace)
+        self.mqtt.mqtt_subscribe(self.cmd_topic, namespace=self.namespace)
 #        self.call_service("mqtt/subscribe", topic=self.cmd_topic, namespace=self.namespace)
-        self.listen_event(self.process_mqtt_event, namespace=self.namespace)
+        self.mqtt.listen_event(self.process_mqtt_event, namespace=self.namespace)
 
     def process_mqtt_event(self, event_name, data, cb_args):
         self.helper.log_info("GOT EVENT: event_name: {}, data: {}".format(event_name, data))
