@@ -27,15 +27,12 @@ class Mqtt4Appdaemon(hass.Hass):
         super().__init__(*args)
         self.mqtt = None
         self.helper = Helper4Appdaemon(args)
-        self.cmd_topic = self.helper.get_required_arg_value(APPDAEMON_CMD_TOPIC_TAG)
         self.namespace = self.helper.get_optional_arg_value(APPDAEMON_NAMESPACE_TAG, None)
 
     @abstractmethod
     def initialize(self):
         self.mqtt = self.get_plugin_api("MQTT")
-        self.set_namespace(self.namespace)
-        self.mqtt.mqtt_subscribe(self.cmd_topic, namespace=self.namespace)
-#        self.call_service("mqtt/subscribe", topic=self.cmd_topic, namespace=self.namespace)
+        self.mqtt.set_namespace(self.namespace)
         self.mqtt.listen_event(self.process_mqtt_event, namespace=self.namespace)
 
     def process_mqtt_event(self, event_name, data, cb_args):
