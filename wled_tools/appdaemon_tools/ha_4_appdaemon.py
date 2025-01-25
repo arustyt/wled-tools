@@ -108,8 +108,8 @@ class Ha4Appdaemon(hass.Hass):
         if isinstance(run_hourly_args, str) or isinstance(run_hourly_args, int):
             self.init_run_hourly(run_hourly_args)
         elif isinstance(run_hourly_args, list):
-            for run_every_arg in run_hourly_args:
-                self.init_run_hourly(run_every_arg)
+            for run_hourly_arg in run_hourly_args:
+                self.init_run_hourly(run_hourly_arg)
         else:
             raise ValueError("Unsupported run-hourly value, {}".format(run_hourly_args))
 
@@ -120,12 +120,13 @@ class Ha4Appdaemon(hass.Hass):
             run_times = [run_hourly_arg]
 
         for run_time in run_times:
-            self.helper.log_info('Initializing run_hourly @ {} minutes past the hour.'.format(run_time))
             if isinstance(run_time, str) and ':' in run_time:
                 hms = run_time.split(':')
                 minutes = int(hms[1])
             else:
                 minutes = int(run_time)
+
+            self.helper.log_info('Initializing run_hourly @ {} minutes past the hour.'.format(minutes))
 
             runtime = datetime.time(0, minutes, 0)
             self.run_hourly(self.callback, runtime)
@@ -139,7 +140,7 @@ class Ha4Appdaemon(hass.Hass):
             for run_daily_arg in run_daily_args:
                 self.init_run_daily(run_daily_arg)
         else:
-            raise ValueError("Unsupported run-every args, {}".format(run_daily_args))
+            raise ValueError("Unsupported run-daily args, {}".format(run_daily_args))
 
     def init_run_daily(self, run_daily_arg):
         match = self.sun_re.match(run_daily_arg.lower())
@@ -199,4 +200,3 @@ class Ha4Appdaemon(hass.Hass):
             except GitCommandError as gce:
                 self.helper.log_error("Pulling config repo @ {repo} FAILED.".format(repo=self.config_repo))
                 self.helper.log_error("GitCommandError: {}".format(gce))
-
