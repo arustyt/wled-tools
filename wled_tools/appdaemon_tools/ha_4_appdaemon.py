@@ -198,3 +198,5 @@ class Ha4Appdaemon(hass.Hass):
                 origin.pull()
             except GitCommandError as gce:
                 self.helper.log_error("Pulling config repo @ {repo} FAILED.".format(repo=self.config_repo))
+                self.helper.log_error("GitCommandError: {}".format(gce))
+
