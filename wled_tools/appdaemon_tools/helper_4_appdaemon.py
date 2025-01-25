@@ -83,3 +83,6 @@ class Helper4Appdaemon:
 
     def log_error(self, msg):
         get_logger().error("[{}.{}] - {}".format(self.module, self.app_name, msg))
+
+    def log_warning(self, msg):
+        get_logger().warning("[{}.{}] - {}".format(self.module, self.app_name, msg))

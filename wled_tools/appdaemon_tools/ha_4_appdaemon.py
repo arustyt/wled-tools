@@ -191,7 +191,8 @@ class Ha4Appdaemon(hass.Hass):
 
     def pull_config_repo(self):
         if self.config_repo is not None:
-            self.helper.log_info("Pulling config repo @ {repo}".format(repo=self.config_repo))
+            if self.verbose:
+                self.helper.log_info("Pulling config repo @ {repo}".format(repo=self.config_repo))
             try:
                 repo = Repo(self.config_repo)
                 # repo.username = self.git_username

@@ -55,4 +55,4 @@ class Mqtt4Appdaemon(hass.Hass):
                 install_presets_de_jour(job=job, env=env, verbose=verbose, helper=self.helper)
                 return
 
-        self.helper.log_info("GOT UNHANDLED EVENT: event_name: {}, data: {}".format(event_name, data))
+        self.helper.log_warning("GOT UNHANDLED EVENT: event_name: {}, data: {}".format(event_name, data))
