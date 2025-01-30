@@ -63,13 +63,11 @@ def reset_wled(base_url, verbose):
                 get_logger().info("successful.")
             result = True
         else:
-            if verbose:
-                get_logger().info("failed.")
-                get_logger().info(reset_response.text)
+            get_logger().error("Reset failed.")
+            get_logger().error(reset_response.text)
     except Exception as ex:
-        if verbose:
-            get_logger().info("Failed with exception.")
-            get_logger().info(str(ex))
+        get_logger().error("Reset failed with exception.")
+        get_logger().error(str(ex))
 
     return result
 
@@ -88,13 +86,11 @@ def upload_file(base_url, src_file_name, dst_file_name, verbose):
                 get_logger().info("successful.")
             result = True
         else:
-            if verbose:
-                get_logger().info("failed.")
-                get_logger().info(upload_response.text)
+            get_logger().error("upload_file, {}, failed.".format(src_file_name))
+            get_logger().error(upload_response.text)
     except Exception as ex:
-        if verbose:
-            get_logger().info("Failed with exception.")
-            get_logger().info(str(ex))
+        get_logger().error("upload_file, {}, failed with exception.".format(src_file_name))
+        get_logger().error(str(ex))
 
     return result
 
