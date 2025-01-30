@@ -2,16 +2,15 @@ import argparse
 import os
 import sys
 
-from definition_files import effects
 from wled_configuration import WledConfiguration
 from wled_constants import WLED_HOLIDAY_KEY, DEFINITIONS_DIR_KEY, HOLIDAYS_FILE_KEY, HOLIDAY_PRESETS_FILE_KEY, \
     DEFAULT_PRESETS_NAME_KEY, HOST_KEY, WLED_DIR_KEY, DEFAULT_HOLIDAY_NAME_KEY, PRESETS_KEY, HOLIDAY_KEY, \
-    DEFAULT_PROPERTIES_FILE_BASE
+    RESULT_KEY, CANDIDATES_KEY
 from wled_holiday import WledHoliday
 from wled_upload import upload
 from wled_utils.date_utils import get_todays_date_str, parse_date_str
 from wled_utils.logger_utils import get_logger, init_logger
-from wled_utils.path_utils import presets_file_exists, get_presets_file_name, choose_existing_presets, find_path
+from wled_utils.path_utils import presets_file_exists, get_presets_file_name, choose_existing_presets
 from wled_utils.property_tools import PropertyEvaluator
 from wled_utils.yaml_multi_file_loader import load_yaml_file
 from wled_yaml2json import wled_yaml2json
@@ -64,14 +63,17 @@ def main(name, args):
 
     init_logger()
 
-    process_successful = wled_4_ha(job_file=job_file, env=env, date_str=date_str, verbose=verbose,
+    wled_4_ha_result = wled_4_ha(job_file=job_file, env=env, date_str=date_str, verbose=verbose,
                                    presets_override=presets_override, holiday_override=holiday_override)
-
+    process_successful = wled_4_ha_result[RESULT_KEY]
     return 0 if process_successful else 1
 
 
-def wled_4_ha(*, job_file, env, date_str=None, verbose=False, presets_override=None, holiday_override=None):
-    process_successful = False
+def wled_4_ha(*, job_file, env, date_str=None, verbose=False, presets_override=None, holiday_override=None,
+              holidays_only=False):
+    candidates = None
+    holiday_name = None
+    presets = None
     try:
         if date_str is None:
             date_str = get_todays_date_str()
@@ -140,35 +142,15 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False, presets_override=N
         if holiday_override is not None:
             holiday_name = holiday_override
 
-        if verbose:
-            get_logger().info("Holiday: " + str(holiday_name))
-            get_logger().info("Presets to be applied: " + str(presets))
-
-        properties_file = property_evaluator.get_property(env, section, PROPERTIES_FILE_KEY)
-        segments_file = property_evaluator.get_property(env, section, SEGMENTS_FILE_KEY)
-
-        property_definitions = get_property_definitions(holiday_name, presets)
-
-        if verbose:
-            get_logger().info("Testing presets generation to determine JSON file name.")
-
-        configuration = WledConfiguration(data_dir, wled_rel_dir, definitions_rel_dir, env,
-                                          properties_file, segments_file)
-
-        presets_file = build_presets_option(starting_presets_file, presets)
-        presets_json_path, cfg_json_path = evaluate_presets(configuration, holiday_name, presets_file,
-                                                            property_definitions, False, TEST_MODE)
-
-        if need_to_generate_presets(job_file, configuration, starting_presets_file, presets, presets_json_path):
-            if verbose:
-                get_logger().info("Generating presets file: {file}".format(file=presets_json_path))
-            presets_json_path, cfg_json_path = evaluate_presets(configuration, holiday_name, presets_file,
-                                                                property_definitions, verbose, PROD_MODE)
+        if not holidays_only:
+            process_successful = install_holiday_lights(data_dir=data_dir, definitions_rel_dir=definitions_rel_dir,
+                                                        env=env, holiday_name=holiday_name, host=host,
+                                                        job_file=job_file, presets=presets,
+                                                        property_evaluator=property_evaluator,
+                                                        section=section, starting_presets_file=starting_presets_file,
+                                                        verbose=verbose, wled_rel_dir=wled_rel_dir)
         else:
-            if verbose:
-                get_logger().info("{file} is up-to-date.".format(file=presets_json_path))
-
-        process_successful = upload_presets(host, presets_json_path, verbose)
+            process_successful = True
     except Exception as ex:
         if verbose:
             get_logger().error(ex)
@@ -179,6 +161,34 @@ def wled_4_ha(*, job_file, env, date_str=None, verbose=False, presets_override=N
             get_logger().info("WLED_4_HA SUCCESSFUL")
         else:
             get_logger().error("WLED_4_HA FAILED")
+    return {RESULT_KEY: process_successful, CANDIDATES_KEY: candidates, HOLIDAY_KEY: holiday_name, PRESETS_KEY: presets}
+
+
+def install_holiday_lights(*, data_dir, definitions_rel_dir, env, holiday_name, host, job_file, presets,
+                           property_evaluator, section, starting_presets_file, verbose,
+                           wled_rel_dir):
+    if verbose:
+        get_logger().info("Holiday: " + str(holiday_name))
+        get_logger().info("Presets to be applied: " + str(presets))
+    properties_file = property_evaluator.get_property(env, section, PROPERTIES_FILE_KEY)
+    segments_file = property_evaluator.get_property(env, section, SEGMENTS_FILE_KEY)
+    property_definitions = get_property_definitions(holiday_name, presets)
+    if verbose:
+        get_logger().info("Testing presets generation to determine JSON file name.")
+    configuration = WledConfiguration(data_dir, wled_rel_dir, definitions_rel_dir, env,
+                                      properties_file, segments_file)
+    presets_file = build_presets_option(starting_presets_file, presets)
+    presets_json_path, cfg_json_path = evaluate_presets(configuration, holiday_name, presets_file,
+                                                        property_definitions, False, TEST_MODE)
+    if need_to_generate_presets(job_file, configuration, starting_presets_file, presets, presets_json_path):
+        if verbose:
+            get_logger().info("Generating presets file: {file}".format(file=presets_json_path))
+        presets_json_path, cfg_json_path = evaluate_presets(configuration, holiday_name, presets_file,
+                                                            property_definitions, verbose, PROD_MODE)
+    else:
+        if verbose:
+            get_logger().info("{file} is up-to-date.".format(file=presets_json_path))
+    process_successful = upload_presets(host, presets_json_path, verbose)
     return process_successful
 
 
