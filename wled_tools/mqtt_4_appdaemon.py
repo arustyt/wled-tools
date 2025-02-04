@@ -12,7 +12,7 @@ DEFAULT_APPDAEMON_CMD_TOPIC = 'appdaemon/cmd'
 APPDAEMON_CMD_TOPIC_TAG = "cmd_topic"
 APPDAEMON_NAMESPACE_TAG = "namespace"
 
-ACTION_MAP = { 'send_holiday': send_current_holiday_to_ha, 'install_presets': install_presets_de_jour}
+ACTION_MAP = {'send_holiday': send_current_holiday_to_ha, 'install_presets': install_presets_de_jour}
 
 APPDAEMON_APP_TAG = 'app'
 APPDAEMON_ACTION_TAG = 'action'
@@ -52,7 +52,7 @@ class Mqtt4Appdaemon(hass.Hass):
                 send_current_holiday_to_ha(job=job, env=env, verbose=verbose, helper=self.helper, mqttapi=self.mqtt)
                 return
             elif action == 'install_presets':
-                install_presets_de_jour(job=job, env=env, verbose=verbose, helper=self.helper)
+                install_presets_de_jour(job=job, env=env, verbose=True, helper=self.helper)
                 return
 
         self.helper.log_warning("GOT UNHANDLED EVENT: event_name: {}, data: {}".format(event_name, data))
