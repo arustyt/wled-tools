@@ -1,9 +1,26 @@
 import json
 
+from git import Repo, GitCommandError
+
 from wled_4_ha import wled_4_ha
 from wled_constants import RESULT_KEY, CANDIDATES_KEY, HOLIDAY_KEY, PRESETS_KEY
 
 WLED_HOLIDAY_TOPIC = 'wled/{}/holiday'
+
+
+def pull_config_repo(config_repo, verbose=False, helper=None):
+    if config_repo is not None:
+        if verbose:
+            helper.log_info("Pulling config repo @ {repo}".format(repo=config_repo))
+        try:
+            repo = Repo(config_repo)
+            origin = repo.remotes.origin
+            origin.pull()
+        except GitCommandError as gce:
+            helper.log_error("Pulling config repo @ {repo} FAILED.".format(repo=config_repo))
+            helper.log_error("GitCommandError: {}".format(gce))
+    else:
+        helper.log_warn("Repo to pull not specified.")
 
 
 def install_presets_de_jour(job=None, env=None, date_str=None, verbose=False, helper=None):

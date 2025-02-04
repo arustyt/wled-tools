@@ -3,8 +3,8 @@ import re
 from abc import abstractmethod
 
 import hassapi as hass
-from git import Repo, GitCommandError
 
+from appdaemon_tools.appdaemon_actions import pull_config_repo
 from helper_4_appdaemon import Helper4Appdaemon
 
 JOB_ARG = "job"
@@ -15,7 +15,6 @@ RUN_IN_ARG = 'run_in'
 DATE_STR_ARG = "date_str"
 VERBOSE_ARG = "verbose"
 CONFIG_REPO_ARG = "config_repo"
-CONFIG_REMOTE_ARG = "config_remote"
 GIT_USERNAME = 'git_username'
 GIT_PASSWORD = 'git_password'
 TIME_RE_STR = '^([0-2][0-9]):([0-5][0-9]):([0-5][0-9])$'
@@ -38,7 +37,6 @@ class Ha4Appdaemon(hass.Hass):
         self.date_str = self.helper.get_optional_arg_value(DATE_STR_ARG, None)
         self.verbose = self.helper.get_optional_arg_value(VERBOSE_ARG, False)
         self.config_repo = self.helper.get_optional_arg_value(CONFIG_REPO_ARG, None)
-        self.config_remote = self.helper.get_optional_arg_value(CONFIG_REMOTE_ARG, None)
         self.git_username = self.helper.get_optional_arg_value(GIT_USERNAME, None)
         self.git_password = self.helper.get_optional_arg_value(GIT_PASSWORD, None)
 
@@ -187,17 +185,4 @@ class Ha4Appdaemon(hass.Hass):
 
     @abstractmethod
     def callback(self, cb_args):
-        self.pull_config_repo()
-
-    def pull_config_repo(self):
-        if self.config_repo is not None:
-            if self.verbose:
-                self.helper.log_info("Pulling config repo @ {repo}".format(repo=self.config_repo))
-            try:
-                repo = Repo(self.config_repo)
-                # repo.username = self.git_username
-                origin = repo.remotes.origin
-                origin.pull()
-            except GitCommandError as gce:
-                self.helper.log_error("Pulling config repo @ {repo} FAILED.".format(repo=self.config_repo))
-                self.helper.log_error("GitCommandError: {}".format(gce))
+        pull_config_repo(self.config_repo, verbose=self.verbose, helper=self.helper)

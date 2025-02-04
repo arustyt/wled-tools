@@ -4,15 +4,17 @@ from abc import abstractmethod
 import mqttapi as mqtt
 import hassapi as hass
 
-from appdaemon_tools.appdaemon_actions import send_current_holiday_to_ha, install_presets_de_jour
-from appdaemon_tools.ha_4_appdaemon import JOB_ARG, VERBOSE_ARG
+from appdaemon_tools.appdaemon_actions import send_current_holiday_to_ha, install_presets_de_jour, pull_config_repo
+from appdaemon_tools.ha_4_appdaemon import JOB_ARG, VERBOSE_ARG, CONFIG_REPO_ARG
 from appdaemon_tools.helper_4_appdaemon import Helper4Appdaemon, ENV_ARG
+
+SEND_HOLIDAY_ACTION = 'send_holiday'
+INSTALL_PRESETS_ACTION = 'install_presets'
+PULL_CONFIG_ACTION = 'pull_config'
 
 DEFAULT_APPDAEMON_CMD_TOPIC = 'appdaemon/cmd'
 APPDAEMON_CMD_TOPIC_TAG = "cmd_topic"
 APPDAEMON_NAMESPACE_TAG = "namespace"
-
-ACTION_MAP = {'send_holiday': send_current_holiday_to_ha, 'install_presets': install_presets_de_jour}
 
 APPDAEMON_APP_TAG = 'app'
 APPDAEMON_ACTION_TAG = 'action'
@@ -46,13 +48,17 @@ class Mqtt4Appdaemon(hass.Hass):
             app_data = self.helper.app_config[app]
             job = app_data[JOB_ARG]
             env = app_data[ENV_ARG]
+            config_repo = app_data[CONFIG_REPO_ARG]
             verbose = self.helper.get_optional_arg_value(VERBOSE_ARG, False)
 
-            if action == 'send_holiday':
+            if action == SEND_HOLIDAY_ACTION:
                 send_current_holiday_to_ha(job=job, env=env, verbose=verbose, helper=self.helper, mqttapi=self.mqtt)
                 return
-            elif action == 'install_presets':
+            elif action == INSTALL_PRESETS_ACTION:
                 install_presets_de_jour(job=job, env=env, verbose=True, helper=self.helper)
+                return
+            elif action == PULL_CONFIG_ACTION:
+                pull_config_repo(config_repo, verbose=True, helper=self.helper)
                 return
 
         self.helper.log_warning("GOT UNHANDLED EVENT: event_name: {}, data: {}".format(event_name, data))
