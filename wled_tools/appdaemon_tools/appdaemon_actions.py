@@ -16,6 +16,8 @@ def pull_config_repo(config_repo, verbose=False, helper=None):
             repo = Repo(config_repo)
             origin = repo.remotes.origin
             origin.pull()
+            if verbose:
+                helper.log_info("Pull SUCCESSFUL")
         except GitCommandError as gce:
             helper.log_error("Pulling config repo @ {repo} FAILED.".format(repo=config_repo))
             helper.log_error("GitCommandError: {}".format(gce))
