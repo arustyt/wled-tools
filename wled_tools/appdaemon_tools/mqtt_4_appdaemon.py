@@ -1,7 +1,6 @@
 import json
 from abc import abstractmethod
 
-import mqttapi as mqtt
 import hassapi as hass
 
 from appdaemon_tools.appdaemon_actions import send_current_holiday_to_ha, install_presets_de_jour, pull_config_repo
