@@ -6,9 +6,11 @@ class WledHoliday4Appdaemon(Ha4Appdaemon):
 
     def __init__(self, *args):
         super().__init__(*args)
+        self.mqtt = None
 
     def initialize(self):
         super().initialize()
+        self.mqtt = self.get_plugin_api("MQTT")
 
     def callback(self, cb_args):
         super().callback(cb_args)
