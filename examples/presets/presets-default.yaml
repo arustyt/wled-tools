@@ -1,0 +1,155 @@
+presets:
+  - n: Playlist Du Jour
+    'on': true
+    playlist:
+      dur:
+      - ${default.phase_1_duration}
+      - ${default.phase_2_duration}
+      - ${default.phase_3_duration}
+      - ${default.phase_4_duration}
+      ps:
+      - Phase 1
+      - Phase 2
+      - Phase 3
+      - Phase 4
+      end: Phase 5
+      r: false
+      repeat: 1
+      transition:
+      - 10
+      - 10
+      - 10
+      - 10
+  - n: Phase 1
+    'on': true
+    seg:
+    - seg_name: ${default.seg_1.phase_1}
+      fx_name: '${default.fx}'
+      pal_name: ${default.pal}
+      col:
+      - '${default.color.fg}'
+      bri: 255
+      ix: 100
+      mi: false
+      'on': true
+      rev: false
+      sel: true
+      sx: 122
+    - seg_name: ${default.seg_2.phase_1}
+    - seg_name: ${default.seg_3.phase_1}
+      fx_name: '${${holiday}.fx}'
+      pal_name: '${${holiday}.pal}'
+      col:
+      - '${${holiday}.color.fg}'
+      - '${${holiday}.color.bg}'
+      bri: 128
+    - seg_name: ${default.seg_4.phase_1}
+  - n: Phase 2
+    'on': true
+    seg:
+    - seg_name: ${default.seg_1.phase_2}
+      fx_name: '${default.fx}'
+      pal_name: ${default.pal}
+      col:
+      - '${default.color.fg}'
+      bri: 255
+      ix: 100
+      mi: false
+      'on': true
+      rev: false
+      sel: true
+      sx: 122
+    - seg_name: ${default.seg_2.phase_2}
+    - seg_name: ${default.seg_1.filler.phase_2}
+      fx_name: '${[${holiday}.default.filler].fx}'
+      pal_name: '${${holiday}.pal}'
+      col:
+      - '${${holiday}.color.bg}'
+      bri: 64
+    - seg_name: ${default.seg_2.filler.phase_2}
+    - seg_name: ${default.seg_3.phase_2}
+      fx_name: '${${holiday}.fx}'
+      pal_name: '${${holiday}.pal}'
+      col:
+      - '${${holiday}.color.fg}'
+      - '${${holiday}.color.bg}'
+      bri: 128
+    - seg_name: ${default.seg_4.phase_2}
+  - n: Phase 3
+    'on': true
+    seg:
+    - seg_name: ${default.seg_1.phase_3}
+      fx_name: '${default.fx}'
+      pal_name: ${default.pal}
+      col:
+      - '${default.color.fg}'
+      bri: 255
+      ix: 100
+      mi: false
+      'on': true
+      rev: false
+      sel: true
+      sx: 122
+    - seg_name: ${default.seg_2.phase_3}
+    - seg_name: ${default.seg_1.filler.phase_3}
+      fx_name: '${[${holiday}.default.filler].fx}'
+      pal_name: '${${holiday}.pal}'
+      col:
+      - '${${holiday}.color.bg}'
+      bri: 64
+    - seg_name: ${default.seg_2.filler.phase_3}
+    - seg_name: ${default.seg_3.phase_3}
+      fx_name: '${${holiday}.fx}'
+      pal_name: '${${holiday}.pal}'
+      col:
+      - '${${holiday}.color.fg}'
+      - '${${holiday}.color.bg}'
+      bri: 128
+    - seg_name: ${default.seg_4.phase_3}
+  - n: Phase 4
+    'on': true
+    seg:
+    - seg_name: ${default.seg_1.phase_4}
+      fx_name: '${default.fx}'
+      pal_name: ${default.pal}
+      col:
+      - '${default.color.fg}'
+      bri: 255
+      ix: 100
+      mi: false
+      'on': true
+      rev: false
+      sel: true
+      sx: 122
+    - seg_name: ${default.seg_2.phase_4}
+    - seg_name: ${default.seg_1.filler.phase_4}
+      fx_name: '${[${holiday}.default.filler].fx}'
+      pal_name: '${${holiday}.pal}'
+      col:
+      - '${${holiday}.color.bg}'
+      bri: 64
+    - seg_name: ${default.seg_2.filler.phase_4}
+    - seg_name: ${default.seg_3.phase_4}
+      fx_name: '${${holiday}.fx}'
+      pal_name: '${${holiday}.pal}'
+      col:
+      - '${${holiday}.color.fg}'
+      - '${${holiday}.color.bg}'
+      bri: 128
+    - seg_name: ${default.seg_4.phase_4}
+  - n: Phase 5
+    'on': true
+    seg:
+    - seg_name: Whole Roof
+      fx_name: '${${holiday}.fx}'
+      col:
+      - '${${holiday}.color.fg}'
+      - '${${holiday}.color.bg}'
+      bri: 128
+      ix: 100
+      mi: false
+      'on': true
+      pal_name: '${${holiday}.pal}'
+      rev: false
+      sel: true
+      sx: 122

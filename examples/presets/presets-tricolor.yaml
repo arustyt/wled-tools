@@ -1,0 +1,326 @@
+presets:
+  - n: Playlist Du Jour
+    'on': true
+    playlist:
+      dur:
+      - ${playlist_duration} * 11
+      end: 'Off'
+      ps:
+      - Blends
+      - Fireworks Starburst
+      - Dissolve
+      - Chunchun
+      - Colorwaves
+      - Twinkle Fox
+      - Fireworks 1D
+      - Flow
+      - Popcorn
+      - Scanner
+      - Washing Machine
+      - Tricolor Sunrise
+      r: false
+      repeat: ${playlist_repeat}
+      transition:
+      - 0 * 11
+  - n: Blends
+    'on': true
+    seg:
+    - seg_name: First Floor
+      bri: 128
+      cct: 127
+      col:
+      - '${${holiday}.color_1}'
+      - '${${holiday}.color_2}'
+      - '${${holiday}.color_3}'
+      fx_name: Blends
+      grp: 1
+      ix: 128
+      mi: false
+      of: 0
+      'on': true
+      pal_name: Colors Only
+      rev: false
+      sel: true
+      spc: 0
+      sx: 128
+    - seg_name: Second Floor
+      rev: true
+    transition: 7
+  - n: Dissolve
+    'on': true
+    seg:
+    - seg_name: Whole Roof(pat=(2)/1/2/1)
+      bri: 128
+      cct: 127
+      col:
+      - '${${holiday}.color_1}'
+      - Black
+      - Black
+      fx_name: Dissolve
+      ix: 80
+      mi: false
+      'on': true
+      pal_name: Default
+      rev: false
+      sel: true
+      sx: 128
+    - seg_name: Whole Roof(pat=2/(1)/2/1)
+      col:
+      - '${${holiday}.color_3}'
+      - Black
+      - Black
+    - seg_name: Whole Roof(pat=2/1/(2)/1)
+      col:
+      - '${${holiday}.color_2}'
+      - Black
+      - Black
+    - seg_name: Whole Roof(pat=2/1/2/(1))
+      col:
+      - '${${holiday}.color_3}'
+      - Black
+      - Black
+    transition: 7
+  - n: Chunchun
+    'on': true
+    seg:
+    - seg_name: First Floor
+      bri: 128
+      cct: 127
+      col:
+      - '${${holiday}.color_1}'
+      - '${${holiday}.color_2}'
+      - '${${holiday}.color_3}'
+      fx_name: Chunchun
+      grp: 1
+      ix: 32
+      mi: false
+      of: 0
+      'on': true
+      pal_name: Colors Only
+      rev: false
+      sel: true
+      spc: 0
+      sx: 64
+    - seg_name: Second Floor
+      rev: true
+    transition: 7
+  - n: Colorwaves
+    'on': true
+    seg:
+    - seg_name: First Floor
+      bri: 128
+      cct: 127
+      col:
+      - '${${holiday}.color_1}'
+      - '${${holiday}.color_2}'
+      - '${${holiday}.color_3}'
+      fx_name: Colorwaves
+      grp: 1
+      ix: 128
+      mi: false
+      of: 0
+      'on': true
+      pal_name: Colors Only
+      rev: false
+      sel: true
+      spc: 0
+      sx: 128
+    - seg_name: Second Floor
+      rev: true
+    transition: 7
+  - n: Twinkle Fox
+    'on': true
+    seg:
+    - seg_name: First Floor
+      bri: 128
+      cct: 127
+      col:
+      - '${${holiday}.color_1}'
+      - '${${holiday}.color_2}'
+      - '${${holiday}.color_3}'
+      fx_name: Twinklefox
+      grp: 1
+      ix: 128
+      mi: false
+      of: 0
+      'on': true
+      pal_name: Colors Only
+      rev: false
+      sel: true
+      spc: 0
+      sx: 128
+    - seg_name: Second Floor
+      rev: true
+    transition: 7
+  - n: Fireworks 1D
+    'on': true
+    seg:
+    - seg_name: First Floor
+      bri: 128
+      cct: 127
+      col:
+      - '${${holiday}.color_1}'
+      - '${${holiday}.color_2}'
+      - '${${holiday}.color_3}'
+      fx_name: Fireworks 1D
+      grp: 1
+      ix: 128
+      mi: false
+      of: 0
+      'on': true
+      pal_name: Colors Only
+      rev: false
+      sel: true
+      spc: 0
+      sx: 128
+    - seg_name: Second Floor
+      rev: true
+    transition: 7
+  - n: Flow
+    'on': true
+    seg:
+    - seg_name: First Floor
+      bri: 128
+      cct: 127
+      col:
+      - '${${holiday}.color_1}'
+      - '${${holiday}.color_2}'
+      - '${${holiday}.color_3}'
+      fx_name: Flow
+      grp: 1
+      ix: 128
+      mi: false
+      of: 0
+      'on': true
+      pal_name: Colors Only
+      rev: false
+      sel: true
+      spc: 0
+      sx: 128
+    - seg_name: Second Floor
+      rev: true
+    transition: 7
+  - n: Popcorn
+    'on': true
+    seg:
+    - seg_name: First Floor
+      bri: 128
+      cct: 127
+      col:
+      - '${${holiday}.color_1}'
+      - '${${holiday}.color_2}'
+      - '${${holiday}.color_3}'
+      fx_name: Popcorn
+      grp: 1
+      mi: false
+      of: 0
+      'on': true
+      pal_name: Colors Only
+      rev: false
+      sel: true
+      spc: 0
+      sx: 0
+      ix: 255
+    - seg_name: Second Floor
+      rev: true
+    transition: 7
+  - n: Scanner
+    'on': true
+    seg:
+    - seg_name: First Floor
+      bri: 128
+      cct: 127
+      col:
+      - '${${holiday}.color_1}'
+      - '${${holiday}.color_2}'
+      - '${${holiday}.color_3}'
+      fx_name: Scan
+      grp: 1
+      mi: false
+      of: 0
+      'on': true
+      pal_name: Colors Only
+      rev: false
+      sel: true
+      spc: 0
+      sx: 192
+      ix: 64
+    - seg_name: Second Floor
+      rev: true
+    transition: 7
+  - n: Washing Machine
+    'on': true
+    seg:
+    - seg_name: Garage
+      bri: 128
+      cct: 127
+      col:
+      - '${${holiday}.color_1}'
+      - '${${holiday}.color_2}'
+      - '${${holiday}.color_3}'
+      fx_name: Washing machine
+      grp: 1
+      ix: 128
+      mi: false
+      of: 0
+      'on': true
+      pal_name: Colors Only
+      rev: false
+      sel: true
+      spc: 0
+      sx: 208
+    - seg_name: Porch
+      rev: true
+    - seg_name: Over Porch
+      rev: false
+    - seg_name: Peak
+      rev: true
+    transition: 7
+  - n: Fireworks Starburst
+    'on': true
+    seg:
+    - seg_name: First Floor
+      bri: 128
+      cct: 127
+      col:
+      - '${${holiday}.color_1}'
+      - '${${holiday}.color_2}'
+      - '${${holiday}.color_3}'
+      fx_name: Fireworks Starburst
+      grp: 1
+      ix: 128
+      mi: false
+      of: 0
+      'on': true
+      pal_name: Colors Only
+      rev: false
+      sel: true
+      spc: 0
+      sx: 50
+    - seg_name: Second Floor
+      rev: true
+    transition: 7
+  - n: Tricolor Sunrise
+    'on': true
+    seg:
+    - seg_name: First Floor
+      bri: 128
+      cct: 127
+      col:
+      - '${${holiday}.color_1}'
+      - '${${holiday}.color_2}'
+      - '${${holiday}.color_3}'
+      fx_name: Sunrise
+      grp: 1
+      ix: 255
+      mi: false
+      of: 0
+      'on': true
+      pal_name: Colors Only
+      rev: false
+      sel: true
+      spc: 0
+      sx: 160
+    - seg_name: Second Floor
+      rev: true
+    transition: 7

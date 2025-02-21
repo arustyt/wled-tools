@@ -1,0 +1,146 @@
+lab_300:
+  sunset:
+    begin_dark_duration: 100
+    sun_duration: 100
+    sunset_duration: 300
+    end_dark_duration: 100
+    begin_dark_transition: 0
+    sun_transition: 30
+    sunset_transition: 30
+    end_dark_transition: 0
+    sunset_sx: 150
+  playlist_duration: 300
+  playlist_repeat: 2
+  default:
+    phase_1_duration: 150
+    phase_2_duration: 150
+    phase_3_duration: 150
+    phase_4_duration: 150
+roof:
+  sunset:
+    begin_dark_duration: 10
+    sun_duration: 600
+    sunset_duration: 6000
+    end_dark_duration: 10
+    begin_dark_transition: 0
+    sun_transition: 300
+    sunset_transition: 300
+    end_dark_transition: 0
+    sunset_sx: 150
+  playlist_duration: 3000
+  playlist_repeat: 0
+  default:
+    phase_1_duration: 30000
+    phase_2_duration: 90000
+    phase_3_duration: 90000
+    phase_4_duration: 120000
+superbowl:
+  colors:
+    nfc:
+      primary: '#046A38'
+      secondary: '#A5ACAF'
+    afc:
+      primary: '#E31837'
+      secondary: '#FFB81C'
+breast_cancer_awareness_month_fg: Neon Pink
+breast_cancer_awareness_month_bg: Black
+black_history_month_green: '1c4e19'
+black_history_month_black: Black
+black_history_month_red: '62000c'
+black_history_month_gold: '705626'
+juneteenth_green: 'bcff00'
+juneteenth_red: 'ff4040'
+mlk_red: 'f75d59'
+mlk_white: Cream
+mlk_black: Black
+mlk_blue: '00c8ff'
+mlk_green: 'bcff00'
+lent:
+  fx: Twinkleup
+  pal: Colors 1 & 2
+  color:
+    fg: White
+    bg: '9D00FF'
+ash_wednesday:
+  fx: Twinkleup
+  pal: Colors 1 & 2
+  color:
+    fg: White
+    bg: Black
+holy_week:
+  fx: Twinkleup
+  pal: Colors 1 & 2
+  color:
+    fg: White
+    bg: Scarlet
+good_friday:
+  fx: Twinkleup
+  pal: Colors 1 & 2
+  color:
+    fg: White
+    bg: Scarlet
+pride_month:
+  fx: 'Pride 2015'
+  pal: Rainbow
+  color:
+    fg: Black
+    bg: Black
+  filler:
+    fx: 'Pride 2015'
+    pal: Rainbow
+mardigras_purple: '9D00FF'
+mardigras_green: Green
+mardigras_gold: 'FFC800'
+stpats_orange: 'C89100'
+stpats_white: White
+stpats_green: Green
+stpats_gold: 'FFC800'
+stpats_black: Black
+thanksgiving:
+  color_1: Sedona
+  color_2: Shamrock Green
+  color_3: Burgundy
+normal_night:
+  fx: Twinkleup
+  pal: Colors 1 & 2
+  color:
+    fg: White
+    bg: '0000BF'
+normal_night_fg: White
+normal_night_bg: '0000BF'
+default:
+  fx: Solid
+  pal: Color 1
+  color:
+    fg: White
+    bg: Black
+  filler:
+    fx: Solid
+  seg_1:
+    phase_1: Garage
+    phase_2: Garage (pat=(1)/1)
+    phase_3: Garage (pat=(1)/3)
+    phase_4: Garage (pat=(1)/5)
+    filler:
+      phase_2: Garage (pat=1/(1))
+      phase_3: Garage (pat=1/(3))
+      phase_4: Garage (pat=1/(5))
+  seg_2:
+    phase_1: Porch
+    phase_2: Porch (pat=(1)/1)
+    phase_3: Porch (pat=(1)/3)
+    phase_4: Porch (pat=(1)/5)
+    filler:
+      phase_2: Porch (pat=1/(1))
+      phase_3: Porch (pat=1/(3))
+      phase_4: Porch (pat=1/(5))
+  seg_3:
+    phase_1: Over Porch
+    phase_2: Over Porch
+    phase_3: Over Porch
+    phase_4: Over Porch
+  seg_4:
+    phase_1: Peak
+    phase_2: Peak
+    phase_3: Peak
+    phase_4: Peak

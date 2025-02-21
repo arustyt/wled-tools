@@ -1,0 +1,13 @@
+definitions_dir: etc
+wled_dir: presets
+wled_holiday:
+    holidays_file: holidays.yaml
+    holiday_presets_file: holiday_presets.yaml
+default_presets_name: default
+default_holiday_name: normal_night
+properties: properties.yaml
+lab_300:
+    host: 192.168.20.11
+roof:
+    host: 192.168.20.10
+

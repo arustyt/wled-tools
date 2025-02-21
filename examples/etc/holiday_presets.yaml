@@ -1,0 +1,153 @@
+# Date format is MMDD
+holidays:
+  normal_night:
+    start_date: new_years_day
+    end_date: new_years_eve
+    presets: default
+    mon:
+      holiday: normal_night
+    tue:
+      holiday: normal_night
+    wed:
+      holiday: normal_night
+    thu:
+      holiday: normal_night
+    fri:
+      holiday: normal_night
+  new_years_day:
+    start_date: new_years_day
+    end_date: new_years_day+6
+    presets: newyears
+  martin_luther_king_jr_day:
+    start_date: martin_luther_king_jr_day-3
+    end_date: martin_luther_king_jr_day
+    presets: mlkday
+  black_history_month:
+    start_date: '0201'
+    end_date: '0301-1'
+    presets: black_history_month
+  ground_hog_day:
+    start_date: ground_hog_day
+    end_date: ground_hog_day
+    presets: groundhogday
+  superbowl_sunday:
+    start_date: '0208'
+    end_date: '0209'
+    presets: superbowl
+  valentines_day:
+    start_date: valentines_day
+    end_date: valentines_day
+    presets: valentinesday
+  presidents_day:
+    start_date: presidents_day-3
+    end_date: presidents_day
+    presets: patriotic
+  mardi_gras:
+    start_date: mardi_gras
+    end_date: mardi_gras
+    presets: mardigras
+  st_patricks_day:
+    start_date: st_patricks_day-7
+    end_date: st_patricks_day
+    presets: stpatricksday
+  ash_wednesday:
+    start_date: ash_wednesday
+    end_date: ash_wednesday
+    presets: default
+  lent:
+    start_date: ash_wednesday
+    end_date: holy_saturday
+    presets: default
+  palm_sunday:
+    start_date: palm_sunday
+    end_date: palm_sunday
+    presets: easter
+  holy_week:
+    start_date: palm_sunday+1
+    end_date: easter-1
+    presets: default
+  holy_monday:
+    start_date: holy_monday
+    end_date: holy_monday
+    presets: holymonday
+  holy_tuesday:
+    start_date: holy_tuesday
+    end_date: holy_tuesday
+    presets: holytuesday
+  holy_wednesday:
+    start_date: holy_wednesday
+    end_date: holy_wednesday
+    presets: holywednesday
+  maundy_thursday:
+    start_date: maundy_thursday
+    end_date: maundy_thursday
+    presets: maundythursday
+  good_friday:
+    start_date: good_friday
+    end_date: good_friday
+    presets: default
+  holy_saturday:
+    start_date: holy_saturday
+    end_date: holy_saturday
+    presets: holysaturday
+  easter:
+    start_date: easter-7
+    end_date: easter
+    presets: easter
+  memorial_day:
+    start_date: memorial_day-3
+    end_date: memorial_day
+    presets: patriotic
+  flag_day:
+    start_date: flag_day
+    end_date: flag_day
+    presets: patriotic
+  pride_month:
+    start_date: '0601'
+    end_date: '0630'
+    presets: default
+  juneteenth:
+    start_date: juneteenth
+    end_date: juneteenth
+    presets: juneteenth
+  4th_of_july:
+    start_date: 4th_of_july-3
+    end_date: 4th_of_july
+    presets: patriotic
+  labor_day:
+    start_date: labor_day-3
+    end_date: labor_day
+    presets: patriotic
+  breast_cancer_awareness_month:
+    start_date: '1001'
+    end_date: '1031'
+    presets: breast_cancer_awareness_month
+  halloween:
+    start_date: '1015'
+    end_date: halloween
+    presets: halloween
+  election_day:
+    start_date: election_day-1
+    end_date: election_day
+    presets: patriotic
+  veterans_day:
+    start_date: veterans_day-1
+    end_date: veterans_day
+    presets: patriotic
+  thanksgiving:
+    start_date: '1101'
+    end_date: thanksgiving
+    presets: tricolor
+  christmas_eve:
+    start_date: christmas_eve
+    end_date: christmas_eve
+    presets: christmaseve
+  christmas:
+    start_date: thanksgiving+1
+    end_date: new_years_eve-1
+    presets: christmas
+  new_years_eve:
+    start_date: new_years_eve
+    end_date: new_years_eve
+    presets: newyears
+

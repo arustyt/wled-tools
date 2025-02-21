@@ -1,0 +1,22 @@
+defaults:
+  preset:
+    mainseg: 0
+    bri: 128
+    transition: 7
+presets:
+  - id: '0'
+  - id: '1'
+    n: 'Off'
+    win: T=0
+  - id: '2'
+    n: Test Playlist
+    'on': true
+    playlist:
+      dur:
+      - 10
+      ps:
+      - Playlist Du Jour
+      r: false
+      repeat: 1
+      transition:
+      - 0

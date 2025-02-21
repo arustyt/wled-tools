@@ -1,0 +1,266 @@
+presets:
+  - n: Playlist Du Jour
+    'on': true
+    playlist:
+      dur:
+      - ${playlist_duration} * 11
+      end: 'Off'
+      ps:
+      - Christmas - Candy Cane
+      - Christmas - Christmas
+      - Christmas - C9ColorTwinkles
+      - Christmas - CandleMulti
+      - Christmas - Tetrix C9
+      - Christmas - TwinkleFoxRainbow
+      - Christmas - TriChaseXmas
+      - Christmas - ChunChunXmas
+      - Christmas - Candy Cane 2
+      - Christmas - Tetrix
+      - Christmas - Twinkle
+      r: false
+      repeat: ${playlist_repeat}
+      transition:
+      - 10 * 11
+  - n: Christmas - Candy Cane
+    'on': true
+    seg:
+    - seg_name: First Floor
+      bri: 128
+      col:
+      - Red
+      - White
+      - White
+      fx_name: Chase 2
+      grp: 1
+      ix: 128
+      mi: false
+      'on': true
+      pal_name: Default
+      rev: false
+      sel: true
+      spc: 0
+      sx: 128
+    - seg_name: Second Floor
+      rev: true
+    transition: 7
+  - n: Christmas - Christmas
+    'on': true
+    seg:
+    - seg_name: First Floor
+      bri: 128
+      col:
+      - Red
+      - Green
+      - White
+      fx_name: Running 2
+      grp: 1
+      ix: 128
+      mi: false
+      'on': true
+      pal_name: Default
+      rev: true
+      sel: true
+      spc: 0
+      sx: 122
+    - seg_name: Second Floor
+      rev: false
+    transition: 7
+  - n: Christmas - Twinkle
+    'on': true
+    seg:
+    - seg_name: First Floor
+      bri: 128
+      col:
+      - White
+      - '0000BF'
+      - White
+      fx_name: TwinkleUp
+      grp: 1
+      ix: 128
+      mi: false
+      'on': true
+      pal_name: Default
+      rev: false
+      sel: true
+      spc: 0
+      sx: 122
+    - seg_name: Second Floor
+      rev: true
+    transition: 7
+  - n: Christmas - Candy Cane 2
+    'on': true
+    seg:
+    - seg_name: Garage
+      bri: 128
+      col:
+      - Red
+      - White
+      - White
+      fx_name: Chase 2
+      grp: 1
+      ix: 128
+      mi: false
+      'on': true
+      pal_name: Default
+      rev: false
+      sel: true
+      spc: 0
+      sx: 122
+    - seg_name: Porch
+      rev: true
+    - seg_name: Over Porch
+      rev: false
+    - seg_name: Peak
+      rev: true
+    transition: 7
+  - n: Christmas - C9ColorTwinkles
+    'on': true
+    seg:
+    - seg_name: Whole Roof
+      fx_name: TwinkleFox
+      bri: 128
+      col: []
+      grp: 1
+      ix: 128
+      mi: false
+      of: 0
+      'on': true
+      pal_name: C9 New
+      rev: false
+      sel: true
+      spc: 0
+      sx: 192
+    transition: 0
+  - n: Christmas - CandleMulti
+    'on': true
+    seg:
+    - seg_name: Whole Roof
+      bri: 128
+      col:
+      - 'FF9900'
+      - Black
+      - Black
+      fx_name: Candle Multi
+      grp: 1
+      ix: 255
+      mi: false
+      'on': true
+      pal_name: Default
+      rev: false
+      sel: true
+      spc: 0
+      sx: 125
+    transition: 7
+  - n: Christmas - TwinkleFoxRainbow
+    'on': true
+    seg:
+    - seg_name: Whole Roof
+      bri: 128
+      col: []
+      fx_name: Twinklefox
+      grp: 1
+      ix: 255
+      mi: false
+      'on': true
+      pal_name: Rainbow
+      rev: false
+      sel: true
+      spc: 0
+      sx: 125
+    transition: 7
+  - n: Christmas - TriChaseXmas
+    'on': true
+    seg:
+    - seg_name: First Floor
+      bri: 128
+      col:
+      - Red
+      - Green
+      - White
+      fx_name: Tri Chase
+      grp: 1
+      ix: 130
+      mi: false
+      'on': true
+      pal_name: Default
+      rev: false
+      sel: true
+      spc: 0
+      sx: 255
+    - seg_name: Second Floor
+      rev: true
+    transition: 7
+  - n: Christmas - ChunChunXmas
+    'on': true
+    seg:
+    - seg_name: First Floor
+      bri: 128
+      col:
+      - Red
+      - Green
+      - White
+      fx_name: Chunchun
+      grp: 1
+      ix: 12
+      mi: false
+      'on': true
+      pal_name: Default
+      rev: false
+      sel: true
+      spc: 0
+      sx: 128
+    - seg_name: Second Floor
+      rev: true
+    transition: 7
+  - n: Christmas - Tetrix
+    'on': true
+    seg:
+    - seg_name: Garage
+      bri: 128
+      col:
+      - Red
+      - Green
+      - White
+      fx_name: Tetrix
+      grp: 1
+      ix: 128
+      mi: false
+      'on': true
+      pal_name: Color 1
+      rev: true
+      sel: true
+      spc: 0
+      sx: 160
+    - seg_name: Porch
+      rev: false
+    - seg_name: Over Porch
+      rev: true
+    - seg_name: Peak
+      rev: false
+    transition: 7
+  - n: Christmas - Tetrix C9
+    'on': true
+    seg:
+    - seg_name: Garage
+      bri: 128
+      col: 
+      - Black
+      - Black
+      - Black
+      fx_name: Tetrix
+      grp: 1
+      ix: 64
+      mi: false
+      'on': true
+      pal_name: C9 New
+      rev: true
+      sel: true
+      spc: 0
+      sx: 160
+    - seg_name: Porch
+      rev: false
+    - seg_name: Over Porch
+      rev: true
+    - seg_name: Peak
+      rev: false
+    transition: 7

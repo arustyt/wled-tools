@@ -1,0 +1,82 @@
+defaults:
+  preset:
+    mainseg: 0
+    bri: 128
+    transition: 7
+presets:
+  - id: '0'
+  - id: '1'
+    n: 'Off'
+    win: T=0
+  - id: '2'
+    n: Experimental Playlist
+    'on': true
+    playlist:
+      dur:
+      - 10
+      end: 'Off'
+      ps:
+      - Experiment 2
+      r: false
+      repeat: 1
+      transition:
+      - 0
+  - bri: 128
+    mainseg: 0
+    n: Experiment 1
+    'on': true
+    seg:
+    - seg_name: Whole Roof(start=0,spc=4,grp=2)
+      fx_name: Solid
+      col:
+      - red
+      pal_name: Default
+      bri: 128
+      cct: 127
+      ix: 132
+      mi: false
+      of: 0
+      'on': true
+      rev: false
+      sel: true
+      sx: 128
+    - seg_name: Whole Roof(start=2,spc=2,grp=1)
+      fx_name: Solid
+      col:
+      - white
+    - seg_name: Whole Roof(start=3,spc=4,grp=2)
+      fx_name: Solid
+      col:
+      - green
+    transition: 10
+  - bri: 128
+    mainseg: 0
+    n: Experiment 2
+    'on': true
+    seg:
+    - seg_name: Whole Roof(pat=(2)/1/2/1)
+      fx_name: Blink
+      col:
+      - green
+      - red
+      pal_name: Default
+      bri: 128
+      cct: 127
+      ix: 132
+      mi: false
+      of: 0
+      'on': true
+      rev: false
+      sel: true
+      sx: 128
+    - seg_name: Whole Roof(pat=2/(1)/2/1)
+      fx_name: Solid
+      col:
+      - white
+    - seg_name: Whole Roof(pat=2/1/2/(1))
+    - seg_name: Whole Roof(pat=2/1/(2)/1)
+      fx_name: Blink
+      col:
+      - red
+      - green
+    transition: 10

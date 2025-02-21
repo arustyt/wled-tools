@@ -1,0 +1,133 @@
+lab_300:
+  segments:
+  - n: All
+    start: 0
+    stop: 300
+    of: 0
+    spc: 0
+    grp: 1
+  - n: First
+    start: 0
+    stop: 150
+    of: 0
+    spc: 0
+    grp: 1
+  - n: Second
+    start: 150
+    stop: 300
+    of: 0
+    spc: 0
+    grp: 1
+  - n: Garage
+    start: 0
+    stop: 75
+    of: 0
+    spc: 0
+    grp: 1
+  - n: Porch
+    start: 75
+    stop: 150
+    of: 0
+    spc: 0
+    grp: 1
+  - n: Over Porch
+    start: 150
+    stop: 225
+    of: 0
+    spc: 0
+    grp: 1
+  - n: Peak
+    start: 225
+    stop: 300
+    of: 0
+    spc: 0
+    grp: 1
+  - n: Peak Left
+    start: 225
+    stop: 263
+    of: 0
+    spc: 0
+    grp: 1
+  - n: Peak Right
+    start: 263
+    stop: 300
+    of: 0
+    spc: 0
+    grp: 1
+  - n: First Floor
+    start: 0
+    stop: 150
+    of: 0
+    spc: 0
+    grp: 1
+  - n: Second Floor
+    start: 150
+    stop: 300
+    of: 0
+    spc: 0
+    grp: 1
+  - n: Whole Roof
+    start: 0
+    stop: 300
+    of: 0
+    spc: 0
+    grp: 1
+roof:
+  segments:
+  - n: Garage
+    start: 0
+    stop: 114
+    of: 0
+    spc: 0
+    grp: 1
+  - n: Porch
+    start: 114
+    stop: 222
+    of: 0
+    spc: 0
+    grp: 1
+  - n: Over Porch
+    start: 222
+    stop: 337
+    of: 0
+    spc: 0
+    grp: 1
+  - n: Peak
+    start: 337
+    stop: 439
+    of: 0
+    spc: 0
+    grp: 1
+  - n: Peak Left
+    start: 337
+    stop: 383
+    of: 0
+    spc: 0
+    grp: 1
+  - n: Peak Right
+    start: 383
+    stop: 439
+    of: 0
+    spc: 0
+    grp: 1
+  - n: First Floor
+    start: 0
+    stop: 222
+    of: 0
+    spc: 0
+    grp: 1
+  - n: Second Floor
+    start: 222
+    stop: 439
+    of: 0
+    spc: 0
+    grp: 1
+    of: 0
+    spc: 0
+    grp: 1
+  - n: Whole Roof
+    start: 0
+    stop: 439
+    of: 0
+    spc: 0
+    grp: 1
