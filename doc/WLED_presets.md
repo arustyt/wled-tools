@@ -10,7 +10,8 @@ can be used anywhere in the WLED Presets YAML file. Typically, property substitu
 
 ## Defaults {#defaults}
 
-Wled_yaml2json.py supports a non-WLED data section identified with the top level key, **defaults**. If present, 
+**Wled_yaml2json.py** supports a non-WLED data section identified with the top level key, **defaults**. 
+If present, 
 **defaults** can contain **preset** and/or **segment** keys. As the name suggests, keys and values under 
 these define default values for presets and segments, respectively. These defaults are applied at the beginning of 
 processing each preset in the YAML file.  The default values can be overridden in a preset or segment if the 
@@ -35,9 +36,11 @@ Most key/value pairs are copied directly to the JSON file after any required pro
 Exceptions to this direct-copying include effects, palettes, colors, segment settings and one non-WLED key, id.
 
 ### Effects {#effects}
-Effects can be specified in one of two ways. First is using the standard WLED **fx** key and specifying an effect by numeric id.
+Effects can be specified in one of two ways. First is using the standard WLED **fx** key and specifying 
+an effect by numeric id.
 
-This package introduces the ability to specify an effect by name. This is done by using the **fx_name** key with an 
+This package introduces the ability to specify an effect by name. This is done by using the **fx_name** 
+key with an 
 effect name from [effects.yaml](definition_files.md#effects).  The value of **fx_name** is case-insensitive and can 
 have embedded spaces and/or underscores. For example,
 ```yaml
@@ -54,7 +57,8 @@ all refer to WLED effect #89 and will result in
 in the generated WLED presets JSON file.
 
 ### Palettes {#palettes}
-Palettes can be specified in one of two ways. First is using the standard WLED **pal** key and specifying an effect by numeric id.
+Similar to Effects, Palettes can be specified in one of two ways. 
+First is using the standard WLED **pal** key and specifying an effect by numeric id.
 
 This package allows you to specify a palette by name. This is done by using the **pal_name** key with a 
 palette name from [palettes.yaml](definition_files.md#palettes).  The value of **pal_name** is case-insensitive and can 
@@ -146,19 +150,35 @@ primary, secondary, and tertiary colors.
 
 ### Segments and Settings {#segments}
 
+When defining segments within a YAML preset, the following are supported: 
+- **wled_yaml2json.py** - specific key/value pairs defined above such as
+**pal_name** and **fx_name** as well as colors by name.
+After performing appropriate substitutions (including properties) the 
+resulting key/value pairs are added to the segment.
+- All other key/value pairs will be copied to the segment, as is, after any 
+applicable property substitutions.
+
 #### Segment IDs
-Within WLED presets JSON must have an associated **id**. The segment **id** can be hard coded into each item in the 
-**seg** list.  If the **id** key is not present for a segment, **wled_yaml2json.py** will auto-generate an id for the segment.
+Each segment within a WLED JSON presets file must have an associated segment **id**. 
+**wled_yaml2json.py** supports multiple ways to provide segment **id**s in the 
+presets YAML file.
+
+A segment **id** can be hard coded into each segment in the **seg** list.
+If an **id** key is not provided for a segment, **wled_yaml2json.py** will 
+auto-generate an **id** for the segment.
 
 #### seg_name
-Segments within the **seg** list can be specified in multiple ways. First is using the standard WLED key/value pairs
-to specify individual keys such as **n**, **grp**, **of**, **spc**, etc. 
 
-A more succinct and reusable mechanism is to utilize segment names to refer to segment definitions. 
-This is done by using the **seg_name** key with a name from [segments.yaml](env_definition_files.md#segments).
-The value of **seg_name** is case-insensitive and can have embedded spaces and/or underscores. For example,
+The **seg_name** key followed by a segment name defined in [segments.yaml](env_definition_files.md#segments) 
+can be used to assign associated segment parameters.
+The value of **seg_name** is case-insensitive and can have embedded spaces
+and/or underscores.
+Single and double quotes are optional.
+For example,
 ```yaml
     seg_name: Whole Roof
+    seg_name: "Whole Roof"
+    seg_name: 'Whole Roof'
     seg_name: whole roof
     seg_name: whole_roof
     seg_name: WholeRoof
@@ -166,57 +186,97 @@ The value of **seg_name** is case-insensitive and can have embedded spaces and/o
 ```
 all refer to the same segment definition in segments.yaml.
 
-#### Segment Parameters {#parameters} 
+When **seg_name** is present, the associated segment values defined in **segments.yaml** 
+are added to the preset.
 
-It is possible to specify variations to a segment definition in segments.yaml with the following syntax:
+#### Segment Name Parameterization
+
+In addition to the segment key/value pairs in **segments.yaml**, 
+the value of the **seg_name** key can be
+parameterized using the following syntax:
 ```yaml
     seg_name: <segment name>(parm=value,...)
 ```
-Zero or more spaces are allowed between the <segment name> and the open parenthesis, '(' of the parameter list.
-The parentheses enclose a list of one or more comma-separated parameter=value pairs. Currently supported segment parameters are:
-**start**, **stop**, **spc**, **grp**, and **of**. Setting these values via parameters will override corresponding
-values in segments.yaml. Here is an example:
+Zero or more spaces are allowed between the `<segment name>` and the open parenthesis
+'(' of the parameter list.
+The parentheses enclose a list of one or more comma-separated **parameter=value** pairs.
+Segment parameterization supports two parameter sets:
+1. A subset of standard WLED segment key/value pairs.
+2. An LED pattern definition.
+The following subsections discuss these two cases.
+
+##### Segment Name (WLED name/value pairs) {#parameters} 
+
+Currently supported segment parameters are:
+**start**, **stop**, **spc**, **grp**, and **of**.
+Setting these values via parameters will override corresponding
+values in **segments.yaml**.
+Here is an example:
 
 ```yaml
+    ...
     seg:
     - seg_name: Whole Roof(start=0,spc=4,grp=2)
+      fx_name: Solid
+      col:
+      - red
       ...
     - seg_name: Whole Roof(start=2,spc=2,grp=1)
+      col:
+      - white
       ...
     - seg_name: Whole Roof(start=3,spc=4,grp=2)
+      col: 
+      - green
+    ...
 ```
-As an example, this set of parameterized segments could be used to create a LED pattern of
+As an example, the above set of parameterized segments could be used to create a LED pattern of
 >    Red - Red - White - Green - Green - White ...
-#### Segment Patterns {#patterns} 
+
+##### Segment Name - Patterns {#patterns} 
 
 I got the idea for the following from [HandyDadTV](https://www.youtube.com/@handydadtv), 
 specifically from this [video](https://www.youtube.com/watch?v=i_OtZHUFpG0).
 
-Another supported parameterized variant uses the parm value of **pat**. This parameter allows you to specify a pattern
-for the LEDs in the string/strip. The value is a sequence of numbers representing the pattern separated by delimiters.
-The delimiter can be any single character other than a left parenthesis or a number. In addition, exactly 
-one of the numbers must be enclosed in parentheses to indicate which number in the pattern belongs is associated with 
-segment. Here is an example using '/' as the delimiter that could be used to create the same LED pattern as above. 
+The second parameterized variant uses a single parameter: **pat=**. 
+The **pat** parameter allows you to specify a pattern for the LEDs in the segment. 
+The value is a sequence of numbers representing the pattern, separated by delimiters.
+The delimiter can be any single character other than a left parenthesis or a number. 
+In addition, exactly one of the numbers must be enclosed in parentheses to indicate 
+which number in the pattern belongs is associated with this specific segment. 
+Here is an example using '/' as the delimiter that could be used to create the same 
+LED pattern as above. 
 
 ```yaml
+    ...
     seg:
     - seg_name: Whole Roof(pat=(2)/1/2/1) # This segment is the 1st in the pattern and consists of 2 LEDs.
+      fx_name: Solid
+      col:
+      - red
       ...
     - seg_name: Whole Roof(pat=2/(1)/2/1) # This segment is the 2nd in the pattern and consists of 1 LED.
+      col:
+      - white
       ...
     - seg_name: Whole Roof(pat=2/1/(2)/1) # This segment is the 3rd in the pattern and consists of 2 LEDs.
+      col:
+      - green
       ...
     - seg_name: Whole Roof(pat=2/1/2/(1)) # This segment is the 4th in the pattern and consists of 1 LED.
-      ...
+      col:
+      - white
+    ...
 ```
 
 The numbers in the pattern are used to compute the **start**, **grp** and **spc** values for each segment in the 
 generated WLED presets JSON file. 
 
 > NOTES:
-> 1. If the numbers in the patterns for all associated segments are not identical, the results are undefined.
+> 1. If the numbers in the patterns for all associated segments are not identical, 
+> the results are undefined.
 > 2. The **pat** parameter should not be mixed with **start**, **stop**, **spc**, **grp**, and **of**. Doing so will
->    result in an error or unexpected behavior.
+> result in an error or unexpected behavior.
 
 ###  Segments and Defaults
 Values for segment keys can be defaulted and overridden at several levels. At the beginning of processing of
@@ -230,14 +290,14 @@ possibly overridden in the following order:
 3. If **seg_name** value includes parameters, those are applied next.
 4. Any values explicitly specified via the preset segment keys are applied last.
 
-For subsequent segments in the same preset, settings from the previous segment become the starting point
+For later segments in the same preset, settings from the previous segment become the starting point
 for the next segment and are possibly overridden in the following order:
 1. Values from the previous segment.
 2. Values in segments.yaml for the segment specified in **seg_name**.
 3. If **seg_name** value includes parameters, those are applied next.
 4. Any values explicitly specified via the preset segment keys are applied last.
 
-As a result, after the first segment it is only necessary to specify settings that are different from the
+As a result, after the first segment, it is only necessary to specify settings that are different from the
 previous segment, potentially reducing the duplicated YAML content. Here is an example showing an entire preset:
 ```yaml
    - n: Valentines - Dissolve Pink White Red White
@@ -279,8 +339,8 @@ previous segment, potentially reducing the duplicated YAML content. Here is an e
        - Black
      transition: 7
 ```
-The first segment covers line numbers 4-19 (16 lines). Subsequent segments only include the **id**, **seg_name**, 
-and **col** requiring 9 fewer lines and no duplication.  Note that this entire preset requires 38 lines in YAML but 
+The first segment covers line numbers 4-19 (16 lines). Later segments only include the **id**, **seg_name**, 
+and **col** requiring nine fewer lines and no duplication.  Note that this entire preset requires 38 lines in YAML but 
 expands to 154 lines in pretty-print JSON.
 
 ### Playlist settings {#playlist}
@@ -308,7 +368,8 @@ There are two features for use in playlists, both shown in this example:
 First, preset references can be made by preset names or ids.  This applies to the preset list in **ps** and to
 the **end** preset.  Playlist names are case-insensitive and can have embedded spaces and/or underscores.
 
-The second feature is a shorthand for the **dur** and **transition** lists. Places where the list has multiple 
+The second feature is shorthand for the **dur** and **transition** lists. 
+Places where the list has multiple 
 elements with same values can be combined into a single list element with the value, followed by an asterisk (*) and 
 then the number of repetitions.  In the example above:
 
@@ -347,14 +408,14 @@ produces the same result as:
 > 
 > ```Preset 1:``` turns the LEDs off.  This is the preset to apply at boot in LED Preferences.
 > 
-> ```Preset 2:``` is the preset that is scheduled (at 35 minutes before sunset) when the LEDs are turned on. 
+> ```Preset 2:``` is the preset scheduled (at 35 minutes before sunset) when the LEDs are turned on. 
 >   In these examples it is a playlist containing the Sunrise effect in sunset mode. The sunset is followed 
 >   by a playlist named "Playlist Du Jour" which varies depending on
 >   the day of the year.
 > 
-> ```Presets >3:``` includes the "Playlist Du Jour" preset and its specified presets.
+> ```Presets >3:``` includes the "Playlist Du Jour" playlist and its specified presets.
 
-All of the above information can be combined into one of two supported YAML file structure variations.
+All the above information can be combined into one of two supported YAML file structure variations.
 
 #### Presets YAML File Structure #1 - The Original Structure
 
@@ -460,7 +521,8 @@ the conclusion that it would be better to choose a static configuration conventi
 This convention allows me to use a few hard-coded preset ids (IDs 1 and 2 in my case) and avoid the complexity of 
 modifying the WLED configuration for each set of presets.
 >
->As for other preset ids like playlists and the associated presets, their ids don't matter to me.
+>As for other preset ids like playlists and the associated presets, their ids don't matter to me, so I let 
+> **wled_yaml2json.py** generate them.
 >
 >This observation led to **Presets YAML File Structure #2**.
 
@@ -564,7 +626,7 @@ presets:
     sx: 125
   transition: 7
 ```
-In this case preset ids 0, 1, and 2 are hard-coded.  The remainder will be assigned during processing.
+In this case, preset ids 0, 1, and 2 are hard-coded.  The remainder will be assigned during processing.
 
 #### Presets YAML File Structure #3 - The Hybrid Structure
 
@@ -656,10 +718,11 @@ presets:
   transition: 7
 ```
 While supporting a mix of formats #1 and #2 in a single file may not seem necessary, the ability to merge 
-multiple preset YAML files into a single WLED preset JSON file is supported.
-By supporting a mix of structures it allows merging of files containing the both structures.
+multiple preset YAML files into a single WLED preset JSON file is a requirement.
+By supporting a mix of structures, it allows merging of files containing both structures.
 
 > **Sidebar:** Support for the original structure will continue indefinitely for this reason: 
-If a WLED presets JSON file is converted to YAML (using **json2yaml.py**) the resulting YAML 
-file will be in the original structure. This makes it an easy way to get a starting YAML file 
-to use with this package to generate WLED presets JSON files.
+> If a WLED presets JSON file is converted to YAML (using **json2yaml.py**) the resulting YAML 
+> file will be in the original structure. 
+> This makes it an easy way to get a starting YAML file 
+> to use with this package to generate WLED presets JSON files.

@@ -100,20 +100,16 @@ depending on the --env option. Thus, there are two ways that properties enable u
 single presets file across multiple environments.
 
 ## Segments YAML file {#segments}
-# NEED TO EXPAND TO INCLUDE OTHER SEGMENT PARMS
 
-WLED_NAME_KEY = 'n'
-SEGMENT_START_KEY = 'start'
-SEGMENT_STOP_KEY = 'stop'
-SEGMENT_SPACING_KEY = 'spc'
-SEGMENT_GROUPING_KEY = 'grp'
-SEGMENT_OFFSET_KEY: str = 'of'
+The segments file provides a way to define WLED segments and access them by name in a presets file.
+It is recommended that the **segments.yaml** file be used for defining segment name and layout by only including 
+the **n**, **start** and **stop** key value pairs.
+While it is allowed to include any WLED segment key/value pairs in the segment definitions, 
+it is not recommended.
+Doing so will reduce the reusability of the segment definitions. 
 
-
-The segments file provides a way to define WLED segments and access them by name in a presets file. 
-Since it is generally only the starting and ending LED indexes that are reusable across presets,  
-these segment definitions only contain the start and stop LED indexes, not effects, palettes or 
-other segment parameters.
+> **NOTE:** *The **id** key should never be included in a segment definition, thus allowing the
+> segment **id**s to be generated when the presets YAML file is processed by **wled_yaml2json.py**.*
 
 Here is an example segments file.
 ```
@@ -141,9 +137,9 @@ roof:
     stop: 439
 ```
 
-Usage of segments definitions is accomplished by using the wled-tools specific element, 
+Usage of segments definitions is done by using the wled-tools specific element, 
 ```
-seg_name: segment_name
+seg_name: <segment name>
 ``` 
 instead of the WLED "n", "start", and "stop"
 
@@ -164,6 +160,7 @@ environment:
         "n": "Whole Roof",
         "start": 0,
         "stop": 300,
+        ...
 ```
 or, for the ```roof``` environment:
 ```json lines
@@ -174,6 +171,7 @@ or, for the ```roof``` environment:
         "n": "Whole Roof",
         "start": 0,
         "stop": 439,
+        ...
 ```
 Similar to properties processing, [wled_yaml2json.py](wled_yaml2json.py.md) will automatically look 
 for an environment-specific (specified with the --env option) set of segments when run.
