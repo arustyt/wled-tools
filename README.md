@@ -24,7 +24,15 @@ Sub-goals were to be able to:
 This project uses YAML as the configuration language. YAML was chosen because
 it is compatible with JSON but is more compact, syntactically simpler and more human-readable. 
 
-### Primary tools:
+## wled-tools Structure
+- [Repository Structure](doc/repository_structure.md)
+## wled-tools Configuration
+- [File Name Conventions](doc/file_name_conventions.md)
+- [Definition Files](doc/definition_files.md)
+- [Environment definition files](doc/env_definition_files.md)
+- [WLED Presets](doc/WLED_presets.md)
+- [WLED Cfg](doc/WLED_cfg.md)
+## Primary tools:
 - **[wled_tools/wled_yaml2json.py](doc/wled_yaml2json.md)** - converts YAML files into 
 WLED JSON presets and configuration files.  The functionality is exposed as a callable
 Python function.
@@ -32,19 +40,19 @@ Python function.
 configuration files to a WLED controller. The functionality is exposed as a callable
 Python function.
 
-### Secondary tools:
+## Secondary tools:
 - **[wled_tools/wled_holiday.py](doc/wled_holiday.md)** - determines the "holiday" based on a date. The 
 functionality is exposed as a callable Python class method.
 - **[wled_tools/wled_update_definitions.py](doc/wled_update_definitions.md)** - updates palette and effects 
 definition files from a running WLED controller.
 
-### Integration tools:
+## Integration tools:
 - **[wled_tools/wled_4_ha.py](doc/wled_4_ha.md)** - initially intended to be *the* automation integration
 tool, it uses wled_holiday.py, wled_yaml2json.py, and wled_upload.py to
 build and upload date-appropriate presets to a WLED controller.
 - **[wled_tools/wled_4_appdaemon.py](doc/wled_4_appdaemon.md)** - is an AppDaemon wrapper for wled_4_ha.py
 
-### Miscellaneous tools:
+## Miscellaneous tools:
 - **[wled_tools/wled_jsondiff.py](doc/wled_jsondiff.md)** - outputs the differences between two JSON files.
 Have switched to using [JSON Diff](https://jsondiff.org/) for a more useful comparison.
 - **[wled_tools/misc/json2yaml.py](doc/json2yaml.md)** - converts a JSON format file to YAML. This is useful 
@@ -71,9 +79,6 @@ of these packages may function correctly but have not been tested.
 
 ### Related Repositories
 Wled-config is a sibling repository that contains working examples of the data files used by wled-tools.
-
-## Additional Details
-Additional details can be found [here](doc/README.md).
 
 ## License
 This software is provided under the [MIT License](LICENSE).
