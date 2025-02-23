@@ -47,6 +47,7 @@ trash
 *.backup
 save*/
 __pycache__
+doit.sh
 
 spike/
 generated/

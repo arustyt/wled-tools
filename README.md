@@ -2,12 +2,13 @@
 
 ## Overview
 
-This project was created to enable the automation of WLED controllers presets
-and configuration. The end goal was to have presets defined for various 
+This project was created to enable the automation of WLED controller presets.
+The end goal was to have presets defined for various 
 holidays throughout the year and for the automation to determine the 
-appropriate holiday (based on the current date) and then configura a WLED controller
+appropriate holiday (based on the current date) and then configure a WLED controller
 with the corresponding presets. The initial plan was to use Home Assistant 
-for automation but, in the end, automation was implemented via AppDaemon.
+for automation but, in the end, automation was implemented via AppDaemon, using MQTT 
+for HA ↔ AppDaemon integration. 
 
 Sub-goals were to be able to:
  - Keep the preset/configuration data separate from code,
