@@ -1,4 +1,4 @@
-# wled-tools - Outline
+# wled-tools - Structure and Configuration
 
 ## Contents
 - [Repository Structure](repository_structure.md)
@@ -7,6 +7,3 @@
 - [Environment definition files](env_definition_files.md)
 - [WLED Presets](WLED_presets.md)
 - [WLED Cfg](WLED_cfg.md)
-
-
-
