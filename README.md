@@ -64,18 +64,35 @@ dict.
 ## Environment and Dependencies
 
 ### Python
-Wled-tools was developed under Python 3.7 but has been run on up to 3.12 thus far.
-- Python 3.7+
+Wled-tools was developed under Python 3.7 but is currently being run on 3.12.
+The move to 3.12 was to support `requests~=2.32.0` which
+resolved vulnerability [CVE-2024-35195](https://www.mend.io/vulnerability-database/CVE-2024-35195) 
+identified in 2.31.0.
+
+- Python 3.12+
+
+The difference between running on these two python versions is the versions of the
+package dependencies.
 
 ### Python packages
 See [wled_tools/requirements.txt](wled_tools/requirements.txt) for most up-to-date list. Higher versions
 of these packages may function correctly but have not been tested.
-- PyYAML==6.0.1
-- python-dateutil==2.8.2
-- requests==2.31.0
-- urllib3==1.26.12
-- hassapi~=0.2.0
-- GitPython == 3.1.40
+- Python 3.7
+  - GitPython==3.1.40
+  - PyYAML==6.0.1
+  - deepdiff~=6.7.1
+  - hassapi~=0.2.0
+  - python-dateutil==2.8.2
+  - requests==2.31.0
+
+
+- Python 3.12
+  - GitPython~=3.1.44
+  - PyYAML~=6.0.2
+  - deepdiff~=8.2.0
+  - hassapi~=0.2.1
+  - python-dateutil~=2.9.0
+  - requests~=2.32.3
 
 ### Related Repositories
 Wled-config is a sibling repository that contains working examples of the data files used by wled-tools.
