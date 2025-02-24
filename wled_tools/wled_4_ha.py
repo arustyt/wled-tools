@@ -2,7 +2,7 @@ import argparse
 import os
 import sys
 
-from wled_configuration import WledConfiguration
+from config.wled_configuration import WledConfiguration
 from wled_constants import WLED_HOLIDAY_KEY, DEFINITIONS_DIR_KEY, HOLIDAYS_FILE_KEY, HOLIDAY_PRESETS_FILE_KEY, \
     DEFAULT_PRESETS_NAME_KEY, HOST_KEY, WLED_DIR_KEY, DEFAULT_HOLIDAY_NAME_KEY, PRESETS_KEY, HOLIDAY_KEY, \
     RESULT_KEY, CANDIDATES_KEY
